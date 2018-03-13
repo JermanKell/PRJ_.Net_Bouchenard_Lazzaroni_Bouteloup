@@ -1,0 +1,11 @@
+C:\Users\Administrateur\Desktop\PRJ_.Net_Bouchenard_Lazzaroni-master\PRJ_.Net_Bouchenard_Lazzaroni\bin\Debug\PRJ_.Net_Bouchenard_Lazzaroni.exe
+C:\Users\Administrateur\Desktop\PRJ_.Net_Bouchenard_Lazzaroni-master\PRJ_.Net_Bouchenard_Lazzaroni\bin\Debug\PRJ_.Net_Bouchenard_Lazzaroni.pdb
+C:\Users\Administrateur\Desktop\PRJ_.Net_Bouchenard_Lazzaroni-master\PRJ_.Net_Bouchenard_Lazzaroni\bin\Debug\System.Data.SQLite.dll
+C:\Users\Administrateur\Desktop\PRJ_.Net_Bouchenard_Lazzaroni-master\PRJ_.Net_Bouchenard_Lazzaroni\bin\Debug\System.Data.SQLite.xml
+C:\Users\Administrateur\Desktop\PRJ_.Net_Bouchenard_Lazzaroni-master\PRJ_.Net_Bouchenard_Lazzaroni\obj\Debug\PRJ_.Net_Bouchenard_Lazzaroni.csprojResolveAssemblyReference.cache
+C:\Users\Administrateur\Desktop\PRJ_.Net_Bouchenard_Lazzaroni-master\PRJ_.Net_Bouchenard_Lazzaroni\obj\Debug\PRJ_.Net_Bouchenard_Lazzaroni.Properties.Resources.resources
+C:\Users\Administrateur\Desktop\PRJ_.Net_Bouchenard_Lazzaroni-master\PRJ_.Net_Bouchenard_Lazzaroni\obj\Debug\PRJ_.Net_Bouchenard_Lazzaroni.csproj.GenerateResource.Cache
+C:\Users\Administrateur\Desktop\PRJ_.Net_Bouchenard_Lazzaroni-master\PRJ_.Net_Bouchenard_Lazzaroni\obj\Debug\PRJ_.Net_Bouchenard_Lazzaroni.exe
+C:\Users\Administrateur\Desktop\PRJ_.Net_Bouchenard_Lazzaroni-master\PRJ_.Net_Bouchenard_Lazzaroni\obj\Debug\PRJ_.Net_Bouchenard_Lazzaroni.pdb
+C:\Users\Administrateur\Desktop\PRJ_.Net_Bouchenard_Lazzaroni-master\PRJ_.Net_Bouchenard_Lazzaroni\obj\Debug\PRJ_.Net_Bouchenard_Lazzaroni.Form1.resources
+C:\Users\Administrateur\Desktop\PRJ_.Net_Bouchenard_Lazzaroni-master\PRJ_.Net_Bouchenard_Lazzaroni\bin\Debug\Mercure.SQLite
