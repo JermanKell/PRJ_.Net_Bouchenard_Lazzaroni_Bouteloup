@@ -9,21 +9,29 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
 {
     abstract class ControllerParserXML
     {
-        private XmlDocument xmlDocument;
+        private XmlDocument xmlDocument; // Allow to navigate in the xml file
+        protected string filename; // Content the path of the file
 
-        abstract public void parse();
+        abstract protected void parse(); // Each child implement his own version of parsing.
 
-        public ControllerParserXML()
+        public ControllerParserXML(string filename) // Check if the file exist and if xmlDocument is able to load it.
         {
+            this.filename = filename;
             xmlDocument = new XmlDocument();
 
             try
             {
-                xmlDocument.Load("../../Mercure.xml");
-            } catch (Exception e) { MessageBox.Show("Fichier introuvable. \n\n" + e.Message); }
+                xmlDocument.Load(filename); // Load the file into the XMLDocument
+            } catch (Exception e) { MessageBox.Show(e.Message); }
         }
 
-        public void sendSignal()
+        protected bool verifyFile()
+        {
+            // TODO
+            return true;
+        }
+
+        protected void sendSignal()
         {
             // TODO Envoyer un signal à chaque fois que l'on ajoute, modifie, supprime un enregistrement dans la base.
             // En cas d'erreur d'insertion, de modification ou de suppression, envoyer également un signal.
