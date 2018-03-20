@@ -14,6 +14,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         public Main()
         {
             InitializeComponent();
+            ControllerParserXML parser = new ControllerParserXMLAdd();
         }
 
         private void selectXMLToolStripMenuItem_Click(object sender, EventArgs e)

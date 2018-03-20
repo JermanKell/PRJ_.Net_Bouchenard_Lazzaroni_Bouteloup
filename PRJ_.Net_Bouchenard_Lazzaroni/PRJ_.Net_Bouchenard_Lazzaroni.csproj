@@ -68,6 +68,9 @@
     <Compile Include="CompoTest.Designer.cs">
       <DependentUpon>CompoTest.cs</DependentUpon>
     </Compile>
+    <Compile Include="ControllerParserXML.cs" />
+    <Compile Include="ControllerParserXMLUpdate.cs" />
+    <Compile Include="ControllerParserXMLAdd.cs" />
     <Compile Include="Main.cs">
       <SubType>Form</SubType>
     </Compile>
