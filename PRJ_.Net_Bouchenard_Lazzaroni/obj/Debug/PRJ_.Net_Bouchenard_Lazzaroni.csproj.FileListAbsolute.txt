@@ -35,3 +35,16 @@ C:\Users\Rémy\Documents\Polytech\Cours\PRJ_.Net_Bouchenard_Lazzaroni_Bouteloup\
 C:\Users\Rémy\Documents\Polytech\Cours\PRJ_.Net_Bouchenard_Lazzaroni_Bouteloup\PRJ_.Net_Bouchenard_Lazzaroni\obj\Debug\PRJ_.Net_Bouchenard_Lazzaroni.Properties.Resources.resources
 C:\Users\Rémy\Documents\Polytech\Cours\PRJ_.Net_Bouchenard_Lazzaroni_Bouteloup\PRJ_.Net_Bouchenard_Lazzaroni\obj\Debug\PRJ_.Net_Bouchenard_Lazzaroni.SelectXml.resources
 C:\Users\Rémy\Documents\Polytech\Cours\PRJ_.Net_Bouchenard_Lazzaroni_Bouteloup\PRJ_.Net_Bouchenard_Lazzaroni\obj\Debug\PRJ_.Net_Bouchenard_Lazzaroni.csproj.GenerateResource.Cache
+C:\Users\arccho\Desktop\PRJ_.Net_Bouchenard_Lazzaroni_Bouteloup\PRJ_.Net_Bouchenard_Lazzaroni\obj\Debug\PRJ_.Net_Bouchenard_Lazzaroni_Bouteloup.exe
+C:\Users\arccho\Desktop\PRJ_.Net_Bouchenard_Lazzaroni_Bouteloup\PRJ_.Net_Bouchenard_Lazzaroni\obj\Debug\PRJ_.Net_Bouchenard_Lazzaroni_Bouteloup.pdb
+C:\Users\arccho\Desktop\PRJ_.Net_Bouchenard_Lazzaroni_Bouteloup\PRJ_.Net_Bouchenard_Lazzaroni\bin\Debug\Mercure.SQLite
+C:\Users\arccho\Desktop\PRJ_.Net_Bouchenard_Lazzaroni_Bouteloup\PRJ_.Net_Bouchenard_Lazzaroni\bin\Debug\PRJ_.Net_Bouchenard_Lazzaroni_Bouteloup.exe
+C:\Users\arccho\Desktop\PRJ_.Net_Bouchenard_Lazzaroni_Bouteloup\PRJ_.Net_Bouchenard_Lazzaroni\bin\Debug\PRJ_.Net_Bouchenard_Lazzaroni_Bouteloup.pdb
+C:\Users\arccho\Desktop\PRJ_.Net_Bouchenard_Lazzaroni_Bouteloup\PRJ_.Net_Bouchenard_Lazzaroni\bin\Debug\System.Data.SQLite.dll
+C:\Users\arccho\Desktop\PRJ_.Net_Bouchenard_Lazzaroni_Bouteloup\PRJ_.Net_Bouchenard_Lazzaroni\bin\Debug\System.Data.SQLite.xml
+C:\Users\arccho\Desktop\PRJ_.Net_Bouchenard_Lazzaroni_Bouteloup\PRJ_.Net_Bouchenard_Lazzaroni\obj\Debug\PRJ_.Net_Bouchenard_Lazzaroni.csprojResolveAssemblyReference.cache
+C:\Users\arccho\Desktop\PRJ_.Net_Bouchenard_Lazzaroni_Bouteloup\PRJ_.Net_Bouchenard_Lazzaroni\obj\Debug\PRJ_.Net_Bouchenard_Lazzaroni.CompoTest.resources
+C:\Users\arccho\Desktop\PRJ_.Net_Bouchenard_Lazzaroni_Bouteloup\PRJ_.Net_Bouchenard_Lazzaroni\obj\Debug\PRJ_.Net_Bouchenard_Lazzaroni.Main.resources
+C:\Users\arccho\Desktop\PRJ_.Net_Bouchenard_Lazzaroni_Bouteloup\PRJ_.Net_Bouchenard_Lazzaroni\obj\Debug\PRJ_.Net_Bouchenard_Lazzaroni.Properties.Resources.resources
+C:\Users\arccho\Desktop\PRJ_.Net_Bouchenard_Lazzaroni_Bouteloup\PRJ_.Net_Bouchenard_Lazzaroni\obj\Debug\PRJ_.Net_Bouchenard_Lazzaroni.SelectXml.resources
+C:\Users\arccho\Desktop\PRJ_.Net_Bouchenard_Lazzaroni_Bouteloup\PRJ_.Net_Bouchenard_Lazzaroni\obj\Debug\PRJ_.Net_Bouchenard_Lazzaroni.csproj.GenerateResource.Cache
