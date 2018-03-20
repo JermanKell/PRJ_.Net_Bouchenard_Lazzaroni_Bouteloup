@@ -31,24 +31,25 @@
             this.progressBar = new System.Windows.Forms.ProgressBar();
             this.btnIntegrate = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.radioButton2 = new System.Windows.Forms.RadioButton();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
+            this.Update_XML = new System.Windows.Forms.RadioButton();
+            this.Integration_XML = new System.Windows.Forms.RadioButton();
             this.DocOpen_Window = new System.Windows.Forms.OpenFileDialog();
             this.btnOpenFile = new System.Windows.Forms.Button();
+            this.File_path = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // progressBar
             // 
-            this.progressBar.Location = new System.Drawing.Point(16, 166);
+            this.progressBar.Location = new System.Drawing.Point(52, 383);
             this.progressBar.Margin = new System.Windows.Forms.Padding(4);
             this.progressBar.Name = "progressBar";
-            this.progressBar.Size = new System.Drawing.Size(405, 28);
+            this.progressBar.Size = new System.Drawing.Size(533, 28);
             this.progressBar.TabIndex = 0;
             // 
             // btnIntegrate
             // 
-            this.btnIntegrate.Location = new System.Drawing.Point(253, 202);
+            this.btnIntegrate.Location = new System.Drawing.Point(417, 345);
             this.btnIntegrate.Margin = new System.Windows.Forms.Padding(4);
             this.btnIntegrate.Name = "btnIntegrate";
             this.btnIntegrate.Size = new System.Drawing.Size(168, 30);
@@ -58,37 +59,35 @@
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.radioButton2);
-            this.panel1.Controls.Add(this.radioButton1);
-            this.panel1.Location = new System.Drawing.Point(89, 128);
+            this.panel1.Controls.Add(this.Update_XML);
+            this.panel1.Controls.Add(this.Integration_XML);
+            this.panel1.Location = new System.Drawing.Point(52, 344);
             this.panel1.Margin = new System.Windows.Forms.Padding(4);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(282, 31);
             this.panel1.TabIndex = 2;
             // 
-            // radioButton2
+            // Update_XML
             // 
-            this.radioButton2.AutoSize = true;
-            this.radioButton2.Location = new System.Drawing.Point(131, 4);
-            this.radioButton2.Margin = new System.Windows.Forms.Padding(4);
-            this.radioButton2.Name = "radioButton2";
-            this.radioButton2.Size = new System.Drawing.Size(138, 21);
-            this.radioButton2.TabIndex = 1;
-            this.radioButton2.TabStop = true;
-            this.radioButton2.Text = "Update database";
-            this.radioButton2.UseVisualStyleBackColor = true;
+            this.Update_XML.AutoSize = true;
+            this.Update_XML.Location = new System.Drawing.Point(144, 6);
+            this.Update_XML.Margin = new System.Windows.Forms.Padding(4);
+            this.Update_XML.Name = "Update_XML";
+            this.Update_XML.Size = new System.Drawing.Size(138, 21);
+            this.Update_XML.TabIndex = 1;
+            this.Update_XML.Text = "Update database";
+            this.Update_XML.UseVisualStyleBackColor = true;
             // 
-            // radioButton1
+            // Integration_XML
             // 
-            this.radioButton1.AutoSize = true;
-            this.radioButton1.Location = new System.Drawing.Point(4, 4);
-            this.radioButton1.Margin = new System.Windows.Forms.Padding(4);
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(127, 21);
-            this.radioButton1.TabIndex = 0;
-            this.radioButton1.TabStop = true;
-            this.radioButton1.Text = "New integration";
-            this.radioButton1.UseVisualStyleBackColor = true;
+            this.Integration_XML.AutoSize = true;
+            this.Integration_XML.Location = new System.Drawing.Point(4, 4);
+            this.Integration_XML.Margin = new System.Windows.Forms.Padding(4);
+            this.Integration_XML.Name = "Integration_XML";
+            this.Integration_XML.Size = new System.Drawing.Size(127, 21);
+            this.Integration_XML.TabIndex = 0;
+            this.Integration_XML.Text = "New integration";
+            this.Integration_XML.UseVisualStyleBackColor = true;
             // 
             // DocOpen_Window
             // 
@@ -96,7 +95,7 @@
             // 
             // btnOpenFile
             // 
-            this.btnOpenFile.Location = new System.Drawing.Point(25, 202);
+            this.btnOpenFile.Location = new System.Drawing.Point(417, 308);
             this.btnOpenFile.Name = "btnOpenFile";
             this.btnOpenFile.Size = new System.Drawing.Size(168, 30);
             this.btnOpenFile.TabIndex = 3;
@@ -104,11 +103,21 @@
             this.btnOpenFile.UseVisualStyleBackColor = true;
             this.btnOpenFile.Click += new System.EventHandler(this.btnOpenFile_Click);
             // 
+            // File_path
+            // 
+            this.File_path.Location = new System.Drawing.Point(52, 308);
+            this.File_path.MaximumSize = new System.Drawing.Size(300, 100);
+            this.File_path.Name = "File_path";
+            this.File_path.Size = new System.Drawing.Size(300, 20);
+            this.File_path.TabIndex = 4;
+            this.File_path.Text = "File selected";
+            // 
             // SelectXml
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(437, 246);
+            this.ClientSize = new System.Drawing.Size(624, 422);
+            this.Controls.Add(this.File_path);
             this.Controls.Add(this.btnOpenFile);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.btnIntegrate);
@@ -127,9 +136,10 @@
         private System.Windows.Forms.ProgressBar progressBar;
         private System.Windows.Forms.Button btnIntegrate;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.RadioButton radioButton2;
-        private System.Windows.Forms.RadioButton radioButton1;
+        private System.Windows.Forms.RadioButton Update_XML;
+        private System.Windows.Forms.RadioButton Integration_XML;
         private System.Windows.Forms.OpenFileDialog DocOpen_Window;
         private System.Windows.Forms.Button btnOpenFile;
+        private System.Windows.Forms.Label File_path;
     }
 }
