@@ -15,5 +15,14 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         {
             InitializeComponent();
         }
+
+        private void btnOpenFile_Click(object sender, EventArgs e)
+        {
+            DocOpen_Window = new OpenFileDialog();
+            DocOpen_Window.Filter = "XML Files (.xml) | *.xml";
+            DocOpen_Window.FilterIndex = 1;
+
+
+        }
     }
 }

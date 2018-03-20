@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace PRJ_.Net_Bouchenard_Lazzaroni_Bouteloup.Properties {
+namespace PRJ_.Net_Bouchenard_Lazzaroni.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]

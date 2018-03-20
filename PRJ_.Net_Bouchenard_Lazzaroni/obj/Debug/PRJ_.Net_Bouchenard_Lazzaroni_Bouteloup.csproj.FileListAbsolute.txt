@@ -1,0 +1,13 @@
+D:\PolytechTours\DI_4A\Semestre8\PRJ_.Net_Bouchenard_Lazzaroni_Bouteloup\PRJ_.Net_Bouchenard_Lazzaroni\bin\Debug\Mercure.SQLite
+D:\PolytechTours\DI_4A\Semestre8\PRJ_.Net_Bouchenard_Lazzaroni_Bouteloup\PRJ_.Net_Bouchenard_Lazzaroni\bin\Debug\PRJ_.Net_Bouchenard_Lazzaroni_Bouteloup.exe
+D:\PolytechTours\DI_4A\Semestre8\PRJ_.Net_Bouchenard_Lazzaroni_Bouteloup\PRJ_.Net_Bouchenard_Lazzaroni\bin\Debug\PRJ_.Net_Bouchenard_Lazzaroni_Bouteloup.pdb
+D:\PolytechTours\DI_4A\Semestre8\PRJ_.Net_Bouchenard_Lazzaroni_Bouteloup\PRJ_.Net_Bouchenard_Lazzaroni\bin\Debug\System.Data.SQLite.dll
+D:\PolytechTours\DI_4A\Semestre8\PRJ_.Net_Bouchenard_Lazzaroni_Bouteloup\PRJ_.Net_Bouchenard_Lazzaroni\bin\Debug\System.Data.SQLite.xml
+D:\PolytechTours\DI_4A\Semestre8\PRJ_.Net_Bouchenard_Lazzaroni_Bouteloup\PRJ_.Net_Bouchenard_Lazzaroni\obj\Debug\PRJ_.Net_Bouchenard_Lazzaroni_Bouteloup.csprojResolveAssemblyReference.cache
+D:\PolytechTours\DI_4A\Semestre8\PRJ_.Net_Bouchenard_Lazzaroni_Bouteloup\PRJ_.Net_Bouchenard_Lazzaroni\obj\Debug\PRJ_.Net_Bouchenard_Lazzaroni.Main.resources
+D:\PolytechTours\DI_4A\Semestre8\PRJ_.Net_Bouchenard_Lazzaroni_Bouteloup\PRJ_.Net_Bouchenard_Lazzaroni\obj\Debug\PRJ_.Net_Bouchenard_Lazzaroni_Bouteloup.Properties.Resources.resources
+D:\PolytechTours\DI_4A\Semestre8\PRJ_.Net_Bouchenard_Lazzaroni_Bouteloup\PRJ_.Net_Bouchenard_Lazzaroni\obj\Debug\PRJ_.Net_Bouchenard_Lazzaroni.SelectXml.resources
+D:\PolytechTours\DI_4A\Semestre8\PRJ_.Net_Bouchenard_Lazzaroni_Bouteloup\PRJ_.Net_Bouchenard_Lazzaroni\obj\Debug\PRJ_.Net_Bouchenard_Lazzaroni_Bouteloup.csproj.GenerateResource.Cache
+D:\PolytechTours\DI_4A\Semestre8\PRJ_.Net_Bouchenard_Lazzaroni_Bouteloup\PRJ_.Net_Bouchenard_Lazzaroni\obj\Debug\PRJ_.Net_Bouchenard_Lazzaroni_Bouteloup.exe
+D:\PolytechTours\DI_4A\Semestre8\PRJ_.Net_Bouchenard_Lazzaroni_Bouteloup\PRJ_.Net_Bouchenard_Lazzaroni\obj\Debug\PRJ_.Net_Bouchenard_Lazzaroni_Bouteloup.pdb
+D:\PolytechTours\DI_4A\Semestre8\PRJ_.Net_Bouchenard_Lazzaroni_Bouteloup\PRJ_.Net_Bouchenard_Lazzaroni\obj\Debug\PRJ_.Net_Bouchenard_Lazzaroni_Bouteloup.Test.resources
