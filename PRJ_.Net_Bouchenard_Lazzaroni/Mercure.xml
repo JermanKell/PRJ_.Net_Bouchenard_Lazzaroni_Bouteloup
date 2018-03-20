@@ -1,12 +1,12 @@
-<?xml version="1.0" standalone="yes"?>
+<?xml version="1.0"?>
 <materiels>
   <article>
-    <description>12 Crayons à papier Tradition HB</description>
-    <refArticle>F0000019</refArticle>
-    <marque>Conté</marque>
-    <famille>Ecriture &amp; Correction</famille>
-    <sousFamille>Crayons &amp; Porte-mines</sousFamille>
-    <prixHT>5,09</prixHT>
+    <description>Clairalfa - ramette 500 feuilles A4 80g</description>
+    <refArticle>F0000269</refArticle>
+    <marque>Clairefontaine</marque>
+    <famille>Papier</famille>
+    <sousFamille>Papier copieur &amp; multifonction blanc</sousFamille>
+    <prixHT>4,69</prixHT>
   </article>
   <article>
     <description>Clairalfa - ramette 500 feuilles A4 80g</description>

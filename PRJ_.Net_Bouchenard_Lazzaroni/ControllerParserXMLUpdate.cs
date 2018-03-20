@@ -10,10 +10,9 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         public ControllerParserXMLUpdate(string filename) : base(filename)
         { }
 
-        protected override void parse()
+        public override void parse()
         {
-            // TODO
-            throw new NotImplementedException();
+            verifyFile();
         }
     }
 }
