@@ -42,7 +42,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             } catch (Exception e) { MessageBox.Show(e.Message); }
         }
 
-        private static void sendSignal(object sender, ValidationEventArgs args)
+        protected static void sendSignal(object sender, ValidationEventArgs args)
         {
             MessageBox.Show(args.Message);
         }

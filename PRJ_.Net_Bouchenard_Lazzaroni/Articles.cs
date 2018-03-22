@@ -9,6 +9,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
     {
         private string description;
         private string reference;
+        private int idFamille;
         private int idSousFamille;
         private int idMarque;
         private double prixHT;
@@ -24,6 +25,12 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         {
             get { return reference; }
             set { reference = value; }
+        }
+
+        public int IdFamille
+        {
+            get { return idFamille; }
+            set { idFamille = value; }
         }
 
         public int IdSousFamille
