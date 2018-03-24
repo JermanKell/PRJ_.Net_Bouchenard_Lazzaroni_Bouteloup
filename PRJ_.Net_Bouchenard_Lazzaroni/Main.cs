@@ -14,6 +14,8 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         public Main()
         {
             InitializeComponent();
+            ControllerParserXML parser = new ControllerParserXMLAdd("../../Mercure.xml");
+            // parser.parse(); PAS ENCORE FONCTIONNEL
         }
 
         private void selectXMLToolStripMenuItem_Click(object sender, EventArgs e)

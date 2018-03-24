@@ -65,19 +65,26 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Articles.cs" />
     <Compile Include="CompoTest.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="CompoTest.Designer.cs">
       <DependentUpon>CompoTest.cs</DependentUpon>
     </Compile>
+    <Compile Include="ControllerParserXML.cs" />
+    <Compile Include="ControllerParserXMLUpdate.cs" />
+    <Compile Include="ControllerParserXMLAdd.cs" />
+    <Compile Include="DBConnection.cs" />
     <Compile Include="DBManager.cs" />
+    <Compile Include="Familles.cs" />
     <Compile Include="Main.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Main.Designer.cs">
       <DependentUpon>Main.cs</DependentUpon>
     </Compile>
+    <Compile Include="Marques.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SelectXml.cs">
@@ -86,6 +93,7 @@
     <Compile Include="SelectXml.Designer.cs">
       <DependentUpon>SelectXml.cs</DependentUpon>
     </Compile>
+    <Compile Include="SousFamilles.cs" />
     <EmbeddedResource Include="CompoTest.resx">
       <DependentUpon>CompoTest.cs</DependentUpon>
     </EmbeddedResource>
@@ -145,6 +153,13 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
   <Import Project="..\packages\System.Data.SQLite.Core.1.0.108.0\build\net40\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.108.0\build\net40\System.Data.SQLite.Core.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

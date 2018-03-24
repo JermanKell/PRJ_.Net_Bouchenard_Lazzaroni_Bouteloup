@@ -57,7 +57,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         public void ExempleRequete()
         {
             
-            SQLiteConnection db = DBManager.getInstance().getDataBase();
+            SQLiteConnection db = DBConnection.getInstance().getDataBase();
 
 
             string myInsertQuery = "INSERT INTO MARQUES VALUES (1,'UnNom')";
