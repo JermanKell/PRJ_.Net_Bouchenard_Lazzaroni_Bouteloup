@@ -44,7 +44,8 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
 
         protected static void sendSignal(object sender, ValidationEventArgs args)
         {
-            MessageBox.Show(args.Message);
+            MessageBox.Show("Problème");
+            //MessageBox.Show(args.Message);
         }
     }
 }

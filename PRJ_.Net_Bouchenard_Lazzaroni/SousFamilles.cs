@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SQLite;
 using System.Linq;
 using System.Text;
 
@@ -27,6 +28,16 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         {
             get { return nom; }
             set { nom = value; }
+        }
+
+        public void convertDataReaderToSousFamilles(SQLiteDataReader reader)
+        {
+            if (reader != null)
+            {
+                id = Convert.ToInt16(reader.GetValue(0));
+                idFamille = Convert.ToInt16(reader.GetValue(1));
+                nom = reader.GetValue(2).ToString();
+            }
         }
     }
 }

@@ -50,7 +50,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
                         else
                         {
                             // Generate error when the sousFamille don't belong to the good famille
-                            if (!dbManager.existSousFamilleInFamille(article.IdFamille, article.IdSousFamille))
+                            if (!dbManager.existSousFamilleInFamille(article.IdSousFamille, article.IdFamille))
                             {
                                 // TODO
                                 sendSignal(null, null);

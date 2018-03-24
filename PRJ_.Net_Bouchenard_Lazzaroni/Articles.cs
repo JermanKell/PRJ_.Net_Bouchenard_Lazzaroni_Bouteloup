@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SQLite;
 using System.Linq;
 using System.Text;
 
@@ -14,6 +15,19 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         private int idMarque;
         private double prixHT;
         private int quantite;
+
+        public void convertDataReaderToArticles(SQLiteDataReader reader)
+        {
+            if (reader != null)
+            {
+                reference = reader.GetValue(0).ToString();
+                description = reader.GetValue(1).ToString();
+                idSousFamille = Convert.ToInt16(reader.GetValue(2));
+                idMarque = Convert.ToInt16(reader.GetValue(3));
+                prixHT = Convert.ToDouble(reader.GetValue(4));
+                quantite = Convert.ToInt16(reader.GetValue(5));
+            }
+        }
 
         public string Description
         {
