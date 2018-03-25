@@ -30,9 +30,9 @@
         {
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.menuStrip = new System.Windows.Forms.MenuStrip();
-            this.selectXMLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.listViewArticle = new System.Windows.Forms.ListView();
+            this.selectXMLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuStrip = new System.Windows.Forms.MenuStrip();
             this.statusStrip.SuspendLayout();
             this.menuStrip.SuspendLayout();
             this.SuspendLayout();
@@ -52,23 +52,6 @@
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
             this.toolStripStatusLabel1.Size = new System.Drawing.Size(0, 17);
             // 
-            // menuStrip
-            // 
-            this.menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.selectXMLToolStripMenuItem});
-            this.menuStrip.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip.Name = "menuStrip";
-            this.menuStrip.Size = new System.Drawing.Size(677, 24);
-            this.menuStrip.TabIndex = 2;
-            this.menuStrip.Text = "menuStrip";
-            // 
-            // selectXMLToolStripMenuItem
-            // 
-            this.selectXMLToolStripMenuItem.Name = "selectXMLToolStripMenuItem";
-            this.selectXMLToolStripMenuItem.Size = new System.Drawing.Size(77, 20);
-            this.selectXMLToolStripMenuItem.Text = "Select XML";
-            this.selectXMLToolStripMenuItem.Click += new System.EventHandler(this.selectXMLToolStripMenuItem_Click);
-            // 
             // listViewArticle
             // 
             this.listViewArticle.AllowColumnReorder = true;
@@ -85,6 +68,25 @@
             this.listViewArticle.View = System.Windows.Forms.View.Details;
             this.listViewArticle.DoubleClick += new System.EventHandler(this.listViewArticle_DoubleClick);
             this.listViewArticle.KeyUp += new System.Windows.Forms.KeyEventHandler(this.listViewArticle_KeyUp);
+            this.listViewArticle.MouseDown += new System.Windows.Forms.MouseEventHandler(this.listViewArticle_MouseDown);
+            // 
+            // selectXMLToolStripMenuItem
+            // 
+            this.selectXMLToolStripMenuItem.Name = "selectXMLToolStripMenuItem";
+            this.selectXMLToolStripMenuItem.Size = new System.Drawing.Size(77, 20);
+            this.selectXMLToolStripMenuItem.Text = "Select XML";
+            this.selectXMLToolStripMenuItem.Click += new System.EventHandler(this.selectXMLToolStripMenuItem_Click);
+            // 
+            // menuStrip
+            // 
+            this.menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.selectXMLToolStripMenuItem});
+            this.menuStrip.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip.Name = "menuStrip";
+            this.menuStrip.Size = new System.Drawing.Size(677, 24);
+            this.menuStrip.TabIndex = 2;
+            this.menuStrip.Text = "menuStrip";
+            this.menuStrip.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.menuStrip_ItemClicked);
             // 
             // Main
             // 
@@ -112,9 +114,9 @@
 
         private System.Windows.Forms.StatusStrip statusStrip;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
-        private System.Windows.Forms.MenuStrip menuStrip;
-        private System.Windows.Forms.ToolStripMenuItem selectXMLToolStripMenuItem;
         private System.Windows.Forms.ListView listViewArticle;
+        private System.Windows.Forms.ToolStripMenuItem selectXMLToolStripMenuItem;
+        private System.Windows.Forms.MenuStrip menuStrip;
     }
 }
 

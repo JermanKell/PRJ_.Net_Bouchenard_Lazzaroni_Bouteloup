@@ -119,5 +119,19 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
                 MessageBox.Show(listViewArticle.FocusedItem.Index.ToString());
             }
         }
+
+        private void menuStrip_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+
+        }
+
+        private void listViewArticle_MouseDown(object sender, MouseEventArgs e)
+        {
+            //clic droit
+            if (e.Button == MouseButtons.Right)
+            {
+                MessageBox.Show("afficher menustrip");
+            }
+        }
     }
 }
