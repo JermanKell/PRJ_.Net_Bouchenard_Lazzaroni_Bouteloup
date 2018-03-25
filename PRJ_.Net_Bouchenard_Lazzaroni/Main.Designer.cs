@@ -32,6 +32,7 @@
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.menuStrip = new System.Windows.Forms.MenuStrip();
             this.selectXMLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.listViewArticle = new System.Windows.Forms.ListView();
             this.statusStrip.SuspendLayout();
             this.menuStrip.SuspendLayout();
             this.SuspendLayout();
@@ -45,6 +46,11 @@
             this.statusStrip.Size = new System.Drawing.Size(677, 22);
             this.statusStrip.TabIndex = 1;
             this.statusStrip.Text = "statusStrip";
+            // 
+            // toolStripStatusLabel1
+            // 
+            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(0, 17);
             // 
             // menuStrip
             // 
@@ -63,16 +69,36 @@
             this.selectXMLToolStripMenuItem.Text = "Select XML";
             this.selectXMLToolStripMenuItem.Click += new System.EventHandler(this.selectXMLToolStripMenuItem_Click);
             // 
+            // listViewArticle
+            // 
+            this.listViewArticle.AllowColumnReorder = true;
+            this.listViewArticle.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.listViewArticle.FullRowSelect = true;
+            this.listViewArticle.Location = new System.Drawing.Point(12, 27);
+            this.listViewArticle.MultiSelect = false;
+            this.listViewArticle.Name = "listViewArticle";
+            this.listViewArticle.Size = new System.Drawing.Size(653, 509);
+            this.listViewArticle.TabIndex = 3;
+            this.listViewArticle.UseCompatibleStateImageBehavior = false;
+            this.listViewArticle.View = System.Windows.Forms.View.Details;
+            this.listViewArticle.DoubleClick += new System.EventHandler(this.listViewArticle_DoubleClick);
+            this.listViewArticle.KeyUp += new System.Windows.Forms.KeyEventHandler(this.listViewArticle_KeyUp);
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(677, 561);
+            this.Controls.Add(this.listViewArticle);
             this.Controls.Add(this.statusStrip);
             this.Controls.Add(this.menuStrip);
+            this.KeyPreview = true;
             this.MainMenuStrip = this.menuStrip;
             this.Name = "Main";
             this.Text = "Main";
+            this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Main_KeyUp);
             this.statusStrip.ResumeLayout(false);
             this.statusStrip.PerformLayout();
             this.menuStrip.ResumeLayout(false);
@@ -88,6 +114,7 @@
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
         private System.Windows.Forms.MenuStrip menuStrip;
         private System.Windows.Forms.ToolStripMenuItem selectXMLToolStripMenuItem;
+        private System.Windows.Forms.ListView listViewArticle;
     }
 }
 
