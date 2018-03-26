@@ -46,8 +46,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             try
             {
                 sql.ExecuteNonQuery();
-                return Convert.ToInt16(conn.LastInsertRowId);
-
+                return Convert.ToInt16(getLastIdFamilles());
             }
             catch (Exception ex)
             {
@@ -65,7 +64,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             try
             {
                 sql.ExecuteNonQuery();
-                return Convert.ToInt16(conn.LastInsertRowId);
+                return Convert.ToInt16(getLastIdSousFamilles());
 
             }
             catch (Exception ex)
@@ -82,7 +81,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             try
             {
                 sql.ExecuteNonQuery();
-                return Convert.ToInt16(conn.LastInsertRowId);
+                return Convert.ToInt16(getLastIdMarques());
 
             }
             catch (Exception ex)
@@ -188,6 +187,39 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
                 return true;
             else
                 return false;
+        }
+
+        public int getLastIdFamilles()
+        {
+            SQLiteCommand sql = new SQLiteCommand("SELECT RefFamille FROM Familles ORDER BY RefFamille DESC LIMIT 1", conn);
+            SQLiteDataReader reader = sql.ExecuteReader();
+
+            if (reader.Read())
+                return Convert.ToInt16(reader.GetValue(0));
+            else
+                return 0;
+        }
+
+        public int getLastIdSousFamilles()
+        {
+            SQLiteCommand sql = new SQLiteCommand("SELECT RefSousFamille FROM SousFamilles ORDER BY RefSousFamille DESC LIMIT 1", conn);
+            SQLiteDataReader reader = sql.ExecuteReader();
+
+            if (reader.Read())
+                return Convert.ToInt16(reader.GetValue(0));
+            else
+                return 0;
+        }
+
+        public int getLastIdMarques()
+        {
+            SQLiteCommand sql = new SQLiteCommand("SELECT RefMarque FROM Marques ORDER BY RefMarque DESC LIMIT 1", conn);
+            SQLiteDataReader reader = sql.ExecuteReader();
+
+            if (reader.Read())
+                return Convert.ToInt16(reader.GetValue(0));
+            else
+                return 0;
         }
     }
 }

@@ -49,13 +49,13 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
                         }
                         else
                         {
+                            article.IdSousFamille = sousFamille.Id;
                             // Generate error when the sousFamille don't belong to the good famille
                             if (!dbManager.existSousFamilleInFamille(article.IdSousFamille, article.IdFamille))
                             {
                                 // TODO
                                 sendSignal(null, null);
                             }
-                            article.IdSousFamille = sousFamille.Id;
                         }
 
                         Marques marque = dbManager.getMarque(node.SelectSingleNode("marque").InnerText);
