@@ -40,13 +40,14 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
 
         public int insertFamille(Familles famille)
         {
-            SQLiteCommand sql = new SQLiteCommand("INSERT INTO Familles (RefFamille, Nom) VALUES (NULL, @nom)", conn);
+            SQLiteCommand sql = new SQLiteCommand(
+                "INSERT INTO Familles (RefFamille, Nom) VALUES((SELECT ifnull((SELECT RefFamille FROM Familles ORDER BY RefFamille DESC LIMIT 1) + 1, 1)), @nom);", conn);
             sql.Parameters.AddWithValue("@nom", famille.Nom);
 
             try
             {
                 sql.ExecuteNonQuery();
-                return Convert.ToInt16(getLastIdFamilles());
+                return Convert.ToInt16(conn.LastInsertRowId);
             }
             catch (Exception ex)
             {
@@ -57,14 +58,14 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         public int insertSousFamille(SousFamilles sousFamille)
         {
             SQLiteCommand sql = new SQLiteCommand(
-                "INSERT INTO SousFamilles (RefSousFamille, RefFamille, nom) VALUES (NULL, @refFamille, @nom)", conn);
+                "INSERT INTO SousFamilles (RefSousFamille, RefFamille, Nom) VALUES((SELECT ifnull((SELECT RefSousFamille FROM SousFamilles ORDER BY RefSousFamille DESC LIMIT 1) + 1, 1)), @refFamille, @nom);", conn);
             sql.Parameters.AddWithValue("@refFamille", sousFamille.IdFamille);
             sql.Parameters.AddWithValue("@nom", sousFamille.Nom);
 
             try
             {
                 sql.ExecuteNonQuery();
-                return Convert.ToInt16(getLastIdSousFamilles());
+                return Convert.ToInt16(conn.LastInsertRowId);
 
             }
             catch (Exception ex)
@@ -75,13 +76,14 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
 
         public int insertMarque(Marques marque)
         {
-            SQLiteCommand sql = new SQLiteCommand("INSERT INTO Marques (RefMarque, nom) VALUES (NULL, @nom)", conn);
+            SQLiteCommand sql = new SQLiteCommand(
+                "INSERT INTO Marques (RefMarque, Nom) VALUES((SELECT ifnull((SELECT RefMarque FROM Marques ORDER BY RefMarque DESC LIMIT 1) + 1, 1)), @nom);", conn);
             sql.Parameters.AddWithValue("@nom", marque.Nom);
 
             try
             {
                 sql.ExecuteNonQuery();
-                return Convert.ToInt16(getLastIdMarques());
+                return Convert.ToInt16(conn.LastInsertRowId);
 
             }
             catch (Exception ex)
@@ -189,37 +191,19 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
                 return false;
         }
 
-        public int getLastIdFamilles()
+        public void updateQuantiteArticle(string refArticle)
         {
-            SQLiteCommand sql = new SQLiteCommand("SELECT RefFamille FROM Familles ORDER BY RefFamille DESC LIMIT 1", conn);
-            SQLiteDataReader reader = sql.ExecuteReader();
+            SQLiteCommand sql = new SQLiteCommand("UPDATE Articles SET Quantite = Quantite + 1 WHERE RefArticle = @refArticle", conn);
+            sql.Parameters.AddWithValue("@refArticle", refArticle);
 
-            if (reader.Read())
-                return Convert.ToInt16(reader.GetValue(0));
-            else
-                return 0;
-        }
-
-        public int getLastIdSousFamilles()
-        {
-            SQLiteCommand sql = new SQLiteCommand("SELECT RefSousFamille FROM SousFamilles ORDER BY RefSousFamille DESC LIMIT 1", conn);
-            SQLiteDataReader reader = sql.ExecuteReader();
-
-            if (reader.Read())
-                return Convert.ToInt16(reader.GetValue(0));
-            else
-                return 0;
-        }
-
-        public int getLastIdMarques()
-        {
-            SQLiteCommand sql = new SQLiteCommand("SELECT RefMarque FROM Marques ORDER BY RefMarque DESC LIMIT 1", conn);
-            SQLiteDataReader reader = sql.ExecuteReader();
-
-            if (reader.Read())
-                return Convert.ToInt16(reader.GetValue(0));
-            else
-                return 0;
+            try
+            {
+                sql.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
     }
 }

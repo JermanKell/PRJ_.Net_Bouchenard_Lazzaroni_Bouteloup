@@ -22,7 +22,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             {
                 try
                 {
-                    if (!checkDoubleArticle(node)); // Check if the article already exist
+                    if (!checkDoubleArticle(node)) // Check if the article already exist
                     {
                         Articles article = new Articles();
 
@@ -69,6 +69,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
                             article.IdMarque = marque.Id;
 
                         article.PrixHT = Convert.ToDouble(node.SelectSingleNode("prixHT").InnerText);
+                        article.Quantite = 1;
 
                         dbManager.insertArticle(article);
                     }   
@@ -79,10 +80,16 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
 
         public bool checkDoubleArticle(XmlNode node)
         {
-            // Check si l'article en question est déjà présent dans la base (vérification avec le champ référence de l'article)
-            // Il faut donc vérifier que l'XML contient les même informations que celui présent en base sinon levé une exception (affichage dans la vue).
-            // Ne pas oublier de faire l'update sur la quantité
-            return false;
+            Articles article = dbManager.getArticle(node.SelectSingleNode("refArticle").InnerText);
+            if (article == null)
+                return false;
+            else
+            {
+                dbManager.updateQuantiteArticle(node.SelectSingleNode("refArticle").InnerText); // Increment quantite ++
+                // Il faut donc vérifier que l'XML contient les même informations que celui présent en base sinon levé une exception (affichage dans la vue).
+                // Ne pas oublier de faire l'update sur la quantité
+                return true;
+            }
         }
     }
 }
