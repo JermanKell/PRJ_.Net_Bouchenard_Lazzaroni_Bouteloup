@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Data.SQLite;
-using System.Windows.Forms;
 
 namespace PRJ_.Net_Bouchenard_Lazzaroni
 {
@@ -188,6 +187,16 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
                 return true;
             else
                 return false;
+        }
+
+        public List<string> getTableBdd()
+        {
+            List<string> listTablesName = new List<string>();
+            SQLiteCommand sql = new SQLiteCommand("SELECT name FROM sqlite_master WHERE type='table'", conn);
+            SQLiteDataReader reader = sql.ExecuteReader();
+            while (reader.Read())
+                listTablesName.Add(reader.GetValue(0).ToString());
+            return listTablesName;
         }
     }
 }

@@ -20,7 +20,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
 
             initializeListViewArticle();
             //jeu d'essai
-            SQLiteCommand sql = new SQLiteCommand(
+            /*SQLiteCommand sql = new SQLiteCommand(
              "INSERT INTO Articles (RefArticle, Description, RefSousFamille, RefMarque, PrixHT, Quantite) VALUES (@reference, @description, @idSousFamille, @idMarque, @prixHT, @quantite)", DBConnection.getInstance().getDataBase());
             sql.Parameters.AddWithValue("@reference", 10);
             sql.Parameters.AddWithValue("@description", "blabla");
@@ -37,9 +37,9 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             sql2.Parameters.AddWithValue("@idMarque", 3);
             sql2.Parameters.AddWithValue("@prixHT", 15);
             sql2.Parameters.AddWithValue("@quantite", 10);
-            sql2.ExecuteNonQuery();
+            sql2.ExecuteNonQuery();*/
 
-            updateListViewArticle("RefArticle");
+            updateListViewArticle();
         }
 
         private void selectXMLToolStripMenuItem_Click(object sender, EventArgs e)
@@ -61,7 +61,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             listViewArticle.Columns.Add("Quantite");
         }
 
-        public void updateListViewArticle(string columnsort, bool ascending = true)
+        public void updateListViewArticle(string columnsort = "RefArticle", bool ascending = true)
         {
             listViewArticle.Items.Clear();
 
@@ -72,7 +72,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             }
 
             //Req a deplacer
-            SQLiteDataAdapter ada = new SQLiteDataAdapter("select * from Articles order by " + columnsort + " " + order, DBConnection.getInstance().getDataBase());
+            SQLiteDataAdapter ada = new SQLiteDataAdapter("select * from Articles group by " + columnsort + " order by " + columnsort + " " + order, DBConnection.getInstance().getDataBase());
             DataTable dt = new DataTable();
             ada.Fill(dt);
             for (int i = 0; i < dt.Rows.Count; i++)
@@ -93,7 +93,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             //Refresh listViewArticle
             if (e.KeyCode == Keys.F5)
             {
-                updateListViewArticle("RefArticle");
+                updateListViewArticle();
             }
         }
 
@@ -125,7 +125,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
 
         }
 
-        private void listViewArticle_MouseDown(object sender, MouseEventArgs e)
+        private void listViewArticle_MouseUp(object sender, MouseEventArgs e)
         {
             //clic droit
             if (e.Button == MouseButtons.Right)

@@ -120,7 +120,7 @@
       <DependentUpon>SelectXml.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Mercure.SQLite">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

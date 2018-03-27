@@ -68,7 +68,7 @@
             this.listViewArticle.View = System.Windows.Forms.View.Details;
             this.listViewArticle.DoubleClick += new System.EventHandler(this.listViewArticle_DoubleClick);
             this.listViewArticle.KeyUp += new System.Windows.Forms.KeyEventHandler(this.listViewArticle_KeyUp);
-            this.listViewArticle.MouseDown += new System.Windows.Forms.MouseEventHandler(this.listViewArticle_MouseDown);
+            this.listViewArticle.MouseUp += new System.Windows.Forms.MouseEventHandler(this.listViewArticle_MouseUp);
             // 
             // selectXMLToolStripMenuItem
             // 

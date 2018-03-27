@@ -92,7 +92,7 @@
             // btnOpenFile
             // 
             this.btnOpenFile.Location = new System.Drawing.Point(313, 250);
-            this.btnOpenFile.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnOpenFile.Margin = new System.Windows.Forms.Padding(2);
             this.btnOpenFile.Name = "btnOpenFile";
             this.btnOpenFile.Size = new System.Drawing.Size(126, 24);
             this.btnOpenFile.TabIndex = 3;
