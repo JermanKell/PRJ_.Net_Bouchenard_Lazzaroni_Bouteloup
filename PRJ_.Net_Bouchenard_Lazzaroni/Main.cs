@@ -50,7 +50,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             compo.ShowDialog();*/
         }
 
-        public void initializeListViewArticle()
+        private void initializeListViewArticle()
         {
             //initialise listviewArticle
             listViewArticle.Columns.Add("RefArticle");
@@ -107,7 +107,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         private void listViewArticle_KeyUp(object sender, KeyEventArgs e)
         {
             //Modifier article
-            if (e.KeyCode == Keys.Enter)
+            if (e.KeyCode == Keys.Enter && listViewArticle.SelectedItems.Count != 0)
             {
                 VueArticle vA = new VueArticle();
                 vA.ShowDialog();
@@ -120,17 +120,26 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             }
         }
 
-        private void menuStrip_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        private void listViewArticle_ColumnClick(object sender, ColumnClickEventArgs e)
         {
-
+            //Effectuer tri par groupe
         }
 
         private void listViewArticle_MouseUp(object sender, MouseEventArgs e)
         {
-            //clic droit
-            if (e.Button == MouseButtons.Right)
+            if (e.Button == MouseButtons.Right && listViewArticle.SelectedItems.Count != 0)
             {
-                MessageBox.Show("afficher menustrip");
+                rightclickMenuStrip.Items.Clear();
+                rightclickMenuStrip.Items.Add("Ajouter");
+                rightclickMenuStrip.Items.Add("Modifier");
+                rightclickMenuStrip.Items.Add("Supprimer");
+                rightclickMenuStrip.Show(this, new Point(e.X+14, e.Y+4));
+            }
+            else if (e.Button == MouseButtons.Right && listViewArticle.SelectedItems.Count == 0)
+            {
+                rightclickMenuStrip.Items.Clear();
+                rightclickMenuStrip.Items.Add("Ajouter");
+                rightclickMenuStrip.Show(this, new Point(e.X+14, e.Y+4));
             }
         }
     }
