@@ -93,7 +93,8 @@
             // rightclickMenuStrip
             // 
             this.rightclickMenuStrip.Name = "rightclickMenuStrip";
-            this.rightclickMenuStrip.Size = new System.Drawing.Size(61, 4);
+            this.rightclickMenuStrip.Size = new System.Drawing.Size(153, 26);
+            this.rightclickMenuStrip.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.rightclickMenuStrip_ItemClicked);
             // 
             // Main
             // 

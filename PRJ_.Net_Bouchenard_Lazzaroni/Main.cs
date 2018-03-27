@@ -142,5 +142,21 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
                 rightclickMenuStrip.Show(this, new Point(e.X+14, e.Y+4));
             }
         }
+
+        private void rightclickMenuStrip_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+            switch(e.ClickedItem.Text)
+            {
+                case "Ajouter":
+                    MessageBox.Show("ouvrir fenetre ajouter");
+                    break;
+                case "Modifier":
+                    MessageBox.Show("ouvrir fenetre modifier");
+                    break;
+                case "Supprimer":
+                    MessageBox.Show("supprimer article");
+                    break;
+            }
+        }
     }
 }
