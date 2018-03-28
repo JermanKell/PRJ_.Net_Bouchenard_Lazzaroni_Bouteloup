@@ -20,7 +20,7 @@
     <description>Bloc Estrée A4 75g Uni</description>
     <refArticle>F0005477</refArticle>
     <marque>Estrée</marque>
-    <famille>Papiers</famille>
+    <famille>Papier</famille>
     <sousFamille>Blocs &amp; Coffrets de correspondance</sousFamille>
     <prixHT>1,99</prixHT>
   </article>
@@ -84,7 +84,7 @@
     <description>Corbeille à papier rectangulaire HAN noire</description>
     <refArticle>F0016578</refArticle>
     <marque>Han</marque>
-    <famille>Accessoires  de bureau</famille>
+    <famille>Accessoires de bureau</famille>
     <sousFamille>Corbeilles à papier</sousFamille>
     <prixHT>6,19</prixHT>
   </article>
@@ -99,8 +99,8 @@
   <article>
     <description>Clairefontaine - 500 feuilles Digital Color Printing blanches A4 100g</description>
     <refArticle>F0020064</refArticle>
-    <marque>Claire-fontaine</marque>
-    <famille>Parier</famille>
+    <marque>Clairefontaine</marque>
+    <famille>Papier</famille>
     <sousFamille>Papier laser</sousFamille>
     <prixHT>7,69</prixHT>
   </article>
@@ -116,7 +116,7 @@
     <description>Clairefontaine - 250 feuilles Digital Color Printing blanches A4 160g</description>
     <refArticle>F0300012</refArticle>
     <marque>Clairefontaine</marque>
-    <famille>Papiers</famille>
+    <famille>Papier</famille>
     <sousFamille>Papier laser</sousFamille>
     <prixHT>7,59</prixHT>
   </article>
@@ -148,7 +148,7 @@
     <description>Cahier de texte Clairefontaine 144 pages à spirales</description>
     <refArticle>F0328476</refArticle>
     <marque>Clairefontaine</marque>
-    <famille>Papeterie et classement</famille>
+    <famille>Papeterie Et classement</famille>
     <sousFamille>Agendas et calendriers</sousFamille>
     <prixHT>2,99</prixHT>
   </article>
@@ -172,7 +172,7 @@
     <description>6 x Marqueurs - Velleda - 1781bis</description>
     <refArticle>F0333613</refArticle>
     <marque>Velleda</marque>
-    <famille>Ecriture Et Correction</famille>
+    <famille>Ecriture &amp; Correction</famille>
     <sousFamille>Marqueurs</sousFamille>
     <prixHT>7,39</prixHT>
   </article>
@@ -212,7 +212,7 @@
     <description>7 marqueurs à vitres assortis Pentel Wet Erase</description>
     <refArticle>F0354305</refArticle>
     <marque>Pentel</marque>
-    <famille>Ecriture et Correction</famille>
+    <famille>Ecriture &amp; Correction</famille>
     <sousFamille>Marqueurs</sousFamille>
     <prixHT>19,49</prixHT>
   </article>
@@ -236,7 +236,7 @@
     <description>Cahier double spirale - Oxford - A4 - 21 x 29,7 cm - petits carreaux - 100 pages</description>
     <refArticle>F0359244</refArticle>
     <marque>Oxford</marque>
-    <famille>Papeterie et classement</famille>
+    <famille>Papeterie Et classement</famille>
     <sousFamille>Cahiers</sousFamille>
     <prixHT>2,67</prixHT>
   </article>
@@ -260,7 +260,7 @@
     <description>Cahier Calligraphe 24x32 cm grands carreaux 96 pages 70g piqué</description>
     <refArticle>F0368854</refArticle>
     <marque>Calligraphe</marque>
-    <famille>Papeterie &amp; classement</famille>
+    <famille>Papeterie Et classement</famille>
     <sousFamille>Cahiers</sousFamille>
     <prixHT>1,79</prixHT>
   </article>
@@ -292,7 +292,7 @@
     <description>Cahier Nomadbook Oxford 24x32 cm grands carreaux 160 pages avec chemise à élastique</description>
     <refArticle>F1009381</refArticle>
     <marque>Oxford</marque>
-    <famille>Papeterie et classement</famille>
+    <famille>Papeterie Et classement</famille>
     <sousFamille>Cahiers</sousFamille>
     <prixHT>4,69</prixHT>
   </article>
@@ -301,7 +301,7 @@
     <refArticle>F1453759</refArticle>
     <marque>Office Dépôt</marque>
     <famille>Papier</famille>
-    <sousFamille>Papier, copieur &amp; multifonction blanc</sousFamille>
+    <sousFamille>Papier copieur &amp; multifonction blanc</sousFamille>
     <prixHT>3,79</prixHT>
   </article>
   <article>
@@ -341,7 +341,7 @@
     <refArticle>F5223348</refArticle>
     <marque>Parker</marque>
     <famille>Ecriture &amp; Correction</famille>
-    <sousFamille>Stylos, feutres, rollers</sousFamille>
+    <sousFamille>Stylos, feutres &amp; rollers</sousFamille>
     <prixHT>25,49</prixHT>
   </article>
   <article>
@@ -388,7 +388,7 @@
     <description>Règle transparente - Niceday - 1 biseau - 40 cm</description>
     <refArticle>F5743512</refArticle>
     <marque>Niceday</marque>
-    <famille>Fournitures scolaires</famille>
+    <famille>Fournitures  scolaires</famille>
     <sousFamille>Création et géométrie</sousFamille>
     <prixHT>0,66</prixHT>
   </article>
@@ -396,7 +396,7 @@
     <description>Calculatrice scientifique - CASIO - FX Junior Plus - 19,5 x 78 x 155 mm</description>
     <refArticle>F6116922</refArticle>
     <marque>Casio</marque>
-    <famille>Fournitures scolaires</famille>
+    <famille>Fournitures  scolaires</famille>
     <sousFamille>Informatique et calculatrices</sousFamille>
     <prixHT>9,02</prixHT>
   </article>

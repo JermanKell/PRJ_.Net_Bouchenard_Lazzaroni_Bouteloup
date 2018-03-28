@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Data.SQLite;
 using System.Windows.Forms;
+using System.Collections;
 
 namespace PRJ_.Net_Bouchenard_Lazzaroni
 {
@@ -90,6 +91,54 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             {
                 throw new Exception(ex.Message);
             }
+        }
+
+        public List<Familles> getAllFamilles()
+        {
+            List<Familles> listFamille = new List<Familles>();
+            SQLiteCommand sql = new SQLiteCommand("SELECT * FROM Familles", conn);
+            SQLiteDataReader reader = sql.ExecuteReader();
+
+            while(reader.Read())
+            {
+                Familles famille = new Familles();
+                famille.convertDataReaderToFamilles(reader);
+                listFamille.Add(famille);
+            }
+
+            return listFamille;
+        }
+
+        public List<SousFamilles> getAllSousFamilles()
+        {
+            List<SousFamilles> listSousFamille = new List<SousFamilles>();
+            SQLiteCommand sql = new SQLiteCommand("SELECT * FROM SousFamilles", conn);
+            SQLiteDataReader reader = sql.ExecuteReader();
+
+            while (reader.Read())
+            {
+                SousFamilles sousFamille = new SousFamilles();
+                sousFamille.convertDataReaderToSousFamilles(reader);
+                listSousFamille.Add(sousFamille);
+            }
+
+            return listSousFamille;
+        }
+
+        public List<Marques> getAllMarques()
+        {
+            List<Marques> listMarque = new List<Marques>();
+            SQLiteCommand sql = new SQLiteCommand("SELECT * FROM Marques", conn);
+            SQLiteDataReader reader = sql.ExecuteReader();
+
+            while (reader.Read())
+            {
+                Marques marque = new Marques();
+                marque.convertDataReaderToMarques(reader);
+                listMarque.Add(marque);
+            }
+
+            return listMarque;
         }
 
         public Articles getArticle(string reference)

@@ -26,7 +26,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
                 {
                     if (!checkDoubleArticle(node)) // Check if the article already exist
                     {
-                        Articles article = new Articles();
+                        article = new Articles();
 
                         article.Description = node.SelectSingleNode("description").InnerText;
                         article.Reference = node.SelectSingleNode("refArticle").InnerText;
@@ -50,9 +50,20 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             Familles famille = dbManager.getFamille(node.SelectSingleNode("famille").InnerText); // Check if the famille already exist
             if (famille == null) // Famille does not exist
             {
-                famille = new Familles();
-                famille.Nom = node.SelectSingleNode("famille").InnerText;
-                article.IdFamille = dbManager.insertFamille(famille); // Insert return the last id of the famille added.
+                famille = checkSpellingFamilles(node.SelectSingleNode("famille").InnerText);
+                if (famille == null)
+                {
+                    famille = new Familles();
+                    famille.Nom = node.SelectSingleNode("famille").InnerText;
+                    article.IdFamille = dbManager.insertFamille(famille); // Insert return the last id of the famille added.
+                }
+                else
+                {
+                    // SEND SIGNAL HERE TO INFORM THE VIEW A MISTAKE HAS BEEN DETECTED IN THE XML (SPELLING MISTAKE)
+                    article.IdFamille = famille.Id;
+                    node.SelectSingleNode("famille").InnerText = famille.Nom; // Change the text of the XML to correct the spelling mistake
+                    xmlDocument.Save(filename); // Apply modification to the document.
+                }   
             }
             else
                 article.IdFamille = famille.Id;
@@ -63,10 +74,28 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             SousFamilles sousFamille = dbManager.getSousFamille(node.SelectSingleNode("sousFamille").InnerText); // Check if the sousFamille already exist
             if (sousFamille == null) // If the sousFamille does not exist
             {
-                sousFamille = new SousFamilles();
-                sousFamille.IdFamille = article.IdFamille;
-                sousFamille.Nom = node.SelectSingleNode("sousFamille").InnerText;
-                article.IdSousFamille = dbManager.insertSousFamille(sousFamille); // Insert return the last id of the sousFamille added.
+                sousFamille = checkSpellingSousFamilles(node.SelectSingleNode("sousFamille").InnerText);
+                if (sousFamille == null)
+                {
+                    sousFamille = new SousFamilles();
+                    sousFamille.IdFamille = article.IdFamille;
+                    sousFamille.Nom = node.SelectSingleNode("sousFamille").InnerText;
+                    article.IdSousFamille = dbManager.insertSousFamille(sousFamille); // Insert return the last id of the sousFamille added.
+                }
+                else
+                {
+                    // SEND SIGNAL HERE TO INFORM THE VIEW A MISTAKE HAS BEEN DETECTED IN THE XML (SPELLING MISTAKE)
+                    article.IdSousFamille = sousFamille.Id;
+                    // Generate error when the sousFamille don't belong to the good famille
+                    if (!dbManager.existSousFamilleInFamille(article.IdSousFamille, article.IdFamille))
+                    {
+                        // TODO
+                        sendSignal(null, null);
+                    }
+                    node.SelectSingleNode("sousFamille").InnerText = sousFamille.Nom; // Change the text of the XML to correct the spelling mistake
+                    xmlDocument.Save(filename); // Apply modification to the document.
+                }
+                
             }
             else
             {
@@ -85,9 +114,20 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             Marques marque = dbManager.getMarque(node.SelectSingleNode("marque").InnerText);
             if (marque == null)
             {
-                marque = new Marques();
-                marque.Nom = node.SelectSingleNode("marque").InnerText;
-                article.IdMarque = dbManager.insertMarque(marque); // Insert return the last id of the marque added.
+                marque = checkSpellingMarques(node.SelectSingleNode("marque").InnerText);
+                if (marque == null)
+                {
+                    marque = new Marques();
+                    marque.Nom = node.SelectSingleNode("marque").InnerText;
+                    article.IdMarque = dbManager.insertMarque(marque); // Insert return the last id of the marque added.
+                }
+                else
+                {
+                    // SEND SIGNAL HERE TO INFORM THE VIEW A MISTAKE HAS BEEN DETECTED IN THE XML (SPELLING MISTAKE)
+                    article.IdMarque = marque.Id;
+                    node.SelectSingleNode("marque").InnerText = marque.Nom; // Change the text of the XML to correct the spelling mistake
+                    xmlDocument.Save(filename); // Apply modification to the document.
+                }
             }
             else
                 article.IdMarque = marque.Id;

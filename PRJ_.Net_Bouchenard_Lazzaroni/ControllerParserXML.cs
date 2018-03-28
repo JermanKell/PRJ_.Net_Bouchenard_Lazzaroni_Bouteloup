@@ -53,5 +53,112 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             MessageBox.Show("Problème");
             //MessageBox.Show(args.Message);
         }
+
+        // Compute the distance between tow string
+        protected int distanceLevenshtein(string s, string t)
+        {
+            int n = s.Length;
+            int m = t.Length;
+            int[,] d = new int[n + 1, m + 1];
+
+            if (n == 0)
+                return m;
+
+            if (m == 0)
+                return n;
+
+            for (int i = 0; i <= n; d[i, 0] = i++)
+            {
+            }
+
+            for (int j = 0; j <= m; d[0, j] = j++)
+            {
+            }
+
+            for (int i = 1; i <= n; i++)
+            {
+                for (int j = 1; j <= m; j++)
+                {
+                    int cost = (t[j - 1] == s[i - 1]) ? 0 : 1;
+
+                    d[i, j] = Math.Min(
+                        Math.Min(d[i - 1, j] + 1, d[i, j - 1] + 1),
+                        d[i - 1, j - 1] + cost);
+                }
+            }
+            return d[n, m];
+        }
+
+        protected Familles checkSpellingFamilles(string name)
+        {
+            int bestDistance = 255, tempDistance;
+            Familles famille = null;
+
+            List<Familles> listFamille = dbManager.getAllFamilles(); // Retrieve all famille of the database
+
+            foreach (Familles oneOfList in listFamille)
+            {
+                tempDistance = distanceLevenshtein(name, oneOfList.Nom); // Compute the distance
+
+                if (tempDistance < bestDistance)
+                {
+                    bestDistance = tempDistance;
+                    famille = oneOfList;
+                }
+            }
+
+            if (bestDistance <= 2) // Here we decide the degree of tolerance
+                return famille;
+            else
+                return null;
+        }
+
+        protected SousFamilles checkSpellingSousFamilles(string name)
+        {
+            int bestDistance = 255, tempDistance;
+            SousFamilles sousFamille = null;
+
+            List<SousFamilles> listSousFamille = dbManager.getAllSousFamilles(); // Retrieve all SousFamille of the database
+
+            foreach (SousFamilles oneOfList in listSousFamille)
+            {
+                tempDistance = distanceLevenshtein(name, oneOfList.Nom); // Compute the distance
+
+                if (tempDistance < bestDistance)
+                {
+                    bestDistance = tempDistance;
+                    sousFamille = oneOfList;
+                }
+            }
+
+            if (bestDistance <= 2) // Here we decide the degree of tolerance
+                return sousFamille;
+            else
+                return null;
+        }
+
+        protected Marques checkSpellingMarques(string name)
+        {
+            int bestDistance = 255, tempDistance;
+            Marques marque = null;
+
+            List<Marques> listMarque = dbManager.getAllMarques(); // Retrieve all Marques of the database
+
+            foreach (Marques oneOfList in listMarque)
+            {
+                tempDistance = distanceLevenshtein(name, oneOfList.Nom); // Compute the distance
+
+                if (tempDistance < bestDistance)
+                {
+                    bestDistance = tempDistance;
+                    marque = oneOfList;
+                }
+            }
+
+            if (bestDistance <= 2) // Here we decide the degree of tolerance
+                return marque;
+            else
+                return null;
+        }
     }
 }
