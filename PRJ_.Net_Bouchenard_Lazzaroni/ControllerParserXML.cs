@@ -14,14 +14,20 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         protected XmlDocument xmlDocument; // Allow to navigate in the xml file
         protected DBManager dbManager; // Access SQL command
         protected string filename; // Content the path of the file
+        protected Articles article;
+        protected XmlNode node; // To store the current node when parsing
 
         abstract public void parse(); // Each child implement his own version of parsing.
+        abstract protected void treatFamille(); // Called by parse function. Create Famille if doesn't exist.
+        abstract protected void treatSousFamille(); // Called by parse function. Create SousFamille if doesn't exist and link to the article.
+        abstract protected void treatMarque(); // Called by parse function. Create Marque if doesn't exist and link to the article.
 
         public ControllerParserXML(string filename) // Check if the file exist and if xmlDocument is able to load it.
         {
             this.filename = filename;
             dbManager = new DBManager();
             xmlDocument = new XmlDocument();
+            article = null;
 
             try
             {

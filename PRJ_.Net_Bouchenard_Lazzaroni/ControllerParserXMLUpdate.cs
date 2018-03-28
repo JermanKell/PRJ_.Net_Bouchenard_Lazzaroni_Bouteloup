@@ -14,5 +14,17 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         {
             verifyFile();
         }
+
+        protected override void treatFamille()
+        {
+        }
+
+        protected override void treatMarque()
+        {
+        }
+
+        protected override void treatSousFamille()
+        {
+        }
     }
 }

@@ -102,7 +102,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
 
             if (reader.Read())
             {
-                article.convertDataReaderToArticles(reader); // Set attributes to the article thanks to the reader
+                article.convertDataReaderToArticles(reader);
                 article.IdFamille = getSousFamille(Convert.ToInt16(reader.GetValue(2))).IdFamille; // Get the Famille linked to the sousFamille to return a complete article
                 return article;
             }
@@ -120,7 +120,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
 
             if (reader.Read())
             {
-                famille.convertDataReaderToFamilles(reader); // Set attributes to the famille thanks to the reader
+                famille.convertDataReaderToFamilles(reader);
                 return famille;
             }
             else
@@ -137,7 +137,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
 
             if (reader.Read())
             {
-                sousFamille.convertDataReaderToSousFamilles(reader); // Set attributes to the sousFamille thanks to the reader
+                sousFamille.convertDataReaderToSousFamilles(reader);
                 return sousFamille;
             }
             else
@@ -154,7 +154,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
 
             if (reader.Read())
             {
-                sousFamille.convertDataReaderToSousFamilles(reader); // Set attributes to the sousFamille thanks to the reader
+                sousFamille.convertDataReaderToSousFamilles(reader);
                 return sousFamille;
             }
             else
@@ -171,7 +171,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
 
             if (reader.Read())
             {
-                marque.convertDataReaderToMarques(reader); // Set attributes to the marque thanks to the reader
+                marque.convertDataReaderToMarques(reader);
                 return marque;
             }
             else
