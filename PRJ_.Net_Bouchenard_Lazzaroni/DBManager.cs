@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Data.SQLite;
+using System.Windows.Forms;
 
 namespace PRJ_.Net_Bouchenard_Lazzaroni
 {
@@ -108,6 +109,28 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
                 return null;
         }
 
+       public List<Articles> getAllArticle(string columnsort = "RefArticle", bool ascending = true)
+        {
+            string order = "ASC";
+            if (!ascending)
+            {
+                order = "DESC";
+            }
+
+            List<Articles> listArticles = new List<Articles>();
+
+            SQLiteCommand sql = new SQLiteCommand("select * from Articles order by " + columnsort + " " + order, conn);
+            SQLiteDataReader reader = sql.ExecuteReader();
+
+            while (reader.Read())
+            {
+                Articles article = new Articles();
+                article.convertDataReaderToArticles(reader); // Set attributes to the article thanks to the reader
+                listArticles.Add(article);
+            }
+            return listArticles;
+        }
+
         public Familles getFamille(string name)
         {
             Familles famille = new Familles();
@@ -197,6 +220,16 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             while (reader.Read())
                 listTablesName.Add(reader.GetValue(0).ToString());
             return listTablesName;
+        }
+
+        public List<string> getNameColumnTable(string table_name = "Articles")
+        {
+            List<string> listNameColumnTable = new List<string>();
+            SQLiteCommand sql = new SQLiteCommand("PRAGMA table_info(" + table_name + ")", conn);
+            SQLiteDataReader reader = sql.ExecuteReader();
+            while (reader.Read())
+                listNameColumnTable.Add(reader.GetValue(1).ToString());
+            return listNameColumnTable;
         }
     }
 }

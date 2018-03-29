@@ -66,12 +66,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Articles.cs" />
-    <Compile Include="CompoTest.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="CompoTest.Designer.cs">
-      <DependentUpon>CompoTest.cs</DependentUpon>
-    </Compile>
     <Compile Include="ControllerParserXML.cs" />
     <Compile Include="ControllerParserXMLUpdate.cs" />
     <Compile Include="ControllerParserXMLAdd.cs" />
@@ -100,9 +94,6 @@
     <Compile Include="VueArticle.Designer.cs">
       <DependentUpon>VueArticle.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="CompoTest.resx">
-      <DependentUpon>CompoTest.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Main.resx">
       <DependentUpon>Main.cs</DependentUpon>
     </EmbeddedResource>

@@ -72,6 +72,7 @@
             this.listViewArticle.DoubleClick += new System.EventHandler(this.listViewArticle_DoubleClick);
             this.listViewArticle.KeyUp += new System.Windows.Forms.KeyEventHandler(this.listViewArticle_KeyUp);
             this.listViewArticle.MouseUp += new System.Windows.Forms.MouseEventHandler(this.listViewArticle_MouseUp);
+            this.listViewArticle.Resize += new System.EventHandler(this.listViewArticle_Resize);
             // 
             // selectXMLToolStripMenuItem
             // 
@@ -93,7 +94,7 @@
             // rightclickMenuStrip
             // 
             this.rightclickMenuStrip.Name = "rightclickMenuStrip";
-            this.rightclickMenuStrip.Size = new System.Drawing.Size(153, 26);
+            this.rightclickMenuStrip.Size = new System.Drawing.Size(61, 4);
             this.rightclickMenuStrip.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.rightclickMenuStrip_ItemClicked);
             // 
             // Main

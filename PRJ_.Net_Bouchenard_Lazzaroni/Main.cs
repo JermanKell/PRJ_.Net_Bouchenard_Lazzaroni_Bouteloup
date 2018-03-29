@@ -6,12 +6,18 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using System.Data.SQLite;
+using System.Collections;
 
 namespace PRJ_.Net_Bouchenard_Lazzaroni
 {
     public partial class Main : Form
     {
+
+        // Declare a Hashtable array in which to store the groups
+        private List<Hashtable> groupsListView;
+        // Declare a variable to store the current grouping column
+        int groupColumn = 0;
+
         public Main()
         {
             InitializeComponent();
@@ -38,54 +44,140 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             sql2.Parameters.AddWithValue("@prixHT", 15);
             sql2.Parameters.AddWithValue("@quantite", 10);
             sql2.ExecuteNonQuery();*/
-
-            updateListViewArticle();
         }
 
         private void selectXMLToolStripMenuItem_Click(object sender, EventArgs e)
         {
             SelectXml SelectXML = new SelectXml();
             SelectXML.ShowDialog();
-           /* CompoTest compo = new CompoTest();
-            compo.ShowDialog();*/
         }
 
         private void initializeListViewArticle()
         {
-            //initialise listviewArticle
-            listViewArticle.Columns.Add("RefArticle");
-            listViewArticle.Columns.Add("Description");
-            listViewArticle.Columns.Add("RefSousFamille");
-            listViewArticle.Columns.Add("RefMarque");
-            listViewArticle.Columns.Add("PrixHT");
-            listViewArticle.Columns.Add("Quantite");
+            //set default sort ascending 
+            listViewArticle.Sorting = SortOrder.Ascending;
+
+            DBManager dbm = new DBManager();
+
+            //initialise columns
+            List<string> listNameColumnTable = dbm.getNameColumnTable();
+            for (int i=0; i < listNameColumnTable.Count; i++)
+                listViewArticle.Columns.Add(listNameColumnTable.ElementAt(i), listViewArticle.Size.Width / listNameColumnTable.Count);
+
+            //initialise data
+            List<Articles> listArticles = dbm.getAllArticle();
+            for(int i=0; i < listArticles.Count; i++)
+            {
+                ListViewItem item = new ListViewItem(new string[] {
+                listArticles.ElementAt(i).Reference,
+                listArticles.ElementAt(i).Description,
+                listArticles.ElementAt(i).IdSousFamille.ToString(),
+                listArticles.ElementAt(i).IdMarque.ToString(),
+                listArticles.ElementAt(i).PrixHT.ToString(),
+                listArticles.ElementAt(i).Quantite.ToString()
+                });
+                listViewArticle.Items.Add(item);
+            }
+
+            // Create the groupsTable array and populate it with one hash table for each column
+            groupsListView = new List<Hashtable>();
+
+            for (int column = 0; column < listViewArticle.Columns.Count; column++)
+            {
+                //Insert in the groupsListView a new hashtable containing all the groups needed for a single column
+                groupsListView.Add(CreateGroupsByColumnListView(column));
+            }
+
+            // Start with the groups column refArticle
+            SetGroups(0);
+
         }
 
-        public void updateListViewArticle(string columnsort = "RefArticle", bool ascending = true)
+        // Creates a Hashtable with one entry for each unique textItem value in the specified column
+        private Hashtable CreateGroupsByColumnListView(int column)
         {
-            listViewArticle.Items.Clear();
+            Hashtable groupColumn = new Hashtable();
 
-            string order = "ASC";
-            if (!ascending)
+            // Iterate through the items in myListView
+            for (int i=0; i < listViewArticle.Items.Count; i++)
             {
-                order = "DESC";
+                ListViewItem item = listViewArticle.Items[i];
+                string textItem = item.SubItems[column].Text;
+
+                // If the groupColumn doesn't already contain a group for the textItem value,
+                // add a new group using the textItem value for the group header and Hashtable key
+                if (!groupColumn.Contains(textItem))
+                {
+                    groupColumn.Add(textItem, new ListViewGroup(textItem, HorizontalAlignment.Left));
+                }
+            }
+            return groupColumn;
+        }
+
+        // Sets myListView to the groups created for the specified column
+        private void SetGroups(int column)
+        {
+            listViewArticle.Groups.Clear();
+
+            // Get the Hashtable corresponding to the column
+            Hashtable groups = groupsListView.ElementAt(column);
+
+            // Copy the groups for the column in Listgroups
+            ListViewGroup[] Listgroups = new ListViewGroup[groups.Count];
+            groups.Values.CopyTo(Listgroups, 0);
+
+            // Sort the groups and add them to myListView
+            Array.Sort(Listgroups, new ListViewGroupSorter(listViewArticle.Sorting));
+            listViewArticle.Groups.AddRange(Listgroups);
+
+            // Iterate through the items in myListView, assigning each one to the appropriate group
+            for (int i=0; i < listViewArticle.Items.Count; i++)
+            {
+                ListViewItem item = listViewArticle.Items[i];
+                string textItem = item.SubItems[column].Text;
+
+                // Assign the item to the matching group
+                item.Group = (ListViewGroup)groups[textItem];
+            }
+        }
+
+        // Sorts ListViewGroup objects by header value
+        private class ListViewGroupSorter : IComparer
+        {
+            private SortOrder order;
+
+            // Stores the sort order.
+            public ListViewGroupSorter(SortOrder theOrder)
+            {
+                //MessageBox.Show(theOrder.ToString());
+                order = theOrder;
             }
 
-            //Req a deplacer
-            SQLiteDataAdapter ada = new SQLiteDataAdapter("select * from Articles group by " + columnsort + " order by " + columnsort + " " + order, DBConnection.getInstance().getDataBase());
-            DataTable dt = new DataTable();
-            ada.Fill(dt);
-            for (int i = 0; i < dt.Rows.Count; i++)
+            // Compares the groups by header value, using the saved sort order to return the correct value
+            public int Compare(object x, object y)
             {
-                DataRow dr = dt.Rows[i];
-                ListViewItem listitem = new ListViewItem(dr["RefArticle"].ToString());
-                listitem.SubItems.Add(dr["Description"].ToString());
-                listitem.SubItems.Add(dr["RefSousFamille"].ToString());
-                listitem.SubItems.Add(dr["RefMarque"].ToString());
-                listitem.SubItems.Add(dr["PrixHT"].ToString());
-                listitem.SubItems.Add(dr["Quantite"].ToString());
-                listViewArticle.Items.Add(listitem);
+                
+                int result = String.Compare(((ListViewGroup)x).Header, ((ListViewGroup)y).Header);
+                //MessageBox.Show("Comparaison: " + ((ListViewGroup)x).Header + " avec " + ((ListViewGroup)y).Header + " resultat="+result);
+                if (order == SortOrder.Ascending)
+                    return result;
+                else
+                    return -result;
             }
+        }
+
+        // Groups the items using the groups created for the clicked column
+        private void listViewArticle_ColumnClick(object sender, ColumnClickEventArgs e)
+        {
+            // Set the sort order to ascending when changing column groups; otherwise, reverse the sort order
+            if ((listViewArticle.Sorting == SortOrder.Descending) || (e.Column != groupColumn))
+                listViewArticle.Sorting = SortOrder.Ascending;
+            else
+                listViewArticle.Sorting = SortOrder.Descending;
+            groupColumn = e.Column;
+
+            // Set the groups to those created for the clicked column
+            SetGroups(e.Column);
         }
 
         private void Main_KeyUp(object sender, KeyEventArgs e)
@@ -93,7 +185,10 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             //Refresh listViewArticle
             if (e.KeyCode == Keys.F5)
             {
-                updateListViewArticle();
+                listViewArticle.Sorting = SortOrder.Ascending;
+                // Set the groups to those created for the clicked column.
+                SetGroups(0);
+
             }
         }
 
@@ -118,11 +213,6 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             {
                 MessageBox.Show(listViewArticle.FocusedItem.Index.ToString());
             }
-        }
-
-        private void listViewArticle_ColumnClick(object sender, ColumnClickEventArgs e)
-        {
-            //Effectuer tri par groupe
         }
 
         private void listViewArticle_MouseUp(object sender, MouseEventArgs e)
@@ -157,6 +247,12 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
                     MessageBox.Show("supprimer article");
                     break;
             }
+        }
+
+        private void listViewArticle_Resize(object sender, EventArgs e)
+        {
+            for(int i=0; i < listViewArticle.Columns.Count; i++)
+                listViewArticle.Columns[i].Width = (listViewArticle.Size.Width / listViewArticle.Columns.Count);
         }
     }
 }
