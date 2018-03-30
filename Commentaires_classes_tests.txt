@@ -1,0 +1,9 @@
+Pour quelqu'un qui etait contre l'integration d'une classe de test, tu t'es bien vite ravisé :)
+
+Je rigole, je trouve ça beaucoup plus simple que ce que j'avais proposé
+	=> par contre, se renseigner sur la nature du thread que tu lances dans ton main
+	=> si adapté sur notre projet, voir si ça fout pas la merde
+
+Sinon, je n'ai qu'une seule chose a dire:
+https://www.youtube.com/watch?v=uYLywvx5Rzo
+
