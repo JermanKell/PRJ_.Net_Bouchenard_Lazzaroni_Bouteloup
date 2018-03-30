@@ -57,6 +57,9 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         // Compute the distance between tow string
         protected int distanceLevenshtein(string s, string t)
         {
+            s = s.ToLower();
+            t = t.ToLower();
+
             int n = s.Length;
             int m = t.Length;
             int[,] d = new int[n + 1, m + 1];

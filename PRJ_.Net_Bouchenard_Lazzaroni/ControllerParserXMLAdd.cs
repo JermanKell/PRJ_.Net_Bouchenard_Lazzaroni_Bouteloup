@@ -39,7 +39,9 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
                         article.Quantite = 1;
 
                         dbManager.insertArticle(article);
-                    }   
+                    }
+                    else
+                        treatDoubleArticle(node); // When the article is already exist. Check if the information in XML file are the same than database.
                 }  
                 catch (Exception e) { MessageBox.Show(e.Message); }
             }
@@ -133,18 +135,75 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
                 article.IdMarque = marque.Id;
         }
 
-        public bool checkDoubleArticle(XmlNode node)
+        private bool checkDoubleArticle(XmlNode node)
         {
-            Articles article = dbManager.getArticle(node.SelectSingleNode("refArticle").InnerText);
+            article = dbManager.getArticle(node.SelectSingleNode("refArticle").InnerText);
             if (article == null)
                 return false;
             else
-            {
-                dbManager.updateQuantiteArticle(node.SelectSingleNode("refArticle").InnerText); // Increment quantite ++
-                // Il faut donc vérifier que l'XML contient les même informations que celui présent en base sinon levé une exception (affichage dans la vue).
-                // Ne pas oublier de faire l'update sur la quantité
                 return true;
-            }
+        }
+
+        private void treatDoubleArticle(XmlNode node)
+        {
+            bool error = false;
+
+            // DESCRIPTION
+            if (article.Description.CompareTo(node.SelectSingleNode("description").InnerText) != 0) // Equals or not
+                if (distanceLevenshtein(article.Description, node.SelectSingleNode("description").InnerText) <= 2) // Spelling mistake or not
+                {
+                    // SEND SIGNAL SPELLING MISTAKE IN DESCRIPTION
+                    node.SelectSingleNode("sousFamille").InnerText = article.Description; // Change the text of the XML to correct the spelling mistake
+                }
+                else // String totally different
+                {
+                    // SEND SIGNAL WRONG DESCRIPTION
+                    error = true;
+                }
+
+            // FAMILLE
+            if (dbManager.getFamille(id: article.IdFamille).Nom.CompareTo(node.SelectSingleNode("famille").InnerText) != 0) // Equals or not
+                if (distanceLevenshtein(dbManager.getFamille(id: article.IdFamille).Nom, node.SelectSingleNode("famille").InnerText) <= 2) // Check if it's the same famille
+                {
+                    // SEND SIGNAL SPELLING MISTAKE IN DESCRIPTION
+                    node.SelectSingleNode("famille").InnerText = dbManager.getFamille(id: article.IdFamille).Nom; // Change the text of the XML to correct the spelling mistake
+                }
+                else
+                {
+                    // SEND SIGNAL WRONG DESCRIPTION
+                    error = true;
+                }
+
+            // SOUSFAMILLE
+            if (dbManager.getSousFamille(id: article.IdSousFamille).Nom.CompareTo(node.SelectSingleNode("sousFamille").InnerText) != 0) // Equals or not
+                if (distanceLevenshtein(dbManager.getSousFamille(id: article.IdSousFamille).Nom, node.SelectSingleNode("sousFamille").InnerText) <= 2) // Check if it's the same sousFamille
+                {
+                    // SEND SIGNAL SPELLING MISTAKE IN DESCRIPTION
+                    node.SelectSingleNode("sousFamille").InnerText = dbManager.getSousFamille(id: article.IdSousFamille).Nom; // Change the text of the XML to correct the spelling mistake
+                }
+                else
+                {
+                    // SEND SIGNAL WRONG DESCRIPTION
+                    error = true;
+                }
+
+            // MARQUE
+            if (dbManager.getMarque(id: article.IdMarque).Nom.CompareTo(node.SelectSingleNode("marque").InnerText) != 0) // Equals or not
+                if (distanceLevenshtein(dbManager.getMarque(id: article.IdMarque).Nom, node.SelectSingleNode("marque").InnerText) <= 2) // Check if it's the same marque
+                {
+                    // SEND SIGNAL SPELLING MISTAKE IN DESCRIPTION
+                    node.SelectSingleNode("marque").InnerText = dbManager.getMarque(id: article.IdMarque).Nom; // Change the text of the XML to correct the spelling mistake
+                }
+                else
+                {
+                    // SEND SIGNAL WRONG DESCRIPTION
+                    error = true;
+                }
+
+            if (!error) // If all information are the same than database, increment quantity of the article
+                dbManager.updateQuantiteArticle(node.SelectSingleNode("refArticle").InnerText);
+
+            xmlDocument.Save(filename); // Apply modification to the document
         }
     }
 }

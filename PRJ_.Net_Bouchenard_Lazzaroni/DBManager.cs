@@ -152,19 +152,29 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             if (reader.Read())
             {
                 article.convertDataReaderToArticles(reader);
-                article.IdFamille = getSousFamille(Convert.ToInt16(reader.GetValue(2))).IdFamille; // Get the Famille linked to the sousFamille to return a complete article
+                article.IdFamille = getSousFamille(id: Convert.ToInt16(reader.GetValue(2))).IdFamille; // Get the Famille linked to the sousFamille to return a complete article
                 return article;
             }
             else
                 return null;
         }
 
-        public Familles getFamille(string name)
+        public Familles getFamille(string name = "", int id = -1)
         {
             Familles famille = new Familles();
+            SQLiteCommand sql;
 
-            SQLiteCommand sql = new SQLiteCommand("SELECT * FROM Familles WHERE Nom = @name", conn);
-            sql.Parameters.AddWithValue("@name", name);
+            if (name.CompareTo("") != 0)
+            {
+                sql = new SQLiteCommand("SELECT * FROM Familles WHERE Nom = @name", conn);
+                sql.Parameters.AddWithValue("@name", name);
+            }
+            else
+            {
+                sql = new SQLiteCommand("SELECT * FROM Familles WHERE RefFamille = @idFamille", conn);
+                sql.Parameters.AddWithValue("@idFamille", id);
+            }
+            
             SQLiteDataReader reader = sql.ExecuteReader();
 
             if (reader.Read())
@@ -176,12 +186,22 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
                 return null;
         }
 
-        public SousFamilles getSousFamille(string name)
+        public SousFamilles getSousFamille(string name = "", int id = -1)
         {
             SousFamilles sousFamille = new SousFamilles();
+            SQLiteCommand sql;
 
-            SQLiteCommand sql = new SQLiteCommand("SELECT * FROM SousFamilles WHERE Nom = @name", conn);
-            sql.Parameters.AddWithValue("@name", name);
+            if (name.CompareTo("") != 0)
+            {
+                sql = new SQLiteCommand("SELECT * FROM SousFamilles WHERE Nom = @name", conn);
+                sql.Parameters.AddWithValue("@name", name);
+            }
+            else
+            {
+                sql = new SQLiteCommand("SELECT * FROM SousFamilles WHERE RefSousFamille = @idSousFamille", conn);
+                sql.Parameters.AddWithValue("@idSousFamille", id);
+            }
+
             SQLiteDataReader reader = sql.ExecuteReader();
 
             if (reader.Read())
@@ -193,29 +213,22 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
                 return null;
         }
 
-        public SousFamilles getSousFamille(int idSousFamille)
-        {
-            SousFamilles sousFamille = new SousFamilles();
-
-            SQLiteCommand sql = new SQLiteCommand("SELECT * FROM SousFamilles WHERE RefSousFamille = @idSousFamille", conn);
-            sql.Parameters.AddWithValue("@idSousFamille", idSousFamille);
-            SQLiteDataReader reader = sql.ExecuteReader();
-
-            if (reader.Read())
-            {
-                sousFamille.convertDataReaderToSousFamilles(reader);
-                return sousFamille;
-            }
-            else
-                return null;
-        }
-
-        public Marques getMarque(string name)
+        public Marques getMarque(string name = "", int id = -1)
         {
             Marques marque = new Marques();
+            SQLiteCommand sql;
 
-            SQLiteCommand sql = new SQLiteCommand("SELECT * FROM Marques WHERE Nom = @name", conn);
-            sql.Parameters.AddWithValue("@name", name);
+            if (name.CompareTo("") != 0)
+            {
+                sql = new SQLiteCommand("SELECT * FROM Marques WHERE Nom = @name", conn);
+                sql.Parameters.AddWithValue("@name", name);
+            }
+            else
+            {
+                sql = new SQLiteCommand("SELECT * FROM Marques WHERE RefMarque = @idMarque", conn);
+                sql.Parameters.AddWithValue("@idMarque", id);
+            }
+
             SQLiteDataReader reader = sql.ExecuteReader();
 
             if (reader.Read())
