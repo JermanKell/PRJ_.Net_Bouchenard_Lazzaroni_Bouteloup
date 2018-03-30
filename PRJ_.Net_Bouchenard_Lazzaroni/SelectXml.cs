@@ -17,6 +17,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
 {
     public partial class SelectXml : Form
     {
+        private Stream stream;
         public SelectXml()
         {
             InitializeComponent();
@@ -33,14 +34,8 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
 
             if (DocOpen_Window.ShowDialog() == DialogResult.OK)
             {
-                Stream stream = DocOpen_Window.OpenFile();
-            }
-           
-            if (Update_XML.Checked == true)
-                // Ouaish, methode a mettre
-            if (Integration_XML.Checked == true)
-            {
-                //Ouaish
+                stream = DocOpen_Window.OpenFile();
+                lab_FName.Text = DocOpen_Window.SafeFileName;
             }
 
 
@@ -51,7 +46,9 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
 
         private void btnIntegrate_Click(object sender, EventArgs e)
         {
-            ExempleRequete();
+            if (Update_XML.Checked == true) MessageBox.Show("Ca marche 2");
+            if (Integration_XML.Checked == true) MessageBox.Show("Ca marche 1");
+            //ExempleRequete();
         }
 
         public void ExempleRequete()
@@ -91,7 +88,6 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             }
             db.Close();
             MessageBox.Show(nom2);
-            
         }
     }
 }

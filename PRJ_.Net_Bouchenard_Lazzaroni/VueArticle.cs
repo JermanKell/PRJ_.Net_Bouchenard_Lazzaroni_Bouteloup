@@ -9,9 +9,9 @@ using System.Windows.Forms;
 
 namespace PRJ_.Net_Bouchenard_Lazzaroni
 {
-    public partial class CompoTest : Form
+    public partial class VueArticle : Form
     {
-        public CompoTest()
+        public VueArticle()
         {
             InitializeComponent();
         }
