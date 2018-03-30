@@ -147,6 +147,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         private void treatDoubleArticle(XmlNode node)
         {
             bool error = false;
+            string nom;
 
             // DESCRIPTION
             if (article.Description.CompareTo(node.SelectSingleNode("description").InnerText) != 0) // Equals or not
@@ -162,11 +163,12 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
                 }
 
             // FAMILLE
-            if (dbManager.getFamille(id: article.IdFamille).Nom.CompareTo(node.SelectSingleNode("famille").InnerText) != 0) // Equals or not
-                if (distanceLevenshtein(dbManager.getFamille(id: article.IdFamille).Nom, node.SelectSingleNode("famille").InnerText) <= 2) // Check if it's the same famille
+            nom = dbManager.getFamille(id: article.IdFamille).Nom;
+            if (nom.CompareTo(node.SelectSingleNode("famille").InnerText) != 0) // Equals or not
+                if (distanceLevenshtein(nom, node.SelectSingleNode("famille").InnerText) <= 2) // Check if it's the same famille
                 {
                     // SEND SIGNAL SPELLING MISTAKE IN DESCRIPTION
-                    node.SelectSingleNode("famille").InnerText = dbManager.getFamille(id: article.IdFamille).Nom; // Change the text of the XML to correct the spelling mistake
+                    node.SelectSingleNode("famille").InnerText = nom; // Change the text of the XML to correct the spelling mistake
                 }
                 else
                 {
@@ -175,11 +177,12 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
                 }
 
             // SOUSFAMILLE
-            if (dbManager.getSousFamille(id: article.IdSousFamille).Nom.CompareTo(node.SelectSingleNode("sousFamille").InnerText) != 0) // Equals or not
-                if (distanceLevenshtein(dbManager.getSousFamille(id: article.IdSousFamille).Nom, node.SelectSingleNode("sousFamille").InnerText) <= 2) // Check if it's the same sousFamille
+            nom = dbManager.getSousFamille(id: article.IdSousFamille).Nom;
+            if (nom.CompareTo(node.SelectSingleNode("sousFamille").InnerText) != 0) // Equals or not
+                if (distanceLevenshtein(nom, node.SelectSingleNode("sousFamille").InnerText) <= 2) // Check if it's the same sousFamille
                 {
                     // SEND SIGNAL SPELLING MISTAKE IN DESCRIPTION
-                    node.SelectSingleNode("sousFamille").InnerText = dbManager.getSousFamille(id: article.IdSousFamille).Nom; // Change the text of the XML to correct the spelling mistake
+                    node.SelectSingleNode("sousFamille").InnerText = nom; // Change the text of the XML to correct the spelling mistake
                 }
                 else
                 {
@@ -188,11 +191,12 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
                 }
 
             // MARQUE
-            if (dbManager.getMarque(id: article.IdMarque).Nom.CompareTo(node.SelectSingleNode("marque").InnerText) != 0) // Equals or not
-                if (distanceLevenshtein(dbManager.getMarque(id: article.IdMarque).Nom, node.SelectSingleNode("marque").InnerText) <= 2) // Check if it's the same marque
+            nom = dbManager.getMarque(id: article.IdMarque).Nom;
+            if (nom.CompareTo(node.SelectSingleNode("marque").InnerText) != 0) // Equals or not
+                if (distanceLevenshtein(nom, node.SelectSingleNode("marque").InnerText) <= 2) // Check if it's the same marque
                 {
                     // SEND SIGNAL SPELLING MISTAKE IN DESCRIPTION
-                    node.SelectSingleNode("marque").InnerText = dbManager.getMarque(id: article.IdMarque).Nom; // Change the text of the XML to correct the spelling mistake
+                    node.SelectSingleNode("marque").InnerText = nom; // Change the text of the XML to correct the spelling mistake
                 }
                 else
                 {

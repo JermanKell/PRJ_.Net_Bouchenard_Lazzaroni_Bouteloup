@@ -22,8 +22,6 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         {
             SelectXml SelectXML = new SelectXml();
             SelectXML.ShowDialog();
-           /* CompoTest compo = new CompoTest();
-            compo.ShowDialog();*/
         }
     }
 }
