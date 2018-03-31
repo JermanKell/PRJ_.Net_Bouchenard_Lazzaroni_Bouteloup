@@ -15,6 +15,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         public override void parse()
         {
             verifyFile();
+            dbManager.deleteTables(); // Clear the database
 
             XmlNodeList nodelist = xmlDocument.SelectNodes("/materiels/article"); // get all <article> nodes
 

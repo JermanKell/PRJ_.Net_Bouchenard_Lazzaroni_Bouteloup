@@ -309,5 +309,29 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
                 listNameColumnTable.Add(reader.GetValue(1).ToString());
             return listNameColumnTable;
         }
+
+        public void deleteTables(string name = "") // Recurisivity -- No param to delete all - Set param to delete once.
+        {
+            List<string> nameAll = new List<string>();
+            SQLiteCommand sql = conn.CreateCommand();
+
+            if (name.CompareTo("") == 0)
+            {
+                nameAll = getTableBdd();
+
+                foreach (string nameOne in nameAll)
+                    deleteTables(nameOne);
+            }
+            else
+            {
+                sql.CommandText = "DELETE FROM " +name;
+
+                try
+                {
+                    sql.ExecuteNonQuery();
+                }
+                catch (Exception ex) { throw new Exception(ex.Message); }
+            }
+        }
     }
 }
