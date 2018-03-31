@@ -262,19 +262,6 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
                 return null;
         }
 
-        public bool existSousFamilleInFamille(int idSousFamille, int idFamille)
-        {
-            SQLiteCommand sql = new SQLiteCommand("SELECT * FROM SousFamilles WHERE RefSousFamille = @idSousFamille AND RefFamille = @idFamille", conn);
-            sql.Parameters.AddWithValue("@idSousFamille", idSousFamille);
-            sql.Parameters.AddWithValue("@idFamille", idFamille);
-            SQLiteDataReader reader = sql.ExecuteReader();
-
-            if (reader.Read())
-                return true;
-            else
-                return false;
-        }
-
         public void updateQuantiteArticle(string refArticle)
         {
             SQLiteCommand sql = new SQLiteCommand("UPDATE Articles SET Quantite = Quantite + 1 WHERE RefArticle = @refArticle", conn);
