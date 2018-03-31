@@ -26,7 +26,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             // parser.parse(); PAS ENCORE FONCTIONNEL
 
             //jeu d'essai
-            SQLiteCommand sql = new SQLiteCommand(
+           /* SQLiteCommand sql = new SQLiteCommand(
              "INSERT INTO Articles (RefArticle, Description, RefSousFamille, RefMarque, PrixHT, Quantite) VALUES (@reference, @description, @idSousFamille, @idMarque, @prixHT, @quantite)", DBConnection.getInstance().getDataBase());
             sql.Parameters.AddWithValue("@reference", "first ref");
             sql.Parameters.AddWithValue("@description", "blabla");
@@ -52,7 +52,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             sql3.Parameters.AddWithValue("@idMarque", 1);
             sql3.Parameters.AddWithValue("@prixHT", 18);
             sql3.Parameters.AddWithValue("@quantite", 15);
-            sql3.ExecuteNonQuery();
+            sql3.ExecuteNonQuery();*/
 
             initializeListViewArticle();
         }
@@ -189,9 +189,21 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             // Compares the groups by header value, using the saved sort order to return the correct value
             public int Compare(object x, object y)
             {
-                
-                int result = String.Compare(((ListViewGroup)x).Header, ((ListViewGroup)y).Header);
-                //MessageBox.Show("Comparaison: " + ((ListViewGroup)x).Header + " avec " + ((ListViewGroup)y).Header + " resultat="+result);
+                int result;
+                if (((ListViewGroup)x).Header.All(Char.IsNumber) && ((ListViewGroup)y).Header.All(Char.IsNumber))
+                {
+                    if (Convert.ToDouble(((ListViewGroup)x).Header) > Convert.ToDouble(((ListViewGroup)y).Header))
+                        result = 1;
+                    else
+                        result = -1;
+                    //MessageBox.Show("Comparaison number: '" + ((ListViewGroup)x).Header + "' avec '" + ((ListViewGroup)y).Header + "' resultat=" + result);
+                }
+                else
+                {
+                    result = String.Compare(((ListViewGroup)x).Header, ((ListViewGroup)y).Header);
+                    //MessageBox.Show("Comparaison string: '" + ((ListViewGroup)x).Header + "' avec '" + ((ListViewGroup)y).Header + "' resultat=" + result);
+                }
+
                 if (order == SortOrder.Ascending)
                     return result;
                 else
