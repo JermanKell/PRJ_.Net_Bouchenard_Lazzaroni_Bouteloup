@@ -18,9 +18,6 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         protected XmlNode node; // To store the current node when parsing
 
         abstract public void parse(); // Each child implement his own version of parsing.
-        abstract protected void treatFamille(); // Called by parse function. Create Famille if doesn't exist.
-        abstract protected void treatSousFamille(); // Called by parse function. Create SousFamille if doesn't exist and link to the article.
-        abstract protected void treatMarque(); // Called by parse function. Create Marque if doesn't exist and link to the article.
 
         public ControllerParserXML(string filename) // Check if the file exist and if xmlDocument is able to load it.
         {
@@ -50,8 +47,137 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
 
         protected static void sendSignal(object sender, ValidationEventArgs args)
         {
-            MessageBox.Show("Problème");
+            MessageBox.Show("Problème !");
             //MessageBox.Show(args.Message);
+        }
+
+        protected void addArticle()
+        {
+            article = new Articles();
+
+            article.Description = node.SelectSingleNode("description").InnerText;
+            article.Reference = node.SelectSingleNode("refArticle").InnerText;
+
+            treatFamille();
+            treatSousFamille();
+            treatMarque();
+
+            article.PrixHT = Convert.ToDouble(node.SelectSingleNode("prixHT").InnerText);
+            article.Quantite = 1;
+
+            dbManager.insertArticle(article);
+        }
+
+        private void treatFamille()
+        {
+            Familles famille = dbManager.getFamille(node.SelectSingleNode("famille").InnerText); // Check if the famille already exist
+            if (famille == null) // Famille does not exist
+            {
+                famille = checkSpellingFamilles(node.SelectSingleNode("famille").InnerText);
+                if (famille == null)
+                {
+                    newFamille();
+                }
+                else
+                {
+                    // SEND SIGNAL HERE TO INFORM THE VIEW A MISTAKE HAS BEEN DETECTED IN THE XML (SPELLING MISTAKE)
+                    article.IdFamille = famille.Id;
+                    node.SelectSingleNode("famille").InnerText = famille.Nom; // Change the text of the XML to correct the spelling mistake
+                    xmlDocument.Save(filename); // Apply modification to the document.
+                }
+            }
+            else
+                article.IdFamille = famille.Id;
+        }
+
+        protected void newFamille()
+        {
+            Familles famille = new Familles();
+            famille.Nom = node.SelectSingleNode("famille").InnerText;
+            article.IdFamille = dbManager.insertFamille(famille); // Insert return the last id of the famille added.
+        }
+
+        private void treatSousFamille()
+        {
+            SousFamilles sousFamille = dbManager.getSousFamille(node.SelectSingleNode("sousFamille").InnerText); // Check if the sousFamille already exist
+            if (sousFamille == null) // If the sousFamille does not exist
+            {
+                sousFamille = checkSpellingSousFamilles(node.SelectSingleNode("sousFamille").InnerText);
+                if (sousFamille == null)
+                {
+                    newSousFamille();
+                }
+                else
+                {
+                    // SEND SIGNAL HERE TO INFORM THE VIEW A MISTAKE HAS BEEN DETECTED IN THE XML (SPELLING MISTAKE)
+                    article.IdSousFamille = sousFamille.Id;
+                    // Generate error when the sousFamille don't belong to the good famille
+                    if (!dbManager.existSousFamilleInFamille(article.IdSousFamille, article.IdFamille))
+                    {
+                        // TODO
+                        sendSignal(null, null);
+                    }
+                    node.SelectSingleNode("sousFamille").InnerText = sousFamille.Nom; // Change the text of the XML to correct the spelling mistake
+                    xmlDocument.Save(filename); // Apply modification to the document.
+                }
+
+            }
+            else
+            {
+                article.IdSousFamille = sousFamille.Id;
+                // Generate error when the sousFamille don't belong to the good famille
+                if (!dbManager.existSousFamilleInFamille(article.IdSousFamille, article.IdFamille))
+                {
+                    // TODO
+                    sendSignal(null, null);
+                }
+            }
+        }
+
+        protected void newSousFamille()
+        {
+            SousFamilles sousFamille = new SousFamilles();
+            sousFamille.IdFamille = article.IdFamille;
+            sousFamille.Nom = node.SelectSingleNode("sousFamille").InnerText;
+            article.IdSousFamille = dbManager.insertSousFamille(sousFamille); // Insert return the last id of the sousFamille added.
+        }
+
+        private void treatMarque()
+        {
+            Marques marque = dbManager.getMarque(node.SelectSingleNode("marque").InnerText);
+            if (marque == null)
+            {
+                marque = checkSpellingMarques(node.SelectSingleNode("marque").InnerText);
+                if (marque == null)
+                {
+                    newMarque();
+                }
+                else
+                {
+                    // SEND SIGNAL HERE TO INFORM THE VIEW A MISTAKE HAS BEEN DETECTED IN THE XML (SPELLING MISTAKE)
+                    article.IdMarque = marque.Id;
+                    node.SelectSingleNode("marque").InnerText = marque.Nom; // Change the text of the XML to correct the spelling mistake
+                    xmlDocument.Save(filename); // Apply modification to the document.
+                }
+            }
+            else
+                article.IdMarque = marque.Id;
+        }
+
+        protected void newMarque()
+        {
+            Marques marque = new Marques();
+            marque.Nom = node.SelectSingleNode("marque").InnerText;
+            article.IdMarque = dbManager.insertMarque(marque); // Insert return the last id of the marque added.
+        }
+
+        protected bool checkDoubleArticle()
+        {
+            article = dbManager.getArticle(node.SelectSingleNode("refArticle").InnerText);
+            if (article == null)
+                return false;
+            else
+                return true;
         }
 
         // Compute the distance between tow string
@@ -70,13 +196,8 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             if (m == 0)
                 return n;
 
-            for (int i = 0; i <= n; d[i, 0] = i++)
-            {
-            }
-
-            for (int j = 0; j <= m; d[0, j] = j++)
-            {
-            }
+            for (int i = 0; i <= n; d[i, 0] = i++) {}
+            for (int j = 0; j <= m; d[0, j] = j++) {}
 
             for (int i = 1; i <= n; i++)
             {

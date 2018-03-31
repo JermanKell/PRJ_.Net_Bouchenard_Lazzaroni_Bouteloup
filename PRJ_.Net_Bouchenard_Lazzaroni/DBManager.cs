@@ -39,6 +39,25 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             }
         }
 
+        public void updateArticle(Articles article)
+        {
+            SQLiteCommand sql = new SQLiteCommand(
+                "UPDATE Articles SET description = @description, RefSousFamille = @idSousFamille, RefMarque = @idMarque, PrixHT = @prixHT, Quantite = @quantite " +
+                "WHERE RefArticle = @reference", conn);
+            sql.Parameters.AddWithValue("@reference", article.Reference);
+            sql.Parameters.AddWithValue("@description", article.Description);
+            sql.Parameters.AddWithValue("@idSousFamille", article.IdSousFamille);
+            sql.Parameters.AddWithValue("@idMarque", article.IdMarque);
+            sql.Parameters.AddWithValue("@prixHT", article.PrixHT);
+            sql.Parameters.AddWithValue("@quantite", article.Quantite);
+
+            try
+            {
+                sql.ExecuteNonQuery();
+            }
+            catch (Exception ex) { throw new Exception(ex.Message); }
+        }
+
         public int insertFamille(Familles famille)
         {
             SQLiteCommand sql = new SQLiteCommand(
