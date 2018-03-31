@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Collections;
+using System.Data.SQLite;
 
 namespace PRJ_.Net_Bouchenard_Lazzaroni
 {
@@ -24,11 +25,10 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             ControllerParserXML parser = new ControllerParserXMLAdd("../../Mercure.xml");
             // parser.parse(); PAS ENCORE FONCTIONNEL
 
-            initializeListViewArticle();
             //jeu d'essai
             /*SQLiteCommand sql = new SQLiteCommand(
              "INSERT INTO Articles (RefArticle, Description, RefSousFamille, RefMarque, PrixHT, Quantite) VALUES (@reference, @description, @idSousFamille, @idMarque, @prixHT, @quantite)", DBConnection.getInstance().getDataBase());
-            sql.Parameters.AddWithValue("@reference", 10);
+            sql.Parameters.AddWithValue("@reference", "first ref");
             sql.Parameters.AddWithValue("@description", "blabla");
             sql.Parameters.AddWithValue("@idSousFamille", 1);
             sql.Parameters.AddWithValue("@idMarque", 1);
@@ -37,13 +37,24 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             sql.ExecuteNonQuery();
             SQLiteCommand sql2 = new SQLiteCommand(
             "INSERT INTO Articles (RefArticle, Description, RefSousFamille, RefMarque, PrixHT, Quantite) VALUES (@reference, @description, @idSousFamille, @idMarque, @prixHT, @quantite)", DBConnection.getInstance().getDataBase());
-            sql2.Parameters.AddWithValue("@reference", 9);
+            sql2.Parameters.AddWithValue("@reference", "second ref");
             sql2.Parameters.AddWithValue("@description", "dabc");
             sql2.Parameters.AddWithValue("@idSousFamille", 1);
             sql2.Parameters.AddWithValue("@idMarque", 3);
             sql2.Parameters.AddWithValue("@prixHT", 15);
             sql2.Parameters.AddWithValue("@quantite", 10);
-            sql2.ExecuteNonQuery();*/
+            sql2.ExecuteNonQuery();
+            SQLiteCommand sql3 = new SQLiteCommand(
+"INSERT INTO Articles (RefArticle, Description, RefSousFamille, RefMarque, PrixHT, Quantite) VALUES (@reference, @description, @idSousFamille, @idMarque, @prixHT, @quantite)", DBConnection.getInstance().getDataBase());
+            sql3.Parameters.AddWithValue("@reference", "third ref");
+            sql3.Parameters.AddWithValue("@description", "mlihggb");
+            sql3.Parameters.AddWithValue("@idSousFamille", 2);
+            sql3.Parameters.AddWithValue("@idMarque", 1);
+            sql3.Parameters.AddWithValue("@prixHT", 18);
+            sql3.Parameters.AddWithValue("@quantite", 15);
+            sql3.ExecuteNonQuery();*/
+
+            initializeListViewArticle();
         }
 
         private void selectXMLToolStripMenuItem_Click(object sender, EventArgs e)
@@ -57,16 +68,43 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             //set default sort ascending 
             listViewArticle.Sorting = SortOrder.Ascending;
 
+            // --- To move --- //
             DBManager dbm = new DBManager();
+            ///////////////////
 
             //initialise columns
             List<string> listNameColumnTable = dbm.getNameColumnTable();
             for (int i=0; i < listNameColumnTable.Count; i++)
-                listViewArticle.Columns.Add(listNameColumnTable.ElementAt(i), listViewArticle.Size.Width / listNameColumnTable.Count);
+            {
+                ColumnHeader colHdr = new ColumnHeader();
+                colHdr.Name = listNameColumnTable.ElementAt(i); //Set a ColumnHeader name 
+                colHdr.Text = listNameColumnTable.ElementAt(i);
+                colHdr.Width = listViewArticle.Size.Width / listNameColumnTable.Count;
+                listViewArticle.Columns.Add(colHdr);
+            }
 
             //initialise data
+            LoadDataListView();
+
+            groupsListView = new List<Hashtable>();
+
+            //Insert in the groupsListView a new hashtable containing all the groups needed for a single column
+            InitialiseGroupsByColumnListView();
+
+            // Start with the groups column refArticle
+            SetGroups(0);
+        }
+
+        private void LoadDataListView()
+        {
+            listViewArticle.Items.Clear();
+
+            // --- To move --- //
+            DBManager dbm = new DBManager();
+            ////////////////////
+
             List<Articles> listArticles = dbm.getAllArticle();
-            for(int i=0; i < listArticles.Count; i++)
+            for (int i = 0; i < listArticles.Count; i++)
             {
                 ListViewItem item = new ListViewItem(new string[] {
                 listArticles.ElementAt(i).Reference,
@@ -76,45 +114,40 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
                 listArticles.ElementAt(i).PrixHT.ToString(),
                 listArticles.ElementAt(i).Quantite.ToString()
                 });
+                item.Name = listArticles.ElementAt(i).Reference;    //Set reference as item name
                 listViewArticle.Items.Add(item);
             }
-
-            // Create the groupsTable array and populate it with one hash table for each column
-            groupsListView = new List<Hashtable>();
-
-            for (int column = 0; column < listViewArticle.Columns.Count; column++)
-            {
-                //Insert in the groupsListView a new hashtable containing all the groups needed for a single column
-                groupsListView.Add(CreateGroupsByColumnListView(column));
-            }
-
-            // Start with the groups column refArticle
-            SetGroups(0);
-
         }
 
         // Creates a Hashtable with one entry for each unique textItem value in the specified column
-        private Hashtable CreateGroupsByColumnListView(int column)
+        private void InitialiseGroupsByColumnListView()
         {
-            Hashtable groupColumn = new Hashtable();
+            //Reset the list
+            groupsListView.Clear();
 
-            // Iterate through the items in myListView
-            for (int i=0; i < listViewArticle.Items.Count; i++)
+            //Create a hashtable for each column
+            for (int column = 0; column < listViewArticle.Columns.Count; column++)
             {
-                ListViewItem item = listViewArticle.Items[i];
-                string textItem = item.SubItems[column].Text;
+                Hashtable groupColumn = new Hashtable();
 
-                // If the groupColumn doesn't already contain a group for the textItem value,
-                // add a new group using the textItem value for the group header and Hashtable key
-                if (!groupColumn.Contains(textItem))
+                // Iterate through the items in myListView
+                for (int i=0; i < listViewArticle.Items.Count; i++)
                 {
-                    groupColumn.Add(textItem, new ListViewGroup(textItem, HorizontalAlignment.Left));
+                    ListViewItem item = listViewArticle.Items[i];
+                    string textItem = item.SubItems[column].Text;
+
+                    // If the groupColumn doesn't already contain a group for the textItem value, 
+                    //add a new group using the textItem value for the group header and Hashtable key
+                    if (!groupColumn.Contains(textItem))
+                    {
+                        groupColumn.Add(textItem, new ListViewGroup(textItem, HorizontalAlignment.Left));
+                    }
                 }
+                groupsListView.Add(groupColumn);
             }
-            return groupColumn;
         }
 
-        // Sets myListView to the groups created for the specified column
+        // Update listViewArticle to the groups created for the specified column
         private void SetGroups(int column)
         {
             listViewArticle.Groups.Clear();
@@ -244,7 +277,32 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
                     MessageBox.Show("ouvrir fenetre modifier");
                     break;
                 case "Supprimer":
-                    MessageBox.Show("supprimer article");
+                    DialogResult dialogResult = MessageBox.Show("Confirmer la supression d'article?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    if (dialogResult == DialogResult.Yes)
+                    {
+                        //  --- To move --- //
+                        DBManager db = new DBManager();
+                        ///////////////////////////////////
+
+                        bool error = false;
+                        //Remove all selected items
+                        for (int i = 0; i < listViewArticle.SelectedItems.Count; i++)
+                            if (!db.removeArticle(listViewArticle.SelectedItems[i].Name)) //get id refArticle with item name
+                                error = true;
+                        if (error)
+                            MessageBox.Show("Suite à une erreur, la supression de cet article a été annulé", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        else
+                        {
+                            LoadDataListView();
+                            InitialiseGroupsByColumnListView();
+                            SetGroups(groupColumn);
+                            MessageBox.Show("L'article a bien été supprimé de la base", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }   
+                    }
+                    else
+                    {
+                        MessageBox.Show("La supression a été annulée", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
                     break;
             }
         }

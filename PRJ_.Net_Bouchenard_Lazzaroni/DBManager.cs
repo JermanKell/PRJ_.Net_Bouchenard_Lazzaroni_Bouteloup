@@ -181,6 +181,22 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
                 return null;
         }
 
+        public bool removeArticle(string reference)
+        {
+            SQLiteCommand sql = new SQLiteCommand(
+                "DELETE FROM Articles WHERE RefArticle = @reference", conn);
+            sql.Parameters.AddWithValue("@reference",reference);
+            try
+            {
+                sql.ExecuteNonQuery();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
         public Familles getFamille(string name = "", int id = -1)
         {
             Familles famille = new Familles();
@@ -290,7 +306,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             }
         }
         
-        public bool existSousFamilleInFamille(int idSousFamille, int idFamille)
+        /*public bool existSousFamilleInFamille(int idSousFamille, int idFamille)
         {
             SQLiteCommand sql = new SQLiteCommand("SELECT * FROM SousFamilles WHERE RefSousFamille = @idSousFamille AND RefFamille = @idFamille", conn);
             sql.Parameters.AddWithValue("@idSousFamille", idSousFamille);
@@ -301,7 +317,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
                 return true;
             else
                 return false;
-        }
+        }*/
 
         public List<string> getTableBdd()
         {
