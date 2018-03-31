@@ -26,7 +26,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             // parser.parse(); PAS ENCORE FONCTIONNEL
 
             //jeu d'essai
-            /*SQLiteCommand sql = new SQLiteCommand(
+            SQLiteCommand sql = new SQLiteCommand(
              "INSERT INTO Articles (RefArticle, Description, RefSousFamille, RefMarque, PrixHT, Quantite) VALUES (@reference, @description, @idSousFamille, @idMarque, @prixHT, @quantite)", DBConnection.getInstance().getDataBase());
             sql.Parameters.AddWithValue("@reference", "first ref");
             sql.Parameters.AddWithValue("@description", "blabla");
@@ -52,7 +52,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             sql3.Parameters.AddWithValue("@idMarque", 1);
             sql3.Parameters.AddWithValue("@prixHT", 18);
             sql3.Parameters.AddWithValue("@quantite", 15);
-            sql3.ExecuteNonQuery();*/
+            sql3.ExecuteNonQuery();
 
             initializeListViewArticle();
         }

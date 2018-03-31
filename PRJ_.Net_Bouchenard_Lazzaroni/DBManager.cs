@@ -293,7 +293,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             }
         }
         
-        /*public bool existSousFamilleInFamille(int idSousFamille, int idFamille)
+        public bool existSousFamilleInFamille(int idSousFamille, int idFamille)
         {
             SQLiteCommand sql = new SQLiteCommand("SELECT * FROM SousFamilles WHERE RefSousFamille = @idSousFamille AND RefFamille = @idFamille", conn);
             sql.Parameters.AddWithValue("@idSousFamille", idSousFamille);
@@ -304,7 +304,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
                 return true;
             else
                 return false;
-        }*/
+        }
 
         public List<string> getTableBdd()
         {
