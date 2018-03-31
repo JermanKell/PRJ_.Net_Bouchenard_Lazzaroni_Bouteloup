@@ -30,7 +30,6 @@ C:\Users\Rémy\Documents\Polytech\Cours\PRJ_.Net_Bouchenard_Lazzaroni_Bouteloup\
 C:\Users\Rémy\Documents\Polytech\Cours\PRJ_.Net_Bouchenard_Lazzaroni_Bouteloup\PRJ_.Net_Bouchenard_Lazzaroni\bin\Debug\System.Data.SQLite.dll
 C:\Users\Rémy\Documents\Polytech\Cours\PRJ_.Net_Bouchenard_Lazzaroni_Bouteloup\PRJ_.Net_Bouchenard_Lazzaroni\bin\Debug\System.Data.SQLite.xml
 C:\Users\Rémy\Documents\Polytech\Cours\PRJ_.Net_Bouchenard_Lazzaroni_Bouteloup\PRJ_.Net_Bouchenard_Lazzaroni\obj\Debug\PRJ_.Net_Bouchenard_Lazzaroni.csprojResolveAssemblyReference.cache
-C:\Users\Rémy\Documents\Polytech\Cours\PRJ_.Net_Bouchenard_Lazzaroni_Bouteloup\PRJ_.Net_Bouchenard_Lazzaroni\obj\Debug\PRJ_.Net_Bouchenard_Lazzaroni.CompoTest.resources
 C:\Users\Rémy\Documents\Polytech\Cours\PRJ_.Net_Bouchenard_Lazzaroni_Bouteloup\PRJ_.Net_Bouchenard_Lazzaroni\obj\Debug\PRJ_.Net_Bouchenard_Lazzaroni.Main.resources
 C:\Users\Rémy\Documents\Polytech\Cours\PRJ_.Net_Bouchenard_Lazzaroni_Bouteloup\PRJ_.Net_Bouchenard_Lazzaroni\obj\Debug\PRJ_.Net_Bouchenard_Lazzaroni.Properties.Resources.resources
 C:\Users\Rémy\Documents\Polytech\Cours\PRJ_.Net_Bouchenard_Lazzaroni_Bouteloup\PRJ_.Net_Bouchenard_Lazzaroni\obj\Debug\PRJ_.Net_Bouchenard_Lazzaroni.SelectXml.resources
