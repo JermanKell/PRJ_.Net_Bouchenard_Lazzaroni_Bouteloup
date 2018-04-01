@@ -26,13 +26,13 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             // parser.parse(); PAS ENCORE FONCTIONNEL
 
             //jeu d'essai
-           /* SQLiteCommand sql = new SQLiteCommand(
-             "INSERT INTO Articles (RefArticle, Description, RefSousFamille, RefMarque, PrixHT, Quantite) VALUES (@reference, @description, @idSousFamille, @idMarque, @prixHT, @quantite)", DBConnection.getInstance().getDataBase());
+            /*SQLiteCommand sql = new SQLiteCommand(
+            "INSERT INTO Articles (RefArticle, Description, RefSousFamille, RefMarque, PrixHT, Quantite) VALUES (@reference, @description, @idSousFamille, @idMarque, @prixHT, @quantite)", DBConnection.getInstance().getDataBase());
             sql.Parameters.AddWithValue("@reference", "first ref");
             sql.Parameters.AddWithValue("@description", "blabla");
             sql.Parameters.AddWithValue("@idSousFamille", 1);
             sql.Parameters.AddWithValue("@idMarque", 1);
-            sql.Parameters.AddWithValue("@prixHT", 30);
+            sql.Parameters.AddWithValue("@prixHT", 30.03);
             sql.Parameters.AddWithValue("@quantite", 5);
             sql.ExecuteNonQuery();
             SQLiteCommand sql2 = new SQLiteCommand(
@@ -41,16 +41,16 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             sql2.Parameters.AddWithValue("@description", "dabc");
             sql2.Parameters.AddWithValue("@idSousFamille", 1);
             sql2.Parameters.AddWithValue("@idMarque", 3);
-            sql2.Parameters.AddWithValue("@prixHT", 15);
+            sql2.Parameters.AddWithValue("@prixHT", 30.01);
             sql2.Parameters.AddWithValue("@quantite", 10);
             sql2.ExecuteNonQuery();
             SQLiteCommand sql3 = new SQLiteCommand(
-"INSERT INTO Articles (RefArticle, Description, RefSousFamille, RefMarque, PrixHT, Quantite) VALUES (@reference, @description, @idSousFamille, @idMarque, @prixHT, @quantite)", DBConnection.getInstance().getDataBase());
+            "INSERT INTO Articles (RefArticle, Description, RefSousFamille, RefMarque, PrixHT, Quantite) VALUES (@reference, @description, @idSousFamille, @idMarque, @prixHT, @quantite)", DBConnection.getInstance().getDataBase());
             sql3.Parameters.AddWithValue("@reference", "third ref");
             sql3.Parameters.AddWithValue("@description", "mlihggb");
             sql3.Parameters.AddWithValue("@idSousFamille", 2);
             sql3.Parameters.AddWithValue("@idMarque", 1);
-            sql3.Parameters.AddWithValue("@prixHT", 18);
+            sql3.Parameters.AddWithValue("@prixHT", "30.02abc");
             sql3.Parameters.AddWithValue("@quantite", 15);
             sql3.ExecuteNonQuery();*/
 
@@ -93,6 +93,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
 
             // Start with the groups column refArticle
             SetGroups(0);
+            listViewArticle.SetSortIcon(0, SortOrder.Ascending);
         }
 
         private void LoadDataListView()
@@ -223,6 +224,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
 
             // Set the groups to those created for the clicked column
             SetGroups(e.Column);
+            listViewArticle.SetSortIcon(e.Column, listViewArticle.Sorting);
         }
 
         private void Main_KeyUp(object sender, KeyEventArgs e)

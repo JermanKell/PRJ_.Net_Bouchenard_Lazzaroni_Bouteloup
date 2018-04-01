@@ -72,6 +72,7 @@
     <Compile Include="DBConnection.cs" />
     <Compile Include="DBManager.cs" />
     <Compile Include="Familles.cs" />
+    <Compile Include="ListViewExtensions.cs" />
     <Compile Include="Main.cs">
       <SubType>Form</SubType>
     </Compile>
