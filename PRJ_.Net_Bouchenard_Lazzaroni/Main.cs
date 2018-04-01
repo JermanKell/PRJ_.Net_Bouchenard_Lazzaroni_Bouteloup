@@ -235,6 +235,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
                 listViewArticle.Sorting = SortOrder.Ascending;
                 // Set the groups to those created for the clicked column.
                 SetGroups(0);
+                listViewArticle.SetSortIcon(0, SortOrder.Ascending);
 
             }
         }
@@ -258,7 +259,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             //Supprimer article
             if (e.KeyCode == Keys.Delete && listViewArticle.SelectedItems.Count != 0)
             {
-                MessageBox.Show(listViewArticle.FocusedItem.Index.ToString());
+                deleteArticleListView();
             }
         }
 
@@ -291,32 +292,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
                     MessageBox.Show("ouvrir fenetre modifier");
                     break;
                 case "Supprimer":
-                    DialogResult dialogResult = MessageBox.Show("Confirmer la supression d'article?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                    if (dialogResult == DialogResult.Yes)
-                    {
-                        //  --- To move --- //
-                        DBManager db = new DBManager();
-                        ///////////////////////////////////
-
-                        bool error = false;
-                        //Remove all selected items
-                        for (int i = 0; i < listViewArticle.SelectedItems.Count; i++)
-                            if (!db.removeArticle(listViewArticle.SelectedItems[i].Name)) //get id refArticle with item name
-                                error = true;
-                        if (error)
-                            MessageBox.Show("Suite à une erreur, la supression de cet article a été annulé", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        else
-                        {
-                            LoadDataListView();
-                            InitialiseGroupsByColumnListView();
-                            SetGroups(groupColumn);
-                            MessageBox.Show("L'article a bien été supprimé de la base", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        }   
-                    }
-                    else
-                    {
-                        MessageBox.Show("La supression a été annulée", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
+                    deleteArticleListView();
                     break;
             }
         }
@@ -325,6 +301,37 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         {
             for(int i=0; i < listViewArticle.Columns.Count; i++)
                 listViewArticle.Columns[i].Width = (listViewArticle.Size.Width / listViewArticle.Columns.Count);
+        }
+
+        private void deleteArticleListView()
+        {
+            DialogResult dialogResult = MessageBox.Show("Confirmer la supression d'article?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (dialogResult == DialogResult.Yes)
+            {
+                //  --- To move --- //
+                DBManager db = new DBManager();
+                ///////////////////////////////////
+
+                bool error = false;
+                //Remove all selected items
+                for (int i = 0; i < listViewArticle.SelectedItems.Count; i++)
+                    if (!db.removeArticle(listViewArticle.SelectedItems[i].Name)) //get id refArticle with item name
+                        error = true;
+                if (error)
+                    statusStrip.Items[0].Text = "Une erreur a empêché la supression de cet article";
+                else
+                {
+                    LoadDataListView();
+                    InitialiseGroupsByColumnListView();
+                    SetGroups(groupColumn);
+                    listViewArticle.SetSortIcon(groupColumn, listViewArticle.Sorting);
+                    statusStrip.Items[0].Text = "L'article a bien été supprimé de la base";
+                }
+            }
+            else
+            {
+                statusStrip.Items[0].Text = "La supression d'article a été annulée";
+            }
         }
     }
 }

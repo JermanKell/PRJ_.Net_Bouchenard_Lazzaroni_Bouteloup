@@ -30,11 +30,11 @@
         {
             this.components = new System.ComponentModel.Container();
             this.statusStrip = new System.Windows.Forms.StatusStrip();
-            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.listViewArticle = new System.Windows.Forms.ListView();
             this.selectXMLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip = new System.Windows.Forms.MenuStrip();
             this.rightclickMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.statusStrip.SuspendLayout();
             this.menuStrip.SuspendLayout();
             this.SuspendLayout();
@@ -42,17 +42,12 @@
             // statusStrip
             // 
             this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripStatusLabel1});
+            this.toolStripStatusLabel});
             this.statusStrip.Location = new System.Drawing.Point(0, 539);
             this.statusStrip.Name = "statusStrip";
             this.statusStrip.Size = new System.Drawing.Size(677, 22);
             this.statusStrip.TabIndex = 1;
             this.statusStrip.Text = "statusStrip";
-            // 
-            // toolStripStatusLabel1
-            // 
-            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(0, 17);
             // 
             // listViewArticle
             // 
@@ -97,6 +92,12 @@
             this.rightclickMenuStrip.Size = new System.Drawing.Size(61, 4);
             this.rightclickMenuStrip.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.rightclickMenuStrip_ItemClicked);
             // 
+            // toolStripStatusLabel
+            // 
+            this.toolStripStatusLabel.Margin = new System.Windows.Forms.Padding(10, 3, 0, 2);
+            this.toolStripStatusLabel.Name = "toolStripStatusLabel";
+            this.toolStripStatusLabel.Size = new System.Drawing.Size(0, 17);
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -122,11 +123,11 @@
         #endregion
 
         private System.Windows.Forms.StatusStrip statusStrip;
-        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
         private System.Windows.Forms.ListView listViewArticle;
         private System.Windows.Forms.ToolStripMenuItem selectXMLToolStripMenuItem;
         private System.Windows.Forms.MenuStrip menuStrip;
         private System.Windows.Forms.ContextMenuStrip rightclickMenuStrip;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel;
     }
 }
 
