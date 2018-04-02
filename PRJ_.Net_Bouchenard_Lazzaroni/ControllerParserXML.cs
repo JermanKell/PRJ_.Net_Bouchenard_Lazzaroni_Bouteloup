@@ -11,48 +11,58 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
 {
     abstract class ControllerParserXML
     {
+        public event EventHandler<MyEventArgs> sendMessageToView; // Send events to the view
+
         protected XmlDocument xmlDocument; // Allow to navigate in the xml file
         protected DBManager dbManager; // Access SQL command
         protected string filename; // Content the path of the file
         protected Articles article;
         protected XmlNode node; // To store the current node when parsing
+        protected MyEventArgs argsEvent; // Store args for event
 
         abstract public void parse(); // Each child implement his own version of parsing.
 
         public ControllerParserXML(string filename) // Check if the file exist and if xmlDocument is able to load it.
         {
             this.filename = filename;
+            argsEvent = new MyEventArgs();
             dbManager = new DBManager();
             xmlDocument = new XmlDocument();
             article = null;
+        }
 
-            try
-            {
-                xmlDocument.Load(filename); // Load the file into the XMLDocument
-            }
-            catch (Exception e) { MessageBox.Show(e.Message); }
+        protected void sendSignal(TypeMessage type, SubjectMessage subject, string message) // Called by this class and childs when they want to send a message to the view
+        {
+            argsEvent.message = message;
+            argsEvent.subject = subject;
+            argsEvent.type = type;
+            
+            sendMessageToView(this, argsEvent);
+        }
+
+        protected void loadDocument()
+        {
+            xmlDocument.Load(filename); // Load the file into the XMLDocument
+            sendSignal(TypeMessage.Success, SubjectMessage.Xml_Structure, "File loaded");
         }
 
         protected void verifyFile() // Verify the structure of the xml file
         {
-            try
-            {
-                XmlSchemaSet schemaSet = new XmlSchemaSet();
-                schemaSet.Add(null, "../../validateXMLFile.xsd"); // Add the xsd to the schema
-                xmlDocument.Schemas.Add(schemaSet); // Add the schema to the xml document
-                ValidationEventHandler veh = new ValidationEventHandler(sendSignal); // Send event when something goes wrong.
-                xmlDocument.Validate(veh); // Run the validation
-            } catch (Exception e) { MessageBox.Show(e.Message); }
+            XmlSchemaSet schemaSet = new XmlSchemaSet();
+            schemaSet.Add(null, "../../validateXMLFile.xsd"); // Add the xsd to the schema
+            xmlDocument.Schemas.Add(schemaSet); // Add the schema to the xml document
+            ValidationEventHandler veh = new ValidationEventHandler(eventVerifyStructure); // Send event when something goes wrong.
+            xmlDocument.Validate(veh); // Run the validation
+            sendSignal(TypeMessage.Success, SubjectMessage.Xml_Structure, "XML structure is valid");
         }
 
-        protected static void sendSignal(object sender, ValidationEventArgs args)
+        protected void eventVerifyStructure(object sender, ValidationEventArgs args) // Signal send by verifyFile() when the xml structure does not correct.
         {
-            MessageBox.Show("Problème !");
-            //MessageBox.Show(args.Message);
+            throw new System.Exception(args.Message);
         }
 
         protected void addArticle()
-        {
+        {   
             article = new Articles();
 
             article.Description = node.SelectSingleNode("description").InnerText;
@@ -66,6 +76,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             article.Quantite = 1;
 
             dbManager.insertArticle(article);
+            sendSignal(TypeMessage.Success, SubjectMessage.Add_Article, "The article " + article.Reference + " has been added");
         }
 
         private void treatFamille()
@@ -80,10 +91,12 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
                 }
                 else
                 {
-                    // SEND SIGNAL HERE TO INFORM THE VIEW A MISTAKE HAS BEEN DETECTED IN THE XML (SPELLING MISTAKE)
+                    sendSignal(TypeMessage.Warning, SubjectMessage.Spelling_Mistake,
+                        "The familly of the article " + article.Reference + " is \""
+                        + node.SelectSingleNode("famille").InnerText + "\". It has been replaced by \"" + famille.Nom + "\"");
+
                     article.IdFamille = famille.Id;
                     node.SelectSingleNode("famille").InnerText = famille.Nom; // Change the text of the XML to correct the spelling mistake
-                    xmlDocument.Save(filename); // Apply modification to the document.
                 }
             }
             else
@@ -95,6 +108,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             Familles famille = new Familles();
             famille.Nom = node.SelectSingleNode("famille").InnerText;
             article.IdFamille = dbManager.insertFamille(famille); // Insert return the last id of the famille added.
+            sendSignal(TypeMessage.Success, SubjectMessage.Add_Famille, "The familly " + famille.Nom + " has been created");
         }
 
         private void treatSousFamille()
@@ -109,18 +123,19 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
                 }
                 else
                 {
-                    // SEND SIGNAL HERE TO INFORM THE VIEW A MISTAKE HAS BEEN DETECTED IN THE XML (SPELLING MISTAKE)
+                    sendSignal(TypeMessage.Warning, SubjectMessage.Spelling_Mistake,
+                        "The subfamilly of the article " + article.Reference + " is \""
+                        + node.SelectSingleNode("sousFamille").InnerText + "\". It has been replaced by \"" + sousFamille.Nom + "\"");
+
                     article.IdSousFamille = sousFamille.Id;
+
                     // Generate error when the sousFamille don't belong to the good famille
                     if (!dbManager.existSousFamilleInFamille(article.IdSousFamille, article.IdFamille))
                     {
-                        // TODO
-                        sendSignal(null, null);
+                        // Generate error because a sousFamille don't belong to twice famille. (this sousFamille has already a famille)
                     }
                     node.SelectSingleNode("sousFamille").InnerText = sousFamille.Nom; // Change the text of the XML to correct the spelling mistake
-                    xmlDocument.Save(filename); // Apply modification to the document.
                 }
-
             }
             else
             {
@@ -128,8 +143,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
                 // Generate error when the sousFamille don't belong to the good famille
                 if (!dbManager.existSousFamilleInFamille(article.IdSousFamille, article.IdFamille))
                 {
-                    // TODO
-                    sendSignal(null, null);
+                    // GENERATE ERROR
                 }
             }
         }
@@ -140,6 +154,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             sousFamille.IdFamille = article.IdFamille;
             sousFamille.Nom = node.SelectSingleNode("sousFamille").InnerText;
             article.IdSousFamille = dbManager.insertSousFamille(sousFamille); // Insert return the last id of the sousFamille added.
+            sendSignal(TypeMessage.Success, SubjectMessage.Add_Famille, "The subfamilly " + sousFamille.Nom + " has been created");
         }
 
         private void treatMarque()
@@ -154,10 +169,12 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
                 }
                 else
                 {
-                    // SEND SIGNAL HERE TO INFORM THE VIEW A MISTAKE HAS BEEN DETECTED IN THE XML (SPELLING MISTAKE)
+                    sendSignal(TypeMessage.Warning, SubjectMessage.Spelling_Mistake,
+                        "The brand of the article " + article.Reference + " is \""
+                        + node.SelectSingleNode("marque").InnerText + "\". It has been replaced by \"" + marque.Nom + "\"");
+
                     article.IdMarque = marque.Id;
                     node.SelectSingleNode("marque").InnerText = marque.Nom; // Change the text of the XML to correct the spelling mistake
-                    xmlDocument.Save(filename); // Apply modification to the document.
                 }
             }
             else
@@ -169,6 +186,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             Marques marque = new Marques();
             marque.Nom = node.SelectSingleNode("marque").InnerText;
             article.IdMarque = dbManager.insertMarque(marque); // Insert return the last id of the marque added.
+            sendSignal(TypeMessage.Success, SubjectMessage.Add_Famille, "The marque " + marque.Nom + " has been created");
         }
 
         protected bool checkDoubleArticle()

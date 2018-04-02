@@ -14,23 +14,28 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
 
         public override void parse()
         {
-            verifyFile();
-            dbManager.deleteTables(); // Clear the database
-
-            XmlNodeList nodelist = xmlDocument.SelectNodes("/materiels/article"); // get all <article> nodes
-
-            foreach (XmlNode node in nodelist) // for each <article> node
+            try
             {
-                this.node = node;
+                loadDocument();
+                verifyFile();
+                dbManager.deleteTables(); // Clear the database
 
-                try
+                XmlNodeList nodelist = xmlDocument.SelectNodes("/materiels/article"); // get all <article> nodes
+
+                foreach (XmlNode node in nodelist) // for each <article> node
                 {
+                    this.node = node;
+
                     if (!checkDoubleArticle()) // Check if the article already exist
                         addArticle(); // Add new article
                     else
                         treatDoubleArticle(); // When the article is already exist. Check if the information in XML file are the same than database.
-                }  
-                catch (Exception e) { MessageBox.Show(e.Message); }
+                }
+                //xmlDocument.Save(filename); // Apply modification to the document (fix spelling mistake).
+            }
+            catch (Exception e)
+            {
+                sendSignal(TypeMessage.Critical, SubjectMessage.Xml_Structure, e.Message);
             }
         }
 
@@ -43,12 +48,17 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             if (article.Description.CompareTo(node.SelectSingleNode("description").InnerText) != 0) // Equals or not
                 if (distanceLevenshtein(article.Description, node.SelectSingleNode("description").InnerText) <= 2) // Spelling mistake or not
                 {
-                    // SEND SIGNAL SPELLING MISTAKE IN DESCRIPTION
+                    sendSignal(TypeMessage.Warning, SubjectMessage.Spelling_Mistake, 
+                        "The description of the article " + article.Reference + " is \"" 
+                        + node.SelectSingleNode("description").InnerText + "\". It has been replaced by \"" + article.Description + "\"");
+
                     node.SelectSingleNode("sousFamille").InnerText = article.Description; // Change the text of the XML to correct the spelling mistake
                 }
                 else // String totally different
                 {
-                    // SEND SIGNAL WRONG DESCRIPTION
+                    sendSignal(TypeMessage.Error, SubjectMessage.Wrong_Information, 
+                        "Cannot increment the quantity of the article " + article.Reference + " because it doesn't have the same description than the article in the database");
+
                     error = true;
                 }
 
@@ -57,12 +67,17 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             if (nom.CompareTo(node.SelectSingleNode("famille").InnerText) != 0) // Equals or not
                 if (distanceLevenshtein(nom, node.SelectSingleNode("famille").InnerText) <= 2) // Check if it's the same famille
                 {
-                    // SEND SIGNAL SPELLING MISTAKE IN DESCRIPTION
+                    sendSignal(TypeMessage.Warning, SubjectMessage.Spelling_Mistake,
+                        "The familly of the article " + article.Reference + " is \""
+                        + node.SelectSingleNode("famille").InnerText + "\". It has been replaced by \"" + nom + "\"");
+
                     node.SelectSingleNode("famille").InnerText = nom; // Change the text of the XML to correct the spelling mistake
                 }
                 else
                 {
-                    // SEND SIGNAL WRONG DESCRIPTION
+                    sendSignal(TypeMessage.Error, SubjectMessage.Wrong_Information,
+                        "Cannot increment the quantity of the article " + article.Reference + " because it doesn't have the same familly than the article in the database");
+
                     error = true;
                 }
 
@@ -71,12 +86,17 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             if (nom.CompareTo(node.SelectSingleNode("sousFamille").InnerText) != 0) // Equals or not
                 if (distanceLevenshtein(nom, node.SelectSingleNode("sousFamille").InnerText) <= 2) // Check if it's the same sousFamille
                 {
-                    // SEND SIGNAL SPELLING MISTAKE IN DESCRIPTION
+                    sendSignal(TypeMessage.Warning, SubjectMessage.Spelling_Mistake,
+                        "The subfamily of the article " + article.Reference + " is \""
+                        + node.SelectSingleNode("sousFamille").InnerText + "\". It has been replaced by \"" + nom + "\"");
+
                     node.SelectSingleNode("sousFamille").InnerText = nom; // Change the text of the XML to correct the spelling mistake
                 }
                 else
                 {
-                    // SEND SIGNAL WRONG DESCRIPTION
+                    sendSignal(TypeMessage.Error, SubjectMessage.Wrong_Information,
+                        "Cannot increment the quantity of the article " + article.Reference + " because it doesn't have the same subfamily than the article in the database");
+
                     error = true;
                 }
 
@@ -85,19 +105,23 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             if (nom.CompareTo(node.SelectSingleNode("marque").InnerText) != 0) // Equals or not
                 if (distanceLevenshtein(nom, node.SelectSingleNode("marque").InnerText) <= 2) // Check if it's the same marque
                 {
-                    // SEND SIGNAL SPELLING MISTAKE IN DESCRIPTION
+                    sendSignal(TypeMessage.Warning, SubjectMessage.Spelling_Mistake,
+                        "The marque of the article " + article.Reference + " is \""
+                        + node.SelectSingleNode("marque").InnerText + "\". It has been replaced by \"" + nom + "\"");
                     node.SelectSingleNode("marque").InnerText = nom; // Change the text of the XML to correct the spelling mistake
                 }
                 else
                 {
-                    // SEND SIGNAL WRONG DESCRIPTION
+                    sendSignal(TypeMessage.Error, SubjectMessage.Wrong_Information,
+                        "Cannot increment the quantity of the article " + article.Reference + " because it doesn't have the same marque than the article in the database");
                     error = true;
                 }
 
             if (!error) // If all information are the same than database, increment quantity of the article
+            {
+                sendSignal(TypeMessage.Success, SubjectMessage.Update_Article, "The quantity of the article " + article.Reference + " has been incremented");
                 dbManager.updateQuantiteArticle(node.SelectSingleNode("refArticle").InnerText);
-
-            xmlDocument.Save(filename); // Apply modification to the document
+            }   
         }
     }
 }

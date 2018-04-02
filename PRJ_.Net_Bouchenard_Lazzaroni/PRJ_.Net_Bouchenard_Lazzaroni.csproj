@@ -79,6 +79,7 @@
       <DependentUpon>Main.cs</DependentUpon>
     </Compile>
     <Compile Include="Marques.cs" />
+    <Compile Include="MyEventArgs.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SelectXml.cs">
@@ -88,6 +89,7 @@
       <DependentUpon>SelectXml.cs</DependentUpon>
     </Compile>
     <Compile Include="SousFamilles.cs" />
+    <Compile Include="TypeMessage.cs" />
     <Compile Include="VueArticle.cs">
       <SubType>Form</SubType>
     </Compile>

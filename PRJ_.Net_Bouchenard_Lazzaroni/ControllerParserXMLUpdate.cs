@@ -14,22 +14,28 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
 
         public override void parse()
         {
-            verifyFile();
-
-            XmlNodeList nodelist = xmlDocument.SelectNodes("/materiels/article"); // get all <article> nodes
-
-            foreach (XmlNode node in nodelist) // for each <article> node
+            try
             {
-                this.node = node;
+                loadDocument();
+                verifyFile();
 
-                try
+                XmlNodeList nodelist = xmlDocument.SelectNodes("/materiels/article"); // get all <article> nodes
+
+                foreach (XmlNode node in nodelist) // for each <article> node
                 {
+                    this.node = node;
+
                     if (!checkDoubleArticle()) // Check if the article already exist
                         addArticle();
                     else
                         updateArticle(); // When the article is already exist. Update information to the database
                 }
-                catch (Exception e) { MessageBox.Show(e.Message); }
+                //xmlDocument.Save(filename); // Apply modification to the document (fix spelling mistake).
+            }
+            catch (Exception e)
+            {
+                sendSignal(TypeMessage.Critical, SubjectMessage.Xml_Structure, e.Message);
+                throw;
             }
         }
 
@@ -52,7 +58,9 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
                     article.IdSousFamille = sousFamille.Id; // Set the new id of the sousFamille
                 else
                 {
-                    sendSignal(null, null); // Generate error because a sousFamille don't belong to twice famille. (this sousFamille has already a famille)
+                    // Generate error because a sousFamille don't belong to twice famille. (this sousFamille has already a famille)
+                    sendSignal(TypeMessage.Error, SubjectMessage.Update_Famille,
+                        "Article " + article.Reference + ". His familly has not been updated because his subfamily does not match with the new familly");
                 }
             }
                 

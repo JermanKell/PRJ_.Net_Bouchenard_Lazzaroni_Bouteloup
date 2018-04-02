@@ -21,9 +21,6 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         public Main()
         {
             InitializeComponent();
-            ControllerParserXML parser = new ControllerParserXMLAdd("../../Mercure.xml");
-            parser.parse();
-
             initializeListViewArticle();
             //jeu d'essai
             /*SQLiteCommand sql = new SQLiteCommand(

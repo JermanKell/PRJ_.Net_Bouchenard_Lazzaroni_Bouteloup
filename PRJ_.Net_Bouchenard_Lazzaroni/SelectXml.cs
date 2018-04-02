@@ -18,6 +18,8 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
     public partial class SelectXml : Form
     {
         private Stream stream;
+        private string filename;
+
         public SelectXml()
         {
             InitializeComponent();
@@ -34,21 +36,70 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
 
             if (DocOpen_Window.ShowDialog() == DialogResult.OK)
             {
-                stream = DocOpen_Window.OpenFile();
+                //stream = DocOpen_Window.OpenFile(); // Pourquoi tu a besoin d'ouvrir le fichier ? Cela me pose des problèmes quand je veux y appliquer des modifications.
+                filename = DocOpen_Window.FileName; // Full path of the file
                 lab_FName.Text = DocOpen_Window.SafeFileName;
             }
 
-
             //foreach(XmlNode xNode in xml.DocumentElement.ChildNodes)
-
-
         }
 
         private void btnIntegrate_Click(object sender, EventArgs e)
         {
-            if (Update_XML.Checked == true) MessageBox.Show("Ca marche 2");
-            if (Integration_XML.Checked == true) MessageBox.Show("Ca marche 1");
+            listView.Items.Clear(); // Remove all items<
+
+            if (lab_FName.Text.CompareTo("") != 0) // If no file has selected
+            {
+                ControllerParserXML controllerParser;
+
+                if (Update_XML.Checked == true)
+                {
+                    controllerParser = new ControllerParserXMLUpdate(filename);
+                    controllerParser.sendMessageToView += eventReceived;
+                    controllerParser.parse();
+                }
+                if (Integration_XML.Checked == true)
+                {
+                    controllerParser = new ControllerParserXMLAdd(filename);
+                    controllerParser.sendMessageToView += eventReceived;
+                    controllerParser.parse();
+                }
+            }
+
             //ExempleRequete();
+        }
+
+        void eventReceived(object sender, MyEventArgs e)
+        {
+            if (e.type == TypeMessage.Success)
+            {
+                ListViewItem listViewItem = new ListViewItem(new[] { e.message, "Success", e.subject.ToString() });
+                listViewItem.ForeColor = Color.Green;
+                listView.Items.Add(listViewItem);
+                listView.Refresh();
+            }
+            else if (e.type == TypeMessage.Warning)
+            {
+                ListViewItem listViewItem = new ListViewItem(new[] { e.message, "Warning", e.subject.ToString() });
+                listViewItem.ForeColor = Color.Brown;
+                listView.Items.Add(listViewItem);
+                listView.Refresh();
+            }
+            else if (e.type == TypeMessage.Error)
+            {
+                ListViewItem listViewItem = new ListViewItem(new[] { e.message, "Error", e.subject.ToString() });
+                listViewItem.ForeColor = Color.Red;
+                listView.Items.Add(listViewItem);
+                listView.Refresh();
+            }
+            else
+            {
+                ListViewItem listViewItem = new ListViewItem(new[] { e.message, "Critical", e.subject.ToString() });
+                listViewItem.ForeColor = Color.Black;
+                listViewItem.BackColor = Color.Red;
+                listView.Items.Add(listViewItem);
+                listView.Refresh();
+            }
         }
 
         public void ExempleRequete()
