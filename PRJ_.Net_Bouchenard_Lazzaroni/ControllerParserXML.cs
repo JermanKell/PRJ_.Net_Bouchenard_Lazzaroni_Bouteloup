@@ -69,14 +69,16 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             article.Reference = node.SelectSingleNode("refArticle").InnerText;
 
             treatFamille();
-            treatSousFamille();
-            treatMarque();
+            if (!treatSousFamille()) // Check if the subFamily correspond to the good family. If mistake, generate error signal and the article won't be updatd.
+            {
+                treatMarque();
 
-            article.PrixHT = Convert.ToDouble(node.SelectSingleNode("prixHT").InnerText);
-            article.Quantite = 1;
+                article.PrixHT = Convert.ToDouble(node.SelectSingleNode("prixHT").InnerText);
+                article.Quantite = 1;
 
-            dbManager.insertArticle(article);
-            sendSignal(TypeMessage.Success, SubjectMessage.Add_Article, "The article " + article.Reference + " has been added");
+                dbManager.insertArticle(article);
+                sendSignal(TypeMessage.Success, SubjectMessage.Add_Article, "The article " + article.Reference + " has been added");
+            }
         }
 
         private void treatFamille()
@@ -111,8 +113,10 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             sendSignal(TypeMessage.Success, SubjectMessage.Add_Famille, "The familly " + famille.Nom + " has been created");
         }
 
-        private void treatSousFamille()
+        private bool treatSousFamille()
         {
+            bool foundMistake = false;
+
             SousFamilles sousFamille = dbManager.getSousFamille(node.SelectSingleNode("sousFamille").InnerText); // Check if the sousFamille already exist
             if (sousFamille == null) // If the sousFamille does not exist
             {
@@ -132,7 +136,10 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
                     // Generate error when the sousFamille don't belong to the good famille
                     if (!dbManager.existSousFamilleInFamille(article.IdSousFamille, article.IdFamille))
                     {
-                        // Generate error because a sousFamille don't belong to twice famille. (this sousFamille has already a famille)
+                        sendSignal(TypeMessage.Error, SubjectMessage.Wrong_Information,
+                        "Cannot add the article " + article.Reference + " because his family does not match to his sub family");
+
+                        foundMistake = true;
                     }
                     node.SelectSingleNode("sousFamille").InnerText = sousFamille.Nom; // Change the text of the XML to correct the spelling mistake
                 }
@@ -143,9 +150,13 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
                 // Generate error when the sousFamille don't belong to the good famille
                 if (!dbManager.existSousFamilleInFamille(article.IdSousFamille, article.IdFamille))
                 {
-                    // GENERATE ERROR
+                    sendSignal(TypeMessage.Error, SubjectMessage.Wrong_Information,
+                        "Cannot add the article " + article.Reference + " because his family does not match to his sub family");
+
+                    foundMistake = true;
                 }
             }
+            return foundMistake;
         }
 
         protected void newSousFamille()
