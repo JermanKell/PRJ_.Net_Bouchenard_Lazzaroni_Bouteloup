@@ -6,7 +6,7 @@ using System.Text;
 
 namespace PRJ_.Net_Bouchenard_Lazzaroni
 {
-    class Articles
+    public class Articles
     {
         private string description;
         private string reference;

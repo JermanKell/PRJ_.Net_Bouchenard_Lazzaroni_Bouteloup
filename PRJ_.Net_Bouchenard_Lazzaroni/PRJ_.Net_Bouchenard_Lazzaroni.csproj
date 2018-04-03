@@ -111,6 +111,9 @@
     <EmbeddedResource Include="SelectXml.resx">
       <DependentUpon>SelectXml.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="VueArticle.resx">
+      <DependentUpon>VueArticle.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Mercure.SQLite">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

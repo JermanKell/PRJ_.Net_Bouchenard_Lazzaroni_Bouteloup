@@ -243,8 +243,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         private void listViewArticle_DoubleClick(object sender, EventArgs e)
         {
             //Modifier article
-            VueArticle vA = new VueArticle();
-            vA.ShowDialog();
+            UpdateArticleListView();
         }
 
         private void listViewArticle_KeyUp(object sender, KeyEventArgs e)
@@ -252,14 +251,13 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             //Modifier article
             if (e.KeyCode == Keys.Enter && listViewArticle.SelectedItems.Count != 0)
             {
-                VueArticle vA = new VueArticle();
-                vA.ShowDialog();
+                UpdateArticleListView();
             }
 
             //Supprimer article
             if (e.KeyCode == Keys.Delete && listViewArticle.SelectedItems.Count != 0)
             {
-                deleteArticleListView();
+                DeleteArticleListView();
             }
         }
 
@@ -286,13 +284,13 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             switch(e.ClickedItem.Text)
             {
                 case "Ajouter":
-                    MessageBox.Show("ouvrir fenetre ajouter");
+                    AddArticleListView();
                     break;
                 case "Modifier":
-                    MessageBox.Show("ouvrir fenetre modifier");
+                    UpdateArticleListView();
                     break;
                 case "Supprimer":
-                    deleteArticleListView();
+                    DeleteArticleListView();
                     break;
             }
         }
@@ -303,7 +301,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
                 listViewArticle.Columns[i].Width = (listViewArticle.Size.Width / listViewArticle.Columns.Count);
         }
 
-        private void deleteArticleListView()
+        private void DeleteArticleListView()
         {
             DialogResult dialogResult = MessageBox.Show("Confirmer la supression d'article?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (dialogResult == DialogResult.Yes)
@@ -332,6 +330,20 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             {
                 statusStrip.Items[0].Text = "La supression d'article a été annulée";
             }
+        }
+
+        private void AddArticleListView()
+        {
+            VueArticle vA = new VueArticle();
+            vA.ShowDialog();
+        }
+
+        private void UpdateArticleListView()
+        {
+            DBManager dbm = new DBManager();
+            Articles SelectedArticle = dbm.getArticle(listViewArticle.SelectedItems[0].Name); //first selected item only
+            VueArticle vA = new VueArticle(SelectedArticle);
+            vA.ShowDialog();
         }
     }
 }
