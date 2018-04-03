@@ -32,6 +32,10 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
                         treatDoubleArticle(); // When the article is already exist. Check if the information in XML file are the same than database.
                 }
                 //xmlDocument.Save(filename); // Apply modification to the document (fix spelling mistake).
+
+                sendSignal(TypeMessage.Success, SubjectMessage.Finish, 
+                    "Success : " + counterTypeMessage[TypeMessage.Success] + "   Warning : " + counterTypeMessage[TypeMessage.Warning] + 
+                    "   Error : " +counterTypeMessage[TypeMessage.Error] + "   Critical : " + counterTypeMessage[TypeMessage.Critical]);
             }
             catch (Exception e)
             {

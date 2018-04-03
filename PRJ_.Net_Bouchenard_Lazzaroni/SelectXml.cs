@@ -100,6 +100,8 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
                 listView.Items.Add(listViewItem);
                 listView.Refresh();
             }
+
+            listView.EnsureVisible(listView.Items.Count - 1); // Auto scroll down
         }
 
         public void ExempleRequete()

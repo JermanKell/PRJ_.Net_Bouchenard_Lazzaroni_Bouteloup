@@ -30,6 +30,8 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         Update_SousFamille,
 
         Add_Marque,
-        Update_Marque
+        Update_Marque,
+
+        Finish
     }
 }

@@ -19,6 +19,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         protected Articles article;
         protected XmlNode node; // To store the current node when parsing
         protected MyEventArgs argsEvent; // Store args for event
+        protected Dictionary<TypeMessage, int> counterTypeMessage; // To know how many success, warning, error, critical, ...
 
         abstract public void parse(); // Each child implement his own version of parsing.
 
@@ -29,6 +30,11 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             dbManager = new DBManager();
             xmlDocument = new XmlDocument();
             article = null;
+
+            // Init dictionary. One entry = one enum
+            counterTypeMessage = new Dictionary<TypeMessage, int>();
+            foreach (TypeMessage foo in Enum.GetValues(typeof(TypeMessage)))
+                counterTypeMessage.Add(foo, 0);
         }
 
         protected void sendSignal(TypeMessage type, SubjectMessage subject, string message) // Called by this class and childs when they want to send a message to the view
@@ -36,7 +42,9 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             argsEvent.message = message;
             argsEvent.subject = subject;
             argsEvent.type = type;
-            
+
+            counterTypeMessage[type] += 1; // Increment the counter
+
             sendMessageToView(this, argsEvent);
         }
 
