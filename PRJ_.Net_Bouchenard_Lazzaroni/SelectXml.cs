@@ -71,35 +71,22 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
 
         void eventReceived(object sender, MyEventArgs e)
         {
+            ListViewItem listViewItem = new ListViewItem(new[] { e.message, e.type.ToString(), e.subject.ToString()});
+
             if (e.type == TypeMessage.Success)
-            {
-                ListViewItem listViewItem = new ListViewItem(new[] { e.message, "Success", e.subject.ToString() });
                 listViewItem.ForeColor = Color.Green;
-                listView.Items.Add(listViewItem);
-                listView.Refresh();
-            }
             else if (e.type == TypeMessage.Warning)
-            {
-                ListViewItem listViewItem = new ListViewItem(new[] { e.message, "Warning", e.subject.ToString() });
                 listViewItem.ForeColor = Color.Brown;
-                listView.Items.Add(listViewItem);
-                listView.Refresh();
-            }
             else if (e.type == TypeMessage.Error)
-            {
-                ListViewItem listViewItem = new ListViewItem(new[] { e.message, "Error", e.subject.ToString() });
                 listViewItem.ForeColor = Color.Red;
-                listView.Items.Add(listViewItem);
-                listView.Refresh();
-            }
             else
             {
-                ListViewItem listViewItem = new ListViewItem(new[] { e.message, "Critical", e.subject.ToString() });
                 listViewItem.ForeColor = Color.Black;
                 listViewItem.BackColor = Color.Red;
-                listView.Items.Add(listViewItem);
-                listView.Refresh();
             }
+
+            listView.Items.Add(listViewItem);
+            listView.Refresh();
 
             listView.EnsureVisible(listView.Items.Count - 1); // Auto scroll down
         }
