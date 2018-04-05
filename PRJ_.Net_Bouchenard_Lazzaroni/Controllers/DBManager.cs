@@ -224,6 +224,21 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
                 return null;
         }
 
+        public bool removeFamille(int refId)
+        {
+            SQLiteCommand sql = new SQLiteCommand("DELETE FROM Familles WHERE RefFamille = @reference", conn);
+            sql.Parameters.AddWithValue("@reference", refId);
+            try
+            {
+                sql.ExecuteNonQuery();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
         public SousFamilles getSousFamille(string name = "", int id = -1)
         {
             SousFamilles sousFamille = new SousFamilles();
@@ -276,6 +291,26 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             }
             else
                 return null;
+        }
+
+        public bool updateFamilles(Familles fam)
+        {
+            bool res = false;
+
+            SQLiteCommand sql = new SQLiteCommand("UPDATE Familles SET Nom = @nom", conn);
+            sql.Parameters.AddWithValue("@nom", fam.Nom);
+
+            try
+            {
+                sql.ExecuteNonQuery();
+                res = true;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+            return res;
         }
 
         public void updateQuantiteArticle(string refArticle)
