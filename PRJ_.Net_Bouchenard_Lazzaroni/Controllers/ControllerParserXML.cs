@@ -336,16 +336,16 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             int bestDistance = 255, tempDistance;
             Familles famille = null;
 
-            List<Familles> listFamille = dbManager.getAllFamilles(); // Retrieve all family of the database
+            Dictionary<int, Familles> listFamille = dbManager.getAllFamilles(); // Retrieve all family of the database
 
-            foreach (Familles oneOfList in listFamille)
+            foreach (KeyValuePair<int, Familles> entry in listFamille)
             {
-                tempDistance = distanceLevenshtein(name, oneOfList.Nom); // Compute the distance
+                tempDistance = distanceLevenshtein(name, entry.Value.Nom); // Compute the distance
 
                 if (tempDistance < bestDistance)
                 {
                     bestDistance = tempDistance;
-                    famille = oneOfList;
+                    famille = entry.Value;
                 }
             }
 
@@ -365,16 +365,16 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             int bestDistance = 255, tempDistance;
             SousFamilles sousFamille = null;
 
-            List<SousFamilles> listSousFamille = dbManager.getAllSousFamilles(); // Retrieve all SousFamille of the database
+            Dictionary<int, SousFamilles> listSousFamille = dbManager.getAllSousFamilles(); // Retrieve all SousFamille of the database
 
-            foreach (SousFamilles oneOfList in listSousFamille)
+            foreach (KeyValuePair<int, SousFamilles> entry in listSousFamille)
             {
-                tempDistance = distanceLevenshtein(name, oneOfList.Nom); // Compute the distance
+                tempDistance = distanceLevenshtein(name, entry.Value.Nom); // Compute the distance
 
                 if (tempDistance < bestDistance)
                 {
                     bestDistance = tempDistance;
-                    sousFamille = oneOfList;
+                    sousFamille = entry.Value;
                 }
             }
 
@@ -394,16 +394,16 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             int bestDistance = 255, tempDistance;
             Marques marque = null;
 
-            List<Marques> listMarque = dbManager.getAllMarques(); // Retrieve all brands of the database
+            Dictionary<int, Marques> listMarque = dbManager.getAllMarques(); // Retrieve all brands of the database
 
-            foreach (Marques oneOfList in listMarque)
+            foreach (KeyValuePair<int, Marques> entry in listMarque)
             {
-                tempDistance = distanceLevenshtein(name, oneOfList.Nom); // Compute the distance
+                tempDistance = distanceLevenshtein(name, entry.Value.Nom); // Compute the distance
 
                 if (tempDistance < bestDistance)
                 {
                     bestDistance = tempDistance;
-                    marque = oneOfList;
+                    marque = entry.Value;
                 }
             }
 

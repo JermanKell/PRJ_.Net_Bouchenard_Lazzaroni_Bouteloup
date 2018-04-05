@@ -27,7 +27,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Controllers
         /// <returns>Returns true if done, false else</returns>
         public override bool AddElement(Object obj)
         {
-            bool var;
+            bool var = false;
             
 
             return var;
@@ -40,14 +40,14 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Controllers
         /// <returns></returns>
         public override bool ChangeElement(Object obj)
         {
-            bool var;
+            bool var = false;
 
             return var;   
         }
 
         public override bool DeleteElement(int RefObj)
         {
-            bool var;
+            bool var = false;
 
             return var;
         }

@@ -66,7 +66,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             //////////////////////////
 
             Cbx_Famille.Items.Clear();
-            DictionaryFamilles = dbm.getAllFamilles().ToDictionary(x => x.Id, x => x.Nom);
+            //DictionaryFamilles = dbm.getAllFamilles().ToDictionary(x => x.Id, x => x.Nom);
             //dictionaryFamilles.Add(2, "un");
             if(DictionaryFamilles.Count > 0)
             {
@@ -84,7 +84,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             //////////////////////////
 
             Cbx_SousFamille.Items.Clear();
-            DictionarySousFamilles = dbm.getAllSousFamilles().ToDictionary(x => x.Id, x => x.Nom);
+            //DictionarySousFamilles = dbm.getAllSousFamilles().ToDictionary(x => x.Id, x => x.Nom);
             //dictionarySousFamilles.Add(2, "un");
             if(DictionarySousFamilles.Count > 0)
             {
@@ -102,7 +102,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             //////////////////////////
 
             Cbx_Marque.Items.Clear();   
-            DictionaryMarques = dbm.getAllMarques().ToDictionary(x => x.Id, x => x.Nom);
+            //DictionaryMarques = dbm.getAllMarques().ToDictionary(x => x.Id, x => x.Nom);
             //dictionaryMarques.Add(2, "un");
             if(DictionaryMarques.Count > 0)
             {
