@@ -41,7 +41,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
 
                 Tbx_Reference.Enabled = false;
 
-                KeyValuePair<int, string> PairFamille = new KeyValuePair<int, string>(2, "Ecriture & Correction" /*Article.IdFamille, DictionaryFamilles[Article.IdFamille]*/);
+                KeyValuePair<int, string> PairFamille = new KeyValuePair<int, string>(Article.IdFamille, DictionaryFamilles[Article.IdFamille]);
                 Cbx_Famille.SelectedIndex = Cbx_Famille.Items.IndexOf(PairFamille);
 
                 KeyValuePair<int, string> PairSousFamille = new KeyValuePair<int, string>(Article.IdSousFamille, DictionarySousFamilles[Article.IdSousFamille]);
@@ -67,7 +67,6 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
 
             Cbx_Famille.Items.Clear();
             DictionaryFamilles = dbm.getAllFamilles().ToDictionary(x => x.Key, x => x.Value.Nom);
-            //dictionaryFamilles.Add(2, "un");
             if(DictionaryFamilles.Count > 0)
             {
                 Cbx_Famille.DataSource = new BindingSource(DictionaryFamilles, null);
@@ -85,7 +84,6 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
 
             Cbx_SousFamille.Items.Clear();
             DictionarySousFamilles = dbm.getAllSousFamilles().ToDictionary(x => x.Key, x => x.Value.Nom);
-            //dictionarySousFamilles.Add(2, "un");
             if(DictionarySousFamilles.Count > 0)
             {
                 Cbx_SousFamille.DataSource = new BindingSource(DictionarySousFamilles, null);
@@ -103,7 +101,6 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
 
             Cbx_Marque.Items.Clear();   
             DictionaryMarques = dbm.getAllMarques().ToDictionary(x => x.Key, x => x.Value.Nom);
-            //dictionaryMarques.Add(2, "un");
             if(DictionaryMarques.Count > 0)
             {
                 Cbx_Marque.DataSource = new BindingSource(DictionaryMarques, null);
@@ -157,7 +154,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
                 IsValid = false;
             }
 
-            if (Tbx_Quantite.TextLength == 0 || !Tbx_Prix.Text.All(char.IsNumber))
+            if (Tbx_Quantite.TextLength == 0)
             {
                 Graphics graph = Tbx_Quantite.CreateGraphics();
                 Pen pen = new Pen(Brushes.Red, 2.0f);
