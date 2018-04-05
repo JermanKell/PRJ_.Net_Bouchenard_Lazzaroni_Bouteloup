@@ -17,7 +17,6 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
 {
     public partial class SelectXml : Form
     {
-        private Stream stream;
         public SelectXml()
         {
             InitializeComponent();
@@ -34,12 +33,10 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
 
             if (DocOpen_Window.ShowDialog() == DialogResult.OK)
             {
-                stream = DocOpen_Window.OpenFile();
                 lab_FName.Text = DocOpen_Window.SafeFileName;
             }
 
-
-            //foreach(XmlNode xNode in xml.DocumentElement.ChildNodes)
+            
 
 
         }

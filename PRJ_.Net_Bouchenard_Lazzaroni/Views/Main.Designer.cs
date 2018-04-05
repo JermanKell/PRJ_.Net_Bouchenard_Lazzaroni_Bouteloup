@@ -30,24 +30,32 @@
         {
             this.components = new System.ComponentModel.Container();
             this.statusStrip = new System.Windows.Forms.StatusStrip();
+            this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.listViewArticle = new System.Windows.Forms.ListView();
             this.selectXMLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip = new System.Windows.Forms.MenuStrip();
             this.rightclickMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.statusStrip.SuspendLayout();
             this.menuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // statusStrip
             // 
+            this.statusStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel});
-            this.statusStrip.Location = new System.Drawing.Point(0, 539);
+            this.statusStrip.Location = new System.Drawing.Point(0, 668);
             this.statusStrip.Name = "statusStrip";
-            this.statusStrip.Size = new System.Drawing.Size(677, 22);
+            this.statusStrip.Padding = new System.Windows.Forms.Padding(1, 0, 19, 0);
+            this.statusStrip.Size = new System.Drawing.Size(903, 22);
             this.statusStrip.TabIndex = 1;
             this.statusStrip.Text = "statusStrip";
+            // 
+            // toolStripStatusLabel
+            // 
+            this.toolStripStatusLabel.Margin = new System.Windows.Forms.Padding(10, 3, 0, 2);
+            this.toolStripStatusLabel.Name = "toolStripStatusLabel";
+            this.toolStripStatusLabel.Size = new System.Drawing.Size(0, 17);
             // 
             // listViewArticle
             // 
@@ -56,10 +64,11 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.listViewArticle.FullRowSelect = true;
-            this.listViewArticle.Location = new System.Drawing.Point(12, 27);
+            this.listViewArticle.Location = new System.Drawing.Point(16, 33);
+            this.listViewArticle.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.listViewArticle.MultiSelect = false;
             this.listViewArticle.Name = "listViewArticle";
-            this.listViewArticle.Size = new System.Drawing.Size(653, 509);
+            this.listViewArticle.Size = new System.Drawing.Size(869, 626);
             this.listViewArticle.TabIndex = 3;
             this.listViewArticle.UseCompatibleStateImageBehavior = false;
             this.listViewArticle.View = System.Windows.Forms.View.Details;
@@ -72,42 +81,40 @@
             // selectXMLToolStripMenuItem
             // 
             this.selectXMLToolStripMenuItem.Name = "selectXMLToolStripMenuItem";
-            this.selectXMLToolStripMenuItem.Size = new System.Drawing.Size(77, 20);
+            this.selectXMLToolStripMenuItem.Size = new System.Drawing.Size(94, 24);
             this.selectXMLToolStripMenuItem.Text = "Select XML";
             this.selectXMLToolStripMenuItem.Click += new System.EventHandler(this.selectXMLToolStripMenuItem_Click);
             // 
             // menuStrip
             // 
+            this.menuStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.selectXMLToolStripMenuItem});
             this.menuStrip.Location = new System.Drawing.Point(0, 0);
             this.menuStrip.Name = "menuStrip";
-            this.menuStrip.Size = new System.Drawing.Size(677, 24);
+            this.menuStrip.Padding = new System.Windows.Forms.Padding(8, 2, 0, 2);
+            this.menuStrip.Size = new System.Drawing.Size(903, 28);
             this.menuStrip.TabIndex = 2;
             this.menuStrip.Text = "menuStrip";
             // 
             // rightclickMenuStrip
             // 
+            this.rightclickMenuStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.rightclickMenuStrip.Name = "rightclickMenuStrip";
             this.rightclickMenuStrip.Size = new System.Drawing.Size(61, 4);
             this.rightclickMenuStrip.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.rightclickMenuStrip_ItemClicked);
             // 
-            // toolStripStatusLabel
-            // 
-            this.toolStripStatusLabel.Margin = new System.Windows.Forms.Padding(10, 3, 0, 2);
-            this.toolStripStatusLabel.Name = "toolStripStatusLabel";
-            this.toolStripStatusLabel.Size = new System.Drawing.Size(0, 17);
-            // 
             // Main
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(677, 561);
+            this.ClientSize = new System.Drawing.Size(903, 690);
             this.Controls.Add(this.listViewArticle);
             this.Controls.Add(this.statusStrip);
             this.Controls.Add(this.menuStrip);
             this.KeyPreview = true;
             this.MainMenuStrip = this.menuStrip;
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "Main";
             this.Text = "Main";
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Main_KeyUp);
