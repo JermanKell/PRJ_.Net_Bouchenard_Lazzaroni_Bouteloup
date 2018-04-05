@@ -41,7 +41,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
 
                 Tbx_Reference.Enabled = false;
 
-                KeyValuePair<int, string> PairFamille = new KeyValuePair<int, string>(2, "Ecriture & Correction" /*Article.IdFamille, DictionaryFamilles[Article.IdFamille]*/);
+                KeyValuePair<int, string> PairFamille = new KeyValuePair<int, string>(Article.IdFamille, DictionaryFamilles[Article.IdFamille]);
                 Cbx_Famille.SelectedIndex = Cbx_Famille.Items.IndexOf(PairFamille);
 
                 KeyValuePair<int, string> PairSousFamille = new KeyValuePair<int, string>(Article.IdSousFamille, DictionarySousFamilles[Article.IdSousFamille]);
@@ -66,8 +66,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             //////////////////////////
 
             Cbx_Famille.Items.Clear();
-            DictionaryFamilles = dbm.getAllFamilles().ToDictionary(x => x.Id, x => x.Nom);
-            //dictionaryFamilles.Add(2, "un");
+            DictionaryFamilles = dbm.getAllFamilles().ToDictionary(x => x.Key, x => x.Value.Nom);
             if(DictionaryFamilles.Count > 0)
             {
                 Cbx_Famille.DataSource = new BindingSource(DictionaryFamilles, null);
@@ -84,8 +83,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             //////////////////////////
 
             Cbx_SousFamille.Items.Clear();
-            DictionarySousFamilles = dbm.getAllSousFamilles().ToDictionary(x => x.Id, x => x.Nom);
-            //dictionarySousFamilles.Add(2, "un");
+            DictionarySousFamilles = dbm.getAllSousFamilles().ToDictionary(x => x.Key, x => x.Value.Nom);
             if(DictionarySousFamilles.Count > 0)
             {
                 Cbx_SousFamille.DataSource = new BindingSource(DictionarySousFamilles, null);
@@ -102,8 +100,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             //////////////////////////
 
             Cbx_Marque.Items.Clear();   
-            DictionaryMarques = dbm.getAllMarques().ToDictionary(x => x.Id, x => x.Nom);
-            //dictionaryMarques.Add(2, "un");
+            DictionaryMarques = dbm.getAllMarques().ToDictionary(x => x.Key, x => x.Value.Nom);
             if(DictionaryMarques.Count > 0)
             {
                 Cbx_Marque.DataSource = new BindingSource(DictionaryMarques, null);
@@ -117,19 +114,75 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         {
             bool IsValid = true;
 
-            if(Cbx_Famille.SelectedIndex == -1)
+            if (Tbx_Reference.TextLength == 0)
             {
-                /*Graphics graph = Cbx_Famille.CreateGraphics();
+                Graphics graph = Tbx_Reference.CreateGraphics();
                 Pen pen = new Pen(Brushes.Red, 2.0f);
-                graph.DrawRectangle(pen, Cbx_Famille.ClientRectangle);*/
+                graph.DrawRectangle(pen, Tbx_Reference.ClientRectangle);
+                IsValid = false;
             }
+
+            if (Cbx_Famille.SelectedIndex == -1)
+            {
+                Graphics graph = Cbx_Famille.CreateGraphics();
+                Pen pen = new Pen(Brushes.Red, 2.0f);
+                graph.DrawRectangle(pen, Cbx_Famille.ClientRectangle);
+                IsValid = false;
+            }
+
+            if (Cbx_SousFamille.SelectedIndex == -1)
+            {
+                Graphics graph = Cbx_SousFamille.CreateGraphics();
+                Pen pen = new Pen(Brushes.Red, 2.0f);
+                graph.DrawRectangle(pen, Cbx_SousFamille.ClientRectangle);
+                IsValid = false;
+            }
+
+            if (Cbx_Marque.SelectedIndex == -1)
+            {
+                Graphics graph = Cbx_Marque.CreateGraphics();
+                Pen pen = new Pen(Brushes.Red, 2.0f);
+                graph.DrawRectangle(pen, Cbx_Marque.ClientRectangle);
+                IsValid = false;
+            }
+
+            if (Tbx_Prix.TextLength == 0)
+            {
+                Graphics graph = Tbx_Prix.CreateGraphics();
+                Pen pen = new Pen(Brushes.Red, 2.0f);
+                graph.DrawRectangle(pen, Tbx_Prix.ClientRectangle);
+                IsValid = false;
+            }
+
+            if (Tbx_Quantite.TextLength == 0)
+            {
+                Graphics graph = Tbx_Quantite.CreateGraphics();
+                Pen pen = new Pen(Brushes.Red, 2.0f);
+                graph.DrawRectangle(pen, Tbx_Quantite.ClientRectangle);
+                IsValid = false;
+            }
+
             return IsValid;
         }
 
         private void Btn_Valider_Click(object sender, EventArgs e)
         {
-            if(Cbx_Famille.SelectedIndex != -1)
+            if(!CheckEntries())
             {
+                MessageBox.Show("Certains champs ne sont pas valides !", "Attention", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            else
+            {
+                if(Article == null)//ajout
+                {
+
+                }
+                else//modification
+                {
+
+                }
+
+
                 int key = ((KeyValuePair<int, string>)Cbx_Famille.SelectedItem).Key;
                 string value = ((KeyValuePair<int, string>)Cbx_Famille.SelectedItem).Value;
                 MessageBox.Show(key + "   " + value);

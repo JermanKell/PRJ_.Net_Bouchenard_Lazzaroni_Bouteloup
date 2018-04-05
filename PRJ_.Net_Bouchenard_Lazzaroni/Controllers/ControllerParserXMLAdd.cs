@@ -9,80 +9,137 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
 {
     class ControllerParserXMLAdd : ControllerParserXML
     {
+
+        /// <summary>
+        /// Comfort constructor
+        /// </summary>
+        /// <param name="filename"> The filename contains the path of the XML file </param>
         public ControllerParserXMLAdd(string filename) : base(filename)
         { }
 
+        /// <summary>
+        /// Parse the XML file
+        /// </summary>
         public override void parse()
         {
-            verifyFile();
-
-            XmlNodeList nodelist = xmlDocument.SelectNodes("/materiels/article"); // get all <article> nodes
-
-            foreach (XmlNode node in nodelist) // for each <article> node
+            try
             {
-                try
+                loadDocument();
+                verifyFile();
+                dbManager.deleteTables(); // Clear the database
+
+                XmlNodeList nodelist = xmlDocument.SelectNodes("/materiels/article"); // get all <article> nodes
+                updateMaxRangeProgressBar(nodelist.Count); // Send the max range of the progress bar to the view
+
+                foreach (XmlNode node in nodelist) // for each <article> node
                 {
-                    if (!checkDoubleArticle(node)); // Check if the article already exist
-                    {
-                        Articles article = new Articles();
+                    this.node = node;
 
-                        article.Description = node.SelectSingleNode("description").InnerText;
-                        article.Reference = node.SelectSingleNode("refArticle").InnerText;
+                    if (!checkDoubleArticle()) // Check if the article already exist
+                        addArticle(); // Add new article
+                    else
+                        treatDoubleArticle(); // When the article is already exist. Check if the information in XML file are the same than database.
 
-                        Familles famille = dbManager.getFamille(node.SelectSingleNode("famille").InnerText); // Check if the famille already exist
-                        if (famille == null) // Famille does not exist
-                        {
-                            famille = new Familles();
-                            famille.Nom = node.SelectSingleNode("famille").InnerText;
-                            article.IdFamille = dbManager.insertFamille(famille); // Insert return the last id of the famille added.
-                        }
-                        else
-                            article.IdFamille = famille.Id;
+                    updateProgressBar(); // Calculer ici le pourcentage à envoyer à chaque itération
+                }
+                xmlDocument.Save(filename); // Apply modification to the document (fix spelling mistake).
 
-                        SousFamilles sousFamille = dbManager.getSousFamille(node.SelectSingleNode("sousFamille").InnerText); // Check if the sousFamille already exist
-                        if (sousFamille == null) // If the sousFamille does not exist
-                        {
-                            sousFamille = new SousFamilles();
-                            sousFamille.IdFamille = article.IdFamille;
-                            sousFamille.Nom = node.SelectSingleNode("sousFamille").InnerText;
-                            article.IdSousFamille = dbManager.insertSousFamille(sousFamille); // Insert return the last id of the sousFamille added.
-                        }
-                        else
-                        {
-                            // Generate error when the sousFamille don't belong to the good famille
-                            if (!dbManager.existSousFamilleInFamille(article.IdSousFamille, article.IdFamille))
-                            {
-                                // TODO
-                                sendSignal(null, null);
-                            }
-                            article.IdSousFamille = sousFamille.Id;
-                        }
-
-                        Marques marque = dbManager.getMarque(node.SelectSingleNode("marque").InnerText);
-                        if (marque == null)
-                        {
-                            marque = new Marques();
-                            marque.Nom = node.SelectSingleNode("marque").InnerText;
-                            article.IdMarque = dbManager.insertMarque(marque); // Insert return the last id of the marque added.
-                        }
-                        else
-                            article.IdMarque = marque.Id;
-
-                        article.PrixHT = Convert.ToDouble(node.SelectSingleNode("prixHT").InnerText);
-
-                        dbManager.insertArticle(article);
-                    }   
-                }  
-                catch (Exception e) {/* MessageBox.Show(e.Message);*/ }
+                updateListView(TypeMessage.Success, SubjectMessage.Finish, 
+                    "Success : " + counterTypeMessage[TypeMessage.Success] + "   Warning : " + counterTypeMessage[TypeMessage.Warning] + 
+                    "   Error : " +counterTypeMessage[TypeMessage.Error] + "   Critical : " + counterTypeMessage[TypeMessage.Critical]);
+            }
+            catch (Exception e)
+            {
+                updateListView(TypeMessage.Critical, SubjectMessage.Xml_Structure, e.Message);
             }
         }
 
-        public bool checkDoubleArticle(XmlNode node)
+        /// <summary>
+        /// If the article already exist, check if xml information match to the database information
+        /// </summary>
+        private void treatDoubleArticle()
         {
-            // Check si l'article en question est déjà présent dans la base (vérification avec le champ référence de l'article)
-            // Il faut donc vérifier que l'XML contient les même informations que celui présent en base sinon levé une exception (affichage dans la vue).
-            // Ne pas oublier de faire l'update sur la quantité
-            return false;
+            bool error = false;
+            string nom;
+
+            // DESCRIPTION
+            if (article.Description.CompareTo(node.SelectSingleNode("description").InnerText) != 0) // Equals or not
+                if (distanceLevenshtein(article.Description, node.SelectSingleNode("description").InnerText) <= 2) // Spelling mistake or not
+                {
+                    updateListView(TypeMessage.Warning, SubjectMessage.Spelling_Mistake, 
+                        "The description of the article " + article.Reference + " is \"" 
+                        + node.SelectSingleNode("description").InnerText + "\". It has been replaced by \"" + article.Description + "\"");
+
+                    node.SelectSingleNode("sousFamille").InnerText = article.Description; // Change the text of the XML to correct the spelling mistake
+                }
+                else // String totally different
+                {
+                    updateListView(TypeMessage.Error, SubjectMessage.Wrong_Information, 
+                        "Cannot increment the quantity of the article " + article.Reference + " because it doesn't have the same description than the article in the database");
+
+                    error = true;
+                }
+
+            // FAMILY
+            nom = dbManager.getFamille(id: article.IdFamille).Nom;
+            if (nom.CompareTo(node.SelectSingleNode("famille").InnerText) != 0) // Equals or not
+                if (distanceLevenshtein(nom, node.SelectSingleNode("famille").InnerText) <= 2) // Check if it's the same famille
+                {
+                    updateListView(TypeMessage.Warning, SubjectMessage.Spelling_Mistake,
+                        "The familly of the article " + article.Reference + " is \""
+                        + node.SelectSingleNode("famille").InnerText + "\". It has been replaced by \"" + nom + "\"");
+
+                    node.SelectSingleNode("famille").InnerText = nom; // Change the text of the XML to correct the spelling mistake
+                }
+                else
+                {
+                    updateListView(TypeMessage.Error, SubjectMessage.Wrong_Information,
+                        "Cannot increment the quantity of the article " + article.Reference + " because it doesn't have the same familly than the article in the database");
+
+                    error = true;
+                }
+
+            // SUB FAMILY
+            nom = dbManager.getSousFamille(id: article.IdSousFamille).Nom;
+            if (nom.CompareTo(node.SelectSingleNode("sousFamille").InnerText) != 0) // Equals or not
+                if (distanceLevenshtein(nom, node.SelectSingleNode("sousFamille").InnerText) <= 2) // Check if it's the same sousFamille
+                {
+                    updateListView(TypeMessage.Warning, SubjectMessage.Spelling_Mistake,
+                        "The subfamily of the article " + article.Reference + " is \""
+                        + node.SelectSingleNode("sousFamille").InnerText + "\". It has been replaced by \"" + nom + "\"");
+
+                    node.SelectSingleNode("sousFamille").InnerText = nom; // Change the text of the XML to correct the spelling mistake
+                }
+                else
+                {
+                    updateListView(TypeMessage.Error, SubjectMessage.Wrong_Information,
+                        "Cannot increment the quantity of the article " + article.Reference + " because it doesn't have the same subfamily than the article in the database");
+
+                    error = true;
+                }
+
+            // BRAND
+            nom = dbManager.getMarque(id: article.IdMarque).Nom;
+            if (nom.CompareTo(node.SelectSingleNode("marque").InnerText) != 0) // Equals or not
+                if (distanceLevenshtein(nom, node.SelectSingleNode("marque").InnerText) <= 2) // Check if it's the same marque
+                {
+                    updateListView(TypeMessage.Warning, SubjectMessage.Spelling_Mistake,
+                        "The marque of the article " + article.Reference + " is \""
+                        + node.SelectSingleNode("marque").InnerText + "\". It has been replaced by \"" + nom + "\"");
+                    node.SelectSingleNode("marque").InnerText = nom; // Change the text of the XML to correct the spelling mistake
+                }
+                else
+                {
+                    updateListView(TypeMessage.Error, SubjectMessage.Wrong_Information,
+                        "Cannot increment the quantity of the article " + article.Reference + " because it doesn't have the same marque than the article in the database");
+                    error = true;
+                }
+
+            if (!error) // If all information are the same than database, increment quantity of the article
+            {
+                updateListView(TypeMessage.Success, SubjectMessage.Update_Article, "The quantity of the article " + article.Reference + " has been incremented");
+                dbManager.updateQuantiteArticle(node.SelectSingleNode("refArticle").InnerText);
+            }   
         }
     }
 }

@@ -66,7 +66,7 @@
             // 
             // Cbx_Famille
             // 
-            this.Cbx_Famille.DropDownStyle = System.Windows.Forms.ComboBoxStyle.Simple;
+            this.Cbx_Famille.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.Cbx_Famille.ForeColor = System.Drawing.SystemColors.WindowText;
             this.Cbx_Famille.FormattingEnabled = true;
             this.Cbx_Famille.Location = new System.Drawing.Point(106, 196);

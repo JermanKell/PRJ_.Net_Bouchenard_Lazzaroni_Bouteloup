@@ -96,7 +96,6 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Controllers
         /// <returns>Returns true if done, false else</returns>
         public override bool DeleteElement(int RefObj)
         {
-
             if (manager.getFamille("", RefObj) != null)
             {
                 if (manager.removeFamille(RefObj))
