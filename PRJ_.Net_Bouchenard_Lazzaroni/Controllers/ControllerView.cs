@@ -10,7 +10,15 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         /// <summary>
         /// This attribut is a "list" of all objects found and stored in the DB
         /// </summary>
-        protected Dictionary<String, Object> DicObject;
+        protected Dictionary<String, Object> DicObject = null;
+
+        /// <summary>
+        /// Constructor of this abstract class.
+        /// </summary>
+        public ControllerView()
+        {
+            DicObject = new Dictionary<string, object>();
+        }
 
         /// <summary>
         ///  Adds an element in the DB depending on the value of the reference generated
