@@ -11,7 +11,9 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
 {
     abstract class ControllerParserXML
     {
-        public event EventHandler<MyEventArgs> sendMessageToView; // Send events to the view
+        public event EventHandler<MyEventArgs> eventUpdateListView; // Send events to the view (Update ListView)
+        public event EventHandler<MyEventArgs> eventUpdateProgressBar; // Send events to the view (Update ProgressBar)
+        public event EventHandler<MyEventArgs> eventRangeMaxProgressBar; // Send events to the view (set the max range of the ProgressBar)
 
         protected XmlDocument xmlDocument; // Allow to navigate in the xml file
         protected DBManager dbManager; // Access SQL command
@@ -21,9 +23,16 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         protected MyEventArgs argsEvent; // Store args for event
         protected Dictionary<TypeMessage, int> counterTypeMessage; // To know how many success, warning, error, critical, ...
 
-        abstract public void parse(); // Each child implement his own version of parsing.
+        /// <summary>
+        /// Each child implement his own version of parsing.
+        /// </summary>
+        abstract public void parse();
 
-        public ControllerParserXML(string filename) // Check if the file exist and if xmlDocument is able to load it.
+        /// <summary>
+        /// Comfort constructor - Init attributes
+        /// </summary>
+        /// <param name="filename"> Filename of the xml file gave by the view </param>
+        public ControllerParserXML(string filename)
         {
             this.filename = filename;
             argsEvent = new MyEventArgs();
@@ -37,7 +46,13 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
                 counterTypeMessage.Add(foo, 0);
         }
 
-        protected void sendSignal(TypeMessage type, SubjectMessage subject, string message) // Called by this class and childs when they want to send a message to the view
+        /// <summary>
+        /// Called by this class and childs when they want to update the listView (console log)
+        /// </summary>
+        /// <param name="type"> Type of message (success or warning or etc ...) that you want to send </param>
+        /// <param name="subject"> Subject of the message (addArticle, addFamille) </param>
+        /// <param name="message"> The message to send </param>
+        protected void updateListView(TypeMessage type, SubjectMessage subject, string message)
         {
             argsEvent.message = message;
             argsEvent.subject = subject;
@@ -45,15 +60,39 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
 
             counterTypeMessage[type] += 1; // Increment the counter
 
-            sendMessageToView(this, argsEvent);
+            eventUpdateListView(this, argsEvent); // Send the event
         }
 
+        /// <summary>
+        /// Called by this class and childs when they want to update the progress bar of the view
+        /// </summary>
+        protected void updateProgressBar()
+        {
+            eventUpdateProgressBar(this, argsEvent);
+        }
+
+        /// <summary>
+        /// Called by childs one time to set the max range of the progress bar. The max range is defined by the number of articles in the XML file.
+        /// </summary>
+        /// <param name="nodeCount"> Number of articles in the XML file </param>
+        protected void updateMaxRangeProgressBar(int nodeCount)
+        {
+            argsEvent.maxRange = nodeCount;
+            eventRangeMaxProgressBar(this, argsEvent);
+        }
+
+        /// <summary>
+        /// Load the xml file and verify the structure (just briefly)
+        /// </summary>
         protected void loadDocument()
         {
             xmlDocument.Load(filename); // Load the file into the XMLDocument
-            sendSignal(TypeMessage.Success, SubjectMessage.Xml_Structure, "File loaded");
+            updateListView(TypeMessage.Success, SubjectMessage.Xml_Structure, "File loaded");
         }
 
+        /// <summary>
+        /// Verify deeply of the structure of the XML file is correct (check the order, if not empty, ...)
+        /// </summary>
         protected void verifyFile() // Verify the structure of the xml file
         {
             XmlSchemaSet schemaSet = new XmlSchemaSet();
@@ -61,14 +100,22 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             xmlDocument.Schemas.Add(schemaSet); // Add the schema to the xml document
             ValidationEventHandler veh = new ValidationEventHandler(eventVerifyStructure); // Send event when something goes wrong.
             xmlDocument.Validate(veh); // Run the validation
-            sendSignal(TypeMessage.Success, SubjectMessage.Xml_Structure, "XML structure is valid");
+            updateListView(TypeMessage.Success, SubjectMessage.Xml_Structure, "XML structure is valid");
         }
 
+        /// <summary>
+        /// Event sent by verifyFile method 
+        /// </summary>
+        /// <param name="sender"> Mandatory because receive event </param>
+        /// <param name="args"> Mandatory because receive event </param>
         protected void eventVerifyStructure(object sender, ValidationEventArgs args) // Signal send by verifyFile() when the xml structure does not correct.
         {
             throw new System.Exception(args.Message);
         }
 
+        /// <summary>
+        /// Called by childs when they want to add an article to the database
+        /// </summary>
         protected void addArticle()
         {   
             article = new Articles();
@@ -85,10 +132,13 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
                 article.Quantite = 1;
 
                 dbManager.insertArticle(article);
-                sendSignal(TypeMessage.Success, SubjectMessage.Add_Article, "The article " + article.Reference + " has been added");
+                updateListView(TypeMessage.Success, SubjectMessage.Add_Article, "The article " + article.Reference + " has been added");
             }
         }
 
+        /// <summary>
+        /// If not exist, check if spelling mistake, if not, create new one.
+        /// </summary>
         private void treatFamille()
         {
             Familles famille = dbManager.getFamille(node.SelectSingleNode("famille").InnerText); // Check if the famille already exist
@@ -101,7 +151,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
                 }
                 else
                 {
-                    sendSignal(TypeMessage.Warning, SubjectMessage.Spelling_Mistake,
+                    updateListView(TypeMessage.Warning, SubjectMessage.Spelling_Mistake,
                         "The familly of the article " + article.Reference + " is \""
                         + node.SelectSingleNode("famille").InnerText + "\". It has been replaced by \"" + famille.Nom + "\"");
 
@@ -113,14 +163,21 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
                 article.IdFamille = famille.Id;
         }
 
+        /// <summary>
+        /// Insert new family to the database
+        /// </summary>
         protected void newFamille()
         {
             Familles famille = new Familles();
             famille.Nom = node.SelectSingleNode("famille").InnerText;
             article.IdFamille = dbManager.insertFamille(famille); // Insert return the last id of the famille added.
-            sendSignal(TypeMessage.Success, SubjectMessage.Add_Famille, "The familly " + famille.Nom + " has been created");
+            updateListView(TypeMessage.Success, SubjectMessage.Add_Famille, "The familly " + famille.Nom + " has been created");
         }
 
+        /// <summary>
+        /// If not exist, check if spelling mistake, if not, create new one.
+        /// </summary>
+        /// <returns> True if everything is OK, false if the family does not match to the subfamily </returns>
         private bool treatSousFamille()
         {
             bool foundMistake = false;
@@ -135,7 +192,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
                 }
                 else
                 {
-                    sendSignal(TypeMessage.Warning, SubjectMessage.Spelling_Mistake,
+                    updateListView(TypeMessage.Warning, SubjectMessage.Spelling_Mistake,
                         "The subfamilly of the article " + article.Reference + " is \""
                         + node.SelectSingleNode("sousFamille").InnerText + "\". It has been replaced by \"" + sousFamille.Nom + "\"");
 
@@ -144,7 +201,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
                     // Generate error when the sousFamille don't belong to the good famille
                     if (!dbManager.existSousFamilleInFamille(article.IdSousFamille, article.IdFamille))
                     {
-                        sendSignal(TypeMessage.Error, SubjectMessage.Wrong_Information,
+                        updateListView(TypeMessage.Error, SubjectMessage.Wrong_Information,
                         "Cannot add the article " + article.Reference + " because his family does not match to his sub family");
 
                         foundMistake = true;
@@ -158,7 +215,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
                 // Generate error when the sousFamille don't belong to the good famille
                 if (!dbManager.existSousFamilleInFamille(article.IdSousFamille, article.IdFamille))
                 {
-                    sendSignal(TypeMessage.Error, SubjectMessage.Wrong_Information,
+                    updateListView(TypeMessage.Error, SubjectMessage.Wrong_Information,
                         "Cannot add the article " + article.Reference + " because his family does not match to his sub family");
 
                     foundMistake = true;
@@ -167,15 +224,21 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             return foundMistake;
         }
 
+        /// <summary>
+        /// Insert new subFamily to the database
+        /// </summary>
         protected void newSousFamille()
         {
             SousFamilles sousFamille = new SousFamilles();
             sousFamille.IdFamille = article.IdFamille;
             sousFamille.Nom = node.SelectSingleNode("sousFamille").InnerText;
             article.IdSousFamille = dbManager.insertSousFamille(sousFamille); // Insert return the last id of the sousFamille added.
-            sendSignal(TypeMessage.Success, SubjectMessage.Add_Famille, "The subfamilly " + sousFamille.Nom + " has been created");
+            updateListView(TypeMessage.Success, SubjectMessage.Add_Famille, "The subfamilly " + sousFamille.Nom + " has been created");
         }
 
+        /// <summary>
+        /// If not exist, check if spelling mistake, if not, create new one.
+        /// </summary>
         private void treatMarque()
         {
             Marques marque = dbManager.getMarque(node.SelectSingleNode("marque").InnerText);
@@ -188,7 +251,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
                 }
                 else
                 {
-                    sendSignal(TypeMessage.Warning, SubjectMessage.Spelling_Mistake,
+                    updateListView(TypeMessage.Warning, SubjectMessage.Spelling_Mistake,
                         "The brand of the article " + article.Reference + " is \""
                         + node.SelectSingleNode("marque").InnerText + "\". It has been replaced by \"" + marque.Nom + "\"");
 
@@ -200,14 +263,21 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
                 article.IdMarque = marque.Id;
         }
 
+        /// <summary>
+        /// Insert new brand to the database
+        /// </summary>
         protected void newMarque()
         {
             Marques marque = new Marques();
             marque.Nom = node.SelectSingleNode("marque").InnerText;
-            article.IdMarque = dbManager.insertMarque(marque); // Insert return the last id of the marque added.
-            sendSignal(TypeMessage.Success, SubjectMessage.Add_Famille, "The marque " + marque.Nom + " has been created");
+            article.IdMarque = dbManager.insertMarque(marque); // Insert return the last id of the brand added.
+            updateListView(TypeMessage.Success, SubjectMessage.Add_Famille, "The marque " + marque.Nom + " has been created");
         }
 
+        /// <summary>
+        /// Check if the article already exist or not
+        /// </summary>
+        /// <returns></returns>
         protected bool checkDoubleArticle()
         {
             article = dbManager.getArticle(node.SelectSingleNode("refArticle").InnerText);
@@ -217,7 +287,12 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
                 return true;
         }
 
-        // Compute the distance between tow string
+        /// <summary>
+        /// Compute the distance between tow string
+        /// </summary>
+        /// <param name="s"> The first string </param>
+        /// <param name="t">The second string </param>
+        /// <returns> The distance between these two strings </returns>
         protected int distanceLevenshtein(string s, string t)
         {
             s = s.ToLower();
@@ -250,12 +325,17 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             return d[n, m];
         }
 
+        /// <summary>
+        /// Check if the family contains a mistake spelling
+        /// </summary>
+        /// <param name="name"> The name of the family </param>
+        /// <returns> The family fixed or null if no family have been found </returns>
         protected Familles checkSpellingFamilles(string name)
         {
             int bestDistance = 255, tempDistance;
             Familles famille = null;
 
-            List<Familles> listFamille = dbManager.getAllFamilles(); // Retrieve all famille of the database
+            List<Familles> listFamille = dbManager.getAllFamilles(); // Retrieve all family of the database
 
             foreach (Familles oneOfList in listFamille)
             {
@@ -274,6 +354,11 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
                 return null;
         }
 
+        /// <summary>
+        /// Check if the sub family contains a mistake spelling
+        /// </summary>
+        /// <param name="name"> The name of the sub family </param>
+        /// <returns> The sub family fixed or null if no sub family have been found </returns>
         protected SousFamilles checkSpellingSousFamilles(string name)
         {
             int bestDistance = 255, tempDistance;
@@ -298,12 +383,17 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
                 return null;
         }
 
+        /// <summary>
+        /// Check if the brand contains a mistake spelling
+        /// </summary>
+        /// <param name="name"> The name of the brand to check </param>
+        /// <returns> The brand fixed or null if no brand have been found </returns>
         protected Marques checkSpellingMarques(string name)
         {
             int bestDistance = 255, tempDistance;
             Marques marque = null;
 
-            List<Marques> listMarque = dbManager.getAllMarques(); // Retrieve all Marques of the database
+            List<Marques> listMarque = dbManager.getAllMarques(); // Retrieve all brands of the database
 
             foreach (Marques oneOfList in listMarque)
             {

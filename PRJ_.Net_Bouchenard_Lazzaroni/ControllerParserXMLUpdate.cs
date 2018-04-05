@@ -9,9 +9,17 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
 {
     class ControllerParserXMLUpdate : ControllerParserXML
     {
+
+        /// <summary>
+        /// Comfort constructor
+        /// </summary>
+        /// <param name="filename"> The filename contains the path of the XML file </param>
         public ControllerParserXMLUpdate(string filename) : base(filename)
         { }
 
+        /// <summary>
+        /// Parse the XML file
+        /// </summary>
         public override void parse()
         {
             try
@@ -20,6 +28,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
                 verifyFile();
 
                 XmlNodeList nodelist = xmlDocument.SelectNodes("/materiels/article"); // get all <article> nodes
+                updateMaxRangeProgressBar(nodelist.Count); // Send the max range of the progress bar to the view
 
                 foreach (XmlNode node in nodelist) // for each <article> node
                 {
@@ -29,16 +38,21 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
                         addArticle();
                     else
                         updateArticle(); // When the article is already exist. Update information to the database
+
+                    updateProgressBar(); //Send an event to the view to increment the progress bar
                 }
-                //xmlDocument.Save(filename); // Apply modification to the document (fix spelling mistake).
+                xmlDocument.Save(filename); // Apply modification to the document (fix spelling mistake).
             }
             catch (Exception e)
             {
-                sendSignal(TypeMessage.Critical, SubjectMessage.Xml_Structure, e.Message);
+                updateListView(TypeMessage.Critical, SubjectMessage.Xml_Structure, e.Message);
                 throw;
             }
         }
 
+        /// <summary>
+        /// Update value of the article
+        /// </summary>
         private void updateArticle()
         {
             article.Description = node.SelectSingleNode("description").InnerText; // Update the description
@@ -55,11 +69,11 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             else
             {
                 if (dbManager.existSousFamilleInFamille(sousFamille.Id, article.IdFamille))
-                    article.IdSousFamille = sousFamille.Id; // Set the new id of the sousFamille
+                    article.IdSousFamille = sousFamille.Id; // Set the new id of the sub family
                 else
                 {
-                    // Generate error because a sousFamille don't belong to twice famille. (this sousFamille has already a famille)
-                    sendSignal(TypeMessage.Error, SubjectMessage.Update_Famille,
+                    // Generate error because a sousFamille don't belong to twice family. (this sub family has already a family)
+                    updateListView(TypeMessage.Error, SubjectMessage.Update_Famille,
                         "Article " + article.Reference + ". His familly has not been updated because his subfamily does not match with the new familly");
                 }
             }
@@ -68,7 +82,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             if (marque == null)
                 newMarque();
             else
-                article.IdMarque = marque.Id; // Set the new id of the marque
+                article.IdMarque = marque.Id; // Set the new id of the brand
 
             article.PrixHT = Convert.ToDouble(node.SelectSingleNode("prixHT").InnerText); // Update prixHT
 

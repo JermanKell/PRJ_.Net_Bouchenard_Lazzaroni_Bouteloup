@@ -48,9 +48,13 @@
             // 
             this.progressBar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.progressBar.BackColor = System.Drawing.SystemColors.Control;
+            this.progressBar.Cursor = System.Windows.Forms.Cursors.Arrow;
             this.progressBar.Location = new System.Drawing.Point(39, 429);
             this.progressBar.Name = "progressBar";
             this.progressBar.Size = new System.Drawing.Size(972, 23);
+            this.progressBar.Step = 1;
+            this.progressBar.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
             this.progressBar.TabIndex = 0;
             // 
             // btnIntegrate

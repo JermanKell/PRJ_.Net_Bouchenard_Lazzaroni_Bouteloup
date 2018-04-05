@@ -10,13 +10,21 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
 {
     class DBManager
     {
-        private SQLiteConnection conn;
+        private SQLiteConnection conn; // The XML connection
 
+        /// <summary>
+        /// Constructor per default
+        /// </summary>
         public DBManager()
         {
             conn = DBConnection.getInstance().getDataBase();
         }
 
+        /// <summary>
+        /// Insert article to the database
+        /// </summary>
+        /// <param name="article"> The article to add </param>
+        /// <returns> The id of the article added </returns>
         public int insertArticle(Articles article)
         {
             SQLiteCommand sql = new SQLiteCommand(
@@ -39,6 +47,10 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             }
         }
 
+        /// <summary>
+        /// Update an article to the database
+        /// </summary>
+        /// <param name="article"> The article to update </param>
         public void updateArticle(Articles article)
         {
             SQLiteCommand sql = new SQLiteCommand(
@@ -58,6 +70,11 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             catch (Exception ex) { throw new Exception(ex.Message); }
         }
 
+        /// <summary>
+        /// Insert family to the database
+        /// </summary>
+        /// <param name="famille"> The new family to insert </param>
+        /// <returns> Id of the new family added </returns>
         public int insertFamille(Familles famille)
         {
             SQLiteCommand sql = new SQLiteCommand(
@@ -75,6 +92,11 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             }
         }
 
+        /// <summary>
+        /// Insert a new sub family to the database
+        /// </summary>
+        /// <param name="sousFamille"> The new sub family to add </param>
+        /// <returns> Id of the new sub family added </returns>
         public int insertSousFamille(SousFamilles sousFamille)
         {
             SQLiteCommand sql = new SQLiteCommand(
@@ -94,6 +116,11 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             }
         }
 
+        /// <summary>
+        /// Insert a new brand to the database
+        /// </summary>
+        /// <param name="marque"> The new brand to add </param>
+        /// <returns> Id of the new brand added </returns>
         public int insertMarque(Marques marque)
         {
             SQLiteCommand sql = new SQLiteCommand(
@@ -112,6 +139,12 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             }
         }
         
+        /// <summary>
+        /// Get all article of the database
+        /// </summary>
+        /// <param name="columnsort"> Column to sort </param>
+        /// <param name="ascending"> The direction </param>
+        /// <returns> The list of all article </returns>
         public List<Articles> getAllArticle(string columnsort = "RefArticle", bool ascending = true)
         {
             string order = "ASC";
@@ -134,6 +167,10 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             return listArticles;
         }
 
+        /// <summary>
+        /// Get all family of the database
+        /// </summary>
+        /// <returns> The list of all family </returns>
         public List<Familles> getAllFamilles()
         {
             List<Familles> listFamille = new List<Familles>();
@@ -150,6 +187,10 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             return listFamille;
         }
 
+        /// <summary>
+        /// Get all sub family of the database
+        /// </summary>
+        /// <returns> The list of all sub family </returns>
         public List<SousFamilles> getAllSousFamilles()
         {
             List<SousFamilles> listSousFamille = new List<SousFamilles>();
@@ -166,6 +207,10 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             return listSousFamille;
         }
 
+        /// <summary>
+        /// Get all brand of the database
+        /// </summary>
+        /// <returns> The list of all brand </returns>
         public List<Marques> getAllMarques()
         {
             List<Marques> listMarque = new List<Marques>();
@@ -182,6 +227,11 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             return listMarque;
         }
 
+        /// <summary>
+        /// Get one article by reference
+        /// </summary>
+        /// <param name="reference"> The reference of the article to get </param>
+        /// <returns> The article searched </returns>
         public Articles getArticle(string reference)
         {
             Articles article = new Articles();
@@ -200,6 +250,12 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
                 return null;
         }
 
+        /// <summary>
+        /// Get one family by name OR id
+        /// </summary>
+        /// <param name="name"> The name of the family to get </param>
+        /// <param name="id"> The id of the family to get </param>
+        /// <returns> The family searched </returns>
         public Familles getFamille(string name = "", int id = -1)
         {
             Familles famille = new Familles();
@@ -227,6 +283,12 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
                 return null;
         }
 
+        /// <summary>
+        /// Get one sub family by name or id
+        /// </summary>
+        /// <param name="name"> The name of the sub family to get </param>
+        /// <param name="id"> The id of the sub family to get </param>
+        /// <returns> The sub family searched </returns>
         public SousFamilles getSousFamille(string name = "", int id = -1)
         {
             SousFamilles sousFamille = new SousFamilles();
@@ -254,6 +316,12 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
                 return null;
         }
 
+        /// <summary>
+        /// Get one brand by name or id
+        /// </summary>
+        /// <param name="name"> The name of the brand to get </param>
+        /// <param name="id"> The id of the brand to get </param>
+        /// <returns> The brand searched </returns>
         public Marques getMarque(string name = "", int id = -1)
         {
             Marques marque = new Marques();
@@ -281,6 +349,10 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
                 return null;
         }
 
+        /// <summary>
+        /// Increment the quantity of the article by one
+        /// </summary>
+        /// <param name="refArticle"> The quantity of the article to increment </param>
         public void updateQuantiteArticle(string refArticle)
         {
             SQLiteCommand sql = new SQLiteCommand("UPDATE Articles SET Quantite = Quantite + 1 WHERE RefArticle = @refArticle", conn);
@@ -296,6 +368,12 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             }
         }
         
+        /// <summary>
+        /// Check if the sub family correspond to the good family
+        /// </summary>
+        /// <param name="idSousFamille"> The sub family id to check </param>
+        /// <param name="idFamille"> The family id to check </param>
+        /// <returns> True if OK else false </returns>
         public bool existSousFamilleInFamille(int idSousFamille, int idFamille)
         {
             SQLiteCommand sql = new SQLiteCommand("SELECT * FROM SousFamilles WHERE RefSousFamille = @idSousFamille AND RefFamille = @idFamille", conn);
@@ -309,6 +387,10 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
                 return false;
         }
 
+        /// <summary>
+        /// Get all table name of the database
+        /// </summary>
+        /// <returns> The list of all name table </returns>
         public List<string> getTableBdd()
         {
             List<string> listTablesName = new List<string>();
@@ -319,6 +401,11 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             return listTablesName;
         }
 
+        /// <summary>
+        /// Get all column of a table
+        /// </summary>
+        /// <param name="table_name"></param>
+        /// <returns>Columns's name</returns>
         public List<string> getNameColumnTable(string table_name = "Articles")
         {
             List<string> listNameColumnTable = new List<string>();
@@ -329,6 +416,10 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             return listNameColumnTable;
         }
 
+        /// <summary>
+        /// To delete all table of the database
+        /// </summary>
+        /// <param name="name"> The databse to delete or empty if all </param>
         public void deleteTables(string name = "") // Recurisivity -- No param to delete all - Set param to delete once.
         {
             List<string> nameAll = new List<string>();

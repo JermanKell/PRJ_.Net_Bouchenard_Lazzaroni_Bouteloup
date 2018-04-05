@@ -7,24 +7,26 @@ using System.Linq;
 using System.Text;
 using System.IO;
 using System.Windows.Forms;
-using System.Data.SQLite;
-using System.Data.SqlClient;
-// A degager après test
-using System.Xml;
-
 
 namespace PRJ_.Net_Bouchenard_Lazzaroni
 {
     public partial class SelectXml : Form
     {
-        private Stream stream;
-        private string filename;
+        private string filename; // Path of the xml file
 
+        /// <summary>
+        /// Constructor per default
+        /// </summary>
         public SelectXml()
         {
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Open dialog to select the xml file
+        /// </summary>
+        /// <param name="sender"> Mandadory because receive event </param>
+        /// <param name="e"> Param of the event </param>
         private void btnOpenFile_Click(object sender, EventArgs e)
         {
             DocOpen_Window = new OpenFileDialog();
@@ -32,44 +34,53 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             DocOpen_Window.FilterIndex = 1;
             DocOpen_Window.Title = "Select an XML File to parse";
             DocOpen_Window.RestoreDirectory = true;
-            XmlDocument xml = new XmlDocument();
 
             if (DocOpen_Window.ShowDialog() == DialogResult.OK)
             {
-                //stream = DocOpen_Window.OpenFile(); // Pourquoi tu a besoin d'ouvrir le fichier ? Cela me pose des problèmes quand je veux y appliquer des modifications.
                 filename = DocOpen_Window.FileName; // Full path of the file
                 lab_FName.Text = DocOpen_Window.SafeFileName;
             }
-
-            //foreach(XmlNode xNode in xml.DocumentElement.ChildNodes)
         }
 
+        /// <summary>
+        /// Parse the file selected
+        /// </summary>
+        /// <param name="sender"> Mandadory because receive event </param>
+        /// <param name="e"> Argument of the event </param>
         private void btnIntegrate_Click(object sender, EventArgs e)
         {
-            listView.Items.Clear(); // Remove all items<
+            listView.Items.Clear(); // Remove all items
 
             if (lab_FName.Text.CompareTo("") != 0) // If no file has selected
             {
                 ControllerParserXML controllerParser;
+                progressBar.Value = 0; // Reset the position of the bar
 
                 if (Update_XML.Checked == true)
                 {
                     controllerParser = new ControllerParserXMLUpdate(filename);
-                    controllerParser.sendMessageToView += eventReceived;
+                    controllerParser.eventUpdateListView += updateListView; // Event ListView
+                    controllerParser.eventUpdateProgressBar += updateProgressBar; // Event ProgressBar
+                    controllerParser.eventRangeMaxProgressBar += updateMaxRangeProgressBar; // Event max range ProgressBar
                     controllerParser.parse();
                 }
                 if (Integration_XML.Checked == true)
                 {
                     controllerParser = new ControllerParserXMLAdd(filename);
-                    controllerParser.sendMessageToView += eventReceived;
+                    controllerParser.eventUpdateListView += updateListView; // Event ListView
+                    controllerParser.eventUpdateProgressBar += updateProgressBar; // Event ProgressBar
+                    controllerParser.eventRangeMaxProgressBar += updateMaxRangeProgressBar; // Event max range ProgressBar
                     controllerParser.parse();
                 }
             }
-
-            //ExempleRequete();
         }
 
-        void eventReceived(object sender, MyEventArgs e)
+        /// <summary>
+        /// Signal send by controller to add text line on the list view
+        /// </summary>
+        /// <param name="sender"> Mandatory because receive event </param>
+        /// <param name="e"> Argument of the event </param>
+        void updateListView(object sender, MyEventArgs e)
         {
             ListViewItem listViewItem = new ListViewItem(new[] { e.message, e.type.ToString(), e.subject.ToString()});
 
@@ -91,43 +102,24 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             listView.EnsureVisible(listView.Items.Count - 1); // Auto scroll down
         }
 
-        public void ExempleRequete()
+        /// <summary>
+        /// Signal send by controller to update the progress bar
+        /// </summary>
+        /// <param name="sender"> Mandatory because receive event </param>
+        /// <param name="e"> Argument of the event </param>
+        void updateProgressBar(object sender, MyEventArgs e)
         {
-            
-            SQLiteConnection db = DBConnection.getInstance().getDataBase();
+            progressBar.PerformStep();
+        }
 
-
-            string myInsertQuery = "INSERT INTO MARQUES VALUES (1,'UnNom')";
-            SQLiteCommand sqCommand = new SQLiteCommand(myInsertQuery, db);
-            sqCommand.ExecuteNonQuery();
-
-            //avec prepare
-            SQLiteCommand commandPrepare = new SQLiteCommand("INSERT INTO Marques (RefMarque, Nom) VALUES (@refMarque, @nom)", db);
-            commandPrepare.Prepare();
-            commandPrepare.Parameters.AddWithValue("@refMarque", 2);
-            commandPrepare.Parameters.AddWithValue("@nom", "MonNomPrepare");
-            commandPrepare.ExecuteNonQuery();
-
-            //récupérer le nom de toutes les tables
-            SQLiteCommand select = new SQLiteCommand("SELECT * FROM Marques", db);
-            SQLiteDataReader r = select.ExecuteReader();
-            String nom = "";
-            while (r.Read())
-            {
-                nom += r["RefMarque"] + " " + r["Nom"] + "\n";
-            }
-            MessageBox.Show(nom);
-
-            //récupérer le nom de toutes les tables
-            SQLiteCommand selectTables = new SQLiteCommand("SELECT name FROM sqlite_master WHERE type='table'", db);
-            SQLiteDataReader r2 = selectTables.ExecuteReader();
-            String nom2 = "";
-            while (r2.Read())
-            {
-                nom2 += r2.GetValue(0).ToString() + "\n";
-            }
-            db.Close();
-            MessageBox.Show(nom2);
+        /// <summary>
+        /// Signal send by controller to set the max range of the progress bar
+        /// </summary>
+        /// <param name="sender"> Mandatory because receive event </param>
+        /// <param name="e"> Argument of the event </param>
+        void updateMaxRangeProgressBar(object sender, MyEventArgs e)
+        {
+            progressBar.Maximum = e.maxRange;
         }
     }
 }
