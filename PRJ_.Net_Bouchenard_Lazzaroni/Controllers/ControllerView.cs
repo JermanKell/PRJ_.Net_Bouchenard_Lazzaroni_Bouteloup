@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Windows.Forms;
 
 namespace PRJ_.Net_Bouchenard_Lazzaroni
 {
@@ -10,14 +11,19 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         /// <summary>
         /// This attribut is a "list" of all objects found and stored in the DB
         /// </summary>
-        protected Dictionary<String, Object> DicObject = null;
+        protected Dictionary<int, Object> DicObject = null;
+
+        /// <summary>
+        /// Handles all requests to do on the DB.
+        /// </summary>
+        protected DBManager manager = new DBManager();
 
         /// <summary>
         /// Constructor of this abstract class.
         /// </summary>
         public ControllerView()
         {
-            DicObject = new Dictionary<string, object>();
+            manager = new DBManager();
         }
 
         /// <summary>
@@ -43,24 +49,11 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         /// </summary>
         /// <param name="RefObj">Reference of the object to delete from the DB.</param>
         /// <returns>Returns true if done and false else</returns>
-        abstract public bool DeleteElement(String RefObj);
+        abstract public bool DeleteElement(int RefObj);
 
         /// <summary>
-        /// Returns the objects dictionary of the current controller object
+        /// Gets a dictionary of all products families stored in the BD and store it in this controller.
         /// </summary>
-        /// <returns>A list of objects to display</returns>
-        public Dictionary<String, Object> getDictionary()
-        {
-            return DicObject;
-        }
-
-        /// <summary>
-        /// Sets the objects dictionary of this controller object
-        /// </summary>
-        /// <param name="lObj">List of objects got from the DB to display</param>
-        public void setDictionary(Dictionary<String, Object> lObj)
-        {
-            DicObject = lObj;
-        }
+        abstract protected void Refresh();
     }
 }
