@@ -19,11 +19,14 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         // Declare a variable to store the current grouping column
         int groupColumn = 0;
 
+        private Dictionary<string, Articles> dictionaryArticles;
+
+
         public Main()
         {
             InitializeComponent();
             ControllerParserXML parser = new ControllerParserXMLAdd("../../Mercure.xml");
-            // parser.parse(); PAS ENCORE FONCTIONNEL
+            parser.parse();
 
             //jeu d'essai
             /*SQLiteCommand sql = new SQLiteCommand(
@@ -104,18 +107,20 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             DBManager dbm = new DBManager();
             ////////////////////
 
-            List<Articles> listArticles = dbm.getAllArticle();
-            for (int i = 0; i < listArticles.Count; i++)
+            dictionaryArticles = dbm.getAllArticle().ToDictionary(x => x.Reference, x => x);
+
+            foreach (KeyValuePair<string, Articles> article in dictionaryArticles)
             {
                 ListViewItem item = new ListViewItem(new string[] {
-                listArticles.ElementAt(i).Reference,
-                listArticles.ElementAt(i).Description,
-                listArticles.ElementAt(i).IdSousFamille.ToString(),
-                listArticles.ElementAt(i).IdMarque.ToString(),
-                listArticles.ElementAt(i).PrixHT.ToString(),
-                listArticles.ElementAt(i).Quantite.ToString()
+
+                    article.Value.Reference,
+                    article.Value.Description,
+                    article.Value.IdSousFamille.ToString(),
+                    article.Value.IdMarque.ToString(),
+                    article.Value.PrixHT.ToString(),
+                    article.Value.Quantite.ToString()
                 });
-                item.Name = listArticles.ElementAt(i).Reference;    //Set reference as item name
+                item.Name = article.Key;    //Set reference as item name
                 listViewArticle.Items.Add(item);
             }
         }
@@ -340,9 +345,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
 
         private void UpdateArticleListView()
         {
-            DBManager dbm = new DBManager();
-            Articles SelectedArticle = dbm.getArticle(listViewArticle.SelectedItems[0].Name); //first selected item only
-            VueArticle vA = new VueArticle(SelectedArticle);
+            VueArticle vA = new VueArticle(dictionaryArticles[listViewArticle.SelectedItems[0].Name]);
             vA.ShowDialog();
         }
     }

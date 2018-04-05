@@ -39,12 +39,12 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
                 xmlDocument.Schemas.Add(schemaSet); // Add the schema to the xml document
                 ValidationEventHandler veh = new ValidationEventHandler(sendSignal); // Send event when something goes wrong.
                 xmlDocument.Validate(veh); // Run the validation
-            } catch (Exception e) { MessageBox.Show(e.Message); }
+            } catch (Exception e) {/* MessageBox.Show(e.Message);*/ }
         }
 
         protected static void sendSignal(object sender, ValidationEventArgs args)
         {
-            MessageBox.Show("Problème");
+            //MessageBox.Show("Problème");
             //MessageBox.Show(args.Message);
         }
     }
