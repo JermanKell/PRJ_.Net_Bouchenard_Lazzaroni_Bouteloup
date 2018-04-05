@@ -60,7 +60,8 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
 
             counterTypeMessage[type] += 1; // Increment the counter
 
-            eventUpdateListView(this, argsEvent); // Send the event
+            if (eventUpdateListView != null)
+                eventUpdateListView(this, argsEvent); // Send the event
         }
 
         /// <summary>
