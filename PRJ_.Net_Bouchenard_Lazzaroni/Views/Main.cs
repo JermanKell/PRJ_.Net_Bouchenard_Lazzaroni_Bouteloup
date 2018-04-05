@@ -1,4 +1,4 @@
-ï»¿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -25,8 +25,6 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         public Main()
         {
             InitializeComponent();
-            ControllerParserXML parser = new ControllerParserXMLAdd("../../Mercure.xml");
-            parser.parse();
 
             //jeu d'essai
             /*SQLiteCommand sql = new SQLiteCommand(
@@ -321,19 +319,19 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
                     if (!db.removeArticle(listViewArticle.SelectedItems[i].Name)) //get id refArticle with item name
                         error = true;
                 if (error)
-                    statusStrip.Items[0].Text = "Une erreur a empÃªchÃ© la supression de cet article";
+                    statusStrip.Items[0].Text = "Une erreur a empêché la supression de cet article";
                 else
                 {
                     LoadDataListView();
                     InitialiseGroupsByColumnListView();
                     SetGroups(groupColumn);
                     listViewArticle.SetSortIcon(groupColumn, listViewArticle.Sorting);
-                    statusStrip.Items[0].Text = "L'article a bien Ã©tÃ© supprimÃ© de la base";
+                    statusStrip.Items[0].Text = "L'article a bien été supprimé de la base";
                 }
             }
             else
             {
-                statusStrip.Items[0].Text = "La supression d'article a Ã©tÃ© annulÃ©e";
+                statusStrip.Items[0].Text = "La supression d'article a été annulée";
             }
         }
 
