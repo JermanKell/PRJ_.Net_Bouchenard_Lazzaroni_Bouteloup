@@ -66,7 +66,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             //////////////////////////
 
             Cbx_Famille.Items.Clear();
-            DictionaryFamilles = dbm.getAllFamilles().ToDictionary(x => x.Id, x => x.Nom);
+            DictionaryFamilles = dbm.getAllFamilles().ToDictionary(x => x.Key, x => x.Value.Nom);
             //dictionaryFamilles.Add(2, "un");
             if(DictionaryFamilles.Count > 0)
             {
@@ -84,7 +84,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             //////////////////////////
 
             Cbx_SousFamille.Items.Clear();
-            DictionarySousFamilles = dbm.getAllSousFamilles().ToDictionary(x => x.Id, x => x.Nom);
+            DictionarySousFamilles = dbm.getAllSousFamilles().ToDictionary(x => x.Key, x => x.Value.Nom);
             //dictionarySousFamilles.Add(2, "un");
             if(DictionarySousFamilles.Count > 0)
             {
@@ -102,7 +102,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             //////////////////////////
 
             Cbx_Marque.Items.Clear();   
-            DictionaryMarques = dbm.getAllMarques().ToDictionary(x => x.Id, x => x.Nom);
+            DictionaryMarques = dbm.getAllMarques().ToDictionary(x => x.Key, x => x.Value.Nom);
             //dictionaryMarques.Add(2, "un");
             if(DictionaryMarques.Count > 0)
             {
@@ -117,7 +117,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         {
             bool IsValid = true;
 
-            if (Tbx_Reference.TextLength == 0 || !Tbx_Prix.Text.All(char.IsDigit))
+            if (Tbx_Reference.TextLength == 0)
             {
                 Graphics graph = Tbx_Reference.CreateGraphics();
                 Pen pen = new Pen(Brushes.Red, 2.0f);
@@ -170,9 +170,22 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
 
         private void Btn_Valider_Click(object sender, EventArgs e)
         {
-            CheckEntries();
-            if (Cbx_Famille.SelectedIndex != -1)
+            if(!CheckEntries())
             {
+                MessageBox.Show("Certains champs ne sont pas valides !", "Attention", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            else
+            {
+                if(Article == null)//ajout
+                {
+
+                }
+                else//modification
+                {
+
+                }
+
+
                 int key = ((KeyValuePair<int, string>)Cbx_Famille.SelectedItem).Key;
                 string value = ((KeyValuePair<int, string>)Cbx_Famille.SelectedItem).Value;
                 MessageBox.Show(key + "   " + value);

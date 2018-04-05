@@ -15,11 +15,11 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
     {
 
         // Declare a Hashtable array in which to store the groups
-        private List<Hashtable> groupsListView;
+        private List<Hashtable> GroupsListView;
         // Declare a variable to store the current grouping column
-        int groupColumn = 0;
+        int GroupColumn = 0;
 
-        private Dictionary<string, Articles> dictionaryArticles;
+        private Dictionary<string, Articles> DictionaryArticles;
 
 
         public Main()
@@ -89,7 +89,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             //initialise data
             LoadDataListView();
 
-            groupsListView = new List<Hashtable>();
+            GroupsListView = new List<Hashtable>();
 
             //Insert in the groupsListView a new hashtable containing all the groups needed for a single column
             InitialiseGroupsByColumnListView();
@@ -107,9 +107,9 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             DBManager dbm = new DBManager();
             ////////////////////
 
-            dictionaryArticles = dbm.getAllArticle().ToDictionary(x => x.Reference, x => x);
+            DictionaryArticles = dbm.getAllArticle().ToDictionary(x => x.Reference, x => x);
 
-            foreach (KeyValuePair<string, Articles> article in dictionaryArticles)
+            foreach (KeyValuePair<string, Articles> article in DictionaryArticles)
             {
                 ListViewItem item = new ListViewItem(new string[] {
 
@@ -128,8 +128,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         // Creates a Hashtable with one entry for each unique textItem value in the specified column
         private void InitialiseGroupsByColumnListView()
         {
-            //Reset the list
-            groupsListView.Clear();
+            GroupsListView.Clear();
 
             //Create a hashtable for each column
             for (int column = 0; column < listViewArticle.Columns.Count; column++)
@@ -149,7 +148,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
                         groupColumn.Add(textItem, new ListViewGroup(textItem, HorizontalAlignment.Left));
                     }
                 }
-                groupsListView.Add(groupColumn);
+                GroupsListView.Add(groupColumn);
             }
         }
 
@@ -159,7 +158,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             listViewArticle.Groups.Clear();
 
             // Get the Hashtable corresponding to the column
-            Hashtable groups = groupsListView.ElementAt(column);
+            Hashtable groups = GroupsListView.ElementAt(column);
 
             // Copy the groups for the column in Listgroups
             ListViewGroup[] Listgroups = new ListViewGroup[groups.Count];
@@ -221,11 +220,11 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         private void listViewArticle_ColumnClick(object sender, ColumnClickEventArgs e)
         {
             // Set the sort order to ascending when changing column groups; otherwise, reverse the sort order
-            if ((listViewArticle.Sorting == SortOrder.Descending) || (e.Column != groupColumn))
+            if ((listViewArticle.Sorting == SortOrder.Descending) || (e.Column != GroupColumn))
                 listViewArticle.Sorting = SortOrder.Ascending;
             else
                 listViewArticle.Sorting = SortOrder.Descending;
-            groupColumn = e.Column;
+            GroupColumn = e.Column;
 
             // Set the groups to those created for the clicked column
             SetGroups(e.Column);
@@ -326,8 +325,8 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
                 {
                     LoadDataListView();
                     InitialiseGroupsByColumnListView();
-                    SetGroups(groupColumn);
-                    listViewArticle.SetSortIcon(groupColumn, listViewArticle.Sorting);
+                    SetGroups(GroupColumn);
+                    listViewArticle.SetSortIcon(GroupColumn, listViewArticle.Sorting);
                     statusStrip.Items[0].Text = "L'article a bien été supprimé de la base";
                 }
             }
@@ -339,14 +338,14 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
 
         private void AddArticleListView()
         {
-            VueArticle vA = new VueArticle();
-            vA.ShowDialog();
+            VueArticle VA = new VueArticle();
+            VA.ShowDialog();
         }
 
         private void UpdateArticleListView()
         {
-            VueArticle vA = new VueArticle(dictionaryArticles[listViewArticle.SelectedItems[0].Name]);
-            vA.ShowDialog();
+            VueArticle VA = new VueArticle(DictionaryArticles[listViewArticle.SelectedItems[0].Name]);
+            VA.ShowDialog();
         }
     }
 }
