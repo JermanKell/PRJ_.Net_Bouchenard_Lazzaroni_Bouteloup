@@ -15,7 +15,6 @@ D:\PolytechTours\DI_4A\Semestre8\PRJ_.Net_Bouchenard_Lazzaroni_Bouteloup\PRJ_.Ne
 D:\PolytechTours\DI_4A\Semestre8\PRJ_.Net_Bouchenard_Lazzaroni_Bouteloup\PRJ_.Net_Bouchenard_Lazzaroni\bin\Debug\System.Data.SQLite.dll
 D:\PolytechTours\DI_4A\Semestre8\PRJ_.Net_Bouchenard_Lazzaroni_Bouteloup\PRJ_.Net_Bouchenard_Lazzaroni\bin\Debug\System.Data.SQLite.xml
 D:\PolytechTours\DI_4A\Semestre8\PRJ_.Net_Bouchenard_Lazzaroni_Bouteloup\PRJ_.Net_Bouchenard_Lazzaroni\obj\Debug\PRJ_.Net_Bouchenard_Lazzaroni.csprojResolveAssemblyReference.cache
-D:\PolytechTours\DI_4A\Semestre8\PRJ_.Net_Bouchenard_Lazzaroni_Bouteloup\PRJ_.Net_Bouchenard_Lazzaroni\obj\Debug\PRJ_.Net_Bouchenard_Lazzaroni.CompoTest.resources
 D:\PolytechTours\DI_4A\Semestre8\PRJ_.Net_Bouchenard_Lazzaroni_Bouteloup\PRJ_.Net_Bouchenard_Lazzaroni\obj\Debug\PRJ_.Net_Bouchenard_Lazzaroni.Main.resources
 D:\PolytechTours\DI_4A\Semestre8\PRJ_.Net_Bouchenard_Lazzaroni_Bouteloup\PRJ_.Net_Bouchenard_Lazzaroni\obj\Debug\PRJ_.Net_Bouchenard_Lazzaroni.Properties.Resources.resources
 D:\PolytechTours\DI_4A\Semestre8\PRJ_.Net_Bouchenard_Lazzaroni_Bouteloup\PRJ_.Net_Bouchenard_Lazzaroni\obj\Debug\PRJ_.Net_Bouchenard_Lazzaroni.SelectXml.resources
@@ -46,3 +45,5 @@ C:\Users\arccho\Desktop\PRJ_.Net_Bouchenard_Lazzaroni_Bouteloup\PRJ_.Net_Bouchen
 C:\Users\arccho\Desktop\PRJ_.Net_Bouchenard_Lazzaroni_Bouteloup\PRJ_.Net_Bouchenard_Lazzaroni\obj\Debug\PRJ_.Net_Bouchenard_Lazzaroni.Properties.Resources.resources
 C:\Users\arccho\Desktop\PRJ_.Net_Bouchenard_Lazzaroni_Bouteloup\PRJ_.Net_Bouchenard_Lazzaroni\obj\Debug\PRJ_.Net_Bouchenard_Lazzaroni.SelectXml.resources
 C:\Users\arccho\Desktop\PRJ_.Net_Bouchenard_Lazzaroni_Bouteloup\PRJ_.Net_Bouchenard_Lazzaroni\obj\Debug\PRJ_.Net_Bouchenard_Lazzaroni.csproj.GenerateResource.Cache
+C:\Users\arccho\Desktop\PRJ_.Net_Bouchenard_Lazzaroni_Bouteloup\PRJ_.Net_Bouchenard_Lazzaroni\obj\Debug\PRJ_.Net_Bouchenard_Lazzaroni.VueArticle.resources
+D:\PolytechTours\DI_4A\Semestre8\PRJ_.Net_Bouchenard_Lazzaroni_Bouteloup\PRJ_.Net_Bouchenard_Lazzaroni\obj\Debug\PRJ_.Net_Bouchenard_Lazzaroni.VueArticle.resources
