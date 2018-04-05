@@ -25,7 +25,7 @@ PRJ_.Net_Bouchenard_Lazzaroni/[Oo]bj/
 [Ll]og/
 
 # Visual Studio 2015 cache/options directory
-.vs/
+.vs/PRJ_.Net_Bouchenard_Lazzaroni/*
 # Uncomment if you have tasks that create the project's static files in wwwroot
 #wwwroot/
 

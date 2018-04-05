@@ -57,26 +57,30 @@
             // 
             // Cbx_Marque
             // 
+            this.Cbx_Marque.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.Cbx_Marque.FormattingEnabled = true;
             this.Cbx_Marque.Location = new System.Drawing.Point(106, 281);
             this.Cbx_Marque.Name = "Cbx_Marque";
-            this.Cbx_Marque.Size = new System.Drawing.Size(209, 21);
+            this.Cbx_Marque.Size = new System.Drawing.Size(304, 21);
             this.Cbx_Marque.TabIndex = 1;
             // 
             // Cbx_Famille
             // 
+            this.Cbx_Famille.DropDownStyle = System.Windows.Forms.ComboBoxStyle.Simple;
+            this.Cbx_Famille.ForeColor = System.Drawing.SystemColors.WindowText;
             this.Cbx_Famille.FormattingEnabled = true;
-            this.Cbx_Famille.Location = new System.Drawing.Point(106, 147);
+            this.Cbx_Famille.Location = new System.Drawing.Point(106, 196);
             this.Cbx_Famille.Name = "Cbx_Famille";
-            this.Cbx_Famille.Size = new System.Drawing.Size(209, 21);
+            this.Cbx_Famille.Size = new System.Drawing.Size(304, 21);
             this.Cbx_Famille.TabIndex = 2;
             // 
             // Cbx_SousFamille
             // 
+            this.Cbx_SousFamille.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.Cbx_SousFamille.FormattingEnabled = true;
             this.Cbx_SousFamille.Location = new System.Drawing.Point(106, 239);
             this.Cbx_SousFamille.Name = "Cbx_SousFamille";
-            this.Cbx_SousFamille.Size = new System.Drawing.Size(209, 21);
+            this.Cbx_SousFamille.Size = new System.Drawing.Size(304, 21);
             this.Cbx_SousFamille.TabIndex = 3;
             // 
             // Labl_Reference
@@ -119,20 +123,21 @@
             // 
             this.Tbx_Reference.Location = new System.Drawing.Point(175, 74);
             this.Tbx_Reference.Name = "Tbx_Reference";
-            this.Tbx_Reference.Size = new System.Drawing.Size(140, 20);
+            this.Tbx_Reference.Size = new System.Drawing.Size(235, 20);
             this.Tbx_Reference.TabIndex = 8;
             // 
             // Tbx_Description
             // 
             this.Tbx_Description.Location = new System.Drawing.Point(175, 101);
+            this.Tbx_Description.Multiline = true;
             this.Tbx_Description.Name = "Tbx_Description";
-            this.Tbx_Description.Size = new System.Drawing.Size(140, 20);
+            this.Tbx_Description.Size = new System.Drawing.Size(235, 72);
             this.Tbx_Description.TabIndex = 9;
             // 
             // Lab_Famille
             // 
             this.Lab_Famille.AutoSize = true;
-            this.Lab_Famille.Location = new System.Drawing.Point(73, 131);
+            this.Lab_Famille.Location = new System.Drawing.Point(73, 180);
             this.Lab_Famille.Name = "Lab_Famille";
             this.Lab_Famille.Size = new System.Drawing.Size(97, 13);
             this.Lab_Famille.TabIndex = 10;
@@ -160,19 +165,19 @@
             // 
             this.Tbx_Prix.Location = new System.Drawing.Point(176, 328);
             this.Tbx_Prix.Name = "Tbx_Prix";
-            this.Tbx_Prix.Size = new System.Drawing.Size(140, 20);
+            this.Tbx_Prix.Size = new System.Drawing.Size(234, 20);
             this.Tbx_Prix.TabIndex = 13;
             // 
             // Tbx_Quantite
             // 
             this.Tbx_Quantite.Location = new System.Drawing.Point(175, 363);
             this.Tbx_Quantite.Name = "Tbx_Quantite";
-            this.Tbx_Quantite.Size = new System.Drawing.Size(140, 20);
+            this.Tbx_Quantite.Size = new System.Drawing.Size(235, 20);
             this.Tbx_Quantite.TabIndex = 14;
             // 
             // Btn_Valider
             // 
-            this.Btn_Valider.Location = new System.Drawing.Point(140, 409);
+            this.Btn_Valider.Location = new System.Drawing.Point(150, 398);
             this.Btn_Valider.Name = "Btn_Valider";
             this.Btn_Valider.Size = new System.Drawing.Size(157, 27);
             this.Btn_Valider.TabIndex = 15;
@@ -184,7 +189,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(469, 461);
+            this.ClientSize = new System.Drawing.Size(469, 437);
             this.Controls.Add(this.Btn_Valider);
             this.Controls.Add(this.Tbx_Quantite);
             this.Controls.Add(this.Tbx_Prix);

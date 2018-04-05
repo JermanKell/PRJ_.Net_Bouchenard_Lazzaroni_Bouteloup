@@ -73,7 +73,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
                         dbManager.insertArticle(article);
                     }   
                 }  
-                catch (Exception e) { MessageBox.Show(e.Message); }
+                catch (Exception e) {/* MessageBox.Show(e.Message);*/ }
             }
         }
 
