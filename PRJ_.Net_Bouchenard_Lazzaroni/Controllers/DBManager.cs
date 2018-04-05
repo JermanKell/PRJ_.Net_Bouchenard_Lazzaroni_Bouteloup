@@ -115,9 +115,9 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             return listArticles;
         }
 
-        public List<Familles> getAllFamilles()
+        public Dictionary<int, Familles> getAllFamilles()
         {
-            List<Familles> listFamille = new List<Familles>();
+            Dictionary<int, Familles> listFamille = new Dictionary<int, Familles>();
             SQLiteCommand sql = new SQLiteCommand("SELECT * FROM Familles", conn);
             SQLiteDataReader reader = sql.ExecuteReader();
 
@@ -125,15 +125,15 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             {
                 Familles famille = new Familles();
                 famille.convertDataReaderToFamilles(reader);
-                listFamille.Add(famille);
+                listFamille.Add(famille.Id, famille);
             }
 
             return listFamille;
         }
 
-        public List<SousFamilles> getAllSousFamilles()
+        public Dictionary<int, SousFamilles> getAllSousFamilles()
         {
-            List<SousFamilles> listSousFamille = new List<SousFamilles>();
+            Dictionary<int, SousFamilles> listSousFamille = new Dictionary<int, SousFamilles>();
             SQLiteCommand sql = new SQLiteCommand("SELECT * FROM SousFamilles", conn);
             SQLiteDataReader reader = sql.ExecuteReader();
 
@@ -141,15 +141,15 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             {
                 SousFamilles sousFamille = new SousFamilles();
                 sousFamille.convertDataReaderToSousFamilles(reader);
-                listSousFamille.Add(sousFamille);
+                listSousFamille.Add(sousFamille.Id, sousFamille);
             }
 
             return listSousFamille;
         }
 
-        public List<Marques> getAllMarques()
+        public Dictionary<int, Marques> getAllMarques()
         {
-            List<Marques> listMarque = new List<Marques>();
+            Dictionary<int, Marques> listMarque = new Dictionary<int, Marques>();
             SQLiteCommand sql = new SQLiteCommand("SELECT * FROM Marques", conn);
             SQLiteDataReader reader = sql.ExecuteReader();
 
@@ -157,7 +157,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             {
                 Marques marque = new Marques();
                 marque.convertDataReaderToMarques(reader);
-                listMarque.Add(marque);
+                listMarque.Add(marque.Id, marque);
             }
 
             return listMarque;
