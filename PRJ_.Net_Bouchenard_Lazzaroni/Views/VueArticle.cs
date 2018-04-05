@@ -117,18 +117,61 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         {
             bool IsValid = true;
 
-            if(Cbx_Famille.SelectedIndex == -1)
+            if (Tbx_Reference.TextLength == 0 || !Tbx_Prix.Text.All(char.IsDigit))
             {
-                /*Graphics graph = Cbx_Famille.CreateGraphics();
+                Graphics graph = Tbx_Reference.CreateGraphics();
                 Pen pen = new Pen(Brushes.Red, 2.0f);
-                graph.DrawRectangle(pen, Cbx_Famille.ClientRectangle);*/
+                graph.DrawRectangle(pen, Tbx_Reference.ClientRectangle);
+                IsValid = false;
             }
+
+            if (Cbx_Famille.SelectedIndex == -1)
+            {
+                Graphics graph = Cbx_Famille.CreateGraphics();
+                Pen pen = new Pen(Brushes.Red, 2.0f);
+                graph.DrawRectangle(pen, Cbx_Famille.ClientRectangle);
+                IsValid = false;
+            }
+
+            if (Cbx_SousFamille.SelectedIndex == -1)
+            {
+                Graphics graph = Cbx_SousFamille.CreateGraphics();
+                Pen pen = new Pen(Brushes.Red, 2.0f);
+                graph.DrawRectangle(pen, Cbx_SousFamille.ClientRectangle);
+                IsValid = false;
+            }
+
+            if (Cbx_Marque.SelectedIndex == -1)
+            {
+                Graphics graph = Cbx_Marque.CreateGraphics();
+                Pen pen = new Pen(Brushes.Red, 2.0f);
+                graph.DrawRectangle(pen, Cbx_Marque.ClientRectangle);
+                IsValid = false;
+            }
+
+            if (Tbx_Prix.TextLength == 0)
+            {
+                Graphics graph = Tbx_Prix.CreateGraphics();
+                Pen pen = new Pen(Brushes.Red, 2.0f);
+                graph.DrawRectangle(pen, Tbx_Prix.ClientRectangle);
+                IsValid = false;
+            }
+
+            if (Tbx_Quantite.TextLength == 0 || !Tbx_Prix.Text.All(char.IsNumber))
+            {
+                Graphics graph = Tbx_Quantite.CreateGraphics();
+                Pen pen = new Pen(Brushes.Red, 2.0f);
+                graph.DrawRectangle(pen, Tbx_Quantite.ClientRectangle);
+                IsValid = false;
+            }
+
             return IsValid;
         }
 
         private void Btn_Valider_Click(object sender, EventArgs e)
         {
-            if(Cbx_Famille.SelectedIndex != -1)
+            CheckEntries();
+            if (Cbx_Famille.SelectedIndex != -1)
             {
                 int key = ((KeyValuePair<int, string>)Cbx_Famille.SelectedItem).Key;
                 string value = ((KeyValuePair<int, string>)Cbx_Famille.SelectedItem).Value;
