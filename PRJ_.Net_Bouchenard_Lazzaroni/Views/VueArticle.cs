@@ -175,7 +175,8 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             {
                 if(Article == null)//ajout
                 {
-
+                    DBManager Dbm = new DBManager();
+                   
                 }
                 else//modification
                 {
