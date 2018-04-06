@@ -17,43 +17,14 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         // Declare a Hashtable array in which to store the groups
         private List<Hashtable> GroupsListView;
         // Declare a variable to store the current grouping column
-        int GroupColumn = 0;
+        private int GroupColumn = 0;
 
+        //Declare a dictionary of articles
         private Dictionary<string, Articles> DictionaryArticles;
-
 
         public Main()
         {
             InitializeComponent();
-
-            //jeu d'essai
-            /*SQLiteCommand sql = new SQLiteCommand(
-            "INSERT INTO Articles (RefArticle, Description, RefSousFamille, RefMarque, PrixHT, Quantite) VALUES (@reference, @description, @idSousFamille, @idMarque, @prixHT, @quantite)", DBConnection.getInstance().getDataBase());
-            sql.Parameters.AddWithValue("@reference", "first ref");
-            sql.Parameters.AddWithValue("@description", "blabla");
-            sql.Parameters.AddWithValue("@idSousFamille", 1);
-            sql.Parameters.AddWithValue("@idMarque", 1);
-            sql.Parameters.AddWithValue("@prixHT", 30.03);
-            sql.Parameters.AddWithValue("@quantite", 5);
-            sql.ExecuteNonQuery();
-            SQLiteCommand sql2 = new SQLiteCommand(
-            "INSERT INTO Articles (RefArticle, Description, RefSousFamille, RefMarque, PrixHT, Quantite) VALUES (@reference, @description, @idSousFamille, @idMarque, @prixHT, @quantite)", DBConnection.getInstance().getDataBase());
-            sql2.Parameters.AddWithValue("@reference", "second ref");
-            sql2.Parameters.AddWithValue("@description", "dabc");
-            sql2.Parameters.AddWithValue("@idSousFamille", 1);
-            sql2.Parameters.AddWithValue("@idMarque", 3);
-            sql2.Parameters.AddWithValue("@prixHT", 30.01);
-            sql2.Parameters.AddWithValue("@quantite", 10);
-            sql2.ExecuteNonQuery();
-            SQLiteCommand sql3 = new SQLiteCommand(
-            "INSERT INTO Articles (RefArticle, Description, RefSousFamille, RefMarque, PrixHT, Quantite) VALUES (@reference, @description, @idSousFamille, @idMarque, @prixHT, @quantite)", DBConnection.getInstance().getDataBase());
-            sql3.Parameters.AddWithValue("@reference", "third ref");
-            sql3.Parameters.AddWithValue("@description", "mlihggb");
-            sql3.Parameters.AddWithValue("@idSousFamille", 2);
-            sql3.Parameters.AddWithValue("@idMarque", 1);
-            sql3.Parameters.AddWithValue("@prixHT", "30.02abc");
-            sql3.Parameters.AddWithValue("@quantite", 15);
-            sql3.ExecuteNonQuery();*/
 
             initializeListViewArticle();
         }
@@ -66,9 +37,6 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
 
         private void initializeListViewArticle()
         {
-            //set default sort ascending 
-            listViewArticle.Sorting = SortOrder.Ascending;
-
             // --- To move --- //
             DBManager dbm = new DBManager();
             ///////////////////
@@ -92,9 +60,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             //Insert in the groupsListView a new hashtable containing all the groups needed for a single column
             InitialiseGroupsByColumnListView();
 
-            // Start with the groups column refArticle
-            SetGroups(0);
-            listViewArticle.SetSortIcon(0, SortOrder.Ascending);
+            RefreshListViewArticle();
         }
 
         private void LoadDataListView()
@@ -193,13 +159,14 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             public int Compare(object x, object y)
             {
                 int result;
-                if (((ListViewGroup)x).Header.All(Char.IsNumber) && ((ListViewGroup)y).Header.All(Char.IsNumber))
+                double DoubleX, DoubleY;
+                if (double.TryParse(((ListViewGroup)x).Header, out DoubleX) && double.TryParse(((ListViewGroup)y).Header, out DoubleY))
                 {
-                    if (Convert.ToDouble(((ListViewGroup)x).Header) > Convert.ToDouble(((ListViewGroup)y).Header))
+                    if (DoubleX > DoubleY)
                         result = 1;
                     else
                         result = -1;
-                    //MessageBox.Show("Comparaison number: '" + ((ListViewGroup)x).Header + "' avec '" + ((ListViewGroup)y).Header + "' resultat=" + result);
+                   // MessageBox.Show("Comparaison number: '" + ((ListViewGroup)x).Header + "' avec '" + ((ListViewGroup)y).Header + "' resultat=" + result);
                 }
                 else
                 {
@@ -211,6 +178,18 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
                     return result;
                 else
                     return -result;
+            }
+        }
+
+        public void RefreshListViewArticle()
+        {
+            listViewArticle.Sorting = SortOrder.Ascending;
+            SetGroups(0);
+            listViewArticle.SetSortIcon(0, SortOrder.Ascending);
+            listViewArticle.SelectedItems.Clear();
+            if (listViewArticle.FocusedItem != null)
+            {
+                listViewArticle.FocusedItem.Focused = false;
             }
         }
 
@@ -234,11 +213,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             //Refresh listViewArticle
             if (e.KeyCode == Keys.F5)
             {
-                listViewArticle.Sorting = SortOrder.Ascending;
-                // Set the groups to those created for the clicked column.
-                SetGroups(0);
-                listViewArticle.SetSortIcon(0, SortOrder.Ascending);
-
+                RefreshListViewArticle();
             }
         }
 
@@ -313,10 +288,14 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
                 ///////////////////////////////////
 
                 bool error = false;
-                //Remove all selected items
-                for (int i = 0; i < listViewArticle.SelectedItems.Count; i++)
-                    if (!db.removeArticle(listViewArticle.SelectedItems[i].Name)) //get id refArticle with item name
+                int iLoop = 0;
+                while (iLoop < listViewArticle.SelectedItems.Count && error == false)   //Remove all selected items
+                {
+                    if (db.removeArticle(listViewArticle.SelectedItems[iLoop].Name) != 1)  //get id refArticle with item name
                         error = true;
+                    iLoop++;
+                }
+
                 if (error)
                     statusStrip.Items[0].Text = "Une erreur a empêché la supression de cet article";
                 else
@@ -338,12 +317,14 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         private void AddArticleListView()
         {
             VueArticle VA = new VueArticle();
+            VA.StartPosition = FormStartPosition.CenterParent;
             VA.ShowDialog();
         }
 
         private void UpdateArticleListView()
         {
             VueArticle VA = new VueArticle(DictionaryArticles[listViewArticle.SelectedItems[0].Name]);
+            VA.StartPosition = FormStartPosition.CenterParent;
             VA.ShowDialog();
         }
     }

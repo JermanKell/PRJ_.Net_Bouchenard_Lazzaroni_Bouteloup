@@ -239,19 +239,18 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
                 return null;
         }
 
-        public bool removeArticle(string reference)
+        public int removeArticle(string reference)
         {
             SQLiteCommand sql = new SQLiteCommand(
                 "DELETE FROM Articles WHERE RefArticle = @reference", conn);
             sql.Parameters.AddWithValue("@reference", reference);
             try
             {
-                sql.ExecuteNonQuery();
-                return true;
+                return sql.ExecuteNonQuery();
             }
             catch
             {
-                return false;
+                return -1;
             }
         }
 
@@ -287,7 +286,20 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             else
                 return null;
         }
-
+        
+        public int removeFamille(int refId)
+        {
+            SQLiteCommand sql = new SQLiteCommand("DELETE FROM Familles WHERE RefFamille = @reference", conn);
+            sql.Parameters.AddWithValue("@reference", refId);
+            try
+            {
+                return sql.ExecuteNonQuery();
+            }
+            catch
+            {
+                return -1;
+            }
+        }
         /// <summary>
         /// Get one sub family by name or id
         /// </summary>
@@ -353,7 +365,26 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             else
                 return null;
         }
+        
+        public bool updateFamilles(Familles fam)
+        {
+            bool res = false;
 
+            SQLiteCommand sql = new SQLiteCommand("UPDATE Familles SET Nom = @nom", conn);
+            sql.Parameters.AddWithValue("@nom", fam.Nom);
+
+            try
+            {
+                sql.ExecuteNonQuery();
+                res = true;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+            return res;
+        }
         /// <summary>
         /// Increment the quantity of the article by one
         /// </summary>
