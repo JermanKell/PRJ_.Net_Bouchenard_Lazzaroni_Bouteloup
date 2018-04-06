@@ -16,6 +16,19 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         private double prixHT;
         private int quantite;
 
+        public Articles() {}
+
+        public Articles(string reference, string description, int idFamille, int idSousFamille, int idMarque, double prixHT, int quantite)
+        {
+            this.reference = reference;
+            this.description = description;
+            this.idFamille = idFamille;
+            this.idSousFamille = idSousFamille;
+            this.idMarque = idMarque;
+            this.prixHT = prixHT;
+            this.quantite = quantite;
+        }
+
         public void convertDataReaderToArticles(SQLiteDataReader reader)
         {
             if (reader != null)

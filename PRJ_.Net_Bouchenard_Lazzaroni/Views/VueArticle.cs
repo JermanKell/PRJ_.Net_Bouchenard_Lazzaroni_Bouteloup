@@ -173,19 +173,51 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             }
             else
             {
-                if(Article == null)//ajout
+                /// --- To Move --- ///
+                DBManager Dbm = new DBManager();
+                ///////////////////////////////
+
+                string NameMessage = "";
+                try
                 {
+                    if (Article == null)//ajout
+                    {
+                        NameMessage = "L'ajout ";
+                        Article = new Articles(
+                            Tbx_Reference.Text,
+                            Tbx_Description.Text,
+                            ((KeyValuePair<int, string>)Cbx_Famille.SelectedItem).Key,
+                            ((KeyValuePair<int, string>)Cbx_SousFamille.SelectedItem).Key,
+                            ((KeyValuePair<int, string>)Cbx_Marque.SelectedItem).Key,
+                            Convert.ToDouble(Tbx_Prix.Text),
+                            Convert.ToInt32(Tbx_Quantite.Text)
+                        );
 
+                        Dbm.insertArticle(Article);
+                    }
+                    else//modification
+                    {
+                        NameMessage = "La modification ";
+                        Article.Description = Tbx_Description.Text;
+                        Article.IdFamille = ((KeyValuePair<int, string>)Cbx_Famille.SelectedItem).Key;
+                        Article.IdSousFamille = ((KeyValuePair<int, string>)Cbx_SousFamille.SelectedItem).Key;
+                        Article.IdMarque = ((KeyValuePair<int, string>)Cbx_Marque.SelectedItem).Key;
+                        Article.PrixHT = Convert.ToDouble(Tbx_Prix.Text);
+                        Article.Quantite = Convert.ToInt32(Tbx_Quantite.Text);
+
+                        Dbm.updateArticle(Article);
+                    }
+
+                    //////////////////////
+                    //Refresh ListViewArticle
+                    //////////
+                    MessageBox.Show(NameMessage + "de l'article de référence " + Tbx_Reference.Text + " a bien été fait", "Validation", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
-                else//modification
+                catch (Exception ex)
                 {
-
+                    MessageBox.Show("Une erreur est survenue lors de " + NameMessage.ToLower() + "avec le message suivant:\n" + ex.Message, "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-
-
-                int key = ((KeyValuePair<int, string>)Cbx_Famille.SelectedItem).Key;
-                string value = ((KeyValuePair<int, string>)Cbx_Famille.SelectedItem).Value;
-                MessageBox.Show(key + "   " + value);
+                this.Close();
             }
         }
     }

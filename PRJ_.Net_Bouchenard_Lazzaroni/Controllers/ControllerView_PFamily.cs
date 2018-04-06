@@ -98,7 +98,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Controllers
         {
             if (manager.getFamille("", RefObj) != null)
             {
-                if (manager.removeFamille(RefObj))
+                if (manager.removeFamille(RefObj) != -1)
                 {
                     MessageBox.Show("The associate family has been deleted");
                     Refresh();

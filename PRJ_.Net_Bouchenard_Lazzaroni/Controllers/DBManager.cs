@@ -239,19 +239,18 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
                 return null;
         }
 
-        public bool removeArticle(string reference)
+        public int removeArticle(string reference)
         {
             SQLiteCommand sql = new SQLiteCommand(
                 "DELETE FROM Articles WHERE RefArticle = @reference", conn);
             sql.Parameters.AddWithValue("@reference", reference);
             try
             {
-                sql.ExecuteNonQuery();
-                return true;
+                return sql.ExecuteNonQuery();
             }
             catch
             {
-                return false;
+                return -1;
             }
         }
 
@@ -288,18 +287,17 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
                 return null;
         }
         
-        public bool removeFamille(int refId)
+        public int removeFamille(int refId)
         {
             SQLiteCommand sql = new SQLiteCommand("DELETE FROM Familles WHERE RefFamille = @reference", conn);
             sql.Parameters.AddWithValue("@reference", refId);
             try
             {
-                sql.ExecuteNonQuery();
-                return true;
+                return sql.ExecuteNonQuery();
             }
             catch
             {
-                return false;
+                return -1;
             }
         }
         /// <summary>

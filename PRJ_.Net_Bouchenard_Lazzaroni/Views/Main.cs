@@ -17,43 +17,14 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         // Declare a Hashtable array in which to store the groups
         private List<Hashtable> GroupsListView;
         // Declare a variable to store the current grouping column
-        int GroupColumn = 0;
+        private int GroupColumn = 0;
 
+        //Declare a dictionary of articles
         private Dictionary<string, Articles> DictionaryArticles;
-
 
         public Main()
         {
             InitializeComponent();
-
-            //jeu d'essai
-            /*SQLiteCommand sql = new SQLiteCommand(
-            "INSERT INTO Articles (RefArticle, Description, RefSousFamille, RefMarque, PrixHT, Quantite) VALUES (@reference, @description, @idSousFamille, @idMarque, @prixHT, @quantite)", DBConnection.getInstance().getDataBase());
-            sql.Parameters.AddWithValue("@reference", "first ref");
-            sql.Parameters.AddWithValue("@description", "blabla");
-            sql.Parameters.AddWithValue("@idSousFamille", 1);
-            sql.Parameters.AddWithValue("@idMarque", 1);
-            sql.Parameters.AddWithValue("@prixHT", 30.03);
-            sql.Parameters.AddWithValue("@quantite", 5);
-            sql.ExecuteNonQuery();
-            SQLiteCommand sql2 = new SQLiteCommand(
-            "INSERT INTO Articles (RefArticle, Description, RefSousFamille, RefMarque, PrixHT, Quantite) VALUES (@reference, @description, @idSousFamille, @idMarque, @prixHT, @quantite)", DBConnection.getInstance().getDataBase());
-            sql2.Parameters.AddWithValue("@reference", "second ref");
-            sql2.Parameters.AddWithValue("@description", "dabc");
-            sql2.Parameters.AddWithValue("@idSousFamille", 1);
-            sql2.Parameters.AddWithValue("@idMarque", 3);
-            sql2.Parameters.AddWithValue("@prixHT", 30.01);
-            sql2.Parameters.AddWithValue("@quantite", 10);
-            sql2.ExecuteNonQuery();
-            SQLiteCommand sql3 = new SQLiteCommand(
-            "INSERT INTO Articles (RefArticle, Description, RefSousFamille, RefMarque, PrixHT, Quantite) VALUES (@reference, @description, @idSousFamille, @idMarque, @prixHT, @quantite)", DBConnection.getInstance().getDataBase());
-            sql3.Parameters.AddWithValue("@reference", "third ref");
-            sql3.Parameters.AddWithValue("@description", "mlihggb");
-            sql3.Parameters.AddWithValue("@idSousFamille", 2);
-            sql3.Parameters.AddWithValue("@idMarque", 1);
-            sql3.Parameters.AddWithValue("@prixHT", "30.02abc");
-            sql3.Parameters.AddWithValue("@quantite", 15);
-            sql3.ExecuteNonQuery();*/
 
             initializeListViewArticle();
         }
@@ -313,10 +284,14 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
                 ///////////////////////////////////
 
                 bool error = false;
-                //Remove all selected items
-                for (int i = 0; i < listViewArticle.SelectedItems.Count; i++)
-                    if (!db.removeArticle(listViewArticle.SelectedItems[i].Name)) //get id refArticle with item name
+                int iLoop = 0;
+                while (iLoop < listViewArticle.SelectedItems.Count && error == false)   //Remove all selected items
+                {
+                    if (db.removeArticle(listViewArticle.SelectedItems[iLoop].Name) != 1)  //get id refArticle with item name
                         error = true;
+                    iLoop++;
+                }
+
                 if (error)
                     statusStrip.Items[0].Text = "Une erreur a empêché la supression de cet article";
                 else
@@ -338,12 +313,14 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         private void AddArticleListView()
         {
             VueArticle VA = new VueArticle();
+            VA.StartPosition = FormStartPosition.CenterParent;
             VA.ShowDialog();
         }
 
         private void UpdateArticleListView()
         {
             VueArticle VA = new VueArticle(DictionaryArticles[listViewArticle.SelectedItems[0].Name]);
+            VA.StartPosition = FormStartPosition.CenterParent;
             VA.ShowDialog();
         }
     }

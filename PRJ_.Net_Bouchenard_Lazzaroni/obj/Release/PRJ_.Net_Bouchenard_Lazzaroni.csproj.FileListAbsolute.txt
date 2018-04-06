@@ -16,3 +16,16 @@ D:\PolytechTours\DI_4A\Semestre8\PRJ_.Net_Bouchenard_Lazzaroni_Bouteloup\PRJ_.Ne
 D:\PolytechTours\DI_4A\Semestre8\PRJ_.Net_Bouchenard_Lazzaroni_Bouteloup\PRJ_.Net_Bouchenard_Lazzaroni-master\PRJ_.Net_Bouchenard_Lazzaroni\obj\Release\PRJ_.Net_Bouchenard_Lazzaroni.pdb
 D:\PolytechTours\DI_4A\Semestre8\PRJ_.Net_Bouchenard_Lazzaroni_Bouteloup\PRJ_.Net_Bouchenard_Lazzaroni\obj\Release\PRJ_.Net_Bouchenard_Lazzaroni.exe
 D:\PolytechTours\DI_4A\Semestre8\PRJ_.Net_Bouchenard_Lazzaroni_Bouteloup\PRJ_.Net_Bouchenard_Lazzaroni\obj\Release\PRJ_.Net_Bouchenard_Lazzaroni.pdb
+C:\Users\Administrateur\Desktop\PRJ_.Net_Bouchenard_Lazzaroni_Bouteloup\PRJ_.Net_Bouchenard_Lazzaroni\bin\Release\Mercure.SQLite
+C:\Users\Administrateur\Desktop\PRJ_.Net_Bouchenard_Lazzaroni_Bouteloup\PRJ_.Net_Bouchenard_Lazzaroni\bin\Release\PRJ_.Net_Bouchenard_Lazzaroni_Bouteloup.exe
+C:\Users\Administrateur\Desktop\PRJ_.Net_Bouchenard_Lazzaroni_Bouteloup\PRJ_.Net_Bouchenard_Lazzaroni\bin\Release\PRJ_.Net_Bouchenard_Lazzaroni_Bouteloup.pdb
+C:\Users\Administrateur\Desktop\PRJ_.Net_Bouchenard_Lazzaroni_Bouteloup\PRJ_.Net_Bouchenard_Lazzaroni\bin\Release\System.Data.SQLite.dll
+C:\Users\Administrateur\Desktop\PRJ_.Net_Bouchenard_Lazzaroni_Bouteloup\PRJ_.Net_Bouchenard_Lazzaroni\bin\Release\System.Data.SQLite.xml
+C:\Users\Administrateur\Desktop\PRJ_.Net_Bouchenard_Lazzaroni_Bouteloup\PRJ_.Net_Bouchenard_Lazzaroni\obj\Release\PRJ_.Net_Bouchenard_Lazzaroni.csprojResolveAssemblyReference.cache
+C:\Users\Administrateur\Desktop\PRJ_.Net_Bouchenard_Lazzaroni_Bouteloup\PRJ_.Net_Bouchenard_Lazzaroni\obj\Release\PRJ_.Net_Bouchenard_Lazzaroni.Main.resources
+C:\Users\Administrateur\Desktop\PRJ_.Net_Bouchenard_Lazzaroni_Bouteloup\PRJ_.Net_Bouchenard_Lazzaroni\obj\Release\PRJ_.Net_Bouchenard_Lazzaroni.Properties.Resources.resources
+C:\Users\Administrateur\Desktop\PRJ_.Net_Bouchenard_Lazzaroni_Bouteloup\PRJ_.Net_Bouchenard_Lazzaroni\obj\Release\PRJ_.Net_Bouchenard_Lazzaroni.SelectXml.resources
+C:\Users\Administrateur\Desktop\PRJ_.Net_Bouchenard_Lazzaroni_Bouteloup\PRJ_.Net_Bouchenard_Lazzaroni\obj\Release\PRJ_.Net_Bouchenard_Lazzaroni.VueArticle.resources
+C:\Users\Administrateur\Desktop\PRJ_.Net_Bouchenard_Lazzaroni_Bouteloup\PRJ_.Net_Bouchenard_Lazzaroni\obj\Release\PRJ_.Net_Bouchenard_Lazzaroni.csproj.GenerateResource.Cache
+C:\Users\Administrateur\Desktop\PRJ_.Net_Bouchenard_Lazzaroni_Bouteloup\PRJ_.Net_Bouchenard_Lazzaroni\obj\Release\PRJ_.Net_Bouchenard_Lazzaroni_Bouteloup.exe
+C:\Users\Administrateur\Desktop\PRJ_.Net_Bouchenard_Lazzaroni_Bouteloup\PRJ_.Net_Bouchenard_Lazzaroni\obj\Release\PRJ_.Net_Bouchenard_Lazzaroni_Bouteloup.pdb
