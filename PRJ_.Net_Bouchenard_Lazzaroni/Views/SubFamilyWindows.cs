@@ -8,11 +8,21 @@ using System.Windows.Forms;
 
 namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
 {
-    public partial class SubFamilyWindows : PRJ_.Net_Bouchenard_Lazzaroni.Views.BaseWindows
+    partial class SubFamilyWindows : PRJ_.Net_Bouchenard_Lazzaroni.Views.BaseWindows
     {
         public SubFamilyWindows()
         {
             InitializeComponent();
+        }
+
+        protected override void initHeader()
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void loadDataListView()
+        {
+            throw new NotImplementedException();
         }
     }
 }

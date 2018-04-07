@@ -54,7 +54,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Controllers
         }
 
         /// <summary>
-        /// Applies changes on the similar object stored on the DB with the object in paremeter 
+        /// Applies changes on the similar object stored on the DB with the object in parameter 
         /// </summary>
         /// <param name="obj">Object with the changes</param>
         /// <returns>Returns true if done, false else</returns>
@@ -116,7 +116,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Controllers
         /// <summary>
         ///  Updates the dictionary of this controller
         /// </summary>
-        protected override void Refresh()
+        public override void Refresh()
         {
             DicFam = manager.getAllFamilles();
         }
@@ -142,6 +142,15 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Controllers
         protected override void UpdateDictionary(TypeRequest Request, object obj)
         {
             
+        }
+
+        /// <summary>
+        /// Get name's column of one table
+        /// </summary>
+        /// <param name="tableName"> Name of the table in the database </param>
+        public override List<String> getColumnHeader()
+        {
+            return manager.getNameColumnTable("Familles");
         }
     }
 }

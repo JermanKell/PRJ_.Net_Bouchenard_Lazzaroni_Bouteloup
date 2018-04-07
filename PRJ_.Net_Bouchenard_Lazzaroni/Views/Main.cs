@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.Collections;
 using System.Data.SQLite;
+using PRJ_.Net_Bouchenard_Lazzaroni.Views;
 
 namespace PRJ_.Net_Bouchenard_Lazzaroni
 {

@@ -59,11 +59,17 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         /// <summary>
         /// Gets a dictionary of all products families stored in the BD and store it in this controller.
         /// </summary>
-        abstract protected void Refresh();
+        abstract public void Refresh();
 
         /// <summary>
         /// Update the dictionary containing all the data stored without transaction for minimise the cost
         /// </summary>
         abstract protected void UpdateDictionary(TypeRequest Request, Object obj);
+
+        /// <summary>
+        /// Get name's column of one table
+        /// </summary>
+        /// <param name="tableName"> Name of the table in the database </param>
+        abstract public List<string> getColumnHeader();
     }
 }
