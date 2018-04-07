@@ -51,7 +51,8 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         /// Update an article to the database
         /// </summary>
         /// <param name="article"> The article to update </param>
-        public void updateArticle(Articles article)
+        /// <returns> The number of rticle updated </returns>
+        public int updateArticle(Articles article)
         {
             SQLiteCommand sql = new SQLiteCommand(
                 "UPDATE Articles SET description = @description, RefSousFamille = @idSousFamille, RefMarque = @idMarque, PrixHT = @prixHT, Quantite = @quantite " +
@@ -65,7 +66,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
 
             try
             {
-                sql.ExecuteNonQuery();
+                return sql.ExecuteNonQuery();
             }
             catch (Exception ex) { throw new Exception(ex.Message); }
         }
@@ -248,9 +249,9 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             {
                 return sql.ExecuteNonQuery();
             }
-            catch
+            catch (Exception ex)
             {
-                return -1;
+                throw new Exception(ex.Message);
             }
         }
 
@@ -295,9 +296,9 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             {
                 return sql.ExecuteNonQuery();
             }
-            catch
+            catch (Exception ex)
             {
-                return -1;
+                throw new Exception(ex.Message);
             }
         }
         /// <summary>
@@ -366,37 +367,33 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
                 return null;
         }
         
-        public bool updateFamilles(Familles fam)
+        public int updateFamilles(Familles fam)
         {
-            bool res = false;
-
             SQLiteCommand sql = new SQLiteCommand("UPDATE Familles SET Nom = @nom", conn);
             sql.Parameters.AddWithValue("@nom", fam.Nom);
 
             try
             {
-                sql.ExecuteNonQuery();
-                res = true;
+                return sql.ExecuteNonQuery();
             }
             catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }
-
-            return res;
         }
         /// <summary>
         /// Increment the quantity of the article by one
         /// </summary>
         /// <param name="refArticle"> The quantity of the article to increment </param>
-        public void updateQuantiteArticle(string refArticle)
+        /// <returns> The number of article updated </returns>
+        public int updateQuantiteArticle(string refArticle)
         {
             SQLiteCommand sql = new SQLiteCommand("UPDATE Articles SET Quantite = Quantite + 1 WHERE RefArticle = @refArticle", conn);
             sql.Parameters.AddWithValue("@refArticle", refArticle);
 
             try
             {
-                sql.ExecuteNonQuery();
+                return sql.ExecuteNonQuery();
             }
             catch (Exception ex)
             {

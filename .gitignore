@@ -20,8 +20,8 @@
 x64/
 x86/
 bld/
-[Bb]in/
-[Oo]bj/
+PRJ_.Net_Bouchenard_Lazzaroni/[Bb]in/
+PRJ_.Net_Bouchenard_Lazzaroni/[Oo]bj/
 [Ll]og/
 
 # Visual Studio 2015 cache/options directory

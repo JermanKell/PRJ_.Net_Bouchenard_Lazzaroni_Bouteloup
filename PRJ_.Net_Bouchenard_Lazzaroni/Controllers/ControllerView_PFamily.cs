@@ -26,30 +26,29 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Controllers
         /// </summary>
         /// <param name="obj">Object to add in the DB.</param>
         /// <returns>Returns true if done, false else</returns>
-        public override bool AddElement(Object obj)
+        public override int AddElement(Object obj)
         {
-            bool var;
+            int var;
             Familles fam = (Familles)obj;
             Familles resFam = manager.getFamille(fam.Nom);
 
-            if (resFam != null)
+            if (resFam == null)
             {
-                if (manager.insertFamille(resFam) != 0)
+                var = manager.insertFamille(resFam);
+                if (var != 0)
                 {
                     MessageBox.Show("Insertion of this object succeed");
                     Refresh();
-                    var = true;
                 }
                 else
                 {
                     MessageBox.Show("Insertion of this object failed");
-                    var = false;
                 }
             }
             else
             {
                 MessageBox.Show("This object already exists in the DB");
-                var = false;
+                var = -1;
             }
             return var;
         }
@@ -59,33 +58,30 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Controllers
         /// </summary>
         /// <param name="obj">Object with the changes</param>
         /// <returns>Returns true if done, false else</returns>
-        public override bool ChangeElement(Object obj)
+        public override int ChangeElement(Object obj)
         {
-            bool var;
+            int var;
             Familles famille = (Familles)(obj);
             Familles fam = manager.getFamille(famille.Nom);
 
             if (fam != null)
             {
-                if (manager.updateFamilles(famille))
+                var = manager.updateFamilles(famille);
+                if (var == 1)
                 {
                     MessageBox.Show("The element in the DB has been modified");
                     Refresh();
-                    var = true;
                 }
                 else
                 {
                     MessageBox.Show("An error occured while the program was changing the values");
-                    var = false;
                 }
             }
             else
             {
                 MessageBox.Show("The element to modify does not exist in the DB");
-                var = false;
+                var = -1;
             }
-
-            Refresh();
             return var;   
         }
 
@@ -94,27 +90,27 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Controllers
         /// </summary>
         /// <param name="RefObj">Reference of the element to delete</param>
         /// <returns>Returns true if done, false else</returns>
-        public override bool DeleteElement(int RefObj)
+        public override int DeleteElement(int RefObj)
         {
+            int var = -1;
             if (manager.getFamille("", RefObj) != null)
             {
-                if (manager.removeFamille(RefObj) != -1)
+                var = manager.removeFamille(RefObj);
+                if (var == 1)
                 {
                     MessageBox.Show("The associate family has been deleted");
                     Refresh();
-                    return true;
                 }
                 else
                 {
                     MessageBox.Show("An error occured while deleting a family");
-                    return false;
                 }
             }
             else
             {
                 MessageBox.Show("The associate family cannot be deleted because it was not found in the DB");
-                return false;
             }
+            return var;
         }
 
         /// <summary>

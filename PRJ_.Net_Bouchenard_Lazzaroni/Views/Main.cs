@@ -283,29 +283,26 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             DialogResult dialogResult = MessageBox.Show("Confirmer la supression d'article?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (dialogResult == DialogResult.Yes)
             {
-                //  --- To move --- //
-                DBManager db = new DBManager();
-                ///////////////////////////////////
-
-                bool error = false;
-                int iLoop = 0;
-                while (iLoop < listViewArticle.SelectedItems.Count && error == false)   //Remove all selected items
+                try
                 {
-                    if (db.removeArticle(listViewArticle.SelectedItems[iLoop].Name) != 1)  //get id refArticle with item name
-                        error = true;
-                    iLoop++;
-                }
+                    //  --- To move --- //
+                    DBManager db = new DBManager();
+                    ///////////////////////////////////
 
-                if (error)
-                    statusStrip.Items[0].Text = "Une erreur a empêché la supression de cet article";
-                else
-                {
+                    for (int ILoop = 0; ILoop < listViewArticle.SelectedItems.Count; ILoop++)   //Remove all selected items
+                        db.removeArticle(listViewArticle.SelectedItems[ILoop].Name);  //get id refArticle with item name
+
                     LoadDataListView();
                     InitialiseGroupsByColumnListView();
 
                     SetGroups(GroupColumn);
                     listViewArticle.SetSortIcon(GroupColumn, listViewArticle.Sorting);
                     statusStrip.Items[0].Text = "L'article a bien été supprimé de la base";
+                }
+                catch (Exception ex)
+                {
+                    statusStrip.Items[0].Text = "Une erreur a empêché la supression de cet article";
+                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             else

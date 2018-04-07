@@ -8,15 +8,22 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
 {
     abstract class ControllerView
     {
+        protected enum TypeRequest
+        {
+            Insert,
+            Update,
+            Delete
+        }
+
         /// <summary>
         /// This attribut is a "list" of all objects found and stored in the DB
         /// </summary>
-        protected Dictionary<int, Object> DicObject = null;
+        protected Dictionary<int, Object> DicObject;             // INUTILE?!
 
         /// <summary>
         /// Handles all requests to do on the DB.
         /// </summary>
-        protected DBManager manager = new DBManager();
+        protected DBManager manager;
 
         /// <summary>
         /// Constructor of this abstract class.
@@ -31,29 +38,32 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         ///       Returns a boolean value: TRUE when succeed and false else
         /// </summary>
         /// <param name="obj">Object to add in the DB.</param>
-        /// <returns>Returns true if done and false else</returns>
-        abstract public bool AddElement(Object obj);
+        /// <returns>Returns the row id of the most recent successful element inserted</returns>
+        abstract public int AddElement(Object obj);
 
 
         /// <summary>
         /// Changes the values about an element stored in the DB depending on the reference
         /// </summary>
         /// <param name="obj">Elements of this objects have to change in the DB.</param>
-        /// <returns>Returns true if done and false else</returns>
-        abstract public bool ChangeElement(Object obj);
+        /// <returns>Returns the number of elements updated</returns>
+        abstract public int ChangeElement(Object obj);
         
 
         /// <summary>
         /// Deletes the element stored in the DB with its reference passed in arguments
-        ///     Returns a boolean value: TRUE when succeed and false else
-        /// </summary>
         /// <param name="RefObj">Reference of the object to delete from the DB.</param>
-        /// <returns>Returns true if done and false else</returns>
-        abstract public bool DeleteElement(int RefObj);
+        /// <returns>Returns the number of elements deleted</returns>
+        abstract public int DeleteElement(int RefObj);
 
         /// <summary>
         /// Gets a dictionary of all products families stored in the BD and store it in this controller.
         /// </summary>
         abstract protected void Refresh();
+
+        /// <summary>
+        /// Update the dictionary containing all the data stored without transaction for minimise the cost
+        /// </summary>
+        abstract protected void UpdateDictionary(TypeRequest Request, Object obj);
     }
 }
