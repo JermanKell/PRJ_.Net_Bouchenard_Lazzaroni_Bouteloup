@@ -138,5 +138,10 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Controllers
         {
             DicFam = dict;
         }
+
+        protected override void UpdateDictionary(TypeRequest Request, object obj)
+        {
+            
+        }
     }
 }

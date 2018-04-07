@@ -76,6 +76,24 @@
     <Compile Include="Controllers\DBConnection.cs" />
     <Compile Include="Controllers\DBManager.cs" />
     <Compile Include="Models\Familles.cs" />
+    <Compile Include="Views\BaseWindows.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\BaseWindows.Designer.cs">
+      <DependentUpon>BaseWindows.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\BrandWindows.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\BrandWindows.Designer.cs">
+      <DependentUpon>BrandWindows.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\FamilyWindows.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\FamilyWindows.Designer.cs">
+      <DependentUpon>FamilyWindows.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\ListViewExtensions.cs" />
     <Compile Include="Views\Main.cs">
       <SubType>Form</SubType>
@@ -93,12 +111,27 @@
       <DependentUpon>SelectXml.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\SousFamilles.cs" />
+    <Compile Include="Views\SubFamilyWindows.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\SubFamilyWindows.Designer.cs">
+      <DependentUpon>SubFamilyWindows.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\VueArticle.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Views\VueArticle.Designer.cs">
       <DependentUpon>VueArticle.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Views\BaseWindows.resx">
+      <DependentUpon>BaseWindows.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\BrandWindows.resx">
+      <DependentUpon>BrandWindows.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\FamilyWindows.resx">
+      <DependentUpon>FamilyWindows.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\Main.resx">
       <DependentUpon>Main.cs</DependentUpon>
     </EmbeddedResource>
@@ -114,6 +147,9 @@
     </Compile>
     <EmbeddedResource Include="Views\SelectXml.resx">
       <DependentUpon>SelectXml.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\SubFamilyWindows.resx">
+      <DependentUpon>SubFamilyWindows.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\VueArticle.resx">
       <DependentUpon>VueArticle.cs</DependentUpon>
