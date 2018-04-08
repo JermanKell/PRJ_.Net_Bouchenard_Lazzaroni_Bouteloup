@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using System.Collections;
 using System.Data.SQLite;
 using PRJ_.Net_Bouchenard_Lazzaroni.Views;
+using System.Runtime.InteropServices;
 
 namespace PRJ_.Net_Bouchenard_Lazzaroni
 {
@@ -22,6 +23,8 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
 
         //Declare a dictionary of articles
         private Dictionary<string, Articles> DictionaryArticles;
+
+        private ControllerViewArticle ControllerArticles;
 
         public Main()
         {
@@ -38,12 +41,10 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
 
         private void initializeListViewArticle()
         {
-            // --- To move --- //
-            DBManager dbm = new DBManager();
-            ///////////////////
+            ControllerArticles = new ControllerViewArticle();
 
             //initialise columns
-            List<string> listNameColumnTable = dbm.getNameColumnTable();
+            List<string> listNameColumnTable = ControllerArticles.getColumnHeader();
             for (int i=0; i < listNameColumnTable.Count; i++)
             {
                 ColumnHeader colHdr = new ColumnHeader();
@@ -62,17 +63,14 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             InitialiseGroupsByColumnListView();
 
             RefreshListViewArticle();
+
         }
 
         private void LoadDataListView()
         {
             listViewArticle.Items.Clear();
 
-            // --- To move --- //
-            DBManager dbm = new DBManager();
-            ////////////////////
-
-            DictionaryArticles = dbm.getAllArticle().ToDictionary(x => x.Reference, x => x);
+            DictionaryArticles = ControllerArticles.getDictionaryArticles();
 
             foreach (KeyValuePair<string, Articles> article in DictionaryArticles)
             {
@@ -276,7 +274,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         private void listViewArticle_Resize(object sender, EventArgs e)
         {
             for(int i=0; i < listViewArticle.Columns.Count; i++)
-                listViewArticle.Columns[i].Width = (listViewArticle.Size.Width / listViewArticle.Columns.Count);
+                listViewArticle.Columns[i].Width = (listViewArticle.Size.Width / listViewArticle.Columns.Count)-4;
         }
 
         private void DeleteArticleListView()
@@ -286,12 +284,8 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             {
                 try
                 {
-                    //  --- To move --- //
-                    DBManager db = new DBManager();
-                    ///////////////////////////////////
-
                     for (int ILoop = 0; ILoop < listViewArticle.SelectedItems.Count; ILoop++)   //Remove all selected items
-                        db.removeArticle(listViewArticle.SelectedItems[ILoop].Name);  //get id refArticle with item name
+                        ControllerArticles.DeleteElement(listViewArticle.SelectedItems[ILoop].Name);  //get id refArticle with item name
 
                     LoadDataListView();
                     InitialiseGroupsByColumnListView();

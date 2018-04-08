@@ -90,12 +90,13 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Controllers
         /// </summary>
         /// <param name="RefObj">Reference of the element to delete</param>
         /// <returns>Returns true if done, false else</returns>
-        public override int DeleteElement(int RefObj)
+        public override int DeleteElement(string RefObj)
         {
             int var = -1;
-            if (manager.getFamille("", RefObj) != null)
+            int Ref = Convert.ToInt32(RefObj);
+            if (manager.getFamille("", Ref) != null)
             {
-                var = manager.removeFamille(RefObj);
+                var = manager.removeFamille(Ref);
                 if (var == 1)
                 {
                     MessageBox.Show("The associate family has been deleted");
@@ -137,11 +138,6 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Controllers
         public void setDicFamilles(Dictionary<int, Familles> dict)
         {
             DicFam = dict;
-        }
-
-        protected override void UpdateDictionary(TypeRequest Request, object obj)
-        {
-            
         }
 
         /// <summary>

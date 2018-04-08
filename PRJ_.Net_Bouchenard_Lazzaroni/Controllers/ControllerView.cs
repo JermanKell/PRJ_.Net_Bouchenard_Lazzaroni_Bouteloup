@@ -8,12 +8,6 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
 {
     abstract class ControllerView
     {
-        protected enum TypeRequest
-        {
-            Insert,
-            Update,
-            Delete
-        }
 
         /// <summary>
         /// This attribut is a "list" of all objects found and stored in the DB
@@ -54,17 +48,12 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         /// Deletes the element stored in the DB with its reference passed in arguments
         /// <param name="RefObj">Reference of the object to delete from the DB.</param>
         /// <returns>Returns the number of elements deleted</returns>
-        abstract public int DeleteElement(int RefObj);
+        abstract public int DeleteElement(string RefObj);
 
         /// <summary>
         /// Gets a dictionary of all products families stored in the BD and store it in this controller.
         /// </summary>
         abstract public void Refresh();
-
-        /// <summary>
-        /// Update the dictionary containing all the data stored without transaction for minimise the cost
-        /// </summary>
-        abstract protected void UpdateDictionary(TypeRequest Request, Object obj);
 
         /// <summary>
         /// Get name's column of one table

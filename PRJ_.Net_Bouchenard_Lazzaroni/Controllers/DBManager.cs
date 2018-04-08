@@ -146,7 +146,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         /// <param name="columnsort"> Column to sort </param>
         /// <param name="ascending"> The direction </param>
         /// <returns> The list of all article </returns>
-        public List<Articles> getAllArticle(string columnsort = "RefArticle", bool ascending = true)
+        public Dictionary<string, Articles> getAllArticles(string columnsort = "RefArticle", bool ascending = true)
         {
             string order = "ASC";
             if (!ascending)
@@ -154,19 +154,19 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
                 order = "DESC";
             }
 
-            List<Articles> listArticles = new List<Articles>();
+            Dictionary<string, Articles> DictionaryArticles = new Dictionary<string, Articles>();
 
             SQLiteCommand sql = new SQLiteCommand("select * from Articles order by " + columnsort + " " + order, conn);
             SQLiteDataReader reader = sql.ExecuteReader();
 
             while (reader.Read())
             {
-                Articles article = new Articles();
-                article.convertDataReaderToArticles(reader); // Set attributes to the article thanks to the reader
-                article.IdFamille = getSousFamille(id: article.IdSousFamille).IdFamille;
-                listArticles.Add(article);
+                Articles Article = new Articles();
+                Article.convertDataReaderToArticles(reader); // Set attributes to the article thanks to the reader
+                Article.IdFamille = getSousFamille(id: Article.IdSousFamille).IdFamille;
+                DictionaryArticles[Article.Reference] = Article;
             }
-            return listArticles;
+            return DictionaryArticles;
         }
 
         public Dictionary<int, Familles> getAllFamilles()
