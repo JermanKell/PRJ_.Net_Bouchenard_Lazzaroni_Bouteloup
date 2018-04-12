@@ -67,7 +67,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             }
         }
 
-        private void selectXMLToolStripMenuItem_Click(object sender, EventArgs e)
+        private void ImportationXMLToolStripMenuItem_Click(object sender, EventArgs e)
         {
             SelectXml SelectXML = new SelectXml();
             SelectXML.ShowDialog();
@@ -114,6 +114,24 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             VueArticle VA = new VueArticle(ControllerArticles.GetArticle(listView1.SelectedItems[0].Name));
             VA.StartPosition = FormStartPosition.CenterParent;
             VA.ShowDialog();
+        }
+
+        private void familleToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FamilyWindows FW = new FamilyWindows();
+            FW.ShowDialog();
+        }
+
+        private void sousFamilleToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SubFamilyWindows SFW = new SubFamilyWindows();
+            SFW.ShowDialog();
+        }
+
+        private void marqueToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            BrandWindows BW = new BrandWindows();
+            BW.ShowDialog();
         }
     }
 }
