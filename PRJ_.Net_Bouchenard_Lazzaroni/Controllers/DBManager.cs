@@ -367,6 +367,11 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
                 return null;
         }
         
+        /// <summary>
+        /// Set the new family to the database
+        /// </summary>
+        /// <param name="fam"> The family to update </param>
+        /// <returns>The number of line modified </returns>
         public int updateFamilles(Familles fam)
         {
             SQLiteCommand sql = new SQLiteCommand("UPDATE Familles SET Nom = @nom", conn);
@@ -381,6 +386,19 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
                 throw new Exception(ex.Message);
             }
         }
+
+        /// <summary>
+        /// Set the new family to the database
+        /// </summary>
+        /// <param name="fam"> The family to update </param>
+        /// <returns>The number of line modified </returns>
+        public int updateSousFamilles(SousFamilles subfam)
+        {
+            // TODO
+            return 0;
+        }
+
+
         /// <summary>
         /// Increment the quantity of the article by one
         /// </summary>

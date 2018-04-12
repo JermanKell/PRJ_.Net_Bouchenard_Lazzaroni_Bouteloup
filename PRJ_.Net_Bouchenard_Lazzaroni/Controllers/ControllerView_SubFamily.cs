@@ -6,12 +6,12 @@ using System.Windows.Forms;
 
 namespace PRJ_.Net_Bouchenard_Lazzaroni.Controllers
 {
-    class ControllerView_PFamily : ControllerView
+    class ControllerView_SubFamily : ControllerView
     {
         /// <summary>
         /// Constructor of the class
         /// </summary>
-        public ControllerView_PFamily() : base()
+        public ControllerView_SubFamily() : base()
         {}
 
         /// <summary>
@@ -19,15 +19,15 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Controllers
         /// </summary>
         /// <param name="obj">Object to add in the DB.</param>
         /// <returns>Returns true if done, false else</returns>
-        public override int AddElement(Object obj)
+        public override int AddElement(object obj)
         {
             int var;
-            Familles fam = (Familles)obj;
-            Familles resFam = manager.getFamille(fam.Nom);
+            SousFamilles subfam = (SousFamilles)obj;
+            SousFamilles resSubFam = manager.getSousFamille(subfam.Nom);
 
-            if (resFam == null)
+            if (resSubFam == null)
             {
-                var = manager.insertFamille(resFam);
+                var = manager.insertSousFamille(resSubFam);
                 if (var != 0)
                     MessageBox.Show("Insertion of this object succeed");
                 else
@@ -46,15 +46,15 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Controllers
         /// </summary>
         /// <param name="obj">Object with the changes</param>
         /// <returns>Returns true if done, false else</returns>
-        public override int ChangeElement(Object obj)
+        public override int ChangeElement(object obj)
         {
             int var;
-            Familles famille = (Familles)(obj);
-            Familles fam = manager.getFamille(famille.Nom);
+            SousFamilles sousFamille = (SousFamilles)(obj);
+            SousFamilles sousFam = manager.getSousFamille(sousFamille.Nom);
 
-            if (fam != null)
+            if (sousFam != null)
             {
-                var = manager.updateFamilles(famille);
+                var = manager.updateSousFamilles(sousFamille);
                 if (var == 1)
                 {
                     MessageBox.Show("The element in the DB has been modified");
@@ -70,7 +70,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Controllers
                 MessageBox.Show("The element to modify does not exist in the DB");
                 var = -1;
             }
-            return var;   
+            return var;
         }
 
         /// <summary>
@@ -80,44 +80,17 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Controllers
         /// <returns>Returns true if done, false else</returns>
         public override int DeleteElement(string RefObj)
         {
-            int var = -1;
-            int Ref = Convert.ToInt32(RefObj);
-            if (manager.getFamille("", Ref) != null)
-            {
-                var = manager.removeFamille(Ref);
-                if (var == 1)
-                {
-                    MessageBox.Show("The associate family has been deleted");
-                    //Refresh();
-                }
-                else
-                {
-                    MessageBox.Show("An error occured while deleting a family");
-                }
-            }
-            else
-            {
-                MessageBox.Show("The associate family cannot be deleted because it was not found in the DB");
-            }
-            return var;
-        }
-
-        /// <summary>
-        /// Returns the dictionary to the associated view
-        /// </summary>
-        /// <returns>Dictionary of int and Familles</returns>
-        public Dictionary<int, Familles> getAllFamilles()
-        {
-            return manager.getAllFamilles();
+            // TODO
+            return 0;
         }
 
         /// <summary>
         /// Get name's column of one table
         /// </summary>
         /// <param name="tableName"> Name of the table in the database </param>
-        public override List<String> getColumnHeader()
+        public override List<string> getColumnHeader()
         {
-            return manager.getNameColumnTable("Familles");
+            return manager.getNameColumnTable("SousFamilles");
         }
     }
 }

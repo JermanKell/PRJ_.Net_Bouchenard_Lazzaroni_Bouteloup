@@ -67,6 +67,8 @@
   <ItemGroup>
     <Compile Include="Controllers\ControllerView.cs" />
     <Compile Include="Controllers\ControllerViewArticle.cs" />
+    <Compile Include="Controllers\ControllerView_Brand.cs" />
+    <Compile Include="Controllers\ControllerView_SubFamily.cs" />
     <Compile Include="Controllers\MyEventArgs.cs" />
     <Compile Include="Controllers\TypeMessage.cs" />
     <Compile Include="Controllers\ControllerView_PFamily.cs" />

@@ -51,8 +51,9 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
         /// </summary>
         protected override void LoadDataListView()
         {
+            listView1.Items.Clear();
 
-            foreach (KeyValuePair<int, Familles> familles in controller.getDicFamilles())
+            foreach (KeyValuePair<int, Familles> familles in controller.getAllFamilles())
             {
                 ListViewItem item = new ListViewItem(new string[] {
 
