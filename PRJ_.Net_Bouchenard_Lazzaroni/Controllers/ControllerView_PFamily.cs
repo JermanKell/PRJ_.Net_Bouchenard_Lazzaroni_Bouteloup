@@ -9,17 +9,10 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Controllers
     class ControllerView_PFamily : ControllerView
     {
         /// <summary>
-        /// Dictionary of Familles objects
-        /// </summary>
-        private Dictionary<int, Familles> DicFam = null;
-
-        /// <summary>
         /// Constructor of the class
         /// </summary>
         public ControllerView_PFamily() : base()
-        {
-            DicFam = new Dictionary<int, Familles>();
-        }
+        {}
 
         /// <summary>
         /// Adds a new element in the DB 
@@ -38,7 +31,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Controllers
                 if (var != 0)
                 {
                     MessageBox.Show("Insertion of this object succeed");
-                    Refresh();
+                    //Refresh();
                 }
                 else
                 {
@@ -70,7 +63,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Controllers
                 if (var == 1)
                 {
                     MessageBox.Show("The element in the DB has been modified");
-                    Refresh();
+                    //Refresh();
                 }
                 else
                 {
@@ -100,7 +93,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Controllers
                 if (var == 1)
                 {
                     MessageBox.Show("The associate family has been deleted");
-                    Refresh();
+                    //Refresh();
                 }
                 else
                 {
@@ -115,29 +108,12 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Controllers
         }
 
         /// <summary>
-        ///  Updates the dictionary of this controller
-        /// </summary>
-        public override void Refresh()
-        {
-            DicFam = manager.getAllFamilles();
-        }
-
-        /// <summary>
         /// Returns the dictionary to the associated view
         /// </summary>
         /// <returns>Dictionary of int and Familles</returns>
         public Dictionary<int, Familles> getDicFamilles()
         {
-            return DicFam;
-        }
-
-        /// <summary>
-        /// Sets the new Dictionary after refreshing it
-        /// </summary>
-        /// <param name="dict">New dictionary got after insertion or deletion of elements</param>
-        public void setDicFamilles(Dictionary<int, Familles> dict)
-        {
-            DicFam = dict;
+            return manager.getAllFamilles();
         }
 
         /// <summary>

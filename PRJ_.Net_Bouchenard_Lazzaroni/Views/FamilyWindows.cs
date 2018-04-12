@@ -51,7 +51,6 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
         /// </summary>
         protected override void LoadDataListView()
         {
-            controller.Refresh(); // Get new dictionary from the database
 
             foreach (KeyValuePair<int, Familles> familles in controller.getDicFamilles())
             {

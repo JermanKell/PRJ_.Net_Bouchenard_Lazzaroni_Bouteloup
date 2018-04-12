@@ -50,11 +50,6 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         abstract public int DeleteElement(string RefObj);
 
         /// <summary>
-        /// Gets a dictionary of all products families stored in the BD and store it in this controller.
-        /// </summary>
-        abstract public void Refresh();
-
-        /// <summary>
         /// Get name's column of one table
         /// </summary>
         /// <param name="tableName"> Name of the table in the database </param>

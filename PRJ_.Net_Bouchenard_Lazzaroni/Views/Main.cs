@@ -315,7 +315,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
 
         private void UpdateArticleListView()
         {
-            VueArticle VA = new VueArticle(DictionaryArticles[listViewArticle.SelectedItems[0].Name]);
+            VueArticle VA = new VueArticle(ControllerArticles.GetArticle(listViewArticle.SelectedItems[0].Name));
             VA.StartPosition = FormStartPosition.CenterParent;
             VA.ShowDialog();
         }

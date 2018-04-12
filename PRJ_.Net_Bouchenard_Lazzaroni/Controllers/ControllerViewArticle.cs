@@ -88,13 +88,6 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         }
 
         /// <summary>
-        ///  Updates the dictionary of this controller
-        /// </summary>
-        public override void Refresh()  //INUTILE SI PAS DE DICTIONARY?!
-        {
-        }
-
-        /// <summary>
         /// Returns the dictionary to the associated view
         /// </summary>
         /// <returns>Dictionary of string and Articles</returns>
@@ -104,20 +97,17 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         }
 
         /// <summary>
-        /// Sets the new Dictionary after refreshing it
-        /// </summary>
-        /// <param name="dict">New dictionary got after insertion or deletion of elements</param>
-        public void setDicFamilles(Dictionary<string, Articles> dict)   //INUTILE SI PAS DE DICTIONARY?!
-        {
-        }
-
-        /// <summary>
         /// Get name's column of table Article
         /// </summary>
         /// <returns> A list of the column of the table Article in the database </returns>
         public override List<String> getColumnHeader()
         {
             return manager.getNameColumnTable();
+        }
+
+        public Articles GetArticle(string reference)
+        {
+            return manager.getArticle(reference);
         }
     }
 }
