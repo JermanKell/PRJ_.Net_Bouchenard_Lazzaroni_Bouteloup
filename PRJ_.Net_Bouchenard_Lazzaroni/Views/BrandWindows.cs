@@ -15,12 +15,27 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
             InitializeComponent();
         }
 
-        protected override void initHeader()
+        protected override void AddObjectListView()
         {
             throw new NotImplementedException();
         }
 
-        protected override void loadDataListView()
+        protected override void DeleteObjectListView()
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void InitHeader()
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void LoadDataListView()
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void UpdateObjectListView()
         {
             throw new NotImplementedException();
         }

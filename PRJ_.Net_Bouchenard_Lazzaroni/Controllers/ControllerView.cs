@@ -42,7 +42,6 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         /// <param name="obj">Elements of this objects have to change in the DB.</param>
         /// <returns>Returns the number of elements updated</returns>
         abstract public int ChangeElement(Object obj);
-        
 
         /// <summary>
         /// Deletes the element stored in the DB with its reference passed in arguments
