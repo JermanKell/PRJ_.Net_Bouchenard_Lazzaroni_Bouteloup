@@ -79,6 +79,7 @@
     <Compile Include="Controllers\DBConnection.cs" />
     <Compile Include="Controllers\DBManager.cs" />
     <Compile Include="Models\Familles.cs" />
+    <Compile Include="Views\AbstractFormDescriptionProvider.cs" />
     <Compile Include="Views\BaseWindows.cs">
       <SubType>Form</SubType>
     </Compile>

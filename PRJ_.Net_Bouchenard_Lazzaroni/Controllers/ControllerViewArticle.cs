@@ -91,7 +91,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         /// Returns the dictionary to the associated view
         /// </summary>
         /// <returns>Dictionary of string and Articles</returns>
-        public Dictionary<string, Articles> getDictionaryArticles()
+        public Dictionary<string, Articles> GetAllArticles()
         {
             return manager.getAllArticles();
         }
