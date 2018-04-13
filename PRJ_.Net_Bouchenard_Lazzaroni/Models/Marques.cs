@@ -6,7 +6,7 @@ using System.Text;
 
 namespace PRJ_.Net_Bouchenard_Lazzaroni
 {
-    class Marques
+    public class Marques
     {
         private int id;
         private string nom;

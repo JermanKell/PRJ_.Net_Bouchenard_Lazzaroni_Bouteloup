@@ -10,7 +10,6 @@ using System.Windows.Forms;
 
 namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
 {
-    [TypeDescriptionProvider(typeof(AbstractFormDescriptionProvider<BaseWindows, Form>))]
     abstract partial class BaseWindows : Form
     {
         // Declare a Hashtable array in which to store the groups

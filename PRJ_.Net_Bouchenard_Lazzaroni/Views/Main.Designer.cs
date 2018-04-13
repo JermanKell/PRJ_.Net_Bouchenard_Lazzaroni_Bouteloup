@@ -35,6 +35,11 @@
             this.marqueToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             this.SuspendLayout();
+            //
+            // ListView
+            //
+            listView1.Location = new System.Drawing.Point(12, 24);
+            listView1.Size = new System.Drawing.Size(653, 513);
             // 
             // selectXMLToolStripMenuItem
             // 
