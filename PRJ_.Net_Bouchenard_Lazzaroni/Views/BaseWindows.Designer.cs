@@ -49,6 +49,7 @@
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.Details;
             this.listView1.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.listView1_ColumnClick);
+            this.listView1.DoubleClick += new System.EventHandler(this.listView1_DoubleClick);
             this.listView1.KeyUp += new System.Windows.Forms.KeyEventHandler(this.listView1_KeyUp);
             this.listView1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.listView1_MouseUp);
             this.listView1.Resize += new System.EventHandler(this.listView1_Resize);
@@ -76,7 +77,6 @@
             this.Controls.Add(this.listView1);
             this.Name = "BaseWindows";
             this.Text = "BaseWindows";
-            this.DoubleClick += new System.EventHandler(this.BaseWindows_DoubleClick);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.BaseWindows_KeyUp);
             this.ResumeLayout(false);
             this.PerformLayout();

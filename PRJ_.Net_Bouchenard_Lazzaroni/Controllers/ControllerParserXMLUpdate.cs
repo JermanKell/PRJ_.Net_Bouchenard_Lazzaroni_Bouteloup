@@ -42,6 +42,10 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
                     updateProgressBar(); //Send an event to the view to increment the progress bar
                 }
                 xmlDocument.Save(filename); // Apply modification to the document (fix spelling mistake).
+
+                updateListView(TypeMessage.Success, SubjectMessage.Finish,
+                    "Success : " + counterTypeMessage[TypeMessage.Success] + "   Warning : " + counterTypeMessage[TypeMessage.Warning] +
+                    "   Error : " + counterTypeMessage[TypeMessage.Error] + "   Critical : " + counterTypeMessage[TypeMessage.Critical]);
             }
             catch (Exception e)
             {

@@ -23,14 +23,8 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             ControllerArticles = new ControllerViewArticle();
 
             InitHeader(); // Init header of the listView
-            LoadDataListView();
-
             GroupsListView = new List<Hashtable>();
-
-            //Insert in the groupsListView a new hashtable containing all the groups needed for a single column
-            InitialiseGroupsByColumnListView();
-
-            RefreshListViewArticle();
+            refreshOwnView();
         }
 
         protected override void InitHeader()
@@ -71,6 +65,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         {
             SelectXml SelectXML = new SelectXml();
             SelectXML.ShowDialog();
+            refreshOwnView();
         }
 
         protected override void DeleteObjectListView()
@@ -119,19 +114,32 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         private void familleToolStripMenuItem_Click(object sender, EventArgs e)
         {
             FamilyWindows FW = new FamilyWindows();
+            FW.eventResfreshListView += refreshListView;
             FW.ShowDialog();
         }
 
         private void sousFamilleToolStripMenuItem_Click(object sender, EventArgs e)
         {
             SubFamilyWindows SFW = new SubFamilyWindows();
+            SFW.eventResfreshListView += refreshListView;
             SFW.ShowDialog();
         }
 
         private void marqueToolStripMenuItem_Click(object sender, EventArgs e)
         {
             BrandWindows BW = new BrandWindows();
+            BW.eventResfreshListView += refreshListView;
             BW.ShowDialog();
+        }
+
+        /// <summary>
+        /// Run this method when child add, update or delete one element of her windows to refresh the main
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void refreshListView(object sender, MyEventArgs e)
+        {
+            refreshOwnView();
         }
     }
 }

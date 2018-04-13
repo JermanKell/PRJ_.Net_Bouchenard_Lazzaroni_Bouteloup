@@ -12,6 +12,8 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
 {
     partial class BaseWindows : Form
     {
+        protected MyEventArgs argsEvent; // Store args for event
+
         // Declare a Hashtable array in which to store the groups
         protected List<Hashtable> GroupsListView;
         // Declare a variable to store the current grouping column
@@ -23,6 +25,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
         public BaseWindows()
         {
             InitializeComponent();
+            argsEvent = new MyEventArgs();
         }
 
         /// <summary>
@@ -141,6 +144,16 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
             }
         }
 
+        protected void refreshOwnView()
+        {
+            LoadDataListView();
+
+            //Insert in the groupsListView a new hashtable containing all the groups needed for a single column
+            InitialiseGroupsByColumnListView();
+
+            RefreshListViewArticle();
+        }
+
         /// <summary>
         /// Refresh the view
         /// </summary>
@@ -154,12 +167,6 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
             {
                 listView1.FocusedItem.Focused = false;
             }
-        }
-
-        private void BaseWindows_DoubleClick(object sender, EventArgs e)
-        {
-            //Modifier article
-            UpdateObjectListView();
         }
 
         private void BaseWindows_KeyUp(object sender, KeyEventArgs e)
@@ -239,6 +246,12 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
         {
             for (int i = 0; i < listView1.Columns.Count; i++)
                 listView1.Columns[i].Width = (listView1.Size.Width / listView1.Columns.Count) - 4;
+        }
+
+        private void listView1_DoubleClick(object sender, EventArgs e)
+        {
+            //Modifier article
+            UpdateObjectListView();
         }
     }
 }

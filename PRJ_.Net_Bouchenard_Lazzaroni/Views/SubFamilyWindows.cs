@@ -12,6 +12,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
 {
     partial class SubFamilyWindows : PRJ_.Net_Bouchenard_Lazzaroni.Views.BaseWindows
     {
+        public event EventHandler<MyEventArgs> eventResfreshListView; // Send events to the main to refresh his view
         private ControllerView_SubFamily controller;
 
         /// <summary>
@@ -23,14 +24,8 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
             controller = new ControllerView_SubFamily();
 
             InitHeader(); // Init header of the listView
-            LoadDataListView();
-
             GroupsListView = new List<Hashtable>();
-
-            //Insert in the groupsListView a new hashtable containing all the groups needed for a single column
-            InitialiseGroupsByColumnListView();
-
-            RefreshListViewArticle();
+            refreshOwnView();
         }
 
         /// <summary>
@@ -76,7 +71,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
         /// </summary>
         protected override void DeleteObjectListView()
         {
-            throw new NotImplementedException();
+            eventResfreshListView(this, argsEvent); // Send the event
         }
 
         /// <summary>
@@ -84,7 +79,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
         /// </summary>
         protected override void AddObjectListView()
         {
-           
+            eventResfreshListView(this, argsEvent); // Send the event
         }
 
         /// <summary>
@@ -92,7 +87,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
         /// </summary>
         protected override void UpdateObjectListView()
         {
-            throw new NotImplementedException();
+            eventResfreshListView(this, argsEvent); // Send the event
         }
     }
 }
