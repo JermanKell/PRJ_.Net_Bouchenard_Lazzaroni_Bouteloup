@@ -24,12 +24,11 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
 
         private void InitializeGraphics()
         {
-            Tbx_Famille.Text = Famille.Nom;
-
             if (Famille != null) //View Update
             {
                 Lab_Title.Text = "Mise à jour";
                 Btn_Valider.Text = "Modifier";
+                Tbx_Famille.Text = Famille.Nom;
             }
             else //View Insert
             {
@@ -83,7 +82,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
                     //////////////////////
                     //Refresh ListViewArticle
                     //////////
-                    MessageBox.Show(NameMessage + "de la famile " + Tbx_Famille.Text + " a bien été fait", "Validation", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show(NameMessage + "de la famille " + Tbx_Famille.Text + " a bien été fait", "Validation", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 catch (Exception ex)
                 {

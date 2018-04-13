@@ -21,24 +21,23 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         /// <returns>Returns true if done, false else</returns>
         public override int AddElement(Object obj)
         {
-            int var;
-            Familles fam = (Familles)obj;
-            Familles resFam = manager.getFamille(fam.Nom);
+            int Count;
+            Familles Family = (Familles)obj;
+            Familles FamilyFound = manager.getFamille(Family.Nom);
 
-            if (resFam == null)
+            if (FamilyFound == null)
             {
-                var = manager.insertFamille(resFam);
-                if (var != 0)
-                    MessageBox.Show("Insertion of this object succeed");
-                else
-                    MessageBox.Show("Insertion of this object failed");
+                Count = manager.insertFamille(FamilyFound);
+                if (Count != 1)
+                {
+                    throw new Exception("Une erreur liée à la base de données à empêcher l'ajout de la famille " + FamilyFound.Nom);
+                }
             }
             else
             {
-                MessageBox.Show("This object already exists in the DB");
-                var = -1;
+                throw new Exception("La famille " + Family.Nom + " existe déja dans la base");
             }
-            return var;
+            return Count;
         }
 
         /// <summary>
@@ -48,25 +47,22 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         /// <returns>Returns true if done, false else</returns>
         public override int ChangeElement(Object obj)
         {
-            int var;
-            Familles famille = (Familles)(obj);
-            Familles fam = manager.getFamille(famille.Nom);
+            int Count;
+            Familles Family = (Familles)(obj);
 
-            if (fam != null)
+            if (manager.getFamille(Family.Nom) != null)
             {
-                var = manager.updateFamilles(famille);
-
-                if (var == 1)
-                    MessageBox.Show("The element in the DB has been modified");
-                else
-                    MessageBox.Show("An error occured while the program was changing the values");
+                Count = manager.updateFamilles(Family);
+                if (Count != 1)
+                {
+                    throw new Exception("Une erreur liée à la base de données à empêcher la modification de la famille " + Family.Nom);
+                }
             }
             else
             {
-                MessageBox.Show("The element to modify does not exist in the DB");
-                var = -1;
+                throw new Exception("La famille " + Family.Nom + " n'existe pas dans la base");
             }
-            return var;   
+            return Count;
         }
 
         /// <summary>
@@ -76,26 +72,20 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         /// <returns>Returns true if done, false else</returns>
         public override int DeleteElement(string RefObj)
         {
-            int var = -1;
-            int Ref = Convert.ToInt32(RefObj);
-            if (manager.getFamille("", Ref) != null)
+            int Count = -1;
+            if (manager.getFamille(id: Convert.ToInt32(RefObj)) != null)
             {
-                var = manager.removeFamille(Ref);
-                if (var == 1)
+                Count = manager.removeFamille(Convert.ToInt32(RefObj));
+                if (Count != 1)
                 {
-                    MessageBox.Show("The associate family has been deleted");
-                    //Refresh();
-                }
-                else
-                {
-                    MessageBox.Show("An error occured while deleting a family");
+                    throw new Exception("Une erreur liée à la base de données à empêcher la supression de la famille de reference " + RefObj);
                 }
             }
             else
             {
-                MessageBox.Show("The associate family cannot be deleted because it was not found in the DB");
+                throw new Exception("La famille de référence " + RefObj + " n'existe pas dans la base");
             }
-            return var;
+            return Count;
         }
 
         /// <summary>

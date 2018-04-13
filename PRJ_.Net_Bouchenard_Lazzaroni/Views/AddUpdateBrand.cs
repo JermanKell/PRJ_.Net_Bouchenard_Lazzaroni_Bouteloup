@@ -24,12 +24,11 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
 
         private void InitializeGraphics()
         {
-            Tbx_Marque.Text = Marque.Nom;
-
             if (Marque != null) //View Update
             {
                 Lab_Title.Text = "Mise à jour";
                 Btn_Valider.Text = "Modifier";
+                Tbx_Marque.Text = Marque.Nom;
             }
             else //View Insert
             {
