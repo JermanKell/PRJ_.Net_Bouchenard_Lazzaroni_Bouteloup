@@ -10,7 +10,6 @@ using System.Windows.Forms;
 
 namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
 {
-    [TypeDescriptionProvider(typeof(AbstractFormDescriptionProvider<BaseWindows, Form>))]
     partial class BaseWindows : Form
     {
         protected MyEventArgs argsEvent; // Store args for event

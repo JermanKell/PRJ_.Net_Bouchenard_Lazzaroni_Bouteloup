@@ -79,12 +79,23 @@
     <Compile Include="Controllers\DBConnection.cs" />
     <Compile Include="Controllers\DBManager.cs" />
     <Compile Include="Models\Familles.cs" />
-    <Compile Include="Views\AbstractFormDescriptionProvider.cs" />
+    <Compile Include="Views\AddUpdateFamily.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\AddUpdateFamily.Designer.cs">
+      <DependentUpon>AddUpdateFamily.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\BaseWindows.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Views\BaseWindows.Designer.cs">
       <DependentUpon>BaseWindows.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AddUpdateBrand.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\AddUpdateBrand.Designer.cs">
+      <DependentUpon>AddUpdateBrand.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\BrandWindows.cs">
       <SubType>Form</SubType>
@@ -121,14 +132,20 @@
     <Compile Include="Views\SubFamilyWindows.Designer.cs">
       <DependentUpon>SubFamilyWindows.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\VueArticle.cs">
+    <Compile Include="Views\AddUpdateArticle.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Views\VueArticle.Designer.cs">
-      <DependentUpon>VueArticle.cs</DependentUpon>
+    <Compile Include="Views\AddUpdateArticle.Designer.cs">
+      <DependentUpon>AddUpdateArticle.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Views\AddUpdateFamily.resx">
+      <DependentUpon>AddUpdateFamily.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\BaseWindows.resx">
       <DependentUpon>BaseWindows.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\AddUpdateBrand.resx">
+      <DependentUpon>AddUpdateBrand.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\BrandWindows.resx">
       <DependentUpon>BrandWindows.cs</DependentUpon>
@@ -155,8 +172,8 @@
     <EmbeddedResource Include="Views\SubFamilyWindows.resx">
       <DependentUpon>SubFamilyWindows.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\VueArticle.resx">
-      <DependentUpon>VueArticle.cs</DependentUpon>
+    <EmbeddedResource Include="Views\AddUpdateArticle.resx">
+      <DependentUpon>AddUpdateArticle.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Mercure.SQLite">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

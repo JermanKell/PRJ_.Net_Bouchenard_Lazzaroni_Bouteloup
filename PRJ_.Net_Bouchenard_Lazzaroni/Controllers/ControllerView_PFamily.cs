@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace PRJ_.Net_Bouchenard_Lazzaroni.Controllers
+namespace PRJ_.Net_Bouchenard_Lazzaroni
 {
     class ControllerView_PFamily : ControllerView
     {

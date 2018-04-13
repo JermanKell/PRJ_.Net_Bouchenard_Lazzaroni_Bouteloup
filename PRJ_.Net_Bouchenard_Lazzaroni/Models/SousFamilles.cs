@@ -6,7 +6,7 @@ using System.Text;
 
 namespace PRJ_.Net_Bouchenard_Lazzaroni
 {
-    class SousFamilles
+    public class SousFamilles
     {
         private int id;
         private int idFamille;

@@ -99,14 +99,14 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
 
         protected override void AddObjectListView()
         {
-            VueArticle VA = new VueArticle();
+            VueArticle VA = new VueArticle(ControllerArticles);
             VA.StartPosition = FormStartPosition.CenterParent;
             VA.ShowDialog();
         }
 
         protected override void UpdateObjectListView()
         {
-            VueArticle VA = new VueArticle(ControllerArticles.GetArticle(listView1.SelectedItems[0].Name));
+            VueArticle VA = new VueArticle(ControllerArticles, ControllerArticles.GetArticle(listView1.SelectedItems[0].Name));
             VA.StartPosition = FormStartPosition.CenterParent;
             VA.ShowDialog();
         }

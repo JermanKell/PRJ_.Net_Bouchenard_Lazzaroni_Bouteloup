@@ -32,7 +32,7 @@
             this.Cbx_Marque = new System.Windows.Forms.ComboBox();
             this.Cbx_Famille = new System.Windows.Forms.ComboBox();
             this.Cbx_SousFamille = new System.Windows.Forms.ComboBox();
-            this.Labl_Reference = new System.Windows.Forms.Label();
+            this.Lab_Reference = new System.Windows.Forms.Label();
             this.Lab_Description = new System.Windows.Forms.Label();
             this.Lab_Prix = new System.Windows.Forms.Label();
             this.Lab_Quantite = new System.Windows.Forms.Label();
@@ -83,14 +83,14 @@
             this.Cbx_SousFamille.Size = new System.Drawing.Size(304, 21);
             this.Cbx_SousFamille.TabIndex = 3;
             // 
-            // Labl_Reference
+            // Lab_Reference
             // 
-            this.Labl_Reference.AutoSize = true;
-            this.Labl_Reference.Location = new System.Drawing.Point(86, 77);
-            this.Labl_Reference.Name = "Labl_Reference";
-            this.Labl_Reference.Size = new System.Drawing.Size(83, 13);
-            this.Labl_Reference.TabIndex = 4;
-            this.Labl_Reference.Text = "Nom reference :";
+            this.Lab_Reference.AutoSize = true;
+            this.Lab_Reference.Location = new System.Drawing.Point(86, 77);
+            this.Lab_Reference.Name = "Lab_Reference";
+            this.Lab_Reference.Size = new System.Drawing.Size(83, 13);
+            this.Lab_Reference.TabIndex = 4;
+            this.Lab_Reference.Text = "Nom reference :";
             // 
             // Lab_Description
             // 
@@ -201,13 +201,15 @@
             this.Controls.Add(this.Lab_Quantite);
             this.Controls.Add(this.Lab_Prix);
             this.Controls.Add(this.Lab_Description);
-            this.Controls.Add(this.Labl_Reference);
+            this.Controls.Add(this.Lab_Reference);
             this.Controls.Add(this.Cbx_SousFamille);
             this.Controls.Add(this.Cbx_Famille);
             this.Controls.Add(this.Cbx_Marque);
             this.Controls.Add(this.Lab_Title);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "VueArticle";
-            this.Text = "VueArticle";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.Text = "Article";
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -219,7 +221,7 @@
         private System.Windows.Forms.ComboBox Cbx_Marque;
         private System.Windows.Forms.ComboBox Cbx_Famille;
         private System.Windows.Forms.ComboBox Cbx_SousFamille;
-        private System.Windows.Forms.Label Labl_Reference;
+        private System.Windows.Forms.Label Lab_Reference;
         private System.Windows.Forms.Label Lab_Description;
         private System.Windows.Forms.Label Lab_Prix;
         private System.Windows.Forms.Label Lab_Quantite;
