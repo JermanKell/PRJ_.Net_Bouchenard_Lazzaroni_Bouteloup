@@ -108,6 +108,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
         /// </summary>
         protected override void AddObjectListView()
         {
+            MessageBox.Show("Add");
             /*VueArticle VA = new VueArticle();
             VA.StartPosition = FormStartPosition.CenterParent;
             VA.ShowDialog();*/
@@ -118,6 +119,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
         /// </summary>
         protected override void UpdateObjectListView()
         {
+            MessageBox.Show("Update");
             //VueArticle VA = new VueArticle(DictionaryArticles[listView1.SelectedItems[0].Name]);
             //VA.StartPosition = FormStartPosition.CenterParent;
             //VA.ShowDialog();

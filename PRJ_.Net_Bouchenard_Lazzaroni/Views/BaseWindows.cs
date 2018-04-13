@@ -157,12 +157,6 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
             }
         }
 
-        private void BaseWindows_DoubleClick(object sender, EventArgs e)
-        {
-            //Modifier article
-            UpdateObjectListView();
-        }
-
         private void BaseWindows_KeyUp(object sender, KeyEventArgs e)
         {
             //Refresh listViewArticle
@@ -240,6 +234,12 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
         {
             for (int i = 0; i < listView1.Columns.Count; i++)
                 listView1.Columns[i].Width = (listView1.Size.Width / listView1.Columns.Count) - 4;
+        }
+
+        private void listView1_DoubleClick(object sender, EventArgs e)
+        {
+            //Modifier article
+            UpdateObjectListView();
         }
     }
 }
