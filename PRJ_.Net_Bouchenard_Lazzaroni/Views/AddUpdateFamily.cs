@@ -19,6 +19,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
             this.ControllerFamilly = ControllerFamilly;
             this.Famille = Famille;
             InitializeComponent();
+            InitializeGraphics();
         }
 
         private void InitializeGraphics()

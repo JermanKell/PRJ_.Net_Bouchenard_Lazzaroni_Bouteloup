@@ -19,6 +19,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             this.ControllerBrand = ControllerBrand;
             this.Marque = Marque;
             InitializeComponent();
+            InitializeGraphics();
         }
 
         private void InitializeGraphics()
