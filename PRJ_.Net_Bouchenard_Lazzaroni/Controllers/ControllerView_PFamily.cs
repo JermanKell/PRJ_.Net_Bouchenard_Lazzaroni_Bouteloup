@@ -115,5 +115,10 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Controllers
         {
             return manager.getNameColumnTable("Familles");
         }
+
+        public Familles GetFamily(int id)
+        {
+            return manager.getFamille(id: id);
+        }
     }
 }

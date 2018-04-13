@@ -97,5 +97,10 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Controllers
         {
             return manager.getNameColumnTable("Marques");
         }
+
+        public Marques GetBrand(int id)
+        {
+            return manager.getMarque(id: id);
+        }
     }
 }

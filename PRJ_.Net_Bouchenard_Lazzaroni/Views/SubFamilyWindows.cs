@@ -80,6 +80,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
         /// </summary>
         protected override void AddObjectListView()
         {
+
             eventResfreshListView(this, argsEvent); // Send the event
         }
 

@@ -105,10 +105,9 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
         /// </summary>
         protected override void AddObjectListView()
         {
-            MessageBox.Show("Add");
-            /*VueArticle VA = new VueArticle();
-            VA.StartPosition = FormStartPosition.CenterParent;
-            VA.ShowDialog();*/
+            AddUpdateFamily familyWindow = new AddUpdateFamily(controller);
+            familyWindow.StartPosition = FormStartPosition.CenterParent;
+            familyWindow.ShowDialog();
             eventResfreshListView(this, argsEvent); // Send the event
         }
 
@@ -117,10 +116,9 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
         /// </summary>
         protected override void UpdateObjectListView()
         {
-            MessageBox.Show("Update");
-            //VueArticle VA = new VueArticle(DictionaryArticles[listView1.SelectedItems[0].Name]);
-            //VA.StartPosition = FormStartPosition.CenterParent;
-            //VA.ShowDialog();
+            AddUpdateFamily familyWindow = new AddUpdateFamily(controller, controller.GetFamily(Convert.ToInt16(listView1.SelectedItems[0].Name)));
+            familyWindow.StartPosition = FormStartPosition.CenterParent;
+            familyWindow.ShowDialog();
             eventResfreshListView(this, argsEvent); // Send the event
         }
     }

@@ -76,6 +76,9 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
         /// </summary>
         protected override void AddObjectListView()
         {
+            AddUpdateBrand brandWindow = new AddUpdateBrand(controller);
+            brandWindow.StartPosition = FormStartPosition.CenterParent;
+            brandWindow.ShowDialog();
             eventResfreshListView(this, argsEvent); // Send the event
         }
 
@@ -84,6 +87,9 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
         /// </summary>
         protected override void UpdateObjectListView()
         {
+            AddUpdateBrand brandWindow = new AddUpdateBrand(controller, controller.GetBrand(Convert.ToInt16(listView1.SelectedItems[0].Name)));
+            brandWindow.StartPosition = FormStartPosition.CenterParent;
+            brandWindow.ShowDialog();
             eventResfreshListView(this, argsEvent); // Send the event
         }
     }
