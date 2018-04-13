@@ -374,8 +374,9 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         /// <returns>The number of line modified </returns>
         public int updateFamilles(Familles fam)
         {
-            SQLiteCommand sql = new SQLiteCommand("UPDATE Familles SET Nom = @nom", conn);
+            SQLiteCommand sql = new SQLiteCommand("UPDATE Familles SET Nom = @nom WHERE RefFamille = @reference", conn);
             sql.Parameters.AddWithValue("@nom", fam.Nom);
+            sql.Parameters.AddWithValue("@reference", fam.Id);
 
             try
             {
@@ -398,10 +399,25 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             return 0;
         }
 
+        /// <summary>
+        /// Set the new brand to the database
+        /// </summary>
+        /// <param name="brand"> The brand to update </param>
+        /// <returns>The number of line modified </returns>
         public int updateMarque(Marques brand)
         {
-            // TODO
-            return 0;
+            SQLiteCommand sql = new SQLiteCommand("UPDATE Marques SET Nom = @nom WHERE RefMarque = @reference", conn);
+            sql.Parameters.AddWithValue("@nom", brand.Nom);
+            sql.Parameters.AddWithValue("@reference", brand.Id);
+
+            try
+            {
+                return sql.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
 

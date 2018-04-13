@@ -50,11 +50,13 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         {
             int var;
             Familles famille = (Familles)(obj);
-            Familles fam = manager.getFamille(famille.Nom);
+            Familles fam = manager.getFamille(id: famille.Id);
+
+            fam.Nom = famille.Nom;
 
             if (fam != null)
             {
-                var = manager.updateFamilles(famille);
+                var = manager.updateFamilles(fam);
 
                 if (var == 1)
                     MessageBox.Show("The element in the DB has been modified");
