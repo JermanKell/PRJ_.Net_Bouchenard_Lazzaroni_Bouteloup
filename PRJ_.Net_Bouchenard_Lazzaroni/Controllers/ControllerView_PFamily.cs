@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace PRJ_.Net_Bouchenard_Lazzaroni.Controllers
+namespace PRJ_.Net_Bouchenard_Lazzaroni
 {
     class ControllerView_PFamily : ControllerView
     {
@@ -55,15 +55,11 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Controllers
             if (fam != null)
             {
                 var = manager.updateFamilles(famille);
+
                 if (var == 1)
-                {
                     MessageBox.Show("The element in the DB has been modified");
-                    //Refresh();
-                }
                 else
-                {
                     MessageBox.Show("An error occured while the program was changing the values");
-                }
             }
             else
             {

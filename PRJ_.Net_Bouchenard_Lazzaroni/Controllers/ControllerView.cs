@@ -8,12 +8,6 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
 {
     abstract class ControllerView
     {
-
-        /// <summary>
-        /// This attribut is a "list" of all objects found and stored in the DB
-        /// </summary>
-        protected Dictionary<int, Object> DicObject;             // INUTILE?!
-
         /// <summary>
         /// Handles all requests to do on the DB.
         /// </summary>

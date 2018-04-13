@@ -1,5 +1,4 @@
-﻿using PRJ_.Net_Bouchenard_Lazzaroni.Controllers;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,13 +12,16 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
 {
     partial class FamilyWindows : PRJ_.Net_Bouchenard_Lazzaroni.Views.BaseWindows
     {
-        private ControllerView_PFamily controller = new ControllerView_PFamily();
+        private ControllerView_PFamily controller;
 
+        /// <summary>
+        /// Constructor of this class.
+        /// </summary>
         public FamilyWindows()
         {
             InitializeComponent();
-
             controller = new ControllerView_PFamily();
+
             InitHeader(); // Init header of the listView
             LoadDataListView();
 
@@ -31,6 +33,9 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
             RefreshListViewArticle();
         }
 
+        /// <summary>
+        /// Init the header of the listView
+        /// </summary>
         protected override void InitHeader()
         {
             //initialise columns
@@ -39,7 +44,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
             for (int i = 0; i < listNameColumnTable.Count; i++)
             {
                 ColumnHeader colHdr = new ColumnHeader();
-                colHdr.Name = listNameColumnTable.ElementAt(i); //Set a ColumnHeader name 
+                colHdr.Name = listNameColumnTable.ElementAt(i); //Set a ColumnHeader name
                 colHdr.Text = listNameColumnTable.ElementAt(i);
                 colHdr.Width = listView1.Size.Width / listNameColumnTable.Count;
                 listView1.Columns.Add(colHdr);
@@ -65,6 +70,9 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
             }
         }
 
+        /// <summary>
+        /// Delete an object from modal window
+        /// </summary>
         protected override void DeleteObjectListView()
         {
             DialogResult dialogResult = MessageBox.Show("Confirmer la supression d'article?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
@@ -94,6 +102,9 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
             }
         }
 
+        /// <summary>
+        /// Add an object from modal window
+        /// </summary>
         protected override void AddObjectListView()
         {
             /*VueArticle VA = new VueArticle();
@@ -101,6 +112,9 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
             VA.ShowDialog();*/
         }
 
+        /// <summary>
+        /// Update an object from modal window
+        /// </summary>
         protected override void UpdateObjectListView()
         {
             //VueArticle VA = new VueArticle(DictionaryArticles[listView1.SelectedItems[0].Name]);

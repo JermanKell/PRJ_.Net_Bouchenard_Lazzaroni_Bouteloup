@@ -8,15 +8,17 @@ using System.Windows.Forms;
 
 namespace PRJ_.Net_Bouchenard_Lazzaroni
 {
-    public partial class VueArticle : Form
+    partial class VueArticle : Form
     {
         Articles Article;
+        ControllerViewArticle ControllerArticles;
         Dictionary<int, string> DictionaryFamilles;
         Dictionary<int, string> DictionarySousFamilles;
         Dictionary<int, string> DictionaryMarques;
 
-        public VueArticle(Articles Article = null)
+        public VueArticle(ControllerViewArticle ControllerArticles, Articles Article = null)
         {
+            this.ControllerArticles = ControllerArticles;
             this.Article = Article;
             InitializeComponent();
             InitializeGraphics();
@@ -173,10 +175,6 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             }
             else
             {
-                /// --- To Move --- ///
-                DBManager Dbm = new DBManager();
-                ///////////////////////////////
-
                 string NameMessage = "";
                 try
                 {
@@ -193,7 +191,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
                             Convert.ToInt32(Tbx_Quantite.Text)
                         );
 
-                        Dbm.insertArticle(Article);
+                        ControllerArticles.AddElement(Article);
                     }
                     else//modification
                     {
@@ -205,7 +203,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
                         Article.PrixHT = Convert.ToDouble(Tbx_Prix.Text);
                         Article.Quantite = Convert.ToInt32(Tbx_Quantite.Text);
 
-                        Dbm.updateArticle(Article);
+                        ControllerArticles.ChangeElement(Article);
                     }
 
                     //////////////////////
