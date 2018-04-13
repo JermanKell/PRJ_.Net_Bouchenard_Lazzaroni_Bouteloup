@@ -48,9 +48,12 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         public override int ChangeElement(Object obj)
         {
             int Count;
-            Familles Family = (Familles)(obj);
 
-            if (manager.getFamille(Family.Nom) != null)
+            Familles Family = (Familles)(obj);
+            Familles FamilyFound = manager.getFamille(id: Family.Id);
+
+
+            if (FamilyFound != null)
             {
                 Count = manager.updateFamilles(Family);
                 if (Count != 1)

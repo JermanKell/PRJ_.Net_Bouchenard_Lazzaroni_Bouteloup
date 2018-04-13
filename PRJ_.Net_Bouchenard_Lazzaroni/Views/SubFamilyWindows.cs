@@ -71,7 +71,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
         /// </summary>
         protected override void DeleteObjectListView()
         {
-            eventResfreshListView(this, argsEvent); // Send the event
+            refreshOwnView();
         }
 
         /// <summary>
@@ -80,7 +80,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
         protected override void AddObjectListView()
         {
 
-            eventResfreshListView(this, argsEvent); // Send the event
+            refreshOwnView();
         }
 
         /// <summary>
@@ -88,6 +88,8 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
         /// </summary>
         protected override void UpdateObjectListView()
         {
+
+            refreshOwnView();
             eventResfreshListView(this, argsEvent); // Send the event
         }
     }

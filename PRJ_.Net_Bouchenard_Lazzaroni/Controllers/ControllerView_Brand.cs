@@ -50,11 +50,13 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         {
             int var;
             Marques brand = (Marques)(obj);
-            Marques resBrand = manager.getMarque(brand.Nom);
+            Marques resBrand = manager.getMarque(id: brand.Id);
+
+            resBrand.Nom = brand.Nom;
 
             if (resBrand != null)
             {
-                var = manager.updateMarque(brand);
+                var = manager.updateMarque(resBrand);
 
                 if (var == 1)
                     MessageBox.Show("The element in the DB has been modified");

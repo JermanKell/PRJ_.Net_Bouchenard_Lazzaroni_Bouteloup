@@ -96,7 +96,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
                 statusStrip1.Items[0].Text = "La supression d'article a été annulée";
             }
 
-            eventResfreshListView(this, argsEvent); // Send the event
+            refreshOwnView();
         }
 
         /// <summary>
@@ -107,7 +107,8 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
             AddUpdateFamily familyWindow = new AddUpdateFamily(controller);
             familyWindow.StartPosition = FormStartPosition.CenterParent;
             familyWindow.ShowDialog();
-            eventResfreshListView(this, argsEvent); // Send the event
+
+            refreshOwnView();
         }
 
         /// <summary>
@@ -118,6 +119,8 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
             AddUpdateFamily familyWindow = new AddUpdateFamily(controller, controller.GetFamily(Convert.ToInt16(listView1.SelectedItems[0].Name)));
             familyWindow.StartPosition = FormStartPosition.CenterParent;
             familyWindow.ShowDialog();
+
+            refreshOwnView();
             eventResfreshListView(this, argsEvent); // Send the event
         }
     }
