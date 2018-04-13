@@ -23,14 +23,8 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             ControllerArticles = new ControllerViewArticle();
 
             InitHeader(); // Init header of the listView
-            LoadDataListView();
-
             GroupsListView = new List<Hashtable>();
-
-            //Insert in the groupsListView a new hashtable containing all the groups needed for a single column
-            InitialiseGroupsByColumnListView();
-
-            RefreshListViewArticle();
+            refreshOwnView();
         }
 
         protected override void InitHeader()
@@ -71,6 +65,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         {
             SelectXml SelectXML = new SelectXml();
             SelectXML.ShowDialog();
+            refreshOwnView();
         }
 
         protected override void DeleteObjectListView()

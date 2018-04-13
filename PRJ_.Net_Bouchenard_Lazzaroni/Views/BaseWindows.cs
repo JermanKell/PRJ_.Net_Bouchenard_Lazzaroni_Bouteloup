@@ -142,6 +142,16 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
             }
         }
 
+        protected void refreshOwnView()
+        {
+            LoadDataListView();
+
+            //Insert in the groupsListView a new hashtable containing all the groups needed for a single column
+            InitialiseGroupsByColumnListView();
+
+            RefreshListViewArticle();
+        }
+
         /// <summary>
         /// Refresh the view
         /// </summary>

@@ -24,14 +24,8 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
             controller = new ControllerView_SubFamily();
 
             InitHeader(); // Init header of the listView
-            LoadDataListView();
-
             GroupsListView = new List<Hashtable>();
-
-            //Insert in the groupsListView a new hashtable containing all the groups needed for a single column
-            InitialiseGroupsByColumnListView();
-
-            RefreshListViewArticle();
+            refreshOwnView();
         }
 
         /// <summary>
