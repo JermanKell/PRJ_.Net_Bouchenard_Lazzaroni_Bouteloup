@@ -13,6 +13,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
 {
     partial class BrandWindows : PRJ_.Net_Bouchenard_Lazzaroni.Views.BaseWindows
     {
+        public event EventHandler<MyEventArgs> eventResfreshListView; // Send events to the main to refresh his view
         private ControllerView_Brand controller;
 
         public BrandWindows()
@@ -67,7 +68,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
         /// </summary>
         protected override void DeleteObjectListView()
         {
-            throw new NotImplementedException();
+            eventResfreshListView(this, argsEvent); // Send the event
         }
 
         /// <summary>
@@ -75,7 +76,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
         /// </summary>
         protected override void AddObjectListView()
         {
-            throw new NotImplementedException();
+            eventResfreshListView(this, argsEvent); // Send the event
         }
 
         /// <summary>
@@ -83,7 +84,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
         /// </summary>
         protected override void UpdateObjectListView()
         {
-            throw new NotImplementedException();
+            eventResfreshListView(this, argsEvent); // Send the event
         }
     }
 }

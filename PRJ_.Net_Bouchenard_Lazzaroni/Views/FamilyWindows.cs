@@ -13,6 +13,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
 {
     partial class FamilyWindows : PRJ_.Net_Bouchenard_Lazzaroni.Views.BaseWindows
     {
+        public event EventHandler<MyEventArgs> eventResfreshListView; // Send events to the main to refresh his view
         private ControllerView_PFamily controller;
 
         /// <summary>
@@ -95,6 +96,8 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
             {
                 statusStrip1.Items[0].Text = "La supression d'article a été annulée";
             }
+
+            eventResfreshListView(this, argsEvent); // Send the event
         }
 
         /// <summary>
@@ -106,6 +109,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
             /*VueArticle VA = new VueArticle();
             VA.StartPosition = FormStartPosition.CenterParent;
             VA.ShowDialog();*/
+            eventResfreshListView(this, argsEvent); // Send the event
         }
 
         /// <summary>
@@ -117,6 +121,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
             //VueArticle VA = new VueArticle(DictionaryArticles[listView1.SelectedItems[0].Name]);
             //VA.StartPosition = FormStartPosition.CenterParent;
             //VA.ShowDialog();
+            eventResfreshListView(this, argsEvent); // Send the event
         }
     }
 }
