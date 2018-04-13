@@ -18,6 +18,9 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
         // Declare a variable to store the current grouping column
         protected int GroupColumn = 0;
 
+        /// <summary>
+        /// Constructor of this abstract class.
+        /// </summary>
         public BaseWindows()
         {
             InitializeComponent();
@@ -33,10 +36,19 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
         /// </summary>
         abstract protected void LoadDataListView();
 
+        /// <summary>
+        /// Delete an object from modal window
+        /// </summary>
         abstract protected void DeleteObjectListView();
 
+        /// <summary>
+        /// Add an object from modal window
+        /// </summary>
         abstract protected void AddObjectListView();
 
+        /// <summary>
+        /// Update an object from modal window
+        /// </summary>
         abstract protected void UpdateObjectListView();
 
         // Creates a Hashtable with one entry for each unique textItem value in the specified column

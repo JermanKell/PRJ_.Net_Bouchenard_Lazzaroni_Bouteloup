@@ -20,9 +20,9 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         public Main() : base()
         {
             InitializeComponent();
-
             ControllerArticles = new ControllerViewArticle();
-            InitHeader();
+
+            InitHeader(); // Init header of the listView
             LoadDataListView();
 
             GroupsListView = new List<Hashtable>();

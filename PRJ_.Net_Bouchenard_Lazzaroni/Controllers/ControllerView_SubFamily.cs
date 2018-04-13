@@ -55,15 +55,11 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Controllers
             if (sousFam != null)
             {
                 var = manager.updateSousFamilles(sousFamille);
+
                 if (var == 1)
-                {
                     MessageBox.Show("The element in the DB has been modified");
-                    //Refresh();
-                }
                 else
-                {
                     MessageBox.Show("An error occured while the program was changing the values");
-                }
             }
             else
             {
@@ -82,6 +78,15 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Controllers
         {
             // TODO
             return 0;
+        }
+
+        /// <summary>
+        /// Returns the dictionary to the associated view
+        /// </summary>
+        /// <returns>Dictionary of int and SubFamily</returns>
+        public Dictionary<int, SousFamilles> getAllSousFamilles()
+        {
+            return manager.getAllSousFamilles();
         }
 
         /// <summary>

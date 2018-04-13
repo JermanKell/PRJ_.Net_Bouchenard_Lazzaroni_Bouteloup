@@ -398,6 +398,12 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             return 0;
         }
 
+        public int updateMarque(Marques brand)
+        {
+            // TODO
+            return 0;
+        }
+
 
         /// <summary>
         /// Increment the quantity of the article by one
