@@ -11,7 +11,7 @@ using System.Windows.Forms;
 namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
 {
     [TypeDescriptionProvider(typeof(AbstractFormDescriptionProvider<BaseWindows, Form>))]
-    abstract partial class BaseWindows : Form
+    partial class BaseWindows : Form
     {
         // Declare a Hashtable array in which to store the groups
         protected List<Hashtable> GroupsListView;
@@ -29,27 +29,27 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
         /// <summary>
         /// Init the header of the listView
         /// </summary>
-        abstract protected void InitHeader();
+        virtual protected void InitHeader() { }
 
         /// <summary>
         /// Load the data into the listView
         /// </summary>
-        abstract protected void LoadDataListView();
+        virtual protected void LoadDataListView() { }
 
         /// <summary>
         /// Delete an object from modal window
         /// </summary>
-        abstract protected void DeleteObjectListView();
+        virtual protected void DeleteObjectListView() { }
 
         /// <summary>
         /// Add an object from modal window
         /// </summary>
-        abstract protected void AddObjectListView();
+        virtual protected void AddObjectListView() { }
 
         /// <summary>
         /// Update an object from modal window
         /// </summary>
-        abstract protected void UpdateObjectListView();
+        virtual protected void UpdateObjectListView() { }
 
         // Creates a Hashtable with one entry for each unique textItem value in the specified column
         protected void InitialiseGroupsByColumnListView()
