@@ -42,6 +42,7 @@
             this.Btn_Valider.TabIndex = 20;
             this.Btn_Valider.Text = "*";
             this.Btn_Valider.UseVisualStyleBackColor = true;
+            this.Btn_Valider.Click += new System.EventHandler(this.Btn_Valider_Click);
             // 
             // Tbx_Famille
             // 
