@@ -9,11 +9,19 @@ using System.Windows.Forms;
 
 namespace PRJ_.Net_Bouchenard_Lazzaroni
 {
+    /// <summary>
+    /// View to add or modify a brand
+    /// </summary>
     partial class AddUpdateBrand : Form
     {
-        Marques Marque;
+        Marques Marque; // The brand to modify or null if the user want to add a new brand
         ControllerView_Brand ControllerBrand;
 
+        /// <summary>
+        /// Constructor of the class
+        /// </summary>
+        /// <param name="ControllerBrand">Controller to use</param>
+        /// <param name="Marque">The brand to modify or null if none</param>
         public AddUpdateBrand(ControllerView_Brand ControllerBrand, Marques Marque = null)
         {
             this.ControllerBrand = ControllerBrand;
@@ -25,6 +33,9 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             Btn_Annuler.DialogResult = DialogResult.Cancel;
         }
 
+        /// <summary>
+        /// Fill all graphical component
+        /// </summary>
         private void InitializeGraphics()
         {
             if (Marque != null) //View Update
@@ -40,6 +51,10 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             }
         }
 
+        /// <summary>
+        /// Check if all entries has been completed
+        /// </summary>
+        /// <returns>True if ok, else false</returns>
         private bool CheckEntries()
         {
             bool IsValid = true;
@@ -54,6 +69,11 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             return IsValid;
         }
 
+        /// <summary>
+        /// Add of modify the brand when the user has completed the form
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Btn_Valider_Click(object sender, EventArgs e)
         {
             if (!CheckEntries())
@@ -91,6 +111,11 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             }
         }
 
+        /// <summary>
+        /// Cancel and close the window
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void cancelButton_Click(object sender, EventArgs e)
         {
             this.Close();

@@ -10,6 +10,9 @@ using System.Windows.Forms;
 
 namespace PRJ_.Net_Bouchenard_Lazzaroni
 {
+    /// <summary>
+    /// View to parse XML file 
+    /// </summary>
     public partial class SelectXml : Form
     {
         private string filename; // Path of the xml file

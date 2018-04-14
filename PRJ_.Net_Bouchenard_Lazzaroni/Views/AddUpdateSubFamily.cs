@@ -9,11 +9,19 @@ using System.Windows.Forms;
 
 namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
 {
+    /// <summary>
+    /// View to add or modify a sub family
+    /// </summary>
     partial class AddUpdateSubFamily : Form
     {
-        SousFamilles SubFamily;
+        SousFamilles SubFamily; // The sub family to modify or null if the user want to add a new sub family
         ControllerView_SubFamily ControllerSubFamilly;
 
+        /// <summary>
+        /// Constructor of the class
+        /// </summary>
+        /// <param name="ControllerSubFamilly">Controller to use</param>
+        /// <param name="SubFamily">The sub family to modify or null if none</param>
         public AddUpdateSubFamily(ControllerView_SubFamily ControllerSubFamilly, SousFamilles SubFamily = null)
         {
             this.ControllerSubFamilly = ControllerSubFamilly;
@@ -25,6 +33,9 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
             Btn_Annuler.DialogResult = DialogResult.Cancel;
         }
 
+        /// <summary>
+        /// Fill all graphical component
+        /// </summary>
         private void InitializeGraphics()
         {
             if (SubFamily != null) //View Update
@@ -43,6 +54,10 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
             }
         }
 
+        /// <summary>
+        /// Check if all entries has been completed
+        /// </summary>
+        /// <returns>True if ok, else false</returns>
         private bool CheckEntries()
         {
             bool IsValid = true;
@@ -57,6 +72,11 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
             return IsValid;
         }
 
+        /// <summary>
+        /// Add of modify the sub family when the user has completed the form
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Btn_Valider_Click(object sender, EventArgs e)
         {
             if (!CheckEntries())
@@ -94,6 +114,11 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
             }
         }
 
+        /// <summary>
+        /// Cancel and close the window
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void cancelButton_Click(object sender, EventArgs e)
         {
             this.Close();

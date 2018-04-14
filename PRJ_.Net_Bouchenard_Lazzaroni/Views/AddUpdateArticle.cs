@@ -8,14 +8,22 @@ using System.Windows.Forms;
 
 namespace PRJ_.Net_Bouchenard_Lazzaroni
 {
+    /// <summary>
+    /// View to add or modify an article
+    /// </summary>
     partial class VueArticle : Form
     {
-        Articles Article;
+        Articles Article; // The article to modify or null if the user want to add a new article
         ControllerViewArticle ControllerArticles;
-        Dictionary<int, string> DictionaryFamilles;
-        Dictionary<int, string> DictionarySousFamilles;
-        Dictionary<int, string> DictionaryMarques;
+        Dictionary<int, string> DictionaryFamilles; // Useful for combobox
+        Dictionary<int, string> DictionarySousFamilles; // Useful for combobox
+        Dictionary<int, string> DictionaryMarques; // Useful for combobox
 
+        /// <summary>
+        /// Constructor of the class
+        /// </summary>
+        /// <param name="ControllerArticles">Controller to use</param>
+        /// <param name="Article">The article to modify or null if none</param>
         public VueArticle(ControllerViewArticle ControllerArticles, Articles Article = null)
         {
             this.ControllerArticles = ControllerArticles;
@@ -27,6 +35,9 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             Btn_Annuler.DialogResult = DialogResult.Cancel;
         }
 
+        /// <summary>
+        /// Fill all graphical component
+        /// </summary>
         private void InitializeGraphics()
         {
             InitializeCbxFamilles();
@@ -64,6 +75,9 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             }      
         }
 
+        /// <summary>
+        /// Init the family dictionnary for the combo box
+        /// </summary>
         private void InitializeCbxFamilles()
         {
             // --- To Move ---//
@@ -81,6 +95,9 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             Cbx_Famille.SelectedIndex = -1;
         }
 
+        /// <summary>
+        /// Init the sub family dictionnary for the combo box
+        /// </summary>
         private void InitializeCbxSousFamilles()
         {
             // --- To Move ---//
@@ -98,6 +115,9 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             Cbx_SousFamille.SelectedIndex = -1;
         }
 
+        /// <summary>
+        /// Init the brand dictionnary for the combo box
+        /// </summary>
         private void InitializeCbxMarques()
         {
             // --- To Move ---//
@@ -115,6 +135,10 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             Cbx_Marque.SelectedIndex = -1;
         }
 
+        /// <summary>
+        /// Check if all entries has been completed
+        /// </summary>
+        /// <returns>True if ok, else false</returns>
         private bool CheckEntries()
         {
             bool IsValid = true;
@@ -170,6 +194,11 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             return IsValid;
         }
 
+        /// <summary>
+        /// Add of modify the article when the user has completed the form
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Btn_Valider_Click(object sender, EventArgs e)
         {
             if(!CheckEntries())
@@ -217,6 +246,11 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             }
         }
 
+        /// <summary>
+        /// Cancel and close the window
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void cancelButton_Click(object sender, EventArgs e)
         {
             this.Close();

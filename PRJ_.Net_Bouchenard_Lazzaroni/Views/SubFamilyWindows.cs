@@ -10,6 +10,9 @@ using System.Windows.Forms;
 
 namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
 {
+    /// <summary>
+    /// View to manage all sub family
+    /// </summary>
     partial class SubFamilyWindows : PRJ_.Net_Bouchenard_Lazzaroni.Views.BaseWindows
     {
         private ControllerView_SubFamily controller;

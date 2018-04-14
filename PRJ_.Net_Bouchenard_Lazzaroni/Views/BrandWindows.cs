@@ -10,10 +10,16 @@ using System.Windows.Forms;
 
 namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
 {
+    /// <summary>
+    /// View to manage brands
+    /// </summary>
     partial class BrandWindows : PRJ_.Net_Bouchenard_Lazzaroni.Views.BaseWindows
     {
         private ControllerView_Brand controller;
 
+        /// <summary>
+        /// Constructor of the class
+        /// </summary>
         public BrandWindows()
         {
             InitializeComponent();
