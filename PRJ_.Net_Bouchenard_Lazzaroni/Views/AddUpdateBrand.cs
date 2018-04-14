@@ -78,17 +78,13 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
 
                         ControllerBrand.ChangeElement(Marque);
                     }
-
-                    //////////////////////
-                    //Refresh ListViewArticle
-                    //////////
                     MessageBox.Show(NameMessage + "de la marque " + Tbx_Marque.Text + " a bien été fait", "Validation", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    this.Close();
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show("Une erreur est survenue lors de " + NameMessage.ToLower() + "avec le message suivant:\n" + ex.Message, "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-                this.Close();
             }
         }
     }
