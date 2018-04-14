@@ -26,13 +26,13 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
         {
             if (Famille != null) //View Update
             {
-                Lab_Title.Text = "Mise à jour";
+                this.Text = "Modification";
                 Btn_Valider.Text = "Modifier";
                 Tbx_Famille.Text = Famille.Nom;
             }
             else //View Insert
             {
-                Lab_Title.Text = "Nouvelle famille";
+                this.Text = "Ajout";
                 Btn_Valider.Text = "Ajouter";
             }
         }
@@ -86,6 +86,16 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
                     MessageBox.Show("Une erreur est survenue lors de " + NameMessage.ToLower() + "avec le message suivant:\n" + ex.Message, "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
+        }
+
+        private void Lab_Famille_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void cancelButton_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

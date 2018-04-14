@@ -12,7 +12,6 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
 {
     partial class BrandWindows : PRJ_.Net_Bouchenard_Lazzaroni.Views.BaseWindows
     {
-        public event EventHandler<MyEventArgs> eventResfreshListView; // Send events to the main to refresh his view
         private ControllerView_Brand controller;
 
         public BrandWindows()
@@ -92,7 +91,6 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
             brandWindow.ShowDialog();
 
             refreshOwnView();
-            eventResfreshListView(this, argsEvent); // Send the event
         }
     }
 }

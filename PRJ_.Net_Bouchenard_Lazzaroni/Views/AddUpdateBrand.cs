@@ -26,13 +26,13 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         {
             if (Marque != null) //View Update
             {
-                Lab_Title.Text = "Mise à jour";
+                this.Text = "Modification";
                 Btn_Valider.Text = "Modifier";
                 Tbx_Marque.Text = Marque.Nom;
             }
             else //View Insert
             {
-                Lab_Title.Text = "Nouvelle marque";
+                this.Text = "Ajout";
                 Btn_Valider.Text = "Ajouter";
             }
         }
@@ -86,6 +86,11 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
                     MessageBox.Show("Une erreur est survenue lors de " + NameMessage.ToLower() + "avec le message suivant:\n" + ex.Message, "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
+        }
+
+        private void cancelButton_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

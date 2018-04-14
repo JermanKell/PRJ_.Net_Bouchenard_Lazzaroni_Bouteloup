@@ -12,8 +12,6 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
 {
     partial class BaseWindows : Form
     {
-        protected MyEventArgs argsEvent; // Store args for event
-
         // Declare a Hashtable array in which to store the groups
         protected List<Hashtable> GroupsListView;
         // Declare a variable to store the current grouping column
@@ -25,7 +23,6 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
         public BaseWindows()
         {
             InitializeComponent();
-            argsEvent = new MyEventArgs();
         }
 
         /// <summary>

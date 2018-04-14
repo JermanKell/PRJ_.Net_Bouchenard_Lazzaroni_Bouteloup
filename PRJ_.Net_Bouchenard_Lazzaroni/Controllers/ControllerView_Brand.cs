@@ -18,26 +18,15 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         /// Adds a new element in the DB 
         /// </summary>
         /// <param name="obj">Object to add in the DB.</param>
-        /// <returns>Returns true if done, false else</returns>
-        public override int AddElement(object obj)
+        public override void AddElement(object obj)
         {
-            int Count;
-            Marques Brand = (Marques)obj;
-            Marques BrandFound = manager.getMarque(Brand.Nom);
+            Marques brand = (Marques)obj;
+            Marques resBrand = manager.getMarque(brand.Nom);
 
-            if (BrandFound == null)
-            {
-                Count = manager.insertMarque(Brand);
-                if (Count == 0)
-                {
-                    throw new Exception("Une erreur liée à la base de données à empêcher l'ajout de la marque " + Brand.Nom);
-                }
-            }
+            if (resBrand == null)
+                manager.insertMarque(brand);
             else
-            {
-                throw new Exception("La marque " + Brand.Nom + " existe déja dans la base");
-            }
-            return Count;
+                MessageBox.Show("This object already exists in the DB");
         }
 
         /// <summary>

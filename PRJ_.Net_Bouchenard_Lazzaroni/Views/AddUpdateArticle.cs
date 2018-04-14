@@ -33,7 +33,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
 
             if (Article != null) //View Update
             {
-                Lab_Title.Text = "Mise à jour";
+                this.Text = "Modification";
                 Btn_Valider.Text = "Modifier";
 
                 Tbx_Reference.Text = Article.Reference;
@@ -54,7 +54,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             }
             else //View Insert
             {
-                Lab_Title.Text = "Nouvel article";
+                this.Text = "Ajout";
                 Btn_Valider.Text = "Ajouter";
 
                 Tbx_Reference.Text = "F";
@@ -213,6 +213,11 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
                     MessageBox.Show("Une erreur est survenue lors de " + NameMessage.ToLower() + "avec le message suivant:\n" + ex.Message, "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
+        }
+
+        private void cancelButton_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }
