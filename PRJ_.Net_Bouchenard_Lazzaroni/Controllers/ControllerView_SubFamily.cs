@@ -44,14 +44,16 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             SousFamilles SubFamily = (SousFamilles)(Obj);
             SousFamilles SubFamilyFound = Manager.GetSousFamille(Id: SubFamily.Id);
 
-
             if (SubFamilyFound != null)
             {
-                Count = Manager.UpdateSousFamilles(SubFamily);
-                if (Count != 1)
+                if (Manager.GetSousFamille(SubFamily.Nom) == null) // Check if the sub family already exist or not
                 {
-                    throw new Exception("Une erreur liée à la base de données à empêcher la modification de la sous famille " + SubFamily.Nom);
+                    Count = Manager.UpdateSousFamilles(SubFamily);
+                    if (Count != 1)
+                        throw new Exception("Une erreur liée à la base de données à empêcher la modification de la sous famille " + SubFamily.Nom);
                 }
+                else
+                    throw new Exception("La sous famille " + SubFamily.Nom + " existe déjà dans la base");
             }
             else
             {

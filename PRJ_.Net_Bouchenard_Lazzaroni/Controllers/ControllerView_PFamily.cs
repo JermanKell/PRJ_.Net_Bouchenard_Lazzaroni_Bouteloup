@@ -44,14 +44,16 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             Familles Family = (Familles)(Obj);
             Familles FamilyFound = Manager.GetFamille(Id: Family.Id);
 
-
             if (FamilyFound != null)
             {
-                Count = Manager.UpdateFamilles(Family);
-                if (Count != 1)
+                if (Manager.GetFamille(Family.Nom) == null) // Check if the family already exist or not
                 {
-                    throw new Exception("Une erreur liée à la base de données à empêcher la modification de la famille " + Family.Nom);
+                    Count = Manager.UpdateFamilles(Family);
+                    if (Count != 1)
+                        throw new Exception("Une erreur liée à la base de données à empêcher la modification de la famille " + Family.Nom);
                 }
+                else
+                    throw new Exception("La famille " + Family.Nom + " existe déjà dans la base");
             }
             else
             {

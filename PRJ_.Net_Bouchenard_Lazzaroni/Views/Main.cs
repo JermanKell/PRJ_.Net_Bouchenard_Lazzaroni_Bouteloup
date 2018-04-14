@@ -129,6 +129,8 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
                 StatusStrip.Items[0].Text = "L'article a été ajouté";
                 RefreshOwnView();
             }
+            else
+                StatusStrip.Items[0].Text = "";
         }
 
         /// <summary>
@@ -143,6 +145,8 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
                 StatusStrip.Items[0].Text = "L'article a été mis à jour";
                 RefreshOwnView();
             }
+            else
+                StatusStrip.Items[0].Text = "";
         }
 
         /// <summary>

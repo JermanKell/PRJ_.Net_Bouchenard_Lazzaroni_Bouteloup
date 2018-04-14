@@ -135,6 +135,8 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
                 StatusStrip.Items[0].Text = "La sous famille a été ajoutée";
                 RefreshOwnView();
             }
+            else
+                StatusStrip.Items[0].Text = "";
         }
 
         /// <summary>
@@ -150,6 +152,8 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
                 StatusStrip.Items[0].Text = "La sous famille a été mis à jour";
                 RefreshOwnView();
             }
+            else
+                StatusStrip.Items[0].Text = "";
         }
     }
 }

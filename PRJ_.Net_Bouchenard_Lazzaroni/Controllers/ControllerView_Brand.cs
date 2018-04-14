@@ -44,14 +44,16 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             Marques Brand = (Marques)(Obj);
             Marques BrandFound = Manager.GetMarque(Id: Brand.Id);
 
-
             if (BrandFound != null)
             {
-                Count = Manager.UpdateMarque(Brand);
-                if (Count != 1)
+                if (Manager.GetMarque(Brand.Nom) == null) // Check if the brand already exist or not
                 {
-                    throw new Exception("Une erreur liée à la base de données à empêcher la modification de la marque " + Brand.Nom);
+                    Count = Manager.UpdateMarque(Brand);
+                    if (Count != 1)
+                        throw new Exception("Une erreur liée à la base de données à empêcher la modification de la marque " + Brand.Nom);
                 }
+                else
+                    throw new Exception("La marque " + Brand.Nom + " existe déjà dans la base");
             }
             else
             {
