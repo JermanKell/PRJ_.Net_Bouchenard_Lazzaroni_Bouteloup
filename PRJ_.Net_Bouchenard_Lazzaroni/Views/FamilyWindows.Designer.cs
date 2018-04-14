@@ -32,7 +32,7 @@
             // 
             // listView1
             // 
-            this.listView1.Size = new System.Drawing.Size(653, 520);
+            this.ListView.Size = new System.Drawing.Size(653, 520);
             // 
             // FamilyWindows
             // 
@@ -41,7 +41,7 @@
             this.Name = "FamilyWindows";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Gestion des familles";
-            this.Controls.SetChildIndex(this.listView1, 0);
+            this.Controls.SetChildIndex(this.ListView, 0);
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -15,7 +15,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
     /// </summary>
     partial class SubFamilyWindows : PRJ_.Net_Bouchenard_Lazzaroni.Views.BaseWindows
     {
-        private ControllerView_SubFamily controller;
+        private ControllerView_SubFamily Controller;
 
         /// <summary>
         /// Constructor of this class.
@@ -23,11 +23,11 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
         public SubFamilyWindows()
         {
             InitializeComponent();
-            controller = new ControllerView_SubFamily();
+            Controller = new ControllerView_SubFamily();
 
             InitHeader(); // Init header of the listView
             GroupsListView = new List<Hashtable>();
-            refreshOwnView();
+            RefreshOwnView();
         }
 
         /// <summary>
@@ -36,15 +36,15 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
         protected override void InitHeader()
         {
             //initialise columns
-            List<string> listNameColumnTable = controller.getColumnHeader();
+            List<string> ListNameColumnTable = Controller.GetColumnHeader();
 
-            for (int i = 0; i < listNameColumnTable.Count; i++)
+            for (int ILoop = 0; ILoop < ListNameColumnTable.Count; ILoop++)
             {
-                ColumnHeader colHdr = new ColumnHeader();
-                colHdr.Name = listNameColumnTable.ElementAt(i); //Set a ColumnHeader name 
-                colHdr.Text = listNameColumnTable.ElementAt(i);
-                colHdr.Width = listView1.Size.Width / listNameColumnTable.Count;
-                listView1.Columns.Add(colHdr);
+                ColumnHeader ColHdr = new ColumnHeader();
+                ColHdr.Name = ListNameColumnTable.ElementAt(ILoop); //Set a ColumnHeader name 
+                ColHdr.Text = ListNameColumnTable.ElementAt(ILoop);
+                ColHdr.Width = ListView.Size.Width / ListNameColumnTable.Count;
+                ListView.Columns.Add(ColHdr);
             }
         }
 
@@ -53,18 +53,18 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
         /// </summary>
         protected override void LoadDataListView()
         {
-            listView1.Items.Clear();
+            ListView.Items.Clear();
 
-            foreach (KeyValuePair<int, SousFamilles> sousFamilles in controller.getAllSousFamilles())
+            foreach (KeyValuePair<int, SousFamilles> SousFamilles in Controller.GetAllSousFamilles())
             {
-                ListViewItem item = new ListViewItem(new string[] {
+                ListViewItem Item = new ListViewItem(new string[] {
 
-                    sousFamilles.Value.Id.ToString(),
-                    sousFamilles.Value.IdFamille.ToString(),
-                    sousFamilles.Value.Nom,
+                    SousFamilles.Value.Id.ToString(),
+                    SousFamilles.Value.IdFamille.ToString(),
+                    SousFamilles.Value.Nom,
                 });
-                item.Name = sousFamilles.Key.ToString();    //Set reference as item name
-                listView1.Items.Add(item);
+                Item.Name = SousFamilles.Key.ToString();    //Set reference as item name
+                ListView.Items.Add(Item);
             }
         }
 
@@ -73,29 +73,29 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
         /// </summary>
         protected override void DeleteObjectListView()
         {
-            DialogResult dialogResult = MessageBox.Show("Confirmer la supression de sous famille?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            if (dialogResult == DialogResult.Yes)
+            DialogResult DialogResult = MessageBox.Show("Confirmer la supression de sous famille?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (DialogResult == DialogResult.Yes)
             {
                 try
                 {
-                    for (int ILoop = 0; ILoop < listView1.SelectedItems.Count; ILoop++)   //Remove all selected items
+                    for (int ILoop = 0; ILoop < ListView.SelectedItems.Count; ILoop++)   //Remove all selected items
                     {
-                        if (controller.ExistArticleFromSubFamily(Convert.ToInt32(listView1.SelectedItems[ILoop].Name)))    //At least one article uses this sub family
+                        if (Controller.ExistArticleFromSubFamily(Convert.ToInt32(ListView.SelectedItems[ILoop].Name)))    //At least one article uses this sub family
                         {
-                            DialogResult dialogArticle = MessageBox.Show("Au moins un article est associé à la sous famille <" + listView1.SelectedItems[ILoop].SubItems[2].Text + "> à supprimer.\n Si vous poursuivez, tous les articles de cette sous famille seront également supprimés!", "Poursuivre?", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                            DialogResult dialogArticle = MessageBox.Show("Au moins un article est associé à la sous famille <" + ListView.SelectedItems[ILoop].SubItems[2].Text + "> à supprimer.\n Si vous poursuivez, tous les articles de cette sous famille seront également supprimés!", "Poursuivre?", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                             if (dialogArticle == DialogResult.Yes)
                             {
-                                controller.DeleteElement(listView1.SelectedItems[ILoop].Name);
+                                Controller.DeleteElement(ListView.SelectedItems[ILoop].Name);
                             }
                             else
                             {
-                                statusStrip.Items[0].Text = "L'opération de suppression de la sous famille <" + listView1.SelectedItems[ILoop].SubItems[2].Text + "> a été annulée";
+                                StatusStrip.Items[0].Text = "L'opération de suppression de la sous famille <" + ListView.SelectedItems[ILoop].SubItems[2].Text + "> a été annulée";
                             }
 
                         }
                         else  //No one article uses this sub family
                         {
-                            controller.DeleteElement(listView1.SelectedItems[ILoop].Name);
+                            Controller.DeleteElement(ListView.SelectedItems[ILoop].Name);
                         }
 
                     }
@@ -104,22 +104,22 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
                     InitialiseGroupsByColumnListView();
 
                     SetGroups(GroupColumn);
-                    listView1.SetSortIcon(GroupColumn, listView1.Sorting);
+                    ListView.SetSortIcon(GroupColumn, ListView.Sorting);
 
-                    statusStrip.Items[0].Text = "La marque a bien été supprimé de la base";
+                    StatusStrip.Items[0].Text = "La marque a bien été supprimé de la base";
                 }
                 catch (Exception ex)
                 {
-                    statusStrip.Items[0].Text = "Une erreur a empêché la supression de cette marque";
+                    StatusStrip.Items[0].Text = "Une erreur a empêché la supression de cette marque";
                     MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             else
             {
-                statusStrip.Items[0].Text = "La supression de la marque a été annulée";
+                StatusStrip.Items[0].Text = "La supression de la marque a été annulée";
             }
 
-            refreshOwnView();
+            RefreshOwnView();
         }
 
         /// <summary>
@@ -127,14 +127,16 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
         /// </summary>
         protected override void AddObjectListView()
         {
-            AddUpdateSubFamily subFamilyWindow = new AddUpdateSubFamily(controller);
+            AddUpdateSubFamily subFamilyWindow = new AddUpdateSubFamily(Controller);
             subFamilyWindow.StartPosition = FormStartPosition.CenterParent;
 
             if (subFamilyWindow.ShowDialog() == DialogResult.OK)
             {
-                statusStrip.Items[0].Text = "La sous famille a été ajoutée";
-                refreshOwnView();
+                StatusStrip.Items[0].Text = "La sous famille a été ajoutée";
+                RefreshOwnView();
             }
+            else
+                StatusStrip.Items[0].Text = "";
         }
 
         /// <summary>
@@ -142,14 +144,16 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
         /// </summary>
         protected override void UpdateObjectListView()
         {
-            AddUpdateSubFamily subFamilyWindow = new AddUpdateSubFamily(controller, controller.GetSubFamily(Convert.ToInt16(listView1.SelectedItems[0].Name)));
+            AddUpdateSubFamily subFamilyWindow = new AddUpdateSubFamily(Controller, Controller.GetSubFamily(Convert.ToInt16(ListView.SelectedItems[0].Name)));
             subFamilyWindow.StartPosition = FormStartPosition.CenterParent;
 
             if (subFamilyWindow.ShowDialog() == DialogResult.OK)
             {
-                statusStrip.Items[0].Text = "La sous famille a été mis à jour";
-                refreshOwnView();
+                StatusStrip.Items[0].Text = "La sous famille a été mis à jour";
+                RefreshOwnView();
             }
+            else
+                StatusStrip.Items[0].Text = "";
         }
     }
 }

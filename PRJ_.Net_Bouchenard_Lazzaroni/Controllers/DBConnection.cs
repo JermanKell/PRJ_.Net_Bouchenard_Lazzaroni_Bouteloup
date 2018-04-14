@@ -12,8 +12,8 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
     /// </summary>
     class DBConnection
     {
-        private static DBConnection dbm = null;
-        private static SQLiteConnection con = null;
+        private static DBConnection Dbm = null;
+        private static SQLiteConnection Con = null;
 
         /// <summary>
         /// Constructor of this class
@@ -22,13 +22,13 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         {
             try
             {
-                con = new SQLiteConnection();
-                con.ConnectionString = @"Data Source=Mercure.SQLite; Version=3";
-                con.Open();
+                Con = new SQLiteConnection();
+                Con.ConnectionString = @"Data Source=Mercure.SQLite; Version=3";
+                Con.Open();
             }
-            catch(Exception e)
+            catch(Exception E)
             {
-                MessageBox.Show(e.Message.ToString());
+                MessageBox.Show(E.Message.ToString());
             }
 
         }
@@ -37,22 +37,22 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         /// Return the instance of the class
         /// </summary>
         /// <returns> The instance of the class </returns>
-        public static DBConnection getInstance()
+        public static DBConnection GetInstance()
         {
-            if (dbm == null)
+            if (Dbm == null)
             {
-                dbm = new DBConnection();
+                Dbm = new DBConnection();
             }
-            return dbm;
+            return Dbm;
         }
 
         /// <summary>
         /// Allow user to get the database
         /// </summary>
         /// <returns>The database</returns>
-        public SQLiteConnection getDataBase()
+        public SQLiteConnection GetDataBase()
         {
-            return con;
+            return Con;
         }
     }
 }

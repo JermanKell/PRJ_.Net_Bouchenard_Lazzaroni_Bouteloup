@@ -20,14 +20,14 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         /// <summary>
         /// Adds a new element in the DB 
         /// </summary>
-        /// <param name="obj">Object to add in the DB.</param>
-        public override void AddElement(Object obj)
+        /// <param name="Obj">Object to add in the DB.</param>
+        public override void AddElement(Object Obj)
         {
-            Familles Family = (Familles)obj;
-            Familles FamilyFound = manager.getFamille(Family.Nom);
+            Familles Family = (Familles)Obj;
+            Familles FamilyFound = Manager.GetFamille(Family.Nom);
 
             if (FamilyFound == null)
-                manager.insertFamille(Family);
+                Manager.InsertFamille(Family);
             else
                 throw new Exception("La famille " + FamilyFound.Nom + " existe déja dans la base");
         }
@@ -35,23 +35,25 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         /// <summary>
         /// Applies changes on the similar object stored on the DB with the object in parameter 
         /// </summary>
-        /// <param name="obj">Object with the changes</param>
+        /// <param name="Obj">Object with the changes</param>
         /// <returns>Returns true if done, false else</returns>
-        public override int ChangeElement(Object obj)
+        public override int ChangeElement(Object Obj)
         {
             int Count;
 
-            Familles Family = (Familles)(obj);
-            Familles FamilyFound = manager.getFamille(id: Family.Id);
-
+            Familles Family = (Familles)(Obj);
+            Familles FamilyFound = Manager.GetFamille(Id: Family.Id);
 
             if (FamilyFound != null)
             {
-                Count = manager.updateFamilles(Family);
-                if (Count != 1)
+                if (Manager.GetFamille(Family.Nom) == null) // Check if the family already exist or not
                 {
-                    throw new Exception("Une erreur liée à la base de données à empêcher la modification de la famille " + Family.Nom);
+                    Count = Manager.UpdateFamilles(Family);
+                    if (Count != 1)
+                        throw new Exception("Une erreur liée à la base de données à empêcher la modification de la famille " + Family.Nom);
                 }
+                else
+                    throw new Exception("La famille " + Family.Nom + " existe déjà dans la base");
             }
             else
             {
@@ -69,16 +71,16 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         {
             int Count = 0;
 
-            if (manager.getFamille(id: Convert.ToInt32(RefObj)) != null)
+            if (Manager.GetFamille(Id: Convert.ToInt32(RefObj)) != null)
             {
-                Dictionary<int, SousFamilles> DictionaryAllSubFamilyInFamily = manager.getAllSubFamiliesFromFamily(Convert.ToInt32(RefObj));
+                Dictionary<int, SousFamilles> DictionaryAllSubFamilyInFamily = Manager.GetAllSubFamiliesFromFamily(Convert.ToInt32(RefObj));
                 foreach (KeyValuePair<int, SousFamilles> SubFamily in DictionaryAllSubFamilyInFamily)
                 {
-                    Count += manager.removeArticleFromSubFamily(SubFamily.Key); //Remove all articles of a sub family
-                    Count += manager.removeSubFamily(SubFamily.Key); //Remove the sub family
+                    Count += Manager.RemoveArticleFromSubFamily(SubFamily.Key); //Remove all articles of a sub family
+                    Count += Manager.RemoveSubFamily(SubFamily.Key); //Remove the sub family
                 }
 
-                Count += manager.removeFamille(Convert.ToInt32(RefObj));
+                Count += Manager.RemoveFamille(Convert.ToInt32(RefObj));
                 if (Count == 0)
                 {
                     throw new Exception("Une erreur liée à la base de données à empêcher la supression de la famille de reference " + RefObj);
@@ -94,14 +96,14 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         /// <summary>
         /// Know if an article belong or not to a family
         /// </summary>
-        /// <param name="idFamily"> The id of the family </param>
+        /// <param name="IdFamily"> The id of the family </param>
         /// <returns> True if article founded, false else </returns>
-        public bool ExistArticleFromFamily(int idFamily)
+        public bool ExistArticleFromFamily(int IdFamily)
         {
-            Dictionary < int, SousFamilles > DictionaryAllSubFamilyInFamily = manager.getAllSubFamiliesFromFamily(idFamily);
+            Dictionary < int, SousFamilles > DictionaryAllSubFamilyInFamily = Manager.GetAllSubFamiliesFromFamily(IdFamily);
             foreach (KeyValuePair<int, SousFamilles> SubFamily in DictionaryAllSubFamilyInFamily)
             {
-                if (manager.existArticleFromSubFamily(SubFamily.Key) > 0)
+                if (Manager.ExistArticleFromSubFamily(SubFamily.Key) > 0)
                 {
                     return true;
                 }
@@ -113,28 +115,28 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         /// Returns the dictionary to the associated view
         /// </summary>
         /// <returns>Dictionary of int and Familles</returns>
-        public Dictionary<int, Familles> getAllFamilles()
+        public Dictionary<int, Familles> GetAllFamilles()
         {
-            return manager.getAllFamilles();
+            return Manager.GetAllFamilles();
         }
 
         /// <summary>
         /// Get name's column of one table
         /// </summary>
         /// <param name="tableName"> Name of the table in the database </param>
-        public override List<String> getColumnHeader()
+        public override List<String> GetColumnHeader()
         {
-            return manager.getNameColumnTable("Familles");
+            return Manager.GetNameColumnTable("Familles");
         }
 
         /// <summary>
         /// Get one family from his id
         /// </summary>
-        /// <param name="id">The id of the family</param>
+        /// <param name="Id">The id of the family</param>
         /// <returns>The family founded</returns>
-        public Familles GetFamily(int id)
+        public Familles GetFamily(int Id)
         {
-            return manager.getFamille(id: id);
+            return Manager.GetFamille(Id: Id);
         }
     }
 }

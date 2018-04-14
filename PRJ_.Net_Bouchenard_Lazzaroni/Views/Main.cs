@@ -30,7 +30,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
 
             InitHeader(); // Init header of the listView
             GroupsListView = new List<Hashtable>();
-            refreshOwnView();
+            RefreshOwnView();
         }
 
         /// <summary>
@@ -39,14 +39,14 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         protected override void InitHeader()
         {
             //initialise columns
-            List<string> listNameColumnTable = ControllerArticles.getColumnHeader();
-            for (int i = 0; i < listNameColumnTable.Count; i++)
+            List<string> listNameColumnTable = ControllerArticles.GetColumnHeader();
+            for (int ILoop = 0; ILoop < listNameColumnTable.Count; ILoop++)
             {
-                ColumnHeader colHdr = new ColumnHeader();
-                colHdr.Name = listNameColumnTable.ElementAt(i); //Set a ColumnHeader name 
-                colHdr.Text = listNameColumnTable.ElementAt(i);
-                colHdr.Width = listView1.Size.Width / listNameColumnTable.Count;
-                listView1.Columns.Add(colHdr);
+                ColumnHeader ColHdr = new ColumnHeader();
+                ColHdr.Name = listNameColumnTable.ElementAt(ILoop); //Set a ColumnHeader name 
+                ColHdr.Text = listNameColumnTable.ElementAt(ILoop);
+                ColHdr.Width = ListView.Size.Width / listNameColumnTable.Count;
+                ListView.Columns.Add(ColHdr);
             }
         }
 
@@ -55,34 +55,34 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         /// </summary>
         protected override void LoadDataListView()
         {
-            listView1.Items.Clear();
+            ListView.Items.Clear();
 
-            foreach (KeyValuePair<string, Articles> article in ControllerArticles.GetAllArticles())
+            foreach (KeyValuePair<string, Articles> Article in ControllerArticles.GetAllArticles())
             {
-                ListViewItem item = new ListViewItem(new string[] {
+                ListViewItem Item = new ListViewItem(new string[] {
 
-                    article.Value.Reference,
-                    article.Value.Description,
-                    article.Value.IdSousFamille.ToString(),
-                    article.Value.IdMarque.ToString(),
-                    article.Value.PrixHT.ToString(),
-                    article.Value.Quantite.ToString()
+                    Article.Value.Reference,
+                    Article.Value.Description,
+                    Article.Value.IdSousFamille.ToString(),
+                    Article.Value.IdMarque.ToString(),
+                    Article.Value.PrixHT.ToString(),
+                    Article.Value.Quantite.ToString()
                 });
-                item.Name = article.Key;    //Set reference as item name
-                listView1.Items.Add(item);
+                Item.Name = Article.Key;    //Set reference as item name
+                ListView.Items.Add(Item);
             }
         }
 
         /// <summary>
         /// When the user want to import an xml file
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void ImportationXMLToolStripMenuItem_Click(object sender, EventArgs e)
+        /// <param name="Sender"></param>
+        /// <param name="E"></param>
+        private void ImportationXMLToolStripMenuItem_Click(object Sender, EventArgs E)
         {
             ImportXMLFile SelectXML = new ImportXMLFile();
             SelectXML.ShowDialog();
-            refreshOwnView();
+            RefreshOwnView();
         }
 
         /// <summary>
@@ -90,30 +90,30 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         /// </summary>
         protected override void DeleteObjectListView()
         {
-            DialogResult dialogResult = MessageBox.Show("Confirmer la supression d'article?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            if (dialogResult == DialogResult.Yes)
+            DialogResult DialogResult = MessageBox.Show("Confirmer la supression d'article?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (DialogResult == DialogResult.Yes)
             {
                 try
                 {
-                    for (int ILoop = 0; ILoop < listView1.SelectedItems.Count; ILoop++)   //Remove all selected items
-                        ControllerArticles.DeleteElement(listView1.SelectedItems[ILoop].Name);  //get id refArticle with item name
+                    for (int ILoop = 0; ILoop < ListView.SelectedItems.Count; ILoop++)   //Remove all selected items
+                        ControllerArticles.DeleteElement(ListView.SelectedItems[ILoop].Name);  //get id refArticle with item name
 
                     LoadDataListView();
                     InitialiseGroupsByColumnListView();
 
                     SetGroups(GroupColumn);
-                    listView1.SetSortIcon(GroupColumn, listView1.Sorting);
-                    statusStrip.Items[0].Text = "L'article a bien été supprimé";
+                    ListView.SetSortIcon(GroupColumn, ListView.Sorting);
+                    StatusStrip.Items[0].Text = "L'article a bien été supprimé";
                 }
-                catch (Exception ex)
+                catch (Exception Ex)
                 {
-                    statusStrip.Items[0].Text = "Une erreur a empêché la supression de cet article";
-                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    StatusStrip.Items[0].Text = "Une erreur a empêché la supression de cet article";
+                    MessageBox.Show(Ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             else
             {
-                statusStrip.Items[0].Text = "La supression d'article a été annulée";
+                StatusStrip.Items[0].Text = "La supression d'article a été annulée";
             }
         }
 
@@ -126,9 +126,11 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
 
             if (VA.ShowDialog() == DialogResult.OK)
             {
-                statusStrip.Items[0].Text = "L'article a été ajouté";
-                refreshOwnView();
+                StatusStrip.Items[0].Text = "L'article a été ajouté";
+                RefreshOwnView();
             }
+            else
+                StatusStrip.Items[0].Text = "";
         }
 
         /// <summary>
@@ -136,50 +138,52 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         /// </summary>
         protected override void UpdateObjectListView()
         {
-            AddUpdateArticle VA = new AddUpdateArticle(ControllerArticles, ControllerArticles.GetArticle(listView1.SelectedItems[0].Name));
+            AddUpdateArticle VA = new AddUpdateArticle(ControllerArticles, ControllerArticles.GetArticle(ListView.SelectedItems[0].Name));
 
             if (VA.ShowDialog() == DialogResult.OK)
             {
-                statusStrip.Items[0].Text = "L'article a été mis à jour";
-                refreshOwnView();
+                StatusStrip.Items[0].Text = "L'article a été mis à jour";
+                RefreshOwnView();
             }
+            else
+                StatusStrip.Items[0].Text = "";
         }
 
         /// <summary>
         /// When the user want to print the view for managing family
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void familleToolStripMenuItem_Click(object sender, EventArgs e)
+        /// <param name="Sender"></param>
+        /// <param name="E"></param>
+        private void FamilleToolStripMenuItem_Click(object Sender, EventArgs E)
         {
-            statusStrip.Items[0].Text = ""; // Reset the message of the status bar
+            StatusStrip.Items[0].Text = ""; // Reset the message of the status bar
 
             FamilyWindows FW = new FamilyWindows();
             FW.ShowDialog();
 
-            refreshOwnView();
+            RefreshOwnView();
         }
 
         /// When the user want to print the view for managing sub family
-        private void sousFamilleToolStripMenuItem_Click(object sender, EventArgs e)
+        private void SousFamilleToolStripMenuItem_Click(object Sender, EventArgs E)
         {
-            statusStrip.Items[0].Text = ""; // Reset the message of the status bar
+            StatusStrip.Items[0].Text = ""; // Reset the message of the status bar
 
             SubFamilyWindows SFW = new SubFamilyWindows();
             SFW.ShowDialog();
 
-            refreshOwnView();
+            RefreshOwnView();
         }
 
         /// When the user want to print the view for managing brand
-        private void marqueToolStripMenuItem_Click(object sender, EventArgs e)
+        private void MarqueToolStripMenuItem_Click(object Sender, EventArgs E)
         {
-            statusStrip.Items[0].Text = ""; // Reset the message of the status bar
+            StatusStrip.Items[0].Text = ""; // Reset the message of the status bar
 
             BrandWindows BW = new BrandWindows();
             BW.ShowDialog();
 
-            refreshOwnView();
+            RefreshOwnView();
         }
     }
 }

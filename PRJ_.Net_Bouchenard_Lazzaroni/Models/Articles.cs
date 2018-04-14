@@ -6,82 +6,60 @@ using System.Text;
 
 namespace PRJ_.Net_Bouchenard_Lazzaroni
 {
+    /// <summary>
+    /// Represents an article in the database
+    /// </summary>
     public class Articles
     {
-        private string description;
-        private string reference;
-        private int idFamille;
-        private int idSousFamille;
-        private int idMarque;
-        private double prixHT;
-        private int quantite;
+        public string Description { get; set; }
+        public string Reference { get; set; }
+        public int IdFamille { get; set; }
+        public int IdSousFamille { get; set; }
+        public int IdMarque { get; set; }
+        public double PrixHT { get; set; }
+        public int Quantite { get; set; }
 
+        /// <summary>
+        /// Constructor of this class
+        /// </summary>
         public Articles() {}
 
-        public Articles(string reference, string description, int idFamille, int idSousFamille, int idMarque, double prixHT, int quantite)
+        /// <summary>
+        /// Comfort constructor of this class
+        /// </summary>
+        /// <param name="Reference">The reference of the article</param>
+        /// <param name="Description">The description of the article</param>
+        /// <param name="IdFamille">The id family of the article</param>
+        /// <param name="IdSousFamille">The id sub family of the article</param>
+        /// <param name="IdMarque">The brand id of the article </param>
+        /// <param name="PrixHT">The price of the article</param>
+        /// <param name="Quantite">The quantity of the article</param>
+        public Articles(string Reference, string Description, int IdFamille, int IdSousFamille, int IdMarque, double PrixHT, int Quantite)
         {
-            this.reference = reference;
-            this.description = description;
-            this.idFamille = idFamille;
-            this.idSousFamille = idSousFamille;
-            this.idMarque = idMarque;
-            this.prixHT = prixHT;
-            this.quantite = quantite;
+            this.Reference = Reference;
+            this.Description = Description;
+            this.IdFamille = IdFamille;
+            this.IdSousFamille = IdSousFamille;
+            this.IdMarque = IdMarque;
+            this.PrixHT = PrixHT;
+            this.Quantite = Quantite;
         }
 
-        public void convertDataReaderToArticles(SQLiteDataReader reader)
+        /// <summary>
+        /// Transfort a reader object into Article object
+        /// </summary>
+        /// <param name="Reader">The reader to convert into article object</param>
+        public void ConvertDataReaderToArticles(SQLiteDataReader Reader)
         {
-            if (reader != null)
+            if (Reader != null)
             {
-                reference = reader.GetValue(0).ToString();
-                description = reader.GetValue(1).ToString();
-                idSousFamille = Convert.ToInt16(reader.GetValue(2));
-                idMarque = Convert.ToInt16(reader.GetValue(3));
-                prixHT = Convert.ToDouble(reader.GetValue(4));
-                quantite = Convert.ToInt16(reader.GetValue(5));
+                Reference = Reader.GetValue(0).ToString();
+                Description = Reader.GetValue(1).ToString();
+                IdSousFamille = Convert.ToInt16(Reader.GetValue(2));
+                IdMarque = Convert.ToInt16(Reader.GetValue(3));
+                PrixHT = Convert.ToDouble(Reader.GetValue(4));
+                Quantite = Convert.ToInt16(Reader.GetValue(5));
             }
-        }
-
-        public string Description
-        {
-            get { return description; }
-            set { description = value; }
-        }
-
-        public string Reference
-        {
-            get { return reference; }
-            set { reference = value; }
-        }
-
-        public int IdFamille
-        {
-            get { return idFamille; }
-            set { idFamille = value; }
-        }
-
-        public int IdSousFamille
-        {
-            get { return idSousFamille; }
-            set { idSousFamille = value; }
-        }
-
-        public int IdMarque
-        {
-            get { return idMarque; }
-            set { idMarque = value; }
-        }
-
-        public double PrixHT
-        {
-            get { return prixHT; }
-            set { prixHT = value; }
-        }
-
-        public int Quantite
-        {
-            get { return quantite; }
-            set { quantite = value; }
         }
     }
 }

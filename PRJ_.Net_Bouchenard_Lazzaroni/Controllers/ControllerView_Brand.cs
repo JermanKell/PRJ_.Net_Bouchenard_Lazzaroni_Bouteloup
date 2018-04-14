@@ -20,38 +20,40 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         /// <summary>
         /// Adds a new element in the DB 
         /// </summary>
-        /// <param name="obj">Object to add in the DB.</param>
-        public override void AddElement(object obj)
+        /// <param name="Obj">Object to add in the DB.</param>
+        public override void AddElement(object Obj)
         {
-            Marques brand = (Marques)obj;
-            Marques resBrand = manager.getMarque(brand.Nom);
+            Marques Brand = (Marques)Obj;
+            Marques ResBrand = Manager.GetMarque(Brand.Nom);
 
-            if (resBrand == null)
-                manager.insertMarque(brand);
+            if (ResBrand == null)
+                Manager.InsertMarque(Brand);
             else
-                throw new Exception("La marque " + resBrand.Nom + " existe déja dans la base");
+                throw new Exception("La marque " + ResBrand.Nom + " existe déja dans la base");
         }
 
         /// <summary>
         /// Applies changes on the similar object stored on the DB with the object in parameter 
         /// </summary>
-        /// <param name="obj">Object with the changes</param>
+        /// <param name="Obj">Object with the changes</param>
         /// <returns>Returns true if done, false else</returns>
-        public override int ChangeElement(object obj)
+        public override int ChangeElement(object Obj)
         {
             int Count;
 
-            Marques Brand = (Marques)(obj);
-            Marques BrandFound = manager.getMarque(id: Brand.Id);
-
+            Marques Brand = (Marques)(Obj);
+            Marques BrandFound = Manager.GetMarque(Id: Brand.Id);
 
             if (BrandFound != null)
             {
-                Count = manager.updateMarque(Brand);
-                if (Count != 1)
+                if (Manager.GetMarque(Brand.Nom) == null) // Check if the brand already exist or not
                 {
-                    throw new Exception("Une erreur liée à la base de données à empêcher la modification de la marque " + Brand.Nom);
+                    Count = Manager.UpdateMarque(Brand);
+                    if (Count != 1)
+                        throw new Exception("Une erreur liée à la base de données à empêcher la modification de la marque " + Brand.Nom);
                 }
+                else
+                    throw new Exception("La marque " + Brand.Nom + " existe déjà dans la base");
             }
             else
             {
@@ -69,10 +71,10 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         {
             int IdBrand = Convert.ToInt32(RefObj);
             int Count = 0;
-            if (manager.getMarque(id: IdBrand) != null)
+            if (Manager.GetMarque(Id: IdBrand) != null)
             {
-                Count += manager.removeArticleFromBrand(IdBrand);
-                Count += manager.removeMarque(IdBrand);
+                Count += Manager.RemoveArticleFromBrand(IdBrand);
+                Count += Manager.RemoveMarque(IdBrand);
                 if (Count == 0)
                 {
                     throw new Exception("Une erreur liée à la base de données à empêcher la supression de la marque de reference " + RefObj);
@@ -90,9 +92,9 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         /// </summary>
         /// <param name="idBrand">Reference of brand</param>
         /// <returns>Returns true is an article exists, else false</returns>
-        public bool ExistArticleFromBrand(int idBrand)
+        public bool ExistArticleFromBrand(int IdBrand)
         {
-            if (manager.existArticleFromBrand(idBrand) > 0)
+            if (Manager.ExistArticleFromBrand(IdBrand) > 0)
                 return true;
             else
                 return false;
@@ -102,28 +104,28 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         /// Returns the dictionary to the associated view
         /// </summary>
         /// <returns>Dictionary of int and Brand</returns>
-        public Dictionary<int, Marques> getAllMarques()
+        public Dictionary<int, Marques> GetAllMarques()
         {
-            return manager.getAllMarques();
+            return Manager.GetAllMarques();
         }
 
         /// <summary>
         /// Get name's column of one table
         /// </summary>
         /// <param name="tableName"> Name of the table in the database </param>
-        public override List<string> getColumnHeader()
+        public override List<string> GetColumnHeader()
         {
-            return manager.getNameColumnTable("Marques");
+            return Manager.GetNameColumnTable("Marques");
         }
 
         /// <summary>
         /// Return the brand corresponding to the id
         /// </summary>
-        /// <param name="id"> The id of the brand that you want </param>
+        /// <param name="Id"> The id of the brand that you want </param>
         /// <returns> The brand founded </returns>
-        public Marques GetBrand(int id)
+        public Marques GetBrand(int Id)
         {
-            return manager.getMarque(id: id);
+            return Manager.GetMarque(Id: Id);
         }
     }
 }

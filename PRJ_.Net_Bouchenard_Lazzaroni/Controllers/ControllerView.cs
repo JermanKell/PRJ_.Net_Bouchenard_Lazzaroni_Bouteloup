@@ -14,30 +14,30 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         /// <summary>
         /// Handles all requests to do on the DB.
         /// </summary>
-        protected DBManager manager;
+        protected DBManager Manager;
 
         /// <summary>
         /// Constructor of this abstract class.
         /// </summary>
         public ControllerView()
         {
-            manager = new DBManager();
+            Manager = new DBManager();
         }
 
         /// <summary>
         ///  Adds an element in the DB depending on the value of the reference generated
         ///       Returns a boolean value: TRUE when succeed and false else
         /// </summary>
-        /// <param name="obj">Object to add in the DB.</param>
-        abstract public void AddElement(Object obj);
+        /// <param name="Obj">Object to add in the DB.</param>
+        abstract public void AddElement(Object Obj);
 
 
         /// <summary>
         /// Changes the values about an element stored in the DB depending on the reference
         /// </summary>
-        /// <param name="obj">Elements of this objects have to change in the DB.</param>
+        /// <param name="Obj">Elements of this objects have to change in the DB.</param>
         /// <returns>Returns the number of elements updated</returns>
-        abstract public int ChangeElement(Object obj);
+        abstract public int ChangeElement(Object Obj);
 
         /// <summary>
         /// Deletes the element stored in the DB with its reference passed in arguments
@@ -49,6 +49,6 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         /// Get name's column of one table
         /// </summary>
         /// <param name="tableName"> Name of the table in the database </param>
-        abstract public List<string> getColumnHeader();
+        abstract public List<string> GetColumnHeader();
     }
 }

@@ -16,43 +16,43 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         /// <summary>
         /// Comfort constructor
         /// </summary>
-        /// <param name="filename"> The filename contains the path of the XML file </param>
-        public ControllerParserXMLUpdate(string filename) : base(filename)
+        /// <param name="Filename"> The filename contains the path of the XML file </param>
+        public ControllerParserXMLUpdate(string Filename) : base(Filename)
         { }
 
         /// <summary>
         /// Parse the XML file
         /// </summary>
-        public override void parse()
+        public override void Parse()
         {
             try
             {
-                loadDocument();
-                verifyFile();
+                LoadDocument();
+                VerifyFile();
 
-                XmlNodeList nodelist = xmlDocument.SelectNodes("/materiels/article"); // get all <article> nodes
-                updateMaxRangeProgressBar(nodelist.Count); // Send the max range of the progress bar to the view
+                XmlNodeList Nodelist = XmlDocument.SelectNodes("/materiels/article"); // get all <article> nodes
+                UpdateMaxRangeProgressBar(Nodelist.Count); // Send the max range of the progress bar to the view
 
-                foreach (XmlNode node in nodelist) // for each <article> node
+                foreach (XmlNode Node in Nodelist) // for each <article> node
                 {
-                    this.node = node;
+                    this.Node = Node;
 
-                    if (!checkDoubleArticle()) // Check if the article already exist
-                        addArticle();
+                    if (!CheckDoubleArticle()) // Check if the article already exist
+                        AddArticle();
                     else
-                        updateArticle(); // When the article is already exist. Update information to the database
+                        UpdateArticle(); // When the article is already exist. Update information to the database
 
-                    updateProgressBar(); //Send an event to the view to increment the progress bar
+                    UpdateProgressBar(); //Send an event to the view to increment the progress bar
                 }
-                xmlDocument.Save(filename); // Apply modification to the document (fix spelling mistake).
+                XmlDocument.Save(Filename); // Apply modification to the document (fix spelling mistake).
 
-                updateListView(TypeMessage.Succès, SubjectMessage.Terminé,
-                    "Succès : " + counterTypeMessage[TypeMessage.Succès] + "   Avertissement : " + counterTypeMessage[TypeMessage.Avertissement] +
-                    "   Erreur : " + counterTypeMessage[TypeMessage.Erreur] + "   Critique : " + counterTypeMessage[TypeMessage.Critique]);
+                UpdateListView(TypeMessage.Succès, SubjectMessage.Terminé,
+                    "Succès : " + CounterTypeMessage[TypeMessage.Succès] + "   Avertissement : " + CounterTypeMessage[TypeMessage.Avertissement] +
+                    "   Erreur : " + CounterTypeMessage[TypeMessage.Erreur] + "   Critique : " + CounterTypeMessage[TypeMessage.Critique]);
             }
             catch (Exception e)
             {
-                updateListView(TypeMessage.Critique, SubjectMessage.Structure_XML, e.Message);
+                UpdateListView(TypeMessage.Critique, SubjectMessage.Structure_XML, e.Message);
                 throw;
             }
         }
@@ -60,40 +60,40 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         /// <summary>
         /// Update value of the article
         /// </summary>
-        private void updateArticle()
+        private void UpdateArticle()
         {
-            article.Description = node.SelectSingleNode("description").InnerText; // Update the description
+            Article.Description = Node.SelectSingleNode("description").InnerText; // Update the description
 
-            Familles famille = dbManager.getFamille(node.SelectSingleNode("famille").InnerText);
-            if (famille == null)
-                newFamille();
+            Familles Famille = DbManager.GetFamille(Node.SelectSingleNode("famille").InnerText);
+            if (Famille == null)
+                NewFamille();
             else
-                article.IdFamille = famille.Id; // Set the new id of the of famille
+                Article.IdFamille = Famille.Id; // Set the new id of the of famille
 
-            SousFamilles sousFamille = dbManager.getSousFamille(node.SelectSingleNode("sousFamille").InnerText);
-            if (sousFamille == null)
-                newSousFamille();
+            SousFamilles SousFamille = DbManager.GetSousFamille(Node.SelectSingleNode("sousFamille").InnerText);
+            if (SousFamille == null)
+                NewSousFamille();
             else
             {
-                if (dbManager.existSousFamilleInFamille(sousFamille.Id, article.IdFamille))
-                    article.IdSousFamille = sousFamille.Id; // Set the new id of the sub family
+                if (DbManager.ExistSousFamilleInFamille(SousFamille.Id, Article.IdFamille))
+                    Article.IdSousFamille = SousFamille.Id; // Set the new id of the sub family
                 else
                 {
                     // Generate error because a sousFamille don't belong to twice family. (this sub family has already a family)
-                    updateListView(TypeMessage.Erreur, SubjectMessage.Modifier_famille,
-                        "L'article " + article.Reference + ". Sa famille n'a pas été mis à jour car sa sous famille ne correspond pas avec la nouvelle famille");
+                    UpdateListView(TypeMessage.Erreur, SubjectMessage.Modifier_famille,
+                        "L'article " + Article.Reference + ". Sa famille n'a pas été mis à jour car sa sous famille ne correspond pas avec la nouvelle famille");
                 }
             }
                 
-            Marques marque = dbManager.getMarque(node.SelectSingleNode("marque").InnerText);
-            if (marque == null)
-                newMarque();
+            Marques Marque = DbManager.GetMarque(Node.SelectSingleNode("marque").InnerText);
+            if (Marque == null)
+                NewMarque();
             else
-                article.IdMarque = marque.Id; // Set the new id of the brand
+                Article.IdMarque = Marque.Id; // Set the new id of the brand
 
-            article.PrixHT = Convert.ToDouble(node.SelectSingleNode("prixHT").InnerText); // Update prixHT
+            Article.PrixHT = Convert.ToDouble(Node.SelectSingleNode("prixHT").InnerText); // Update prixHT
 
-            dbManager.updateArticle(article); // Update information to the database
+            DbManager.UpdateArticle(Article); // Update information to the database
         }
     }
 }

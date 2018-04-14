@@ -36,7 +36,7 @@
             this.ClientSize = new System.Drawing.Size(677, 561);
             this.Name = "SubFamilyWindows";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Controls.SetChildIndex(this.listView1, 0);
+            this.Controls.SetChildIndex(this.ListView, 0);
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -38,8 +38,8 @@
             // 
             // listView1
             // 
-            this.listView1.Location = new System.Drawing.Point(12, 25);
-            this.listView1.Size = new System.Drawing.Size(1040, 648);
+            this.ListView.Location = new System.Drawing.Point(12, 25);
+            this.ListView.Size = new System.Drawing.Size(1040, 648);
             // 
             // selectXMLToolStripMenuItem
             // 
@@ -72,7 +72,7 @@
             this.familleToolStripMenuItem.Name = "familleToolStripMenuItem";
             this.familleToolStripMenuItem.Size = new System.Drawing.Size(100, 20);
             this.familleToolStripMenuItem.Text = "Famille";
-            this.familleToolStripMenuItem.Click += new System.EventHandler(this.familleToolStripMenuItem_Click);
+            this.familleToolStripMenuItem.Click += new System.EventHandler(this.FamilleToolStripMenuItem_Click);
             // 
             // sousFamilleToolStripMenuItem
             // 
@@ -80,7 +80,7 @@
             this.sousFamilleToolStripMenuItem.Name = "sousFamilleToolStripMenuItem";
             this.sousFamilleToolStripMenuItem.Size = new System.Drawing.Size(100, 20);
             this.sousFamilleToolStripMenuItem.Text = "Sous famille";
-            this.sousFamilleToolStripMenuItem.Click += new System.EventHandler(this.sousFamilleToolStripMenuItem_Click);
+            this.sousFamilleToolStripMenuItem.Click += new System.EventHandler(this.SousFamilleToolStripMenuItem_Click);
             // 
             // marqueToolStripMenuItem
             // 
@@ -88,7 +88,7 @@
             this.marqueToolStripMenuItem.Name = "marqueToolStripMenuItem";
             this.marqueToolStripMenuItem.Size = new System.Drawing.Size(100, 20);
             this.marqueToolStripMenuItem.Text = "Marque";
-            this.marqueToolStripMenuItem.Click += new System.EventHandler(this.marqueToolStripMenuItem_Click);
+            this.marqueToolStripMenuItem.Click += new System.EventHandler(this.MarqueToolStripMenuItem_Click);
             // 
             // Main
             // 
@@ -102,7 +102,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Main";
             this.Controls.SetChildIndex(this.menuStrip, 0);
-            this.Controls.SetChildIndex(this.listView1, 0);
+            this.Controls.SetChildIndex(this.ListView, 0);
             this.menuStrip.ResumeLayout(false);
             this.menuStrip.PerformLayout();
             this.ResumeLayout(false);

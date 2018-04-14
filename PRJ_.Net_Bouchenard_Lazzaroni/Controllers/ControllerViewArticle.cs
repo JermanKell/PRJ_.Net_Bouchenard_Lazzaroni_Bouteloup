@@ -19,14 +19,14 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         /// <summary>
         /// Adds a new article in the DB 
         /// </summary>
-        /// <param name="obj">Object article  to add in the DB.</param>
-        public override void AddElement(Object obj)
+        /// <param name="Obj">Object article  to add in the DB.</param>
+        public override void AddElement(Object Obj)
         {
-            Articles Article = (Articles)obj;
-            Articles ArticleFound = manager.getArticle(Article.Reference);
+            Articles Article = (Articles)Obj;
+            Articles ArticleFound = Manager.GetArticle(Article.Reference);
 
             if (ArticleFound == null)
-                manager.insertArticle(Article);
+                Manager.InsertArticle(Article);
             else
                 throw new Exception("L'article de référence " + ArticleFound.Reference + " existe déja dans la base");
         }
@@ -34,16 +34,16 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         /// <summary>
         /// Changes the values about an article stored in the DB depending on the reference
         /// </summary>
-        /// <param name="obj">Object article with the changes</param>
+        /// <param name="Obj">Object article with the changes</param>
         /// <returns>Returns the number of articles updated</returns>
-        public override int ChangeElement(Object obj)
+        public override int ChangeElement(Object Obj)
         {
             int Count;
-            Articles Article = (Articles)(obj);
+            Articles Article = (Articles)(Obj);
 
-            if (manager.getArticle(Article.Reference) != null)
+            if (Manager.GetArticle(Article.Reference) != null)
             {
-                Count = manager.updateArticle(Article);
+                Count = Manager.UpdateArticle(Article);
                 if (Count != 1)
                 {
                     throw new Exception("Une erreur liée à la base de données à empêcher la modification de l'article de référence " + Article.Reference);
@@ -64,9 +64,9 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         public override int DeleteElement(string RefObj)
         {
             int Count;
-            if (manager.getArticle(RefObj) != null)
+            if (Manager.GetArticle(RefObj) != null)
             {
-                Count = manager.removeArticle(RefObj);
+                Count = Manager.RemoveArticle(RefObj);
                 if (Count != 1)
                 {
                     throw new Exception("Une erreur liée à la base de données à empêcher la supression de l'article de référence " + RefObj);
@@ -85,7 +85,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         /// <returns>Dictionary of string and Articles</returns>
         public Dictionary<string, Articles> GetAllArticles()
         {
-            return manager.getAllArticles();
+            return Manager.GetAllArticles();
         }
 
         /// <summary>
@@ -94,7 +94,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         /// <returns>Dictionary of int and family</returns>
         public Dictionary<int, Familles> GetAllFamilles()
         {
-            return manager.getAllFamilles();
+            return Manager.GetAllFamilles();
         }
 
         /// <summary>
@@ -103,7 +103,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         /// <returns>Dictionary of int and sub family</returns>
         public Dictionary<int, SousFamilles> GetAllSousFamilles()
         {
-            return manager.getAllSousFamilles();
+            return Manager.GetAllSousFamilles();
         }
 
         /// <summary>
@@ -112,26 +112,26 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         /// <returns>Dictionary of int and brand</returns>
         public Dictionary<int, Marques> GetAllMarques()
         {
-            return manager.getAllMarques();
+            return Manager.GetAllMarques();
         }
 
         /// <summary>
         /// Get name's column of table Article
         /// </summary>
         /// <returns> A list of the column of the table Article in the database </returns>
-        public override List<String> getColumnHeader()
+        public override List<String> GetColumnHeader()
         {
-            return manager.getNameColumnTable();
+            return Manager.GetNameColumnTable();
         }
 
         /// <summary>
         /// Get one article by his reference
         /// </summary>
-        /// <param name="reference">The reference of the article</param>
+        /// <param name="Reference">The reference of the article</param>
         /// <returns>The article founded</returns>
-        public Articles GetArticle(string reference)
+        public Articles GetArticle(string Reference)
         {
-            return manager.getArticle(reference);
+            return Manager.GetArticle(Reference);
         }
     }
 }

@@ -61,7 +61,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
         private void InitializeCbxFamilies()
         {
             Cbx_Famille.Items.Clear();
-            DictionaryFamilies = ControllerSubFamilly.getAllFamilies().ToDictionary(x => x.Key, x => x.Value.Nom);
+            DictionaryFamilies = ControllerSubFamilly.GetAllFamilies().ToDictionary(x => x.Key, x => x.Value.Nom);
             if (DictionaryFamilies.Count > 0)
             {
                 Cbx_Famille.DataSource = new BindingSource(DictionaryFamilies, null);
@@ -81,9 +81,9 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
 
             if (Tbx_Famille.TextLength == 0)
             {
-                Graphics graph = Tbx_Famille.CreateGraphics();
-                Pen pen = new Pen(Brushes.Red, 2.0f);
-                graph.DrawRectangle(pen, Tbx_Famille.ClientRectangle);
+                Graphics Graph = Tbx_Famille.CreateGraphics();
+                Pen Pen = new Pen(Brushes.Red, 2.0f);
+                Graph.DrawRectangle(Pen, Tbx_Famille.ClientRectangle);
                 IsValid = false;
             }
             if (Cbx_Famille.SelectedIndex == -1)
@@ -99,9 +99,9 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
         /// <summary>
         /// Add of modify the sub family when the user has completed the form
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void Btn_Valider_Click(object sender, EventArgs e)
+        /// <param name="Sender"></param>
+        /// <param name="E"></param>
+        private void Btn_Valider_Click(object Sender, EventArgs E)
         {
             if (!CheckEntries())
             {
@@ -133,10 +133,10 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
                     }
                     this.Close();
                 }
-                catch (Exception ex)
+                catch (Exception Ex)
                 {
-                    this.DialogResult = DialogResult.Cancel;    //PB
-                    MessageBox.Show("Une erreur est survenue lors de " + NameMessage.ToLower() + "avec le message suivant:\n" + ex.Message, "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    this.DialogResult = DialogResult.Cancel;
+                    MessageBox.Show("Une erreur est survenue lors de " + NameMessage.ToLower() + "avec le message suivant:\n" + Ex.Message, "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
@@ -144,9 +144,9 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
         /// <summary>
         /// Cancel and close the window
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void cancelButton_Click(object sender, EventArgs e)
+        /// <param name="Sender"></param>
+        /// <param name="E"></param>
+        private void cancelButton_Click(object Sender, EventArgs E)
         {
             this.Close();
         }

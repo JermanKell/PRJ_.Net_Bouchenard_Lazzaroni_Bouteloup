@@ -15,7 +15,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
     /// </summary>
     partial class BrandWindows : PRJ_.Net_Bouchenard_Lazzaroni.Views.BaseWindows
     {
-        private ControllerView_Brand controller;
+        private ControllerView_Brand Controller;
 
         /// <summary>
         /// Constructor of the class
@@ -23,11 +23,11 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
         public BrandWindows()
         {
             InitializeComponent();
-            controller = new ControllerView_Brand();
+            Controller = new ControllerView_Brand();
 
             InitHeader(); // Init header of the listView
             GroupsListView = new List<Hashtable>();
-            refreshOwnView();
+            RefreshOwnView();
         }
 
         /// <summary>
@@ -36,15 +36,15 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
         protected override void InitHeader()
         {
             //initialise columns
-            List<string> listNameColumnTable = controller.getColumnHeader();
+            List<string> ListNameColumnTable = Controller.GetColumnHeader();
 
-            for (int i = 0; i < listNameColumnTable.Count; i++)
+            for (int i = 0; i < ListNameColumnTable.Count; i++)
             {
-                ColumnHeader colHdr = new ColumnHeader();
-                colHdr.Name = listNameColumnTable.ElementAt(i); //Set a ColumnHeader name 
-                colHdr.Text = listNameColumnTable.ElementAt(i);
-                colHdr.Width = listView1.Size.Width / listNameColumnTable.Count;
-                listView1.Columns.Add(colHdr);
+                ColumnHeader ColHdr = new ColumnHeader();
+                ColHdr.Name = ListNameColumnTable.ElementAt(i); //Set a ColumnHeader name 
+                ColHdr.Text = ListNameColumnTable.ElementAt(i);
+                ColHdr.Width = ListView.Size.Width / ListNameColumnTable.Count;
+                ListView.Columns.Add(ColHdr);
             }
         }
 
@@ -53,17 +53,17 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
         /// </summary>
         protected override void LoadDataListView()
         {
-            listView1.Items.Clear();
+            ListView.Items.Clear();
 
-            foreach (KeyValuePair<int, Marques> familles in controller.getAllMarques())
+            foreach (KeyValuePair<int, Marques> Marques in Controller.GetAllMarques())
             {
-                ListViewItem item = new ListViewItem(new string[] {
+                ListViewItem Item = new ListViewItem(new string[] {
 
-                    familles.Value.Id.ToString(),
-                    familles.Value.Nom,
+                    Marques.Value.Id.ToString(),
+                    Marques.Value.Nom,
                 });
-                item.Name = familles.Key.ToString();    //Set reference as item name
-                listView1.Items.Add(item);
+                Item.Name = Marques.Key.ToString();    //Set reference as item name
+                ListView.Items.Add(Item);
             }
         }
 
@@ -72,29 +72,29 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
         /// </summary>
         protected override void DeleteObjectListView()
         {
-            DialogResult dialogResult = MessageBox.Show("Confirmer la supression de marque?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            if (dialogResult == DialogResult.Yes)
+            DialogResult DialogResult = MessageBox.Show("Confirmer la supression de marque?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (DialogResult == DialogResult.Yes)
             {
                 try
                 {
-                    for (int ILoop = 0; ILoop < listView1.SelectedItems.Count; ILoop++)   //Remove all selected items
+                    for (int ILoop = 0; ILoop < ListView.SelectedItems.Count; ILoop++)   //Remove all selected items
                     {
-                        if (controller.ExistArticleFromBrand(Convert.ToInt32(listView1.SelectedItems[ILoop].Name)))    //At least one article uses this brand
+                        if (Controller.ExistArticleFromBrand(Convert.ToInt32(ListView.SelectedItems[ILoop].Name)))    //At least one article uses this brand
                         {
-                            DialogResult dialogArticle = MessageBox.Show("Au moins un article est associé à la marque <" + listView1.SelectedItems[ILoop].SubItems[1].Text + "> à supprimer.\n Si vous poursuivez, tous les articles de cette marque seront également supprimés!", "Poursuivre?", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-                            if (dialogArticle == DialogResult.Yes)
+                            DialogResult DialogArticle = MessageBox.Show("Au moins un article est associé à la marque <" + ListView.SelectedItems[ILoop].SubItems[1].Text + "> à supprimer.\n Si vous poursuivez, tous les articles de cette marque seront également supprimés!", "Poursuivre?", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                            if (DialogArticle == DialogResult.Yes)
                             {
-                                controller.DeleteElement(listView1.SelectedItems[ILoop].Name);
+                                Controller.DeleteElement(ListView.SelectedItems[ILoop].Name);
                             }
                             else
                             {
-                                statusStrip.Items[0].Text = "L'opération de suppression de la marque <" + listView1.SelectedItems[ILoop].SubItems[1].Text + "> a été annulée";
+                                StatusStrip.Items[0].Text = "L'opération de suppression de la marque <" + ListView.SelectedItems[ILoop].SubItems[1].Text + "> a été annulée";
                             }
 
                         }
                         else  //No one article uses this brand
                         {
-                            controller.DeleteElement(listView1.SelectedItems[ILoop].Name);
+                            Controller.DeleteElement(ListView.SelectedItems[ILoop].Name);
                         }
 
                     }
@@ -103,22 +103,22 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
                     InitialiseGroupsByColumnListView();
 
                     SetGroups(GroupColumn);
-                    listView1.SetSortIcon(GroupColumn, listView1.Sorting);
+                    ListView.SetSortIcon(GroupColumn, ListView.Sorting);
 
-                    statusStrip.Items[0].Text = "La marque a bien été supprimé de la base";
+                    StatusStrip.Items[0].Text = "La marque a bien été supprimé de la base";
                 }
-                catch (Exception ex)
+                catch (Exception Ex)
                 {
-                    statusStrip.Items[0].Text = "Une erreur a empêché la supression de cette marque";
-                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    StatusStrip.Items[0].Text = "Une erreur a empêché la supression de cette marque";
+                    MessageBox.Show(Ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             else
             {
-                statusStrip.Items[0].Text = "La supression de la marque a été annulée";
+                StatusStrip.Items[0].Text = "La supression de la marque a été annulée";
             }
 
-            refreshOwnView();
+            RefreshOwnView();
         }
 
         /// <summary>
@@ -126,14 +126,16 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
         /// </summary>
         protected override void AddObjectListView()
         {
-            AddUpdateBrand brandWindow = new AddUpdateBrand(controller);
-            brandWindow.StartPosition = FormStartPosition.CenterParent;
+            AddUpdateBrand BrandWindow = new AddUpdateBrand(Controller);
+            BrandWindow.StartPosition = FormStartPosition.CenterParent;
 
-            if (brandWindow.ShowDialog() == DialogResult.OK)
+            if (BrandWindow.ShowDialog() == DialogResult.OK)
             {
-                statusStrip.Items[0].Text = "La marque a été ajoutée";
-                refreshOwnView();
+                StatusStrip.Items[0].Text = "La marque a été ajoutée";
+                RefreshOwnView();
             }
+            else
+                StatusStrip.Items[0].Text = "";
         }
 
         /// <summary>
@@ -141,14 +143,16 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
         /// </summary>
         protected override void UpdateObjectListView()
         {
-            AddUpdateBrand brandWindow = new AddUpdateBrand(controller, controller.GetBrand(Convert.ToInt16(listView1.SelectedItems[0].Name)));
-            brandWindow.StartPosition = FormStartPosition.CenterParent;
+            AddUpdateBrand BrandWindow = new AddUpdateBrand(Controller, Controller.GetBrand(Convert.ToInt16(ListView.SelectedItems[0].Name)));
+            BrandWindow.StartPosition = FormStartPosition.CenterParent;
 
-            if (brandWindow.ShowDialog() == DialogResult.OK)
+            if (BrandWindow.ShowDialog() == DialogResult.OK)
             {
-                statusStrip.Items[0].Text = "La marque a été mis à jour";
-                refreshOwnView();
+                StatusStrip.Items[0].Text = "La marque a été mis à jour";
+                RefreshOwnView();
             }
+            else
+                StatusStrip.Items[0].Text = "";
         }
     }
 }

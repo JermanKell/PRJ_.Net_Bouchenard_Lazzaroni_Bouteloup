@@ -14,278 +14,278 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
     /// </summary>
     abstract class ControllerParserXML
     {
-        public event EventHandler<MyEventArgs> eventUpdateListView; // Send events to the view (Update ListView)
-        public event EventHandler<MyEventArgs> eventUpdateProgressBar; // Send events to the view (Update ProgressBar)
-        public event EventHandler<MyEventArgs> eventRangeMaxProgressBar; // Send events to the view (set the max range of the ProgressBar)
+        public event EventHandler<MyEventArgs> EventUpdateListView; // Send events to the view (Update ListView)
+        public event EventHandler<MyEventArgs> EventUpdateProgressBar; // Send events to the view (Update ProgressBar)
+        public event EventHandler<MyEventArgs> EventRangeMaxProgressBar; // Send events to the view (set the max range of the ProgressBar)
 
-        protected XmlDocument xmlDocument; // Allow to navigate in the xml file
-        protected DBManager dbManager; // Access SQL command
-        protected string filename; // Content the path of the file
-        protected Articles article;
-        protected XmlNode node; // To store the current node when parsing
-        protected MyEventArgs argsEvent; // Store args for event
-        protected Dictionary<TypeMessage, int> counterTypeMessage; // To know how many success, warning, error, critical, ...
+        protected XmlDocument XmlDocument; // Allow to navigate in the xml file
+        protected DBManager DbManager; // Access SQL command
+        protected string Filename; // Content the path of the file
+        protected Articles Article;
+        protected XmlNode Node; // To store the current node when parsing
+        protected MyEventArgs ArgsEvent; // Store args for event
+        protected Dictionary<TypeMessage, int> CounterTypeMessage; // To know how many success, warning, error, critical, ...
 
         /// <summary>
         /// Each child implement his own version of parsing.
         /// </summary>
-        abstract public void parse();
+        abstract public void Parse();
 
         /// <summary>
         /// Comfort constructor - Init attributes
         /// </summary>
-        /// <param name="filename"> Filename of the xml file gave by the view </param>
-        public ControllerParserXML(string filename)
+        /// <param name="Filename"> Filename of the xml file gave by the view </param>
+        public ControllerParserXML(string Filename)
         {
-            this.filename = filename;
-            argsEvent = new MyEventArgs();
-            dbManager = new DBManager();
-            xmlDocument = new XmlDocument();
-            article = null;
+            this.Filename = Filename;
+            ArgsEvent = new MyEventArgs();
+            DbManager = new DBManager();
+            XmlDocument = new XmlDocument();
+            Article = null;
 
             // Init dictionary. One entry = one enum
-            counterTypeMessage = new Dictionary<TypeMessage, int>();
-            foreach (TypeMessage foo in Enum.GetValues(typeof(TypeMessage)))
-                counterTypeMessage.Add(foo, 0);
+            CounterTypeMessage = new Dictionary<TypeMessage, int>();
+            foreach (TypeMessage Foo in Enum.GetValues(typeof(TypeMessage)))
+                CounterTypeMessage.Add(Foo, 0);
         }
 
         /// <summary>
         /// Called by this class and childs when they want to update the listView (console log)
         /// </summary>
-        /// <param name="type"> Type of message (success or warning or etc ...) that you want to send </param>
-        /// <param name="subject"> Subject of the message (addArticle, addFamille) </param>
-        /// <param name="message"> The message to send </param>
-        protected void updateListView(TypeMessage type, SubjectMessage subject, string message)
+        /// <param name="Type"> Type of message (success or warning or etc ...) that you want to send </param>
+        /// <param name="Subject"> Subject of the message (addArticle, addFamille) </param>
+        /// <param name="Message"> The message to send </param>
+        protected void UpdateListView(TypeMessage Type, SubjectMessage Subject, string Message)
         {
-            argsEvent.message = message;
-            argsEvent.subject = subject;
-            argsEvent.type = type;
+            ArgsEvent.Message = Message;
+            ArgsEvent.Subject = Subject;
+            ArgsEvent.Type = Type;
 
-            counterTypeMessage[type] += 1; // Increment the counter
+            CounterTypeMessage[Type] += 1; // Increment the counter
 
-            if (eventUpdateListView != null)
-                eventUpdateListView(this, argsEvent); // Send the event
+            if (EventUpdateListView != null)
+                EventUpdateListView(this, ArgsEvent); // Send the event
         }
 
         /// <summary>
         /// Called by this class and childs when they want to update the progress bar of the view
         /// </summary>
-        protected void updateProgressBar()
+        protected void UpdateProgressBar()
         {
-            eventUpdateProgressBar(this, argsEvent);
+            EventUpdateProgressBar(this, ArgsEvent);
         }
 
         /// <summary>
         /// Called by childs one time to set the max range of the progress bar. The max range is defined by the number of articles in the XML file.
         /// </summary>
-        /// <param name="nodeCount"> Number of articles in the XML file </param>
-        protected void updateMaxRangeProgressBar(int nodeCount)
+        /// <param name="NodeCount"> Number of articles in the XML file </param>
+        protected void UpdateMaxRangeProgressBar(int NodeCount)
         {
-            argsEvent.maxRange = nodeCount;
-            eventRangeMaxProgressBar(this, argsEvent);
+            ArgsEvent.MaxRange = NodeCount;
+            EventRangeMaxProgressBar(this, ArgsEvent);
         }
 
         /// <summary>
         /// Load the xml file and verify the structure (just briefly)
         /// </summary>
-        protected void loadDocument()
+        protected void LoadDocument()
         {
-            xmlDocument.Load(filename); // Load the file into the XMLDocument
-            updateListView(TypeMessage.Succès, SubjectMessage.Structure_XML, "Le fichier XML est chargé");
+            XmlDocument.Load(Filename); // Load the file into the XMLDocument
+            UpdateListView(TypeMessage.Succès, SubjectMessage.Structure_XML, "Le fichier XML est chargé");
         }
 
         /// <summary>
         /// Verify deeply of the structure of the XML file is correct (check the order, if not empty, ...)
         /// </summary>
-        protected void verifyFile() // Verify the structure of the xml file
+        protected void VerifyFile() // Verify the structure of the xml file
         {
-            XmlSchemaSet schemaSet = new XmlSchemaSet();
-            schemaSet.Add(null, "../../validateXMLFile.xsd"); // Add the xsd to the schema
-            xmlDocument.Schemas.Add(schemaSet); // Add the schema to the xml document
-            ValidationEventHandler veh = new ValidationEventHandler(eventVerifyStructure); // Send event when something goes wrong.
-            xmlDocument.Validate(veh); // Run the validation
-            updateListView(TypeMessage.Succès, SubjectMessage.Structure_XML, "La structure du fichier XML est validée");
+            XmlSchemaSet SchemaSet = new XmlSchemaSet();
+            SchemaSet.Add(null, "../../validateXMLFile.xsd"); // Add the xsd to the schema
+            XmlDocument.Schemas.Add(SchemaSet); // Add the schema to the xml document
+            ValidationEventHandler Veh = new ValidationEventHandler(EventVerifyStructure); // Send event when something goes wrong.
+            XmlDocument.Validate(Veh); // Run the validation
+            UpdateListView(TypeMessage.Succès, SubjectMessage.Structure_XML, "La structure du fichier XML est validée");
         }
 
         /// <summary>
         /// Event sent by verifyFile method 
         /// </summary>
-        /// <param name="sender"> Mandatory because receive event </param>
-        /// <param name="args"> Mandatory because receive event </param>
-        protected void eventVerifyStructure(object sender, ValidationEventArgs args) // Signal send by verifyFile() when the xml structure does not correct.
+        /// <param name="Sender"> Mandatory because receive event </param>
+        /// <param name="Args"> Mandatory because receive event </param>
+        protected void EventVerifyStructure(object Sender, ValidationEventArgs Args) // Signal send by verifyFile() when the xml structure does not correct.
         {
-            throw new System.Exception(args.Message);
+            throw new System.Exception(Args.Message);
         }
 
         /// <summary>
         /// Called by childs when they want to add an article to the database
         /// </summary>
-        protected void addArticle()
+        protected void AddArticle()
         {   
-            article = new Articles();
+            Article = new Articles();
 
-            article.Description = node.SelectSingleNode("description").InnerText;
-            article.Reference = node.SelectSingleNode("refArticle").InnerText;
+            Article.Description = Node.SelectSingleNode("description").InnerText;
+            Article.Reference = Node.SelectSingleNode("refArticle").InnerText;
 
-            treatFamille();
-            if (!treatSousFamille()) // Check if the subFamily correspond to the good family. If mistake, generate error signal and the article won't be updatd.
+            TreatFamille();
+            if (!TreatSousFamille()) // Check if the subFamily correspond to the good family. If mistake, generate error signal and the article won't be updatd.
             {
-                treatMarque();
+                TreatMarque();
 
-                article.PrixHT = Convert.ToDouble(node.SelectSingleNode("prixHT").InnerText);
-                article.Quantite = 1;
+                Article.PrixHT = Convert.ToDouble(Node.SelectSingleNode("prixHT").InnerText);
+                Article.Quantite = 1;
 
-                dbManager.insertArticle(article);
-                updateListView(TypeMessage.Succès, SubjectMessage.Ajouter_article, "L'article " + article.Reference + " a été ajouté");
+                DbManager.InsertArticle(Article);
+                UpdateListView(TypeMessage.Succès, SubjectMessage.Ajouter_article, "L'article " + Article.Reference + " a été ajouté");
             }
         }
 
         /// <summary>
         /// If not exist, check if spelling mistake, if not, create new one.
         /// </summary>
-        private void treatFamille()
+        private void TreatFamille()
         {
-            Familles famille = dbManager.getFamille(node.SelectSingleNode("famille").InnerText); // Check if the famille already exist
-            if (famille == null) // Famille does not exist
+            Familles Famille = DbManager.GetFamille(Node.SelectSingleNode("famille").InnerText); // Check if the famille already exist
+            if (Famille == null) // Famille does not exist
             {
-                famille = checkSpellingFamilles(node.SelectSingleNode("famille").InnerText);
-                if (famille == null)
+                Famille = CheckSpellingFamilles(Node.SelectSingleNode("famille").InnerText);
+                if (Famille == null)
                 {
-                    newFamille();
+                    NewFamille();
                 }
                 else
                 {
-                    updateListView(TypeMessage.Avertissement, SubjectMessage.Erreur_orthographe,
-                        "La famille de l'article " + article.Reference + " est \""
-                        + node.SelectSingleNode("famille").InnerText + "\". Elle a été remplacé par \"" + famille.Nom + "\"");
+                    UpdateListView(TypeMessage.Avertissement, SubjectMessage.Erreur_orthographe,
+                        "La famille de l'article " + Article.Reference + " est \""
+                        + Node.SelectSingleNode("famille").InnerText + "\". Elle a été remplacé par \"" + Famille.Nom + "\"");
 
-                    article.IdFamille = famille.Id;
-                    node.SelectSingleNode("famille").InnerText = famille.Nom; // Change the text of the XML to correct the spelling mistake
+                    Article.IdFamille = Famille.Id;
+                    Node.SelectSingleNode("famille").InnerText = Famille.Nom; // Change the text of the XML to correct the spelling mistake
                 }
             }
             else
-                article.IdFamille = famille.Id;
+                Article.IdFamille = Famille.Id;
         }
 
         /// <summary>
         /// Insert new family to the database
         /// </summary>
-        protected void newFamille()
+        protected void NewFamille()
         {
-            Familles famille = new Familles();
-            famille.Nom = node.SelectSingleNode("famille").InnerText;
-            article.IdFamille = dbManager.insertFamille(famille); // Insert return the last id of the famille added.
-            updateListView(TypeMessage.Succès, SubjectMessage.Ajouter_famille, "La famille " + famille.Nom + " a été créée");
+            Familles Famille = new Familles();
+            Famille.Nom = Node.SelectSingleNode("famille").InnerText;
+            Article.IdFamille = DbManager.InsertFamille(Famille); // Insert return the last id of the famille added.
+            UpdateListView(TypeMessage.Succès, SubjectMessage.Ajouter_famille, "La famille " + Famille.Nom + " a été créée");
         }
 
         /// <summary>
         /// If not exist, check if spelling mistake, if not, create new one.
         /// </summary>
         /// <returns> True if everything is OK, false if the family does not match to the subfamily </returns>
-        private bool treatSousFamille()
+        private bool TreatSousFamille()
         {
-            bool foundMistake = false;
+            bool FoundMistake = false;
 
-            SousFamilles sousFamille = dbManager.getSousFamille(node.SelectSingleNode("sousFamille").InnerText); // Check if the sousFamille already exist
-            if (sousFamille == null) // If the sousFamille does not exist
+            SousFamilles SousFamille = DbManager.GetSousFamille(Node.SelectSingleNode("sousFamille").InnerText); // Check if the sousFamille already exist
+            if (SousFamille == null) // If the sousFamille does not exist
             {
-                sousFamille = checkSpellingSousFamilles(node.SelectSingleNode("sousFamille").InnerText);
-                if (sousFamille == null)
+                SousFamille = CheckSpellingSousFamilles(Node.SelectSingleNode("sousFamille").InnerText);
+                if (SousFamille == null)
                 {
-                    newSousFamille();
+                    NewSousFamille();
                 }
                 else
                 {
-                    updateListView(TypeMessage.Avertissement, SubjectMessage.Erreur_orthographe,
-                        "La sous famille de l'article " + article.Reference + " est \""
-                        + node.SelectSingleNode("sousFamille").InnerText + "\". Elle a été remplacé par \"" + sousFamille.Nom + "\"");
+                    UpdateListView(TypeMessage.Avertissement, SubjectMessage.Erreur_orthographe,
+                        "La sous famille de l'article " + Article.Reference + " est \""
+                        + Node.SelectSingleNode("sousFamille").InnerText + "\". Elle a été remplacé par \"" + SousFamille.Nom + "\"");
 
-                    article.IdSousFamille = sousFamille.Id;
+                    Article.IdSousFamille = SousFamille.Id;
 
                     // Generate error when the sousFamille don't belong to the good famille
-                    if (!dbManager.existSousFamilleInFamille(article.IdSousFamille, article.IdFamille))
+                    if (!DbManager.ExistSousFamilleInFamille(Article.IdSousFamille, Article.IdFamille))
                     {
-                        updateListView(TypeMessage.Erreur, SubjectMessage.Mauvaise_information,
-                        "Impossible d'ajouter l'article " + article.Reference + " car sa famille ne correspond pas à la bonne sous famille");
+                        UpdateListView(TypeMessage.Erreur, SubjectMessage.Mauvaise_information,
+                        "Impossible d'ajouter l'article " + Article.Reference + " car sa famille ne correspond pas à la bonne sous famille");
 
-                        foundMistake = true;
+                        FoundMistake = true;
                     }
-                    node.SelectSingleNode("sousFamille").InnerText = sousFamille.Nom; // Change the text of the XML to correct the spelling mistake
+                    Node.SelectSingleNode("sousFamille").InnerText = SousFamille.Nom; // Change the text of the XML to correct the spelling mistake
                 }
             }
             else
             {
-                article.IdSousFamille = sousFamille.Id;
+                Article.IdSousFamille = SousFamille.Id;
                 // Generate error when the sousFamille don't belong to the good famille
-                if (!dbManager.existSousFamilleInFamille(article.IdSousFamille, article.IdFamille))
+                if (!DbManager.ExistSousFamilleInFamille(Article.IdSousFamille, Article.IdFamille))
                 {
-                    updateListView(TypeMessage.Erreur, SubjectMessage.Mauvaise_information,
-                        "Impossible d'ajouter l'article " + article.Reference + " car sa famille ne correspond pas à la bonne sous famille");
+                    UpdateListView(TypeMessage.Erreur, SubjectMessage.Mauvaise_information,
+                        "Impossible d'ajouter l'article " + Article.Reference + " car sa famille ne correspond pas à la bonne sous famille");
 
-                    foundMistake = true;
+                    FoundMistake = true;
                 }
             }
-            return foundMistake;
+            return FoundMistake;
         }
 
         /// <summary>
         /// Insert new subFamily to the database
         /// </summary>
-        protected void newSousFamille()
+        protected void NewSousFamille()
         {
-            SousFamilles sousFamille = new SousFamilles();
-            sousFamille.IdFamille = article.IdFamille;
-            sousFamille.Nom = node.SelectSingleNode("sousFamille").InnerText;
-            article.IdSousFamille = dbManager.insertSousFamille(sousFamille); // Insert return the last id of the sousFamille added.
-            updateListView(TypeMessage.Succès, SubjectMessage.Ajouter_sous_famille, "La sous famille " + sousFamille.Nom + " a été créée");
+            SousFamilles SousFamille = new SousFamilles();
+            SousFamille.IdFamille = Article.IdFamille;
+            SousFamille.Nom = Node.SelectSingleNode("sousFamille").InnerText;
+            Article.IdSousFamille = DbManager.InsertSousFamille(SousFamille); // Insert return the last id of the sousFamille added.
+            UpdateListView(TypeMessage.Succès, SubjectMessage.Ajouter_sous_famille, "La sous famille " + SousFamille.Nom + " a été créée");
         }
 
         /// <summary>
         /// If not exist, check if spelling mistake, if not, create new one.
         /// </summary>
-        private void treatMarque()
+        private void TreatMarque()
         {
-            Marques marque = dbManager.getMarque(node.SelectSingleNode("marque").InnerText);
-            if (marque == null)
+            Marques Marque = DbManager.GetMarque(Node.SelectSingleNode("marque").InnerText);
+            if (Marque == null)
             {
-                marque = checkSpellingMarques(node.SelectSingleNode("marque").InnerText);
-                if (marque == null)
+                Marque = CheckSpellingMarques(Node.SelectSingleNode("marque").InnerText);
+                if (Marque == null)
                 {
-                    newMarque();
+                    NewMarque();
                 }
                 else
                 {
-                    updateListView(TypeMessage.Avertissement, SubjectMessage.Erreur_orthographe,
-                        "La marque de l'article " + article.Reference + " est \""
-                        + node.SelectSingleNode("marque").InnerText + "\". Elle a été remplacée par \"" + marque.Nom + "\"");
+                    UpdateListView(TypeMessage.Avertissement, SubjectMessage.Erreur_orthographe,
+                        "La marque de l'article " + Article.Reference + " est \""
+                        + Node.SelectSingleNode("marque").InnerText + "\". Elle a été remplacée par \"" + Marque.Nom + "\"");
 
-                    article.IdMarque = marque.Id;
-                    node.SelectSingleNode("marque").InnerText = marque.Nom; // Change the text of the XML to correct the spelling mistake
+                    Article.IdMarque = Marque.Id;
+                    Node.SelectSingleNode("marque").InnerText = Marque.Nom; // Change the text of the XML to correct the spelling mistake
                 }
             }
             else
-                article.IdMarque = marque.Id;
+                Article.IdMarque = Marque.Id;
         }
 
         /// <summary>
         /// Insert new brand to the database
         /// </summary>
-        protected void newMarque()
+        protected void NewMarque()
         {
-            Marques marque = new Marques();
-            marque.Nom = node.SelectSingleNode("marque").InnerText;
-            article.IdMarque = dbManager.insertMarque(marque); // Insert return the last id of the brand added.
-            updateListView(TypeMessage.Succès, SubjectMessage.Ajouter_marque, "La marque " + marque.Nom + " a été créée");
+            Marques Marque = new Marques();
+            Marque.Nom = Node.SelectSingleNode("marque").InnerText;
+            Article.IdMarque = DbManager.InsertMarque(Marque); // Insert return the last id of the brand added.
+            UpdateListView(TypeMessage.Succès, SubjectMessage.Ajouter_marque, "La marque " + Marque.Nom + " a été créée");
         }
 
         /// <summary>
         /// Check if the article already exist or not
         /// </summary>
         /// <returns></returns>
-        protected bool checkDoubleArticle()
+        protected bool CheckDoubleArticle()
         {
-            article = dbManager.getArticle(node.SelectSingleNode("refArticle").InnerText);
-            if (article == null)
+            Article = DbManager.GetArticle(Node.SelectSingleNode("refArticle").InnerText);
+            if (Article == null)
                 return false;
             else
                 return true;
@@ -297,7 +297,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         /// <param name="s"> The first string </param>
         /// <param name="t">The second string </param>
         /// <returns> The distance between these two strings </returns>
-        protected int distanceLevenshtein(string s, string t)
+        protected int DistanceLevenshtein(string s, string t)
         {
             s = s.ToLower();
             t = t.ToLower();
@@ -332,28 +332,28 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         /// <summary>
         /// Check if the family contains a mistake spelling
         /// </summary>
-        /// <param name="name"> The name of the family </param>
+        /// <param name="Name"> The name of the family </param>
         /// <returns> The family fixed or null if no family have been found </returns>
-        protected Familles checkSpellingFamilles(string name)
+        protected Familles CheckSpellingFamilles(string Name)
         {
-            int bestDistance = 255, tempDistance;
-            Familles famille = null;
+            int BestDistance = 255, TempDistance;
+            Familles Famille = null;
 
-            Dictionary<int, Familles> listFamille = dbManager.getAllFamilles(); // Retrieve all family of the database
+            Dictionary<int, Familles> ListFamille = DbManager.GetAllFamilles(); // Retrieve all family of the database
 
-            foreach (KeyValuePair<int, Familles> entry in listFamille)
+            foreach (KeyValuePair<int, Familles> Entry in ListFamille)
             {
-                tempDistance = distanceLevenshtein(name, entry.Value.Nom); // Compute the distance
+                TempDistance = DistanceLevenshtein(Name, Entry.Value.Nom); // Compute the distance
 
-                if (tempDistance < bestDistance)
+                if (TempDistance < BestDistance)
                 {
-                    bestDistance = tempDistance;
-                    famille = entry.Value;
+                    BestDistance = TempDistance;
+                    Famille = Entry.Value;
                 }
             }
 
-            if (bestDistance <= 2) // Here we decide the degree of tolerance
-                return famille;
+            if (BestDistance <= 2) // Here we decide the degree of tolerance
+                return Famille;
             else
                 return null;
         }
@@ -361,28 +361,28 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         /// <summary>
         /// Check if the sub family contains a mistake spelling
         /// </summary>
-        /// <param name="name"> The name of the sub family </param>
+        /// <param name="Name"> The name of the sub family </param>
         /// <returns> The sub family fixed or null if no sub family have been found </returns>
-        protected SousFamilles checkSpellingSousFamilles(string name)
+        protected SousFamilles CheckSpellingSousFamilles(string Name)
         {
-            int bestDistance = 255, tempDistance;
-            SousFamilles sousFamille = null;
+            int BestDistance = 255, TempDistance;
+            SousFamilles SousFamille = null;
 
-            Dictionary<int, SousFamilles> listSousFamille = dbManager.getAllSousFamilles(); // Retrieve all SousFamille of the database
+            Dictionary<int, SousFamilles> ListSousFamille = DbManager.GetAllSousFamilles(); // Retrieve all SousFamille of the database
 
-            foreach (KeyValuePair<int, SousFamilles> entry in listSousFamille)
+            foreach (KeyValuePair<int, SousFamilles> Entry in ListSousFamille)
             {
-                tempDistance = distanceLevenshtein(name, entry.Value.Nom); // Compute the distance
+                TempDistance = DistanceLevenshtein(Name, Entry.Value.Nom); // Compute the distance
 
-                if (tempDistance < bestDistance)
+                if (TempDistance < BestDistance)
                 {
-                    bestDistance = tempDistance;
-                    sousFamille = entry.Value;
+                    BestDistance = TempDistance;
+                    SousFamille = Entry.Value;
                 }
             }
 
-            if (bestDistance <= 2) // Here we decide the degree of tolerance
-                return sousFamille;
+            if (BestDistance <= 2) // Here we decide the degree of tolerance
+                return SousFamille;
             else
                 return null;
         }
@@ -390,28 +390,28 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         /// <summary>
         /// Check if the brand contains a mistake spelling
         /// </summary>
-        /// <param name="name"> The name of the brand to check </param>
+        /// <param name="Name"> The name of the brand to check </param>
         /// <returns> The brand fixed or null if no brand have been found </returns>
-        protected Marques checkSpellingMarques(string name)
+        protected Marques CheckSpellingMarques(string Name)
         {
-            int bestDistance = 255, tempDistance;
-            Marques marque = null;
+            int BestDistance = 255, TempDistance;
+            Marques Marque = null;
 
-            Dictionary<int, Marques> listMarque = dbManager.getAllMarques(); // Retrieve all brands of the database
+            Dictionary<int, Marques> ListMarque = DbManager.GetAllMarques(); // Retrieve all brands of the database
 
-            foreach (KeyValuePair<int, Marques> entry in listMarque)
+            foreach (KeyValuePair<int, Marques> Entry in ListMarque)
             {
-                tempDistance = distanceLevenshtein(name, entry.Value.Nom); // Compute the distance
+                TempDistance = DistanceLevenshtein(Name, Entry.Value.Nom); // Compute the distance
 
-                if (tempDistance < bestDistance)
+                if (TempDistance < BestDistance)
                 {
-                    bestDistance = tempDistance;
-                    marque = entry.Value;
+                    BestDistance = TempDistance;
+                    Marque = Entry.Value;
                 }
             }
 
-            if (bestDistance <= 2) // Here we decide the degree of tolerance
-                return marque;
+            if (BestDistance <= 2) // Here we decide the degree of tolerance
+                return Marque;
             else
                 return null;
         }

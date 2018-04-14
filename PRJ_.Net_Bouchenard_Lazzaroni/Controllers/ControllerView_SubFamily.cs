@@ -20,14 +20,14 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         /// <summary>
         /// Adds a new element in the DB 
         /// </summary>
-        /// <param name="obj">Object to add in the DB.</param>
-        public override void AddElement(Object obj)
+        /// <param name="Obj">Object to add in the DB.</param>
+        public override void AddElement(object Obj)
         {
-            SousFamilles SubFamily = (SousFamilles)obj;
-            SousFamilles SubFamilyFound = manager.getSousFamille(SubFamily.Nom);
+            SousFamilles SubFamily = (SousFamilles)Obj;
+            SousFamilles SubFamilyFound = Manager.GetSousFamille(SubFamily.Nom);
 
             if (SubFamilyFound == null)
-                manager.insertSousFamille(SubFamily);
+                Manager.InsertSousFamille(SubFamily);
             else
                 throw new Exception("La sous famille " + SubFamily.Nom + " existe déja dans la base");
         }
@@ -35,23 +35,25 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         /// <summary>
         /// Applies changes on the similar object stored on the DB with the object in parameter 
         /// </summary>
-        /// <param name="obj">Object with the changes</param>
-        /// <returns>Returns the number of rows changed</returns>
-        public override int ChangeElement(object obj)
+        /// <param name="Obj">Object with the changes</param>
+        /// <returns>Returns true if done, false else</returns>
+        public override int ChangeElement(object Obj)
         {
             int Count;
 
-            SousFamilles SubFamily = (SousFamilles)(obj);
-            SousFamilles SubFamilyFound = manager.getSousFamille(id: SubFamily.Id);
-
+            SousFamilles SubFamily = (SousFamilles)(Obj);
+            SousFamilles SubFamilyFound = Manager.GetSousFamille(Id: SubFamily.Id);
 
             if (SubFamilyFound != null)
             {
-                Count = manager.updateSousFamilles(SubFamily);
-                if (Count != 1)
+                if (Manager.GetSousFamille(SubFamily.Nom) == null) // Check if the sub family already exist or not
                 {
-                    throw new Exception("Une erreur liée à la base de données à empêcher la modification de la sous famille " + SubFamily.Nom);
+                    Count = Manager.UpdateSousFamilles(SubFamily);
+                    if (Count != 1)
+                        throw new Exception("Une erreur liée à la base de données à empêcher la modification de la sous famille " + SubFamily.Nom);
                 }
+                else
+                    throw new Exception("La sous famille " + SubFamily.Nom + " existe déjà dans la base");
             }
             else
             {
@@ -69,10 +71,10 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         {
             int IdSubFamily = Convert.ToInt32(RefObj);
             int Count = 0;
-            if (manager.getSousFamille(id: IdSubFamily) != null)
+            if (Manager.GetSousFamille(Id: IdSubFamily) != null)
             {
-                Count += manager.removeArticleFromSubFamily(IdSubFamily);
-                Count += manager.removeSubFamily(IdSubFamily);
+                Count += Manager.RemoveArticleFromSubFamily(IdSubFamily);
+                Count += Manager.RemoveSubFamily(IdSubFamily);
                 if (Count == 0)
                 {
                     throw new Exception("Une erreur liée à la base de données à empêcher la supression de la sous famille de reference " + RefObj);
@@ -92,7 +94,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         /// <returns>Returns true is an article exists, else false</returns>
         public bool ExistArticleFromSubFamily(int idSubFamily)
         {
-            if (manager.existArticleFromSubFamily(idSubFamily) > 0)
+            if (Manager.ExistArticleFromSubFamily(idSubFamily) > 0)
                 return true;
             else
                 return false;
@@ -102,37 +104,37 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         /// Get a dictionary of all families
         /// </summary>
         /// <returns>Dictionary of int and Families</returns>
-        public Dictionary<int, Familles> getAllFamilies()
+        public Dictionary<int, Familles> GetAllFamilies()
         {
-            return manager.getAllFamilles();
+            return Manager.GetAllFamilles();
         }
 
         /// <summary>
         /// Returns the dictionary to the associated view
         /// </summary>
         /// <returns>Dictionary of int and SubFamily</returns>
-        public Dictionary<int, SousFamilles> getAllSousFamilles()
+        public Dictionary<int, SousFamilles> GetAllSousFamilles()
         {
-            return manager.getAllSousFamilles();
+            return Manager.GetAllSousFamilles();
         }
 
         /// <summary>
         /// Get name's column of one table
         /// </summary>
         /// <param name="tableName"> Name of the table in the database </param>
-        public override List<string> getColumnHeader()
+        public override List<string> GetColumnHeader()
         {
-            return manager.getNameColumnTable("SousFamilles");
+            return Manager.GetNameColumnTable("SousFamilles");
         }
 
         /// <summary>
         /// Get one sub family by his id
         /// </summary>
-        /// <param name="id">The id of the sub family</param>
+        /// <param name="Id">The id of the sub family</param>
         /// <returns>The sub family founded</returns>
-        public SousFamilles GetSubFamily(int id)
+        public SousFamilles GetSubFamily(int Id)
         {
-            return manager.getSousFamille(id: id);
+            return Manager.GetSousFamille(Id: Id);
         }
     }
 }

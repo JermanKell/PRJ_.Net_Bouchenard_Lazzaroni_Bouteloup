@@ -41,7 +41,7 @@
             this.Btn_Valider.Location = new System.Drawing.Point(157, 82);
             this.Btn_Valider.Name = "Btn_Valider";
             this.Btn_Valider.Size = new System.Drawing.Size(91, 27);
-            this.Btn_Valider.TabIndex = 20;
+            this.Btn_Valider.TabIndex = 2;
             this.Btn_Valider.Text = "*";
             this.Btn_Valider.UseVisualStyleBackColor = true;
             this.Btn_Valider.Click += new System.EventHandler(this.Btn_Valider_Click);
@@ -51,7 +51,7 @@
             this.Tbx_Famille.Location = new System.Drawing.Point(53, 42);
             this.Tbx_Famille.Name = "Tbx_Famille";
             this.Tbx_Famille.Size = new System.Drawing.Size(195, 20);
-            this.Tbx_Famille.TabIndex = 19;
+            this.Tbx_Famille.TabIndex = 1;
             // 
             // Lab_Famille
             // 
@@ -67,7 +67,7 @@
             this.Btn_Annuler.Location = new System.Drawing.Point(60, 82);
             this.Btn_Annuler.Name = "Btn_Annuler";
             this.Btn_Annuler.Size = new System.Drawing.Size(91, 27);
-            this.Btn_Annuler.TabIndex = 21;
+            this.Btn_Annuler.TabIndex = 3;
             this.Btn_Annuler.Text = "Annuler";
             this.Btn_Annuler.UseVisualStyleBackColor = true;
             this.Btn_Annuler.Click += new System.EventHandler(this.cancelButton_Click);
@@ -87,7 +87,7 @@
             this.Cbx_Famille.Location = new System.Drawing.Point(53, 9);
             this.Cbx_Famille.Name = "Cbx_Famille";
             this.Cbx_Famille.Size = new System.Drawing.Size(195, 21);
-            this.Cbx_Famille.TabIndex = 23;
+            this.Cbx_Famille.TabIndex = 0;
             // 
             // AddUpdateSubFamily
             // 
