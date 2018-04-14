@@ -67,12 +67,12 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         /// <returns>Returns the total number of rows removed</returns>
         public override int DeleteElement(string RefObj)
         {
-            int idBrand = Convert.ToInt32(RefObj);
+            int IdBrand = Convert.ToInt32(RefObj);
             int Count = 0;
-            if (manager.getMarque(id: Convert.ToInt32(RefObj)) != null)
+            if (manager.getMarque(id: IdBrand) != null)
             {
-                Count += manager.removeArticleFromBrand(idBrand);
-                Count += manager.removeMarque(idBrand);
+                Count += manager.removeArticleFromBrand(IdBrand);
+                Count += manager.removeMarque(IdBrand);
                 if (Count == 0)
                 {
                     throw new Exception("Une erreur liée à la base de données à empêcher la supression de la marque de reference " + RefObj);
@@ -85,6 +85,11 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             return Count;
         }
 
+        /// <summary>
+        /// Check if at least one article exists from a id brand
+        /// </summary>
+        /// <param name="idBrand">Reference of brand</param>
+        /// <returns>Returns true is an article exists, else false</returns>
         public bool ExistArticleFromBrand(int idBrand)
         {
             if (manager.existArticleFromBrand(idBrand) > 0)

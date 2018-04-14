@@ -1,6 +1,6 @@
 ﻿namespace PRJ_.Net_Bouchenard_Lazzaroni
 {
-    partial class SelectXml
+    partial class ImportXMLFile
     {
         /// <summary>
         /// Required designer variable.

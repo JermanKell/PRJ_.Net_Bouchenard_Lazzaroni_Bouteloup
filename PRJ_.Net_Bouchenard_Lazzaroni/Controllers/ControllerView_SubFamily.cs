@@ -36,7 +36,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         /// Applies changes on the similar object stored on the DB with the object in parameter 
         /// </summary>
         /// <param name="obj">Object with the changes</param>
-        /// <returns>Returns true if done, false else</returns>
+        /// <returns>Returns the number of rows changed</returns>
         public override int ChangeElement(object obj)
         {
             int Count;
@@ -61,14 +61,41 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         }
 
         /// <summary>
-        /// Deletes an element from the DB with the reference passed in parameter 
+        /// Deletes all articles and a sub family with the reference of the sub family passed in parameter 
         /// </summary>
         /// <param name="RefObj">Reference of the element to delete</param>
-        /// <returns>Returns true if done, false else</returns>
+        /// <returns>Returns the total number of rows removed</returns>
         public override int DeleteElement(string RefObj)
         {
-            // TODO
-            return 0;
+            int IdSubFamily = Convert.ToInt32(RefObj);
+            int Count = 0;
+            if (manager.getSousFamille(id: IdSubFamily) != null)
+            {
+                Count += manager.removeArticleFromSubFamily(IdSubFamily);
+                Count += manager.removeSubFamily(IdSubFamily);
+                if (Count == 0)
+                {
+                    throw new Exception("Une erreur liée à la base de données à empêcher la supression de la sous famille de reference " + RefObj);
+                }
+            }
+            else
+            {
+                throw new Exception("La sous famille de référence " + RefObj + " n'existe pas dans la base");
+            }
+            return Count;
+        }
+
+        /// <summary>
+        /// Check if at least one article exists from a id sub family
+        /// </summary>
+        /// <param name="idBrand">Reference of sub family</param>
+        /// <returns>Returns true is an article exists, else false</returns>
+        public bool ExistArticleFromSubFamily(int idSubFamily)
+        {
+            if (manager.existArticleFromSubFamily(idSubFamily) > 0)
+                return true;
+            else
+                return false;
         }
 
         /// <summary>

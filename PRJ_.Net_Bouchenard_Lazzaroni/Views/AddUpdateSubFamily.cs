@@ -9,23 +9,31 @@ using System.Windows.Forms;
 
 namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
 {
+    /// <summary>
+    /// View to add or modify a sub family
+    /// </summary>
     partial class AddUpdateSubFamily : Form
     {
-        SousFamilles SubFamily;
+        SousFamilles SubFamily; // The sub family to modify or null if the user want to add a new sub family
         ControllerView_SubFamily ControllerSubFamilly;
         Dictionary<int, string> DictionaryFamilies;
 
+        /// <summary>
+        /// Constructor of the class
+        /// </summary>
+        /// <param name="ControllerSubFamilly">Controller to use</param>
+        /// <param name="SubFamily">The sub family to modify or null if none</param>
         public AddUpdateSubFamily(ControllerView_SubFamily ControllerSubFamilly, SousFamilles SubFamily = null)
         {
             this.ControllerSubFamilly = ControllerSubFamilly;
             this.SubFamily = SubFamily;
             InitializeComponent();
             InitializeGraphics();
-
-            Btn_Valider.DialogResult = DialogResult.OK;
-            Btn_Annuler.DialogResult = DialogResult.Cancel;
         }
 
+        /// <summary>
+        /// Fill all graphical component
+        /// </summary>
         private void InitializeGraphics()
         {
             InitializeCbxFamilies();
@@ -63,6 +71,10 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
             Cbx_Famille.SelectedIndex = -1;
         }
 
+        /// <summary>
+        /// Check if all entries has been completed
+        /// </summary>
+        /// <returns>True if ok, else false</returns>
         private bool CheckEntries()
         {
             bool IsValid = true;
@@ -84,6 +96,11 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
             return IsValid;
         }
 
+        /// <summary>
+        /// Add of modify the sub family when the user has completed the form
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Btn_Valider_Click(object sender, EventArgs e)
         {
             if (!CheckEntries())
@@ -104,14 +121,15 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
                         );
 
                         ControllerSubFamilly.AddElement(SubFamily);
+                        this.DialogResult = DialogResult.OK;
                     }
                     else//modification
                     {
                         NameMessage = "La modification ";
                         SubFamily.Nom = Tbx_Famille.Text;
                         SubFamily.IdFamille = ((KeyValuePair<int, string>)Cbx_Famille.SelectedItem).Key;
-                        MessageBox.Show(SubFamily.Id.ToString());
                         ControllerSubFamilly.ChangeElement(SubFamily);
+                        this.DialogResult = DialogResult.OK;
                     }
                     this.Close();
                 }
@@ -123,6 +141,11 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
             }
         }
 
+        /// <summary>
+        /// Cancel and close the window
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void cancelButton_Click(object sender, EventArgs e)
         {
             this.Close();

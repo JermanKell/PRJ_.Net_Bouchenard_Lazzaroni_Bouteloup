@@ -10,6 +10,9 @@ using System.Windows.Forms;
 
 namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
 {
+    /// <summary>
+    /// View to manage all family
+    /// </summary>
     partial class FamilyWindows : PRJ_.Net_Bouchenard_Lazzaroni.Views.BaseWindows
     {
         private ControllerView_PFamily controller;
@@ -82,16 +85,17 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
                             if (dialogArticle == DialogResult.Yes)
                             {
                                 controller.DeleteElement(listView1.SelectedItems[ILoop].Name);
+                                statusStrip.Items[0].Text = "La famille a bien été supprimé de la base";
                             }
                             else
                             {
                                 statusStrip.Items[0].Text = "L'opération de suppression de la famille <" + listView1.SelectedItems[ILoop].SubItems[1].Text + "> a été annulée";
                             }
-
                         }
                         else  //No one article uses a subfamily in this family
                         {
                             controller.DeleteElement(listView1.SelectedItems[ILoop].Name);
+                            statusStrip.Items[0].Text = "La famille a bien été supprimé de la base";
                         }
                         
                     }
@@ -101,8 +105,6 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
 
                     SetGroups(GroupColumn);
                     listView1.SetSortIcon(GroupColumn, listView1.Sorting);
-
-                    statusStrip.Items[0].Text = "La famille a bien été supprimé de la base";
                 }
                 catch (Exception ex)
                 {

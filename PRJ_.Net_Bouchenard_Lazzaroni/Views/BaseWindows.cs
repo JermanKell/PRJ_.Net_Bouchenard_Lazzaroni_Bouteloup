@@ -10,6 +10,9 @@ using System.Windows.Forms;
 
 namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
 {
+    /// <summary>
+    /// The base view, contain a list view and a status bar.
+    /// </summary>
     partial class BaseWindows : Form
     {
         // Declare a Hashtable array in which to store the groups
@@ -50,7 +53,9 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
         /// </summary>
         virtual protected void UpdateObjectListView() { }
 
-        // Creates a Hashtable with one entry for each unique textItem value in the specified column
+        /// <summary>
+        /// Creates a Hashtable with one entry for each unique textItem value in the specified column 
+        /// </summary>
         protected void InitialiseGroupsByColumnListView()
         {
             GroupsListView.Clear();
@@ -77,6 +82,10 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
             }
         }
 
+        /// <summary>
+        /// Sort column by group
+        /// </summary>
+        /// <param name="column"> The column to sort </param>
         protected void SetGroups(int column)
         {
             listView1.Groups.Clear();
@@ -103,19 +112,29 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
             }
         }
 
-        // Sorts ListViewGroup objects by header value
+        /// <summary>
+        /// Sorts ListViewGroup objects by header value
+        /// </summary>
         private class ListViewGroupSorter : IComparer
         {
             private SortOrder order;
 
-            // Stores the sort order.
+            /// <summary>
+            /// Stores the sort order
+            /// </summary>
+            /// <param name="theOrder"></param>
             public ListViewGroupSorter(SortOrder theOrder)
             {
                 //MessageBox.Show(theOrder.ToString());
                 order = theOrder;
             }
 
-            // Compares the groups by header value, using the saved sort order to return the correct value
+            /// <summary>
+            /// Compares the groups by header value, using the saved sort order to return the correct value
+            /// </summary>
+            /// <param name="x">Object one to compare</param>
+            /// <param name="y">The second object to compare</param>
+            /// <returns>The result</returns>
             public int Compare(object x, object y)
             {
                 int result;
@@ -141,6 +160,9 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
             }
         }
 
+        /// <summary>
+        /// Refresh the view to be up to date with the database
+        /// </summary>
         protected void refreshOwnView()
         {
             LoadDataListView();
@@ -166,6 +188,11 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
             }
         }
 
+        /// <summary>
+        /// Refresh the view when the user press F5
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BaseWindows_KeyUp(object sender, KeyEventArgs e)
         {
             //Refresh listViewArticle
@@ -175,7 +202,11 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
             }
         }
 
-        // Groups the items using the groups created for the clicked column
+        /// <summary>
+        /// Groups the items using the groups created for the clicked column
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void listView1_ColumnClick(object sender, ColumnClickEventArgs e)
         {
             // Set the sort order to ascending when changing column groups; otherwise, reverse the sort order
@@ -190,6 +221,11 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
             listView1.SetSortIcon(e.Column, listView1.Sorting);
         }
 
+        /// <summary>
+        /// Modify an article and the user press enter remove when press delete
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void listView1_KeyUp(object sender, KeyEventArgs e)
         {
             //Modifier article
@@ -205,6 +241,11 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
             }
         }
 
+        /// <summary>
+        /// Print the menu when the user do a right click
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void listView1_MouseUp(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Right && listView1.SelectedItems.Count != 0)
@@ -223,6 +264,11 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
             }
         }
 
+        /// <summary>
+        /// To recover the selection of the user when he did a right click
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void rightClickMenuStrip_ItemClicked_1(object sender, ToolStripItemClickedEventArgs e)
         {
             switch (e.ClickedItem.Text)
@@ -239,12 +285,22 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
             }
         }
 
+        /// <summary>
+        /// Resize the window
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void listView1_Resize(object sender, EventArgs e)
         {
             for (int i = 0; i < listView1.Columns.Count; i++)
                 listView1.Columns[i].Width = (listView1.Size.Width / listView1.Columns.Count) - 4;
         }
 
+        /// <summary>
+        /// Update an article when the user double on each one
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void listView1_DoubleClick(object sender, EventArgs e)
         {
             //Modifier article

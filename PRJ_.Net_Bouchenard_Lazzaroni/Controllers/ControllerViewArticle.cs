@@ -89,6 +89,33 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         }
 
         /// <summary>
+        /// Returns the dictionary to the associated view
+        /// </summary>
+        /// <returns>Dictionary of int and family</returns>
+        public Dictionary<int, Familles> GetAllFamilles()
+        {
+            return manager.getAllFamilles();
+        }
+
+        /// <summary>
+        /// Returns the dictionary to the associated view
+        /// </summary>
+        /// <returns>Dictionary of int and sub family</returns>
+        public Dictionary<int, SousFamilles> GetAllSousFamilles()
+        {
+            return manager.getAllSousFamilles();
+        }
+
+        /// <summary>
+        /// Returns the dictionary to the associated view
+        /// </summary>
+        /// <returns>Dictionary of int and brand</returns>
+        public Dictionary<int, Marques> GetAllMarques()
+        {
+            return manager.getAllMarques();
+        }
+
+        /// <summary>
         /// Get name's column of table Article
         /// </summary>
         /// <returns> A list of the column of the table Article in the database </returns>

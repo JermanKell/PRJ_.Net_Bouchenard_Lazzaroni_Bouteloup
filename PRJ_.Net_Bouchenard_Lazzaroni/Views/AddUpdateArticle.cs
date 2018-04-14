@@ -8,25 +8,33 @@ using System.Windows.Forms;
 
 namespace PRJ_.Net_Bouchenard_Lazzaroni
 {
-    partial class VueArticle : Form
+    /// <summary>
+    /// View to add or modify an article
+    /// </summary>
+    partial class AddUpdateArticle : Form
     {
-        Articles Article;
+        Articles Article; // The article to modify or null if the user want to add a new article
         ControllerViewArticle ControllerArticles;
-        Dictionary<int, string> DictionaryFamilles;
-        Dictionary<int, string> DictionarySousFamilles;
-        Dictionary<int, string> DictionaryMarques;
+        Dictionary<int, string> DictionaryFamilles; // Useful for combobox
+        Dictionary<int, string> DictionarySousFamilles; // Useful for combobox
+        Dictionary<int, string> DictionaryMarques; // Useful for combobox
 
-        public VueArticle(ControllerViewArticle ControllerArticles, Articles Article = null)
+        /// <summary>
+        /// Constructor of the class
+        /// </summary>
+        /// <param name="ControllerArticles">Controller to use</param>
+        /// <param name="Article">The article to modify or null if none</param>
+        public AddUpdateArticle(ControllerViewArticle ControllerArticles, Articles Article = null)
         {
             this.ControllerArticles = ControllerArticles;
             this.Article = Article;
             InitializeComponent();
             InitializeGraphics();
-
-            Btn_Valider.DialogResult = DialogResult.OK;
-            Btn_Annuler.DialogResult = DialogResult.Cancel;
         }
 
+        /// <summary>
+        /// Fill all graphical component
+        /// </summary>
         private void InitializeGraphics()
         {
             InitializeCbxFamilles();
@@ -64,14 +72,13 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             }      
         }
 
+        /// <summary>
+        /// Init the family dictionnary for the combo box
+        /// </summary>
         private void InitializeCbxFamilles()
         {
-            // --- To Move ---//
-            DBManager dbm = new DBManager();
-            //////////////////////////
-
             Cbx_Famille.Items.Clear();
-            DictionaryFamilles = dbm.getAllFamilles().ToDictionary(x => x.Key, x => x.Value.Nom);
+            DictionaryFamilles = ControllerArticles.GetAllFamilles().ToDictionary(x => x.Key, x => x.Value.Nom);
             if(DictionaryFamilles.Count > 0)
             {
                 Cbx_Famille.DataSource = new BindingSource(DictionaryFamilles, null);
@@ -81,14 +88,13 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             Cbx_Famille.SelectedIndex = -1;
         }
 
+        /// <summary>
+        /// Init the sub family dictionnary for the combo box
+        /// </summary>
         private void InitializeCbxSousFamilles()
         {
-            // --- To Move ---//
-            DBManager dbm = new DBManager();
-            //////////////////////////
-
             Cbx_SousFamille.Items.Clear();
-            DictionarySousFamilles = dbm.getAllSousFamilles().ToDictionary(x => x.Key, x => x.Value.Nom);
+            DictionarySousFamilles = ControllerArticles.GetAllSousFamilles().ToDictionary(x => x.Key, x => x.Value.Nom);
             if(DictionarySousFamilles.Count > 0)
             {
                 Cbx_SousFamille.DataSource = new BindingSource(DictionarySousFamilles, null);
@@ -98,14 +104,13 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             Cbx_SousFamille.SelectedIndex = -1;
         }
 
+        /// <summary>
+        /// Init the brand dictionnary for the combo box
+        /// </summary>
         private void InitializeCbxMarques()
         {
-            // --- To Move ---//
-            DBManager dbm = new DBManager();
-            //////////////////////////
-
             Cbx_Marque.Items.Clear();   
-            DictionaryMarques = dbm.getAllMarques().ToDictionary(x => x.Key, x => x.Value.Nom);
+            DictionaryMarques = ControllerArticles.GetAllMarques().ToDictionary(x => x.Key, x => x.Value.Nom);
             if(DictionaryMarques.Count > 0)
             {
                 Cbx_Marque.DataSource = new BindingSource(DictionaryMarques, null);
@@ -115,6 +120,10 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             Cbx_Marque.SelectedIndex = -1;
         }
 
+        /// <summary>
+        /// Check if all entries has been completed
+        /// </summary>
+        /// <returns>True if ok, else false</returns>
         private bool CheckEntries()
         {
             bool IsValid = true;
@@ -170,6 +179,11 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             return IsValid;
         }
 
+        /// <summary>
+        /// Add of modify the article when the user has completed the form
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Btn_Valider_Click(object sender, EventArgs e)
         {
             if(!CheckEntries())
@@ -195,6 +209,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
                         );
 
                         ControllerArticles.AddElement(Article);
+                        this.DialogResult = DialogResult.OK;
                     }
                     else//modification
                     {
@@ -207,16 +222,23 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
                         Article.Quantite = Convert.ToInt32(Tbx_Quantite.Text);
 
                         ControllerArticles.ChangeElement(Article);
+                        this.DialogResult = DialogResult.OK;
                     }
                     this.Close();
                 }
                 catch (Exception ex)
                 {
+                    this.DialogResult = DialogResult.Cancel;
                     MessageBox.Show("Une erreur est survenue lors de " + NameMessage.ToLower() + "avec le message suivant:\n" + ex.Message, "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
 
+        /// <summary>
+        /// Cancel and close the window
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void cancelButton_Click(object sender, EventArgs e)
         {
             this.Close();

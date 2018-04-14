@@ -10,14 +10,17 @@ using System.Windows.Forms;
 
 namespace PRJ_.Net_Bouchenard_Lazzaroni
 {
-    public partial class SelectXml : Form
+    /// <summary>
+    /// View to parse XML file 
+    /// </summary>
+    public partial class ImportXMLFile : Form
     {
         private string filename; // Path of the xml file
 
         /// <summary>
         /// Constructor per default
         /// </summary>
-        public SelectXml()
+        public ImportXMLFile()
         {
             InitializeComponent();
         }

@@ -13,10 +13,16 @@ using System.Runtime.InteropServices;
 
 namespace PRJ_.Net_Bouchenard_Lazzaroni
 {
+    /// <summary>
+    /// View to manage all articles
+    /// </summary>
     partial class Main : BaseWindows
     {
         private ControllerViewArticle ControllerArticles;
 
+        /// <summary>
+        /// Constructor of the class
+        /// </summary>
         public Main() : base()
         {
             InitializeComponent();
@@ -27,6 +33,9 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             refreshOwnView();
         }
 
+        /// <summary>
+        /// Init the header of the listView
+        /// </summary>
         protected override void InitHeader()
         {
             //initialise columns
@@ -41,6 +50,9 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             }
         }
 
+        /// <summary>
+        /// Load the data into the listView
+        /// </summary>
         protected override void LoadDataListView()
         {
             listView1.Items.Clear();
@@ -61,13 +73,21 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             }
         }
 
+        /// <summary>
+        /// When the user want to import an xml file
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ImportationXMLToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            SelectXml SelectXML = new SelectXml();
+            ImportXMLFile SelectXML = new ImportXMLFile();
             SelectXML.ShowDialog();
             refreshOwnView();
         }
 
+        /// <summary>
+        /// Delete an object from modal window
+        /// </summary>
         protected override void DeleteObjectListView()
         {
             DialogResult dialogResult = MessageBox.Show("Confirmer la supression d'article?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
@@ -97,9 +117,12 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             }
         }
 
+        /// <summary>
+        /// Add an object from modal window
+        /// </summary>
         protected override void AddObjectListView()
         {
-            VueArticle VA = new VueArticle(ControllerArticles);
+            AddUpdateArticle VA = new AddUpdateArticle(ControllerArticles);
 
             if (VA.ShowDialog() == DialogResult.OK)
             {
@@ -108,9 +131,12 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             }
         }
 
+        /// <summary>
+        /// Update an object from modal window
+        /// </summary>
         protected override void UpdateObjectListView()
         {
-            VueArticle VA = new VueArticle(ControllerArticles, ControllerArticles.GetArticle(listView1.SelectedItems[0].Name));
+            AddUpdateArticle VA = new AddUpdateArticle(ControllerArticles, ControllerArticles.GetArticle(listView1.SelectedItems[0].Name));
 
             if (VA.ShowDialog() == DialogResult.OK)
             {
@@ -119,6 +145,11 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             }
         }
 
+        /// <summary>
+        /// When the user want to print the view for managing family
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void familleToolStripMenuItem_Click(object sender, EventArgs e)
         {
             statusStrip.Items[0].Text = ""; // Reset the message of the status bar
@@ -129,6 +160,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             refreshOwnView();
         }
 
+        /// When the user want to print the view for managing sub family
         private void sousFamilleToolStripMenuItem_Click(object sender, EventArgs e)
         {
             statusStrip.Items[0].Text = ""; // Reset the message of the status bar
@@ -139,6 +171,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             refreshOwnView();
         }
 
+        /// When the user want to print the view for managing brand
         private void marqueToolStripMenuItem_Click(object sender, EventArgs e)
         {
             statusStrip.Items[0].Text = ""; // Reset the message of the status bar

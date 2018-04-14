@@ -111,7 +111,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             try
             {
                 sql.ExecuteNonQuery();
-                return Convert.ToInt16(conn.LastInsertRowId);
+                return Convert.ToInt32(conn.LastInsertRowId);
 
             }
             catch (Exception ex)
@@ -495,13 +495,13 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         /// <summary>
         /// Set the new family to the database
         /// </summary>
-        /// <param name="fam"> The family to update </param>
+        /// <param name="Family"> The family to update </param>
         /// <returns>The number of line modified </returns>
-        public int updateFamilles(Familles fam)
+        public int updateFamilles(Familles Family)
         {
             SQLiteCommand sql = new SQLiteCommand("UPDATE Familles SET Nom = @nom WHERE RefFamille = @reference", conn);
-            sql.Parameters.AddWithValue("@nom", fam.Nom);
-            sql.Parameters.AddWithValue("@reference", fam.Id);
+            sql.Parameters.AddWithValue("@nom", Family.Nom);
+            sql.Parameters.AddWithValue("@reference", Family.Id);
 
             try
             {
@@ -516,12 +516,23 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         /// <summary>
         /// Set the new family to the database
         /// </summary>
-        /// <param name="fam"> The family to update </param>
+        /// <param name="Subfamily"> The family to update </param>
         /// <returns>The number of line modified </returns>
-        public int updateSousFamilles(SousFamilles subfam)
+        public int updateSousFamilles(SousFamilles Subfamily)
         {
-            // TODO
-            return 0;
+            SQLiteCommand sql = new SQLiteCommand("UPDATE SousFamilles SET Nom = @name, RefFamille = @idFamily WHERE RefSousFamille = @idSubFamily", conn);
+            sql.Parameters.AddWithValue("@name", Subfamily.Nom);
+            sql.Parameters.AddWithValue("@idFamily", Subfamily.IdFamille);
+            sql.Parameters.AddWithValue("@idSubFamily", Subfamily.Id);
+
+            try
+            {
+                return sql.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
         /// <summary>
