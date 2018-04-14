@@ -28,9 +28,6 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             this.Marque = Marque;
             InitializeComponent();
             InitializeGraphics();
-
-            Btn_Valider.DialogResult = DialogResult.OK;
-            Btn_Annuler.DialogResult = DialogResult.Cancel;
         }
 
         /// <summary>
@@ -93,6 +90,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
                         );
 
                         ControllerBrand.AddElement(Marque);
+                        this.DialogResult = DialogResult.OK;
                     }
                     else//modification
                     {
@@ -100,6 +98,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
                         Marque.Nom = Tbx_Marque.Text;
 
                         ControllerBrand.ChangeElement(Marque);
+                        this.DialogResult = DialogResult.OK;
                     }
                     this.Close();
                 }

@@ -30,9 +30,6 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             this.Article = Article;
             InitializeComponent();
             InitializeGraphics();
-
-            Btn_Valider.DialogResult = DialogResult.OK;
-            Btn_Annuler.DialogResult = DialogResult.Cancel;
         }
 
         /// <summary>
@@ -212,6 +209,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
                         );
 
                         ControllerArticles.AddElement(Article);
+                        this.DialogResult = DialogResult.OK;
                     }
                     else//modification
                     {
@@ -224,11 +222,13 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
                         Article.Quantite = Convert.ToInt32(Tbx_Quantite.Text);
 
                         ControllerArticles.ChangeElement(Article);
+                        this.DialogResult = DialogResult.OK;
                     }
                     this.Close();
                 }
                 catch (Exception ex)
                 {
+                    this.DialogResult = DialogResult.Cancel;
                     MessageBox.Show("Une erreur est survenue lors de " + NameMessage.ToLower() + "avec le message suivant:\n" + ex.Message, "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }

@@ -28,9 +28,6 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
             this.SubFamily = SubFamily;
             InitializeComponent();
             InitializeGraphics();
-
-            Btn_Valider.DialogResult = DialogResult.OK;
-            Btn_Annuler.DialogResult = DialogResult.Cancel;
         }
 
         /// <summary>
@@ -96,6 +93,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
                         //);
 
                         ControllerSubFamilly.AddElement(SubFamily);
+                        this.DialogResult = DialogResult.OK;
                     }
                     else//modification
                     {
@@ -103,6 +101,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
                         SubFamily.Nom = Tbx_Famille.Text;
 
                         ControllerSubFamilly.ChangeElement(SubFamily);
+                        this.DialogResult = DialogResult.OK;
                     }
                     this.Close();
                 }
