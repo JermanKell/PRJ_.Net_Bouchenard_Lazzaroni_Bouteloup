@@ -21,15 +21,15 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         /// Adds a new element in the DB 
         /// </summary>
         /// <param name="obj">Object to add in the DB.</param>
-        public override void AddElement(object obj)
+        public override void AddElement(Object obj)
         {
-            SousFamilles subfam = (SousFamilles)obj;
-            SousFamilles resSubFam = manager.getSousFamille(subfam.Nom);
+            SousFamilles SubFamily = (SousFamilles)obj;
+            SousFamilles SubFamilyFound = manager.getSousFamille(SubFamily.Nom);
 
-            if (resSubFam == null)
-                manager.insertSousFamille(resSubFam);
+            if (SubFamilyFound == null)
+                manager.insertSousFamille(SubFamily);
             else
-                MessageBox.Show("This object already exists in the DB");
+                throw new Exception("La sous famille " + SubFamily.Nom + " existe déja dans la base");
         }
 
         /// <summary>
@@ -39,25 +39,25 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         /// <returns>Returns true if done, false else</returns>
         public override int ChangeElement(object obj)
         {
-            int var;
-            SousFamilles sousFamille = (SousFamilles)(obj);
-            SousFamilles sousFam = manager.getSousFamille(sousFamille.Nom);
+            int Count;
 
-            if (sousFam != null)
+            SousFamilles SubFamily = (SousFamilles)(obj);
+            SousFamilles SubFamilyFound = manager.getSousFamille(id: SubFamily.Id);
+
+
+            if (SubFamilyFound != null)
             {
-                var = manager.updateSousFamilles(sousFamille);
-
-                if (var == 1)
-                    MessageBox.Show("The element in the DB has been modified");
-                else
-                    MessageBox.Show("An error occured while the program was changing the values");
+                Count = manager.updateSousFamilles(SubFamily);
+                if (Count != 1)
+                {
+                    throw new Exception("Une erreur liée à la base de données à empêcher la modification de la sous famille " + SubFamily.Nom);
+                }
             }
             else
             {
-                MessageBox.Show("The element to modify does not exist in the DB");
-                var = -1;
+                throw new Exception("La sous famille " + SubFamily.Nom + " n'existe pas dans la base");
             }
-            return var;
+            return Count;
         }
 
         /// <summary>
@@ -69,6 +69,15 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         {
             // TODO
             return 0;
+        }
+
+        /// <summary>
+        /// Get a dictionary of all families
+        /// </summary>
+        /// <returns>Dictionary of int and Families</returns>
+        public Dictionary<int, Familles> getAllFamilies()
+        {
+            return manager.getAllFamilles();
         }
 
         /// <summary>

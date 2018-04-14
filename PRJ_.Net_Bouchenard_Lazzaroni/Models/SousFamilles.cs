@@ -12,6 +12,14 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         private int idFamille;
         private string nom;
 
+        public SousFamilles() { }
+
+        public SousFamilles(int idFamily, string nom)
+        {
+            idFamille = idFamily;
+            this.nom = nom;
+        }
+
         public int Id
         {
             get { return id; }

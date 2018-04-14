@@ -13,6 +13,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
     {
         SousFamilles SubFamily;
         ControllerView_SubFamily ControllerSubFamilly;
+        Dictionary<int, string> DictionaryFamilies;
 
         public AddUpdateSubFamily(ControllerView_SubFamily ControllerSubFamilly, SousFamilles SubFamily = null)
         {
@@ -27,12 +28,15 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
 
         private void InitializeGraphics()
         {
+            InitializeCbxFamilies();
+
             if (SubFamily != null) //View Update
             {
                 this.Text = "Modification";
                 Btn_Valider.Text = "Modifier";
 
-                // REMPLIR ICI TOUTES LES FAMILLES ET METTRE LA SELECTION SUR SA FAMILLE ACTUELLE
+                KeyValuePair<int, string> PairFamily = new KeyValuePair<int, string>(SubFamily.IdFamille, DictionaryFamilies[SubFamily.IdFamille]);
+                Cbx_Famille.SelectedIndex = Cbx_Famille.Items.IndexOf(PairFamily);
 
                 Tbx_Famille.Text = SubFamily.Nom;
             }
@@ -41,6 +45,22 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
                 this.Text = "Ajout";
                 Btn_Valider.Text = "Ajouter";
             }
+        }
+
+        /// <summary>
+        /// Initialize the combobox family by inserting the names
+        /// </summary>
+        private void InitializeCbxFamilies()
+        {
+            Cbx_Famille.Items.Clear();
+            DictionaryFamilies = ControllerSubFamilly.getAllFamilies().ToDictionary(x => x.Key, x => x.Value.Nom);
+            if (DictionaryFamilies.Count > 0)
+            {
+                Cbx_Famille.DataSource = new BindingSource(DictionaryFamilies, null);
+                Cbx_Famille.DisplayMember = "Value";
+                Cbx_Famille.ValueMember = "Key";
+            }
+            Cbx_Famille.SelectedIndex = -1;
         }
 
         private bool CheckEntries()
@@ -52,6 +72,13 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
                 Graphics graph = Tbx_Famille.CreateGraphics();
                 Pen pen = new Pen(Brushes.Red, 2.0f);
                 graph.DrawRectangle(pen, Tbx_Famille.ClientRectangle);
+                IsValid = false;
+            }
+            if (Cbx_Famille.SelectedIndex == -1)
+            {
+                Graphics graph = Cbx_Famille.CreateGraphics();
+                Pen pen = new Pen(Brushes.Red, 2.0f);
+                graph.DrawRectangle(pen, Cbx_Famille.ClientRectangle);
                 IsValid = false;
             }
             return IsValid;
@@ -71,9 +98,10 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
                     if (SubFamily == null)//ajout
                     {
                         NameMessage = "L'ajout ";
-                        //SubFamily = new SousFamilles(
-                          //  Tbx_Famille.Text
-                        //);
+                        SubFamily = new SousFamilles(
+                            ((KeyValuePair<int, string>)Cbx_Famille.SelectedItem).Key,
+                            Tbx_Famille.Text
+                        );
 
                         ControllerSubFamilly.AddElement(SubFamily);
                     }
@@ -81,7 +109,8 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
                     {
                         NameMessage = "La modification ";
                         SubFamily.Nom = Tbx_Famille.Text;
-
+                        SubFamily.IdFamille = ((KeyValuePair<int, string>)Cbx_Famille.SelectedItem).Key;
+                        MessageBox.Show(SubFamily.Id.ToString());
                         ControllerSubFamilly.ChangeElement(SubFamily);
                     }
                     this.Close();
