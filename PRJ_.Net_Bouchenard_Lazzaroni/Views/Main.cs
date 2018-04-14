@@ -59,6 +59,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
                 item.Name = article.Key;    //Set reference as item name
                 listView1.Items.Add(item);
             }
+            statusStrip1.Items[0].Text = "Connecté";
         }
 
         private void ImportationXMLToolStripMenuItem_Click(object sender, EventArgs e)
@@ -83,24 +84,23 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
 
                     SetGroups(GroupColumn);
                     listView1.SetSortIcon(GroupColumn, listView1.Sorting);
-                    //statusStrip1.Items[0].Text = "L'article a bien été supprimé de la base";
+                    statusStrip1.Items[0].Text = "L'article a bien été supprimé de la base";
                 }
                 catch (Exception ex)
                 {
-                    //statusStrip1.Items[0].Text = "Une erreur a empêché la supression de cet article";
+                    statusStrip1.Items[0].Text = "Une erreur a empêché la supression de cet article";
                     MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             else
             {
-                //statusStrip1.Items[0].Text = "La supression d'article a été annulée";
+                statusStrip1.Items[0].Text = "La supression d'article a été annulée";
             }
         }
 
         protected override void AddObjectListView()
         {
             VueArticle VA = new VueArticle(ControllerArticles);
-            VA.StartPosition = FormStartPosition.CenterParent;
             VA.ShowDialog();
 
             refreshOwnView();

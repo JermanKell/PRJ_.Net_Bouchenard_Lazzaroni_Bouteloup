@@ -201,6 +201,28 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             return listSousFamille;
         }
 
+        /// <summary>
+        /// Get all sub families belonging to a family
+        /// </summary>
+        /// <param name="idFamily"> The id of a family </param>
+        /// <returns> The list of sub family belonging to a family </returns>
+        public Dictionary<int, SousFamilles> getAllSubFamiliesFromFamily(int idFamily)
+        {
+            Dictionary<int, SousFamilles> listSubFamily = new Dictionary<int, SousFamilles>();
+            SQLiteCommand sql = new SQLiteCommand("SELECT RefSousFamille FROM SousFamilles WHERE RefFamille = @idFamily", conn);
+            sql.Parameters.AddWithValue("@idFamily", idFamily);
+            SQLiteDataReader reader = sql.ExecuteReader();
+
+            while (reader.Read())
+            {
+                SousFamilles SubFamily = new SousFamilles();
+                SubFamily.convertDataReaderToSousFamilles(reader);
+                listSubFamily.Add(SubFamily.Id, SubFamily);
+            }
+
+            return listSubFamily;
+        }
+
         public Dictionary<int, Marques> getAllMarques()
         {
             Dictionary<int, Marques> listMarque = new Dictionary<int, Marques>();
@@ -472,6 +494,34 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
                 return true;
             else
                 return false;
+        }
+
+        /// <summary>
+        /// Check if at least one article exists for a subfamily
+        /// </summary>
+        /// <param name="idSubFamily"> The sub family id to check </param>
+        /// <returns> The number of articles associated with the subfamily </returns>
+        public int existArticleFromSubFamily(int idSubFamily)
+        {
+            SQLiteCommand sql = new SQLiteCommand("SELECT COUNT(*) FROM Articles WHERE RefSousFamille = @idSubFamily", conn);
+            sql.Parameters.AddWithValue("@idSubFamily", idSubFamily);
+            SQLiteDataReader reader = sql.ExecuteReader();
+
+            return reader.GetInt32(0);
+        }
+
+        /// <summary>
+        /// Check if at least one article exists for a brand
+        /// </summary>
+        /// <param name="idSubFamily"> The brand id to check </param>
+        /// <returns> The number of articles associated with the brand </returns>
+        public int existArticleFromBrand(int idBrand)
+        {
+            SQLiteCommand sql = new SQLiteCommand("SELECT COUNT(*) FROM Articles WHERE RefMarque = @idBrand", conn);
+            sql.Parameters.AddWithValue("@idBrand", idBrand);
+            SQLiteDataReader reader = sql.ExecuteReader();
+
+            return reader.GetInt32(0);
         }
 
         /// <summary>
