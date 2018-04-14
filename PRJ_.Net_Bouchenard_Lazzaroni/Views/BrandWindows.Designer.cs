@@ -28,14 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
-
-            this.listView1.View = System.Windows.Forms.View.Details;
+            this.SuspendLayout();
             // 
             // BrandWindows
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.ClientSize = new System.Drawing.Size(677, 561);
             this.Name = "BrandWindows";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.Controls.SetChildIndex(this.listView1, 0);
             this.ResumeLayout(false);
             this.PerformLayout();
 
