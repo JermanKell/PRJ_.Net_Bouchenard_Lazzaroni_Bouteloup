@@ -184,6 +184,7 @@
             this.Controls.Add(this.btnIntegrate);
             this.Controls.Add(this.progressBar);
             this.Name = "SelectXml";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "SelectXml";
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();

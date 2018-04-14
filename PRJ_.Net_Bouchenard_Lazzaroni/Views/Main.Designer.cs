@@ -35,17 +35,21 @@
             this.marqueToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             this.SuspendLayout();
-            //
-            // ListView
-            //
-            listView1.Location = new System.Drawing.Point(12, 24);
-            listView1.Size = new System.Drawing.Size(653, 513);
+            // 
+            // listView1
+            // 
+            this.listView1.Location = new System.Drawing.Point(12, 25);
+            this.listView1.Size = new System.Drawing.Size(1040, 648);
             // 
             // selectXMLToolStripMenuItem
             // 
+            this.selectXMLToolStripMenuItem.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.selectXMLToolStripMenuItem.AutoSize = false;
+            this.selectXMLToolStripMenuItem.Margin = new System.Windows.Forms.Padding(0, 0, 20, 0);
             this.selectXMLToolStripMenuItem.Name = "selectXMLToolStripMenuItem";
-            this.selectXMLToolStripMenuItem.Size = new System.Drawing.Size(109, 20);
+            this.selectXMLToolStripMenuItem.Size = new System.Drawing.Size(120, 20);
             this.selectXMLToolStripMenuItem.Text = "Importation XML";
+            this.selectXMLToolStripMenuItem.TextDirection = System.Windows.Forms.ToolStripTextDirection.Horizontal;
             this.selectXMLToolStripMenuItem.Click += new System.EventHandler(this.ImportationXMLToolStripMenuItem_Click);
             // 
             // menuStrip
@@ -57,28 +61,32 @@
             this.selectXMLToolStripMenuItem});
             this.menuStrip.Location = new System.Drawing.Point(0, 0);
             this.menuStrip.Name = "menuStrip";
-            this.menuStrip.Size = new System.Drawing.Size(677, 24);
+            this.menuStrip.Size = new System.Drawing.Size(1064, 24);
             this.menuStrip.TabIndex = 2;
             this.menuStrip.Text = "menuStrip";
             // 
             // familleToolStripMenuItem
             // 
+            this.familleToolStripMenuItem.AutoSize = false;
+            this.familleToolStripMenuItem.Margin = new System.Windows.Forms.Padding(10, 0, 0, 0);
             this.familleToolStripMenuItem.Name = "familleToolStripMenuItem";
-            this.familleToolStripMenuItem.Size = new System.Drawing.Size(57, 20);
+            this.familleToolStripMenuItem.Size = new System.Drawing.Size(100, 20);
             this.familleToolStripMenuItem.Text = "Famille";
             this.familleToolStripMenuItem.Click += new System.EventHandler(this.familleToolStripMenuItem_Click);
             // 
             // sousFamilleToolStripMenuItem
             // 
+            this.sousFamilleToolStripMenuItem.AutoSize = false;
             this.sousFamilleToolStripMenuItem.Name = "sousFamilleToolStripMenuItem";
-            this.sousFamilleToolStripMenuItem.Size = new System.Drawing.Size(82, 20);
-            this.sousFamilleToolStripMenuItem.Text = "SousFamille";
+            this.sousFamilleToolStripMenuItem.Size = new System.Drawing.Size(100, 20);
+            this.sousFamilleToolStripMenuItem.Text = "Sous famille";
             this.sousFamilleToolStripMenuItem.Click += new System.EventHandler(this.sousFamilleToolStripMenuItem_Click);
             // 
             // marqueToolStripMenuItem
             // 
+            this.marqueToolStripMenuItem.AutoSize = false;
             this.marqueToolStripMenuItem.Name = "marqueToolStripMenuItem";
-            this.marqueToolStripMenuItem.Size = new System.Drawing.Size(60, 20);
+            this.marqueToolStripMenuItem.Size = new System.Drawing.Size(100, 20);
             this.marqueToolStripMenuItem.Text = "Marque";
             this.marqueToolStripMenuItem.Click += new System.EventHandler(this.marqueToolStripMenuItem_Click);
             // 
@@ -86,12 +94,15 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(677, 561);
+            this.ClientSize = new System.Drawing.Size(1064, 696);
             this.Controls.Add(this.menuStrip);
             this.KeyPreview = true;
             this.MainMenuStrip = this.menuStrip;
             this.Name = "Main";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Main";
+            this.Controls.SetChildIndex(this.menuStrip, 0);
+            this.Controls.SetChildIndex(this.listView1, 0);
             this.menuStrip.ResumeLayout(false);
             this.menuStrip.PerformLayout();
             this.ResumeLayout(false);
