@@ -5,6 +5,9 @@ using System.Text;
 
 namespace PRJ_.Net_Bouchenard_Lazzaroni
 {
+    /// <summary>
+    /// The controller of the article view
+    /// </summary>
     class ControllerViewArticle : ControllerView
     {
         /// <summary>
@@ -94,6 +97,11 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             return manager.getNameColumnTable();
         }
 
+        /// <summary>
+        /// Get one article by his reference
+        /// </summary>
+        /// <param name="reference">The reference of the article</param>
+        /// <returns>The article founded</returns>
         public Articles GetArticle(string reference)
         {
             return manager.getArticle(reference);

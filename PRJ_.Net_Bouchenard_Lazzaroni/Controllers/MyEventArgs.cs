@@ -5,6 +5,9 @@ using System.Text;
 
 namespace PRJ_.Net_Bouchenard_Lazzaroni
 {
+    /// <summary>
+    /// Use to store all args of event send by controller to parse the xml file
+    /// </summary>
     class MyEventArgs : EventArgs
     {
         public string message { get; set; } // The message log

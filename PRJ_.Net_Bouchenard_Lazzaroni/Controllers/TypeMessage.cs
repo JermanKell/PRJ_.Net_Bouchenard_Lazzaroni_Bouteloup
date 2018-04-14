@@ -5,6 +5,9 @@ using System.Text;
 
 namespace PRJ_.Net_Bouchenard_Lazzaroni
 {
+    /// <summary>
+    /// Four king of messages can be used for logs printing
+    /// </summary>
     enum TypeMessage
     {
         Succès,
@@ -13,6 +16,9 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         Critique
     }
 
+    /// <summary>
+    /// Type of messages used for logs printing
+    /// </summary>
     enum SubjectMessage
     {
         Structure_XML,

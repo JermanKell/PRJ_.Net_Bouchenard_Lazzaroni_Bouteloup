@@ -6,6 +6,9 @@ using System.Windows.Forms;
 
 namespace PRJ_.Net_Bouchenard_Lazzaroni
 {
+    /// <summary>
+    /// The controller of the family view
+    /// </summary>
     class ControllerView_PFamily : ControllerView
     {
         /// <summary>
@@ -88,6 +91,11 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             return Count;
         }
 
+        /// <summary>
+        /// Know if an article belong or not to a family
+        /// </summary>
+        /// <param name="idFamily"> The id of the family </param>
+        /// <returns> True if article founded, false else </returns>
         public bool ExistArticleFromFamily(int idFamily)
         {
             Dictionary < int, SousFamilles > DictionaryAllSubFamilyInFamily = manager.getAllSubFamiliesFromFamily(idFamily);
@@ -119,6 +127,11 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             return manager.getNameColumnTable("Familles");
         }
 
+        /// <summary>
+        /// Get one family from his id
+        /// </summary>
+        /// <param name="id">The id of the family</param>
+        /// <returns>The family founded</returns>
         public Familles GetFamily(int id)
         {
             return manager.getFamille(id: id);

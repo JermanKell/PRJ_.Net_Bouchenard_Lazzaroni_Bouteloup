@@ -9,6 +9,9 @@ using System.Data.SQLite;
 
 namespace PRJ_.Net_Bouchenard_Lazzaroni
 {
+    /// <summary>
+    /// Abstract class - Controller of the XML parser
+    /// </summary>
     abstract class ControllerParserXML
     {
         public event EventHandler<MyEventArgs> eventUpdateListView; // Send events to the view (Update ListView)

@@ -7,6 +7,9 @@ using System.Xml;
 
 namespace PRJ_.Net_Bouchenard_Lazzaroni
 {
+    /// <summary>
+    /// Controller of the XML parser. Called by view when the user want make an update of the database
+    /// </summary>
     class ControllerParserXMLUpdate : ControllerParserXML
     {
 
