@@ -64,6 +64,7 @@
             this.Cbx_Famille.Name = "Cbx_Famille";
             this.Cbx_Famille.Size = new System.Drawing.Size(235, 21);
             this.Cbx_Famille.TabIndex = 2;
+            this.Cbx_Famille.SelectedIndexChanged += new System.EventHandler(this.Cbx_Famille_SelectedIndexChanged);
             // 
             // Cbx_SousFamille
             // 
@@ -186,7 +187,7 @@
             this.Btn_Annuler.UseVisualStyleBackColor = true;
             this.Btn_Annuler.Click += new System.EventHandler(this.cancelButton_Click);
             // 
-            // VueArticle
+            // AddUpdateArticle
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -208,7 +209,7 @@
             this.Controls.Add(this.Cbx_Famille);
             this.Controls.Add(this.Cbx_Marque);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.Name = "VueArticle";
+            this.Name = "AddUpdateArticle";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Article";
             this.ResumeLayout(false);

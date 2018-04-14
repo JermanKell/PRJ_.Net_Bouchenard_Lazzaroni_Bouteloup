@@ -104,7 +104,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
                 }
                 catch (Exception ex)
                 {
-                    this.DialogResult = DialogResult.Cancel;
+                    this.DialogResult = DialogResult.Cancel;    //PB
                     MessageBox.Show("Une erreur est survenue lors de " + NameMessage.ToLower() + "avec le message suivant:\n" + ex.Message, "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }

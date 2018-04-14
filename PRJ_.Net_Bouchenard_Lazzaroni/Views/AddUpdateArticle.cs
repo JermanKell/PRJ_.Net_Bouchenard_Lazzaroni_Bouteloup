@@ -16,7 +16,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         Articles Article; // The article to modify or null if the user want to add a new article
         ControllerViewArticle ControllerArticles;
         Dictionary<int, string> DictionaryFamilles; // Useful for combobox
-        Dictionary<int, string> DictionarySousFamilles; // Useful for combobox
+        Dictionary<int, Dictionary<int, string>> DictionarySubFamilySortedByFamily; //first key: id family, second key: id subfamily
         Dictionary<int, string> DictionaryMarques; // Useful for combobox
 
         /// <summary>
@@ -38,9 +38,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         private void InitializeGraphics()
         {
             InitializeCbxFamilles();
-            InitializeCbxSousFamilles();
             InitializeCbxMarques();
-
 
             if (Article != null) //View Update
             {
@@ -57,7 +55,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
                 KeyValuePair<int, string> PairFamille = new KeyValuePair<int, string>(Article.IdFamille, DictionaryFamilles[Article.IdFamille]);
                 Cbx_Famille.SelectedIndex = Cbx_Famille.Items.IndexOf(PairFamille);
 
-                KeyValuePair<int, string> PairSousFamille = new KeyValuePair<int, string>(Article.IdSousFamille, DictionarySousFamilles[Article.IdSousFamille]);
+                KeyValuePair<int, string> PairSousFamille = new KeyValuePair<int, string>(Article.IdSousFamille, DictionarySubFamilySortedByFamily[Article.IdFamille][Article.IdSousFamille]);
                 Cbx_SousFamille.SelectedIndex = Cbx_SousFamille.Items.IndexOf(PairSousFamille);
 
                 KeyValuePair<int, string> PairMarque = new KeyValuePair<int, string>(Article.IdMarque, DictionaryMarques[Article.IdMarque]);
@@ -68,6 +66,9 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
                 this.Text = "Ajout";
                 Btn_Valider.Text = "Ajouter";
 
+                Cbx_Famille.SelectedIndex = -1;
+                Cbx_Marque.SelectedIndex = -1;
+
                 Tbx_Reference.Text = "F";
             }      
         }
@@ -77,39 +78,40 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         /// </summary>
         private void InitializeCbxFamilles()
         {
-            Cbx_Famille.Items.Clear();
             DictionaryFamilles = ControllerArticles.GetAllFamilles().ToDictionary(x => x.Key, x => x.Value.Nom);
-            if(DictionaryFamilles.Count > 0)
+            InitializeDictionarySubFamilySortedByFamily();
+            if (DictionaryFamilles.Count > 0)
             {
                 Cbx_Famille.DataSource = new BindingSource(DictionaryFamilles, null);
                 Cbx_Famille.DisplayMember = "Value";
                 Cbx_Famille.ValueMember = "Key";
             }
-            Cbx_Famille.SelectedIndex = -1;
         }
 
         /// <summary>
-        /// Init the sub family dictionnary for the combo box
+        /// Init the Dictionary of sub families stored by id family
         /// </summary>
-        private void InitializeCbxSousFamilles()
+        private void InitializeDictionarySubFamilySortedByFamily()
         {
-            Cbx_SousFamille.Items.Clear();
-            DictionarySousFamilles = ControllerArticles.GetAllSousFamilles().ToDictionary(x => x.Key, x => x.Value.Nom);
-            if(DictionarySousFamilles.Count > 0)
+            DictionarySubFamilySortedByFamily = new Dictionary<int, Dictionary<int, string>>();
+
+            foreach (KeyValuePair<int, string> Family in DictionaryFamilles)
             {
-                Cbx_SousFamille.DataSource = new BindingSource(DictionarySousFamilles, null);
-                Cbx_SousFamille.DisplayMember = "Value";
-                Cbx_SousFamille.ValueMember = "Key";
+                DictionarySubFamilySortedByFamily[Family.Key] = new Dictionary<int, string>();
             }
-            Cbx_SousFamille.SelectedIndex = -1;
+
+
+            foreach (KeyValuePair<int, SousFamilles> SubFamily in ControllerArticles.GetAllSousFamilles())
+            {
+                DictionarySubFamilySortedByFamily[SubFamily.Value.IdFamille][SubFamily.Value.Id] = SubFamily.Value.Nom;
+            }
         }
 
         /// <summary>
         /// Init the brand dictionnary for the combo box
         /// </summary>
         private void InitializeCbxMarques()
-        {
-            Cbx_Marque.Items.Clear();   
+        { 
             DictionaryMarques = ControllerArticles.GetAllMarques().ToDictionary(x => x.Key, x => x.Value.Nom);
             if(DictionaryMarques.Count > 0)
             {
@@ -117,7 +119,6 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
                 Cbx_Marque.DisplayMember = "Value";
                 Cbx_Marque.ValueMember = "Key";
             }
-            Cbx_Marque.SelectedIndex = -1;
         }
 
         /// <summary>
@@ -228,7 +229,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
                 }
                 catch (Exception ex)
                 {
-                    this.DialogResult = DialogResult.Cancel;
+                    this.DialogResult = DialogResult.Cancel;    //PB
                     MessageBox.Show("Une erreur est survenue lors de " + NameMessage.ToLower() + "avec le message suivant:\n" + ex.Message, "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
@@ -242,6 +243,28 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         private void cancelButton_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        /// <summary>
+        /// Event triggered when the index of the Combobox Family is changed
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Cbx_Famille_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (Cbx_Famille.SelectedIndex != -1)
+            {
+                Cbx_SousFamille.DataSource = null;
+                Cbx_SousFamille.Items.Clear();
+                Dictionary<int, string> DictionaryRetrievedOfSubFamily = DictionarySubFamilySortedByFamily[((KeyValuePair<int, string>)Cbx_Famille.SelectedItem).Key];
+                if (DictionaryFamilles.Count > 0)
+                {
+                    Cbx_SousFamille.DataSource = new BindingSource(DictionaryRetrievedOfSubFamily, null);
+                    Cbx_SousFamille.DisplayMember = "Value";
+                    Cbx_SousFamille.ValueMember = "Key";
+                }
+                Cbx_SousFamille.SelectedIndex = -1;
+            }
         }
     }
 }
