@@ -43,13 +43,13 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
                 }
                 xmlDocument.Save(filename); // Apply modification to the document (fix spelling mistake).
 
-                updateListView(TypeMessage.Success, SubjectMessage.Finish,
-                    "Success : " + counterTypeMessage[TypeMessage.Success] + "   Warning : " + counterTypeMessage[TypeMessage.Warning] +
-                    "   Error : " + counterTypeMessage[TypeMessage.Error] + "   Critical : " + counterTypeMessage[TypeMessage.Critical]);
+                updateListView(TypeMessage.Succès, SubjectMessage.Terminé,
+                    "Succès : " + counterTypeMessage[TypeMessage.Succès] + "   Avertissement : " + counterTypeMessage[TypeMessage.Avertissement] +
+                    "   Erreur : " + counterTypeMessage[TypeMessage.Erreur] + "   Critique : " + counterTypeMessage[TypeMessage.Critique]);
             }
             catch (Exception e)
             {
-                updateListView(TypeMessage.Critical, SubjectMessage.Xml_Structure, e.Message);
+                updateListView(TypeMessage.Critique, SubjectMessage.Structure_XML, e.Message);
                 throw;
             }
         }
@@ -77,8 +77,8 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
                 else
                 {
                     // Generate error because a sousFamille don't belong to twice family. (this sub family has already a family)
-                    updateListView(TypeMessage.Error, SubjectMessage.Update_Famille,
-                        "Article " + article.Reference + ". His familly has not been updated because his subfamily does not match with the new familly");
+                    updateListView(TypeMessage.Erreur, SubjectMessage.Modifier_famille,
+                        "L'article " + article.Reference + ". Sa famille n'a pas été mis à jour car sa sous famille ne correspond pas avec la nouvelle famille");
                 }
             }
                 

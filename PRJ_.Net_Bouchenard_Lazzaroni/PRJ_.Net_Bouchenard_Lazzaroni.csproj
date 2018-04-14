@@ -175,7 +175,6 @@
     <EmbeddedResource Include="Views\AddUpdateArticle.resx">
       <DependentUpon>AddUpdateArticle.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="ClassDiagram1.cd" />
     <None Include="Mercure.SQLite">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

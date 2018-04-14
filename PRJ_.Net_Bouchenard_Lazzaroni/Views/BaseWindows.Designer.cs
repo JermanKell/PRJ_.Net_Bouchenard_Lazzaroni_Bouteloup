@@ -31,8 +31,8 @@
             this.components = new System.ComponentModel.Container();
             this.listView1 = new System.Windows.Forms.ListView();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-            this.rightClickMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.rightClickMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -66,17 +66,17 @@
             this.statusStrip1.TabIndex = 2;
             this.statusStrip1.Text = "statusStrip1";
             // 
-            // rightClickMenuStrip
-            // 
-            this.rightClickMenuStrip.Name = "rightClickMenuStrip";
-            this.rightClickMenuStrip.Size = new System.Drawing.Size(61, 4);
-            this.rightClickMenuStrip.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.rightClickMenuStrip_ItemClicked_1);
-            // 
             // toolStripStatusLabel1
             // 
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
             this.toolStripStatusLabel1.Size = new System.Drawing.Size(118, 17);
             this.toolStripStatusLabel1.Text = "toolStripStatusLabel1";
+            // 
+            // rightClickMenuStrip
+            // 
+            this.rightClickMenuStrip.Name = "rightClickMenuStrip";
+            this.rightClickMenuStrip.Size = new System.Drawing.Size(61, 4);
+            this.rightClickMenuStrip.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.rightClickMenuStrip_ItemClicked_1);
             // 
             // BaseWindows
             // 
@@ -86,6 +86,7 @@
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.listView1);
             this.Name = "BaseWindows";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "BaseWindows";
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.BaseWindows_KeyUp);
             this.statusStrip1.ResumeLayout(false);
