@@ -58,17 +58,19 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         }
 
         /// <summary>
-        /// Deletes an element from the DB with the reference passed in parameter 
+        /// Deletes all articles and a brand with the reference of the brand passed in parameter 
         /// </summary>
         /// <param name="RefObj">Reference of the element to delete</param>
-        /// <returns>Returns true if done, false else</returns>
+        /// <returns>Returns the total number of rows removed</returns>
         public override int DeleteElement(string RefObj)
         {
-            int Count;
+            int idBrand = Convert.ToInt32(RefObj);
+            int Count = 0;
             if (manager.getMarque(id: Convert.ToInt32(RefObj)) != null)
             {
-                Count = manager.removeMarque(Convert.ToInt32(RefObj));
-                if (Count != 1)
+                Count += manager.removeArticleFromBrand(idBrand);
+                Count += manager.removeMarque(idBrand);
+                if (Count == 0)
                 {
                     throw new Exception("Une erreur liée à la base de données à empêcher la supression de la marque de reference " + RefObj);
                 }
@@ -78,6 +80,14 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
                 throw new Exception("La marque de référence " + RefObj + " n'existe pas dans la base");
             }
             return Count;
+        }
+
+        public bool ExistArticleFromBrand(int idBrand)
+        {
+            if (manager.existArticleFromBrand(idBrand) > 0)
+                return true;
+            else
+                return false;
         }
 
         /// <summary>

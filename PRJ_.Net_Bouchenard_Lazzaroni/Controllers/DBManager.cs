@@ -284,13 +284,33 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         /// <summary>
         /// Remove an article from a sub family id
         /// </summary>
-        /// <param name="idFamily"> The sub family id </param>
+        /// <param name="idSubFamily"> The sub family id </param>
         /// <returns> The number of rows removed in the DB </returns>
         public int removeArticleFromSubFamily(int idSubFamily)
         {
             SQLiteCommand sql = new SQLiteCommand(
                 "DELETE FROM Articles WHERE RefSousFamille = @idFamily", conn);
             sql.Parameters.AddWithValue("@idFamily", idSubFamily);
+            try
+            {
+                return sql.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Remove an article from a brand id
+        /// </summary>
+        /// <param name="idBrand"> The brand id </param>
+        /// <returns> The number of rows removed in the DB </returns>
+        public int removeArticleFromBrand(int idBrand)
+        {
+            SQLiteCommand sql = new SQLiteCommand(
+                "DELETE FROM Articles WHERE RefMarque = @idBrand", conn);
+            sql.Parameters.AddWithValue("@idBrand", idBrand);
             try
             {
                 return sql.ExecuteNonQuery();
