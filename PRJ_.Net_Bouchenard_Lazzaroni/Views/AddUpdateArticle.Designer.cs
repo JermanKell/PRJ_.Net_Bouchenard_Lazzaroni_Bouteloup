@@ -53,7 +53,7 @@
             this.Cbx_Marque.Location = new System.Drawing.Point(155, 222);
             this.Cbx_Marque.Name = "Cbx_Marque";
             this.Cbx_Marque.Size = new System.Drawing.Size(235, 21);
-            this.Cbx_Marque.TabIndex = 1;
+            this.Cbx_Marque.TabIndex = 4;
             // 
             // Cbx_Famille
             // 
@@ -115,7 +115,7 @@
             this.Tbx_Reference.Location = new System.Drawing.Point(155, 12);
             this.Tbx_Reference.Name = "Tbx_Reference";
             this.Tbx_Reference.Size = new System.Drawing.Size(235, 20);
-            this.Tbx_Reference.TabIndex = 8;
+            this.Tbx_Reference.TabIndex = 0;
             // 
             // Tbx_Description
             // 
@@ -123,7 +123,7 @@
             this.Tbx_Description.Multiline = true;
             this.Tbx_Description.Name = "Tbx_Description";
             this.Tbx_Description.Size = new System.Drawing.Size(235, 72);
-            this.Tbx_Description.TabIndex = 9;
+            this.Tbx_Description.TabIndex = 1;
             // 
             // Lab_Famille
             // 
@@ -157,21 +157,21 @@
             this.Tbx_Prix.Location = new System.Drawing.Point(155, 263);
             this.Tbx_Prix.Name = "Tbx_Prix";
             this.Tbx_Prix.Size = new System.Drawing.Size(235, 20);
-            this.Tbx_Prix.TabIndex = 13;
+            this.Tbx_Prix.TabIndex = 5;
             // 
             // Tbx_Quantite
             // 
             this.Tbx_Quantite.Location = new System.Drawing.Point(155, 307);
             this.Tbx_Quantite.Name = "Tbx_Quantite";
             this.Tbx_Quantite.Size = new System.Drawing.Size(235, 20);
-            this.Tbx_Quantite.TabIndex = 14;
+            this.Tbx_Quantite.TabIndex = 6;
             // 
             // Btn_Valider
             // 
             this.Btn_Valider.Location = new System.Drawing.Point(289, 352);
             this.Btn_Valider.Name = "Btn_Valider";
             this.Btn_Valider.Size = new System.Drawing.Size(101, 27);
-            this.Btn_Valider.TabIndex = 15;
+            this.Btn_Valider.TabIndex = 7;
             this.Btn_Valider.Text = "*";
             this.Btn_Valider.UseVisualStyleBackColor = true;
             this.Btn_Valider.Click += new System.EventHandler(this.Btn_Valider_Click);
@@ -181,12 +181,12 @@
             this.Btn_Annuler.Location = new System.Drawing.Point(182, 352);
             this.Btn_Annuler.Name = "Btn_Annuler";
             this.Btn_Annuler.Size = new System.Drawing.Size(101, 27);
-            this.Btn_Annuler.TabIndex = 16;
+            this.Btn_Annuler.TabIndex = 8;
             this.Btn_Annuler.Text = "Annuler";
             this.Btn_Annuler.UseVisualStyleBackColor = true;
             this.Btn_Annuler.Click += new System.EventHandler(this.cancelButton_Click);
             // 
-            // VueArticle
+            // AddUpdateArticle
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -208,7 +208,7 @@
             this.Controls.Add(this.Cbx_Famille);
             this.Controls.Add(this.Cbx_Marque);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.Name = "VueArticle";
+            this.Name = "AddUpdateArticle";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Article";
             this.ResumeLayout(false);

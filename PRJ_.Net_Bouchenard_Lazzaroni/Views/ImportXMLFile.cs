@@ -15,7 +15,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
     /// </summary>
     public partial class ImportXMLFile : Form
     {
-        private string filename; // Path of the xml file
+        private string Filename; // Path of the xml file
 
         /// <summary>
         /// Constructor per default
@@ -28,9 +28,9 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         /// <summary>
         /// Open dialog to select the xml file
         /// </summary>
-        /// <param name="sender"> Mandadory because receive event </param>
-        /// <param name="e"> Param of the event </param>
-        private void btnOpenFile_Click(object sender, EventArgs e)
+        /// <param name="Sender"> Mandadory because receive event </param>
+        /// <param name="E"> Param of the event </param>
+        private void BtnOpenFile_Click(object Sender, EventArgs E)
         {
             DocOpen_Window = new OpenFileDialog();
             DocOpen_Window.Filter = "XML Files (.xml) | *.xml";
@@ -40,40 +40,40 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
 
             if (DocOpen_Window.ShowDialog() == DialogResult.OK)
             {
-                filename = DocOpen_Window.FileName; // Full path of the file
-                lab_FName.Text = DocOpen_Window.SafeFileName;
+                Filename = DocOpen_Window.FileName; // Full path of the file
+                Lab_FName.Text = DocOpen_Window.SafeFileName;
             }
         }
 
         /// <summary>
         /// Parse the file selected
         /// </summary>
-        /// <param name="sender"> Mandadory because receive event </param>
-        /// <param name="e"> Argument of the event </param>
-        private void btnIntegrate_Click(object sender, EventArgs e)
+        /// <param name="Sender"> Mandadory because receive event </param>
+        /// <param name="E"> Argument of the event </param>
+        private void BtnIntegrate_Click(object Sender, EventArgs E)
         {
-            listView.Items.Clear(); // Remove all items
+            ListView.Items.Clear(); // Remove all items
 
-            if (lab_FName.Text.CompareTo("") != 0) // If no file has selected
+            if (Lab_FName.Text.CompareTo("") != 0) // If no file has selected
             {
-                ControllerParserXML controllerParser;
-                progressBar.Value = 0; // Reset the position of the bar
+                ControllerParserXML ControllerParser;
+                ProgressBar.Value = 0; // Reset the position of the bar
 
                 if (Update_XML.Checked == true)
                 {
-                    controllerParser = new ControllerParserXMLUpdate(filename);
-                    controllerParser.eventUpdateListView += updateListView; // Event ListView
-                    controllerParser.eventUpdateProgressBar += updateProgressBar; // Event ProgressBar
-                    controllerParser.eventRangeMaxProgressBar += updateMaxRangeProgressBar; // Event max range ProgressBar
-                    controllerParser.parse();
+                    ControllerParser = new ControllerParserXMLUpdate(Filename);
+                    ControllerParser.EventUpdateListView += UpdateListView; // Event ListView
+                    ControllerParser.EventUpdateProgressBar += UpdateProgressBar; // Event ProgressBar
+                    ControllerParser.EventRangeMaxProgressBar += UpdateMaxRangeProgressBar; // Event max range ProgressBar
+                    ControllerParser.Parse();
                 }
                 if (Integration_XML.Checked == true)
                 {
-                    controllerParser = new ControllerParserXMLAdd(filename);
-                    controllerParser.eventUpdateListView += updateListView; // Event ListView
-                    controllerParser.eventUpdateProgressBar += updateProgressBar; // Event ProgressBar
-                    controllerParser.eventRangeMaxProgressBar += updateMaxRangeProgressBar; // Event max range ProgressBar
-                    controllerParser.parse();
+                    ControllerParser = new ControllerParserXMLAdd(Filename);
+                    ControllerParser.EventUpdateListView += UpdateListView; // Event ListView
+                    ControllerParser.EventUpdateProgressBar += UpdateProgressBar; // Event ProgressBar
+                    ControllerParser.EventRangeMaxProgressBar += UpdateMaxRangeProgressBar; // Event max range ProgressBar
+                    ControllerParser.Parse();
                 }
             }
         }
@@ -81,48 +81,48 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         /// <summary>
         /// Signal send by controller to add text line on the list view
         /// </summary>
-        /// <param name="sender"> Mandatory because receive event </param>
-        /// <param name="e"> Argument of the event </param>
-        void updateListView(object sender, MyEventArgs e)
+        /// <param name="Sender"> Mandatory because receive event </param>
+        /// <param name="E"> Argument of the event </param>
+        void UpdateListView(object Sender, MyEventArgs E)
         {
-            ListViewItem listViewItem = new ListViewItem(new[] { e.message, e.type.ToString(), e.subject.ToString()});
+            ListViewItem ListViewItem = new ListViewItem(new[] { E.Message, E.Type.ToString(), E.Subject.ToString()});
 
-            if (e.type == TypeMessage.Succès)
-                listViewItem.ForeColor = Color.Green;
-            else if (e.type == TypeMessage.Avertissement)
-                listViewItem.ForeColor = Color.Brown;
-            else if (e.type == TypeMessage.Erreur)
-                listViewItem.ForeColor = Color.Red;
+            if (E.Type == TypeMessage.Succès)
+                ListViewItem.ForeColor = Color.Green;
+            else if (E.Type == TypeMessage.Avertissement)
+                ListViewItem.ForeColor = Color.Brown;
+            else if (E.Type == TypeMessage.Erreur)
+                ListViewItem.ForeColor = Color.Red;
             else
             {
-                listViewItem.ForeColor = Color.Black;
-                listViewItem.BackColor = Color.Red;
+                ListViewItem.ForeColor = Color.Black;
+                ListViewItem.BackColor = Color.Red;
             }
 
-            listView.Items.Add(listViewItem);
-            listView.Refresh();
+            ListView.Items.Add(ListViewItem);
+            ListView.Refresh();
 
-            listView.EnsureVisible(listView.Items.Count - 1); // Auto scroll down
+            ListView.EnsureVisible(ListView.Items.Count - 1); // Auto scroll down
         }
 
         /// <summary>
         /// Signal send by controller to update the progress bar
         /// </summary>
-        /// <param name="sender"> Mandatory because receive event </param>
-        /// <param name="e"> Argument of the event </param>
-        void updateProgressBar(object sender, MyEventArgs e)
+        /// <param name="Sender"> Mandatory because receive event </param>
+        /// <param name="E"> Argument of the event </param>
+        void UpdateProgressBar(object Sender, MyEventArgs E)
         {
-            progressBar.PerformStep();
+            ProgressBar.PerformStep();
         }
 
         /// <summary>
         /// Signal send by controller to set the max range of the progress bar
         /// </summary>
-        /// <param name="sender"> Mandatory because receive event </param>
-        /// <param name="e"> Argument of the event </param>
-        void updateMaxRangeProgressBar(object sender, MyEventArgs e)
+        /// <param name="Sender"> Mandatory because receive event </param>
+        /// <param name="E"> Argument of the event </param>
+        void UpdateMaxRangeProgressBar(object Sender, MyEventArgs E)
         {
-            progressBar.Maximum = e.maxRange;
+            ProgressBar.Maximum = E.MaxRange;
         }
     }
 }

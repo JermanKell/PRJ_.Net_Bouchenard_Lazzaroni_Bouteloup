@@ -61,54 +61,54 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
             GroupsListView.Clear();
 
             //Create a hashtable for each column
-            for (int column = 0; column < listView1.Columns.Count; column++)
+            for (int Column = 0; Column < ListView.Columns.Count; Column++)
             {
-                Hashtable groupColumn = new Hashtable();
+                Hashtable GroupColumn = new Hashtable();
 
                 // Iterate through the items in myListView
-                for (int i = 0; i < listView1.Items.Count; i++)
+                for (int I = 0; I < ListView.Items.Count; I++)
                 {
-                    ListViewItem item = listView1.Items[i];
-                    string textItem = item.SubItems[column].Text;
+                    ListViewItem Item = ListView.Items[I];
+                    string TextItem = Item.SubItems[Column].Text;
 
                     // If the groupColumn doesn't already contain a group for the textItem value, 
                     //add a new group using the textItem value for the group header and Hashtable key
-                    if (!groupColumn.Contains(textItem))
+                    if (!GroupColumn.Contains(TextItem))
                     {
-                        groupColumn.Add(textItem, new ListViewGroup(textItem, HorizontalAlignment.Left));
+                        GroupColumn.Add(TextItem, new ListViewGroup(TextItem, HorizontalAlignment.Left));
                     }
                 }
-                GroupsListView.Add(groupColumn);
+                GroupsListView.Add(GroupColumn);
             }
         }
 
         /// <summary>
         /// Sort column by group
         /// </summary>
-        /// <param name="column"> The column to sort </param>
-        protected void SetGroups(int column)
+        /// <param name="Column"> The column to sort </param>
+        protected void SetGroups(int Column)
         {
-            listView1.Groups.Clear();
+            ListView.Groups.Clear();
 
             // Get the Hashtable corresponding to the column
-            Hashtable groups = GroupsListView.ElementAt(column);
+            Hashtable Groups = GroupsListView.ElementAt(Column);
 
             // Copy the groups for the column in Listgroups
-            ListViewGroup[] Listgroups = new ListViewGroup[groups.Count];
-            groups.Values.CopyTo(Listgroups, 0);
+            ListViewGroup[] Listgroups = new ListViewGroup[Groups.Count];
+            Groups.Values.CopyTo(Listgroups, 0);
 
             // Sort the groups and add them to myListView
-            Array.Sort(Listgroups, new ListViewGroupSorter(listView1.Sorting));
-            listView1.Groups.AddRange(Listgroups);
+            Array.Sort(Listgroups, new ListViewGroupSorter(ListView.Sorting));
+            ListView.Groups.AddRange(Listgroups);
 
             // Iterate through the items in myListView, assigning each one to the appropriate group
-            for (int i = 0; i < listView1.Items.Count; i++)
+            for (int I = 0; I < ListView.Items.Count; I++)
             {
-                ListViewItem item = listView1.Items[i];
-                string textItem = item.SubItems[column].Text;
+                ListViewItem Item = ListView.Items[I];
+                string TextItem = Item.SubItems[Column].Text;
 
                 // Assign the item to the matching group
-                item.Group = (ListViewGroup)groups[textItem];
+                Item.Group = (ListViewGroup)Groups[TextItem];
             }
         }
 
@@ -117,53 +117,53 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
         /// </summary>
         private class ListViewGroupSorter : IComparer
         {
-            private SortOrder order;
+            private SortOrder Order;
 
             /// <summary>
             /// Stores the sort order
             /// </summary>
-            /// <param name="theOrder"></param>
-            public ListViewGroupSorter(SortOrder theOrder)
+            /// <param name="TheOrder"></param>
+            public ListViewGroupSorter(SortOrder TheOrder)
             {
                 //MessageBox.Show(theOrder.ToString());
-                order = theOrder;
+                Order = TheOrder;
             }
 
             /// <summary>
             /// Compares the groups by header value, using the saved sort order to return the correct value
             /// </summary>
-            /// <param name="x">Object one to compare</param>
-            /// <param name="y">The second object to compare</param>
+            /// <param name="X">Object one to compare</param>
+            /// <param name="Y">The second object to compare</param>
             /// <returns>The result</returns>
-            public int Compare(object x, object y)
+            public int Compare(object X, object Y)
             {
-                int result;
+                int Result;
                 double DoubleX, DoubleY;
-                if (double.TryParse(((ListViewGroup)x).Header, out DoubleX) && double.TryParse(((ListViewGroup)y).Header, out DoubleY))
+                if (double.TryParse(((ListViewGroup)X).Header, out DoubleX) && double.TryParse(((ListViewGroup)Y).Header, out DoubleY))
                 {
                     if (DoubleX > DoubleY)
-                        result = 1;
+                        Result = 1;
                     else
-                        result = -1;
+                        Result = -1;
                     // MessageBox.Show("Comparaison number: '" + ((ListViewGroup)x).Header + "' avec '" + ((ListViewGroup)y).Header + "' resultat=" + result);
                 }
                 else
                 {
-                    result = String.Compare(((ListViewGroup)x).Header, ((ListViewGroup)y).Header);
+                    Result = String.Compare(((ListViewGroup)X).Header, ((ListViewGroup)Y).Header);
                     //MessageBox.Show("Comparaison string: '" + ((ListViewGroup)x).Header + "' avec '" + ((ListViewGroup)y).Header + "' resultat=" + result);
                 }
 
-                if (order == SortOrder.Ascending)
-                    return result;
+                if (Order == SortOrder.Ascending)
+                    return Result;
                 else
-                    return -result;
+                    return -Result;
             }
         }
 
         /// <summary>
         /// Refresh the view to be up to date with the database
         /// </summary>
-        protected void refreshOwnView()
+        protected void RefreshOwnView()
         {
             LoadDataListView();
 
@@ -178,25 +178,25 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
         /// </summary>
         protected void RefreshListViewArticle()
         {
-            listView1.Sorting = SortOrder.Ascending;
+            ListView.Sorting = SortOrder.Ascending;
             SetGroups(0);
-            listView1.SetSortIcon(0, SortOrder.Ascending);
-            listView1.SelectedItems.Clear();
-            if (listView1.FocusedItem != null)
+            ListView.SetSortIcon(0, SortOrder.Ascending);
+            ListView.SelectedItems.Clear();
+            if (ListView.FocusedItem != null)
             {
-                listView1.FocusedItem.Focused = false;
+                ListView.FocusedItem.Focused = false;
             }
         }
 
         /// <summary>
         /// Refresh the view when the user press F5
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void BaseWindows_KeyUp(object sender, KeyEventArgs e)
+        /// <param name="Sender"></param>
+        /// <param name="E"></param>
+        private void BaseWindows_KeyUp(object Sender, KeyEventArgs E)
         {
             //Refresh listViewArticle
-            if (e.KeyCode == Keys.F5)
+            if (E.KeyCode == Keys.F5)
             {
                 RefreshListViewArticle();
             }
@@ -205,37 +205,37 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
         /// <summary>
         /// Groups the items using the groups created for the clicked column
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void listView1_ColumnClick(object sender, ColumnClickEventArgs e)
+        /// <param name="Sender"></param>
+        /// <param name="E"></param>
+        private void ListView_ColumnClick(object Sender, ColumnClickEventArgs E)
         {
             // Set the sort order to ascending when changing column groups; otherwise, reverse the sort order
-            if ((listView1.Sorting == SortOrder.Descending) || (e.Column != GroupColumn))
-                listView1.Sorting = SortOrder.Ascending;
+            if ((ListView.Sorting == SortOrder.Descending) || (E.Column != GroupColumn))
+                ListView.Sorting = SortOrder.Ascending;
             else
-                listView1.Sorting = SortOrder.Descending;
-            GroupColumn = e.Column;
+                ListView.Sorting = SortOrder.Descending;
+            GroupColumn = E.Column;
 
             // Set the groups to those created for the clicked column
-            SetGroups(e.Column);
-            listView1.SetSortIcon(e.Column, listView1.Sorting);
+            SetGroups(E.Column);
+            ListView.SetSortIcon(E.Column, ListView.Sorting);
         }
 
         /// <summary>
         /// Modify an article and the user press enter remove when press delete
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void listView1_KeyUp(object sender, KeyEventArgs e)
+        /// <param name="Sender"></param>
+        /// <param name="E"></param>
+        private void ListView_KeyUp(object Sender, KeyEventArgs E)
         {
             //Modifier article
-            if (e.KeyCode == Keys.Enter && listView1.SelectedItems.Count != 0)
+            if (E.KeyCode == Keys.Enter && ListView.SelectedItems.Count != 0)
             {
                 UpdateObjectListView();
             }
 
             //Supprimer article
-            if (e.KeyCode == Keys.Delete && listView1.SelectedItems.Count != 0)
+            if (E.KeyCode == Keys.Delete && ListView.SelectedItems.Count != 0)
             {
                 DeleteObjectListView();
             }
@@ -244,34 +244,34 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
         /// <summary>
         /// Print the menu when the user do a right click
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void listView1_MouseUp(object sender, MouseEventArgs e)
+        /// <param name="Sender"></param>
+        /// <param name="E"></param>
+        private void ListView_MouseUp(object Sender, MouseEventArgs E)
         {
-            if (e.Button == MouseButtons.Right && listView1.SelectedItems.Count != 0)
+            if (E.Button == MouseButtons.Right && ListView.SelectedItems.Count != 0)
             {
-                rightClickMenuStrip.Items.Clear();
-                rightClickMenuStrip.Items.Add("Ajouter");
-                rightClickMenuStrip.Items.Add("Modifier");
-                rightClickMenuStrip.Items.Add("Supprimer");
-                rightClickMenuStrip.Show(this, new Point(e.X + 14, e.Y + 4));
+                RightClickMenuStrip.Items.Clear();
+                RightClickMenuStrip.Items.Add("Ajouter");
+                RightClickMenuStrip.Items.Add("Modifier");
+                RightClickMenuStrip.Items.Add("Supprimer");
+                RightClickMenuStrip.Show(this, new Point(E.X + 14, E.Y + 4));
             }
-            else if (e.Button == MouseButtons.Right && listView1.SelectedItems.Count == 0)
+            else if (E.Button == MouseButtons.Right && ListView.SelectedItems.Count == 0)
             {
-                rightClickMenuStrip.Items.Clear();
-                rightClickMenuStrip.Items.Add("Ajouter");
-                rightClickMenuStrip.Show(this, new Point(e.X + 14, e.Y + 4));
+                RightClickMenuStrip.Items.Clear();
+                RightClickMenuStrip.Items.Add("Ajouter");
+                RightClickMenuStrip.Show(this, new Point(E.X + 14, E.Y + 4));
             }
         }
 
         /// <summary>
         /// To recover the selection of the user when he did a right click
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void rightClickMenuStrip_ItemClicked_1(object sender, ToolStripItemClickedEventArgs e)
+        /// <param name="Sender"></param>
+        /// <param name="E"></param>
+        private void RightClickMenuStrip_ItemClicked(object Sender, ToolStripItemClickedEventArgs E)
         {
-            switch (e.ClickedItem.Text)
+            switch (E.ClickedItem.Text)
             {
                 case "Ajouter":
                     AddObjectListView();
@@ -288,20 +288,20 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
         /// <summary>
         /// Resize the window
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void listView1_Resize(object sender, EventArgs e)
+        /// <param name="Sender"></param>
+        /// <param name="E"></param>
+        private void ListView_Resize(object Sender, EventArgs E)
         {
-            for (int i = 0; i < listView1.Columns.Count; i++)
-                listView1.Columns[i].Width = (listView1.Size.Width / listView1.Columns.Count) - 4;
+            for (int I = 0; I < ListView.Columns.Count; I++)
+                ListView.Columns[I].Width = (ListView.Size.Width / ListView.Columns.Count) - 4;
         }
 
         /// <summary>
         /// Update an article when the user double on each one
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void listView1_DoubleClick(object sender, EventArgs e)
+        /// <param name="Sender"></param>
+        /// <param name="E"></param>
+        private void ListView_DoubleClick(object Sender, EventArgs E)
         {
             //Modifier article
             UpdateObjectListView();

@@ -130,49 +130,49 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
 
             if (Tbx_Reference.TextLength == 0)
             {
-                Graphics graph = Tbx_Reference.CreateGraphics();
+                Graphics Graph = Tbx_Reference.CreateGraphics();
                 Pen pen = new Pen(Brushes.Red, 2.0f);
-                graph.DrawRectangle(pen, Tbx_Reference.ClientRectangle);
+                Graph.DrawRectangle(pen, Tbx_Reference.ClientRectangle);
                 IsValid = false;
             }
 
             if (Cbx_Famille.SelectedIndex == -1)
             {
-                Graphics graph = Cbx_Famille.CreateGraphics();
+                Graphics Graph = Cbx_Famille.CreateGraphics();
                 Pen pen = new Pen(Brushes.Red, 2.0f);
-                graph.DrawRectangle(pen, Cbx_Famille.ClientRectangle);
+                Graph.DrawRectangle(pen, Cbx_Famille.ClientRectangle);
                 IsValid = false;
             }
 
             if (Cbx_SousFamille.SelectedIndex == -1)
             {
-                Graphics graph = Cbx_SousFamille.CreateGraphics();
+                Graphics Graph = Cbx_SousFamille.CreateGraphics();
                 Pen pen = new Pen(Brushes.Red, 2.0f);
-                graph.DrawRectangle(pen, Cbx_SousFamille.ClientRectangle);
+                Graph.DrawRectangle(pen, Cbx_SousFamille.ClientRectangle);
                 IsValid = false;
             }
 
             if (Cbx_Marque.SelectedIndex == -1)
             {
-                Graphics graph = Cbx_Marque.CreateGraphics();
+                Graphics Graph = Cbx_Marque.CreateGraphics();
                 Pen pen = new Pen(Brushes.Red, 2.0f);
-                graph.DrawRectangle(pen, Cbx_Marque.ClientRectangle);
+                Graph.DrawRectangle(pen, Cbx_Marque.ClientRectangle);
                 IsValid = false;
             }
 
             if (Tbx_Prix.TextLength == 0)
             {
-                Graphics graph = Tbx_Prix.CreateGraphics();
+                Graphics Graph = Tbx_Prix.CreateGraphics();
                 Pen pen = new Pen(Brushes.Red, 2.0f);
-                graph.DrawRectangle(pen, Tbx_Prix.ClientRectangle);
+                Graph.DrawRectangle(pen, Tbx_Prix.ClientRectangle);
                 IsValid = false;
             }
 
             if (Tbx_Quantite.TextLength == 0)
             {
-                Graphics graph = Tbx_Quantite.CreateGraphics();
+                Graphics Graph = Tbx_Quantite.CreateGraphics();
                 Pen pen = new Pen(Brushes.Red, 2.0f);
-                graph.DrawRectangle(pen, Tbx_Quantite.ClientRectangle);
+                Graph.DrawRectangle(pen, Tbx_Quantite.ClientRectangle);
                 IsValid = false;
             }
 
@@ -182,9 +182,9 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         /// <summary>
         /// Add of modify the article when the user has completed the form
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void Btn_Valider_Click(object sender, EventArgs e)
+        /// <param name="Sender"></param>
+        /// <param name="E"></param>
+        private void Btn_Valider_Click(object Sender, EventArgs E)
         {
             if(!CheckEntries())
             {
@@ -226,10 +226,10 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
                     }
                     this.Close();
                 }
-                catch (Exception ex)
+                catch (Exception Ex)
                 {
                     this.DialogResult = DialogResult.Cancel;
-                    MessageBox.Show("Une erreur est survenue lors de " + NameMessage.ToLower() + "avec le message suivant:\n" + ex.Message, "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Une erreur est survenue lors de " + NameMessage.ToLower() + "avec le message suivant:\n" + Ex.Message, "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
@@ -237,9 +237,9 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         /// <summary>
         /// Cancel and close the window
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void cancelButton_Click(object sender, EventArgs e)
+        /// <param name="Sender"></param>
+        /// <param name="E"></param>
+        private void cancelButton_Click(object Sender, EventArgs E)
         {
             this.Close();
         }

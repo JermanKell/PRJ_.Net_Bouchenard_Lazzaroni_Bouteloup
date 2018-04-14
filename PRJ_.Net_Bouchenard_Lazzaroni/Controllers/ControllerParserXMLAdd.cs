@@ -16,132 +16,132 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         /// <summary>
         /// Comfort constructor
         /// </summary>
-        /// <param name="filename"> The filename contains the path of the XML file </param>
-        public ControllerParserXMLAdd(string filename) : base(filename)
+        /// <param name="Filename"> The filename contains the path of the XML file </param>
+        public ControllerParserXMLAdd(string Filename) : base(Filename)
         { }
 
         /// <summary>
         /// Parse the XML file
         /// </summary>
-        public override void parse()
+        public override void Parse()
         {
             try
             {
-                loadDocument();
-                verifyFile();
-                dbManager.deleteTables(); // Clear the database
+                LoadDocument();
+                VerifyFile();
+                DbManager.DeleteTables(); // Clear the database
 
-                XmlNodeList nodelist = xmlDocument.SelectNodes("/materiels/article"); // get all <article> nodes
-                updateMaxRangeProgressBar(nodelist.Count); // Send the max range of the progress bar to the view
+                XmlNodeList Nodelist = XmlDocument.SelectNodes("/materiels/article"); // get all <article> nodes
+                UpdateMaxRangeProgressBar(Nodelist.Count); // Send the max range of the progress bar to the view
 
-                foreach (XmlNode node in nodelist) // for each <article> node
+                foreach (XmlNode Node in Nodelist) // for each <article> node
                 {
-                    this.node = node;
+                    this.Node = Node;
 
-                    if (!checkDoubleArticle()) // Check if the article already exist
-                        addArticle(); // Add new article
+                    if (!CheckDoubleArticle()) // Check if the article already exist
+                        AddArticle(); // Add new article
                     else
-                        treatDoubleArticle(); // When the article is already exist. Check if the information in XML file are the same than database.
+                        TreatDoubleArticle(); // When the article is already exist. Check if the information in XML file are the same than database.
 
-                    updateProgressBar(); // Calculer ici le pourcentage à envoyer à chaque itération
+                    UpdateProgressBar(); // Calculer ici le pourcentage à envoyer à chaque itération
                 }
-                xmlDocument.Save(filename); // Apply modification to the document (fix spelling mistake).
+                XmlDocument.Save(Filename); // Apply modification to the document (fix spelling mistake).
 
-                updateListView(TypeMessage.Succès, SubjectMessage.Terminé, 
-                    "Succès : " + counterTypeMessage[TypeMessage.Succès] + "   Avertissement : " + counterTypeMessage[TypeMessage.Avertissement] + 
-                    "   Erreur : " +counterTypeMessage[TypeMessage.Erreur] + "   Critique : " + counterTypeMessage[TypeMessage.Critique]);
+                UpdateListView(TypeMessage.Succès, SubjectMessage.Terminé, 
+                    "Succès : " + CounterTypeMessage[TypeMessage.Succès] + "   Avertissement : " + CounterTypeMessage[TypeMessage.Avertissement] + 
+                    "   Erreur : " +CounterTypeMessage[TypeMessage.Erreur] + "   Critique : " + CounterTypeMessage[TypeMessage.Critique]);
             }
-            catch (Exception e)
+            catch (Exception E)
             {
-                updateListView(TypeMessage.Critique, SubjectMessage.Structure_XML, e.Message);
+                UpdateListView(TypeMessage.Critique, SubjectMessage.Structure_XML, E.Message);
             }
         }
 
         /// <summary>
         /// If the article already exist, check if xml information match to the database information
         /// </summary>
-        private void treatDoubleArticle()
+        private void TreatDoubleArticle()
         {
-            bool error = false;
-            string nom;
+            bool Error = false;
+            string Nom;
 
             // DESCRIPTION
-            if (article.Description.CompareTo(node.SelectSingleNode("description").InnerText) != 0) // Equals or not
-                if (distanceLevenshtein(article.Description, node.SelectSingleNode("description").InnerText) <= 2) // Spelling mistake or not
+            if (Article.Description.CompareTo(Node.SelectSingleNode("description").InnerText) != 0) // Equals or not
+                if (DistanceLevenshtein(Article.Description, Node.SelectSingleNode("description").InnerText) <= 2) // Spelling mistake or not
                 {
-                    updateListView(TypeMessage.Avertissement, SubjectMessage.Erreur_orthographe, 
-                        "La description de l'article " + article.Reference + " est \"" 
-                        + node.SelectSingleNode("description").InnerText + "\". Elle a été remplacé par \"" + article.Description + "\"");
+                    UpdateListView(TypeMessage.Avertissement, SubjectMessage.Erreur_orthographe, 
+                        "La description de l'article " + Article.Reference + " est \"" 
+                        + Node.SelectSingleNode("description").InnerText + "\". Elle a été remplacé par \"" + Article.Description + "\"");
 
-                    node.SelectSingleNode("sousFamille").InnerText = article.Description; // Change the text of the XML to correct the spelling mistake
+                    Node.SelectSingleNode("sousFamille").InnerText = Article.Description; // Change the text of the XML to correct the spelling mistake
                 }
                 else // String totally different
                 {
-                    updateListView(TypeMessage.Erreur, SubjectMessage.Mauvaise_information, 
-                        "Impossible d'incrémenter la quantité de l'article " + article.Reference + " car il n'a pas la même description que l'article dans la base de données");
+                    UpdateListView(TypeMessage.Erreur, SubjectMessage.Mauvaise_information, 
+                        "Impossible d'incrémenter la quantité de l'article " + Article.Reference + " car il n'a pas la même description que l'article dans la base de données");
 
-                    error = true;
+                    Error = true;
                 }
 
             // FAMILY
-            nom = dbManager.getFamille(id: article.IdFamille).Nom;
-            if (nom.CompareTo(node.SelectSingleNode("famille").InnerText) != 0) // Equals or not
-                if (distanceLevenshtein(nom, node.SelectSingleNode("famille").InnerText) <= 2) // Check if it's the same famille
+            Nom = DbManager.GetFamille(Id: Article.IdFamille).Nom;
+            if (Nom.CompareTo(Node.SelectSingleNode("famille").InnerText) != 0) // Equals or not
+                if (DistanceLevenshtein(Nom, Node.SelectSingleNode("famille").InnerText) <= 2) // Check if it's the same famille
                 {
-                    updateListView(TypeMessage.Avertissement, SubjectMessage.Erreur_orthographe,
-                        "La famille de l'article " + article.Reference + " est \""
-                        + node.SelectSingleNode("famille").InnerText + "\". Elle a été remplacé par \"" + nom + "\"");
+                    UpdateListView(TypeMessage.Avertissement, SubjectMessage.Erreur_orthographe,
+                        "La famille de l'article " + Article.Reference + " est \""
+                        + Node.SelectSingleNode("famille").InnerText + "\". Elle a été remplacé par \"" + Nom + "\"");
 
-                    node.SelectSingleNode("famille").InnerText = nom; // Change the text of the XML to correct the spelling mistake
+                    Node.SelectSingleNode("famille").InnerText = Nom; // Change the text of the XML to correct the spelling mistake
                 }
                 else
                 {
-                    updateListView(TypeMessage.Erreur, SubjectMessage.Mauvaise_information,
-                        "Impossible d'incrémenter la quantité de l'article " + article.Reference + " car il n'a pas la même famille que la famille présente dans la base de données");
+                    UpdateListView(TypeMessage.Erreur, SubjectMessage.Mauvaise_information,
+                        "Impossible d'incrémenter la quantité de l'article " + Article.Reference + " car il n'a pas la même famille que la famille présente dans la base de données");
 
-                    error = true;
+                    Error = true;
                 }
 
             // SUB FAMILY
-            nom = dbManager.getSousFamille(id: article.IdSousFamille).Nom;
-            if (nom.CompareTo(node.SelectSingleNode("sousFamille").InnerText) != 0) // Equals or not
-                if (distanceLevenshtein(nom, node.SelectSingleNode("sousFamille").InnerText) <= 2) // Check if it's the same sousFamille
+            Nom = DbManager.GetSousFamille(Id: Article.IdSousFamille).Nom;
+            if (Nom.CompareTo(Node.SelectSingleNode("sousFamille").InnerText) != 0) // Equals or not
+                if (DistanceLevenshtein(Nom, Node.SelectSingleNode("sousFamille").InnerText) <= 2) // Check if it's the same sousFamille
                 {
-                    updateListView(TypeMessage.Avertissement, SubjectMessage.Erreur_orthographe,
-                        "La sous famille de l'article " + article.Reference + " est \""
-                        + node.SelectSingleNode("sousFamille").InnerText + "\". Elle a été remplacée par \"" + nom + "\"");
+                    UpdateListView(TypeMessage.Avertissement, SubjectMessage.Erreur_orthographe,
+                        "La sous famille de l'article " + Article.Reference + " est \""
+                        + Node.SelectSingleNode("sousFamille").InnerText + "\". Elle a été remplacée par \"" + Nom + "\"");
 
-                    node.SelectSingleNode("sousFamille").InnerText = nom; // Change the text of the XML to correct the spelling mistake
+                    Node.SelectSingleNode("sousFamille").InnerText = Nom; // Change the text of the XML to correct the spelling mistake
                 }
                 else
                 {
-                    updateListView(TypeMessage.Erreur, SubjectMessage.Mauvaise_information,
-                        "Impossible d'incrémenter la quantité de l'article " + article.Reference + " car il n'a pas la même sous famille que l'article présent dans la base de données");
+                    UpdateListView(TypeMessage.Erreur, SubjectMessage.Mauvaise_information,
+                        "Impossible d'incrémenter la quantité de l'article " + Article.Reference + " car il n'a pas la même sous famille que l'article présent dans la base de données");
 
-                    error = true;
+                    Error = true;
                 }
 
             // BRAND
-            nom = dbManager.getMarque(id: article.IdMarque).Nom;
-            if (nom.CompareTo(node.SelectSingleNode("marque").InnerText) != 0) // Equals or not
-                if (distanceLevenshtein(nom, node.SelectSingleNode("marque").InnerText) <= 2) // Check if it's the same marque
+            Nom = DbManager.GetMarque(Id: Article.IdMarque).Nom;
+            if (Nom.CompareTo(Node.SelectSingleNode("marque").InnerText) != 0) // Equals or not
+                if (DistanceLevenshtein(Nom, Node.SelectSingleNode("marque").InnerText) <= 2) // Check if it's the same marque
                 {
-                    updateListView(TypeMessage.Avertissement, SubjectMessage.Erreur_orthographe,
-                        "La marque de l'article " + article.Reference + " est \""
-                        + node.SelectSingleNode("marque").InnerText + "\". Elle a été remplacée par \"" + nom + "\"");
-                    node.SelectSingleNode("marque").InnerText = nom; // Change the text of the XML to correct the spelling mistake
+                    UpdateListView(TypeMessage.Avertissement, SubjectMessage.Erreur_orthographe,
+                        "La marque de l'article " + Article.Reference + " est \""
+                        + Node.SelectSingleNode("marque").InnerText + "\". Elle a été remplacée par \"" + Nom + "\"");
+                    Node.SelectSingleNode("marque").InnerText = Nom; // Change the text of the XML to correct the spelling mistake
                 }
                 else
                 {
-                    updateListView(TypeMessage.Erreur, SubjectMessage.Mauvaise_information,
-                        "Impossible d'incrémenter la quantité de l'article " + article.Reference + " car il n'a pas la même marque que l'article présent dans la base de données");
-                    error = true;
+                    UpdateListView(TypeMessage.Erreur, SubjectMessage.Mauvaise_information,
+                        "Impossible d'incrémenter la quantité de l'article " + Article.Reference + " car il n'a pas la même marque que l'article présent dans la base de données");
+                    Error = true;
                 }
 
-            if (!error) // If all information are the same than database, increment quantity of the article
+            if (!Error) // If all information are the same than database, increment quantity of the article
             {
-                updateListView(TypeMessage.Succès, SubjectMessage.Modifier_article, "La quantité de l'article " + article.Reference + " a été incrémenté");
-                dbManager.updateQuantiteArticle(node.SelectSingleNode("refArticle").InnerText);
+                UpdateListView(TypeMessage.Succès, SubjectMessage.Modifier_article, "La quantité de l'article " + Article.Reference + " a été incrémenté");
+                DbManager.UpdateQuantiteArticle(Node.SelectSingleNode("refArticle").InnerText);
             }   
         }
     }

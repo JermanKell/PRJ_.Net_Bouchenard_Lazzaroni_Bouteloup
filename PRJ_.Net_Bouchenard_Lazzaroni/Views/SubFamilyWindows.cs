@@ -15,7 +15,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
     /// </summary>
     partial class SubFamilyWindows : PRJ_.Net_Bouchenard_Lazzaroni.Views.BaseWindows
     {
-        private ControllerView_SubFamily controller;
+        private ControllerView_SubFamily Controller;
 
         /// <summary>
         /// Constructor of this class.
@@ -23,11 +23,11 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
         public SubFamilyWindows()
         {
             InitializeComponent();
-            controller = new ControllerView_SubFamily();
+            Controller = new ControllerView_SubFamily();
 
             InitHeader(); // Init header of the listView
             GroupsListView = new List<Hashtable>();
-            refreshOwnView();
+            RefreshOwnView();
         }
 
         /// <summary>
@@ -36,15 +36,15 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
         protected override void InitHeader()
         {
             //initialise columns
-            List<string> listNameColumnTable = controller.getColumnHeader();
+            List<string> ListNameColumnTable = Controller.GetColumnHeader();
 
-            for (int i = 0; i < listNameColumnTable.Count; i++)
+            for (int ILoop = 0; ILoop < ListNameColumnTable.Count; ILoop++)
             {
-                ColumnHeader colHdr = new ColumnHeader();
-                colHdr.Name = listNameColumnTable.ElementAt(i); //Set a ColumnHeader name 
-                colHdr.Text = listNameColumnTable.ElementAt(i);
-                colHdr.Width = listView1.Size.Width / listNameColumnTable.Count;
-                listView1.Columns.Add(colHdr);
+                ColumnHeader ColHdr = new ColumnHeader();
+                ColHdr.Name = ListNameColumnTable.ElementAt(ILoop); //Set a ColumnHeader name 
+                ColHdr.Text = ListNameColumnTable.ElementAt(ILoop);
+                ColHdr.Width = ListView.Size.Width / ListNameColumnTable.Count;
+                ListView.Columns.Add(ColHdr);
             }
         }
 
@@ -53,18 +53,18 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
         /// </summary>
         protected override void LoadDataListView()
         {
-            listView1.Items.Clear();
+            ListView.Items.Clear();
 
-            foreach (KeyValuePair<int, SousFamilles> sousFamilles in controller.getAllSousFamilles())
+            foreach (KeyValuePair<int, SousFamilles> SousFamilles in Controller.GetAllSousFamilles())
             {
-                ListViewItem item = new ListViewItem(new string[] {
+                ListViewItem Item = new ListViewItem(new string[] {
 
-                    sousFamilles.Value.Id.ToString(),
-                    sousFamilles.Value.IdFamille.ToString(),
-                    sousFamilles.Value.Nom,
+                    SousFamilles.Value.Id.ToString(),
+                    SousFamilles.Value.IdFamille.ToString(),
+                    SousFamilles.Value.Nom,
                 });
-                item.Name = sousFamilles.Key.ToString();    //Set reference as item name
-                listView1.Items.Add(item);
+                Item.Name = SousFamilles.Key.ToString();    //Set reference as item name
+                ListView.Items.Add(Item);
             }
         }
 
@@ -73,7 +73,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
         /// </summary>
         protected override void DeleteObjectListView()
         {
-            refreshOwnView();
+            RefreshOwnView();
         }
 
         /// <summary>
@@ -81,13 +81,13 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
         /// </summary>
         protected override void AddObjectListView()
         {
-            AddUpdateSubFamily subFamilyWindow = new AddUpdateSubFamily(controller);
+            AddUpdateSubFamily subFamilyWindow = new AddUpdateSubFamily(Controller);
             subFamilyWindow.StartPosition = FormStartPosition.CenterParent;
 
             if (subFamilyWindow.ShowDialog() == DialogResult.OK)
             {
-                statusStrip.Items[0].Text = "La sous famille a été ajoutée";
-                refreshOwnView();
+                StatusStrip.Items[0].Text = "La sous famille a été ajoutée";
+                RefreshOwnView();
             }
         }
 
@@ -96,13 +96,13 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
         /// </summary>
         protected override void UpdateObjectListView()
         {
-            AddUpdateSubFamily subFamilyWindow = new AddUpdateSubFamily(controller, controller.GetSubFamily(Convert.ToInt16(listView1.SelectedItems[0].Name)));
+            AddUpdateSubFamily subFamilyWindow = new AddUpdateSubFamily(Controller, Controller.GetSubFamily(Convert.ToInt16(ListView.SelectedItems[0].Name)));
             subFamilyWindow.StartPosition = FormStartPosition.CenterParent;
 
             if (subFamilyWindow.ShowDialog() == DialogResult.OK)
             {
-                statusStrip.Items[0].Text = "La sous famille a été mis à jour";
-                refreshOwnView();
+                StatusStrip.Items[0].Text = "La sous famille a été mis à jour";
+                RefreshOwnView();
             }
         }
     }

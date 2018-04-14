@@ -20,14 +20,14 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         /// <summary>
         /// Adds a new element in the DB 
         /// </summary>
-        /// <param name="obj">Object to add in the DB.</param>
-        public override void AddElement(object obj)
+        /// <param name="Obj">Object to add in the DB.</param>
+        public override void AddElement(object Obj)
         {
-            SousFamilles subfam = (SousFamilles)obj;
-            SousFamilles resSubFam = manager.getSousFamille(subfam.Nom);
+            SousFamilles Subfam = (SousFamilles)Obj;
+            SousFamilles ResSubFam = Manager.GetSousFamille(Subfam.Nom);
 
-            if (resSubFam == null)
-                manager.insertSousFamille(resSubFam);
+            if (ResSubFam == null)
+                Manager.InsertSousFamille(ResSubFam);
             else
                 MessageBox.Show("This object already exists in the DB");
         }
@@ -35,19 +35,19 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         /// <summary>
         /// Applies changes on the similar object stored on the DB with the object in parameter 
         /// </summary>
-        /// <param name="obj">Object with the changes</param>
+        /// <param name="Obj">Object with the changes</param>
         /// <returns>Returns true if done, false else</returns>
-        public override int ChangeElement(object obj)
+        public override int ChangeElement(object Obj)
         {
-            int var;
-            SousFamilles sousFamille = (SousFamilles)(obj);
-            SousFamilles sousFam = manager.getSousFamille(sousFamille.Nom);
+            int Var;
+            SousFamilles SousFamille = (SousFamilles)(Obj);
+            SousFamilles SousFam = Manager.GetSousFamille(SousFamille.Nom);
 
-            if (sousFam != null)
+            if (SousFam != null)
             {
-                var = manager.updateSousFamilles(sousFamille);
+                Var = Manager.UpdateSousFamilles(SousFamille);
 
-                if (var == 1)
+                if (Var == 1)
                     MessageBox.Show("The element in the DB has been modified");
                 else
                     MessageBox.Show("An error occured while the program was changing the values");
@@ -55,9 +55,9 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             else
             {
                 MessageBox.Show("The element to modify does not exist in the DB");
-                var = -1;
+                Var = -1;
             }
-            return var;
+            return Var;
         }
 
         /// <summary>
@@ -75,28 +75,28 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         /// Returns the dictionary to the associated view
         /// </summary>
         /// <returns>Dictionary of int and SubFamily</returns>
-        public Dictionary<int, SousFamilles> getAllSousFamilles()
+        public Dictionary<int, SousFamilles> GetAllSousFamilles()
         {
-            return manager.getAllSousFamilles();
+            return Manager.GetAllSousFamilles();
         }
 
         /// <summary>
         /// Get name's column of one table
         /// </summary>
         /// <param name="tableName"> Name of the table in the database </param>
-        public override List<string> getColumnHeader()
+        public override List<string> GetColumnHeader()
         {
-            return manager.getNameColumnTable("SousFamilles");
+            return Manager.GetNameColumnTable("SousFamilles");
         }
 
         /// <summary>
         /// Get one sub family by his id
         /// </summary>
-        /// <param name="id">The id of the sub family</param>
+        /// <param name="Id">The id of the sub family</param>
         /// <returns>The sub family founded</returns>
-        public SousFamilles GetSubFamily(int id)
+        public SousFamilles GetSubFamily(int Id)
         {
-            return manager.getSousFamille(id: id);
+            return Manager.GetSousFamille(Id: Id);
         }
     }
 }

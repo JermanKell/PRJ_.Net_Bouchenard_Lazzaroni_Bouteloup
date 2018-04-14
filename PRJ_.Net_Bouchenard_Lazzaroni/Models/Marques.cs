@@ -8,34 +8,33 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
 {
     public class Marques
     {
-        private int id;
-        private string nom;
+        public int Id { get; set; }
+        public string Nom { get; set; }
 
+        /// <summary>
+        /// Constructor of this class
+        /// </summary>
         public Marques() { }
 
-        public Marques(string nom)
+        /// <summary>
+        /// Comfort constructor of this class
+        /// </summary>
+        /// <param name="Nom">The name of the brand</param>
+        public Marques(string Nom)
         {
-            this.nom = nom;
+            this.Nom = Nom;
         }
 
-        public int Id
+        /// <summary>
+        /// Transfort a reader object into brand object
+        /// </summary>
+        /// <param name="Reader">The reader to convert into brand object</param>
+        public void ConvertDataReaderToMarques(SQLiteDataReader Reader)
         {
-            get { return id; }
-            set { id = value; }
-        }
-
-        public string Nom
-        {
-            get { return nom; }
-            set { nom = value; }
-        }
-
-        public void convertDataReaderToMarques(SQLiteDataReader reader)
-        {
-            if (reader != null)
+            if (Reader != null)
             {
-                id = Convert.ToInt16(reader.GetValue(0));
-                nom = reader.GetValue(1).ToString();
+                Id = Convert.ToInt16(Reader.GetValue(0));
+                Nom = Reader.GetValue(1).ToString();
             }
         }
     }

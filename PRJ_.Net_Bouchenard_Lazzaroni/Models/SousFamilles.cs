@@ -8,35 +8,37 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
 {
     public class SousFamilles
     {
-        private int id;
-        private int idFamille;
-        private string nom;
+        public int Id { get; set; }
+        public int IdFamille { get; set; }
+        public string Nom { get; set; }
 
-        public int Id
+        /// <summary>
+        /// Constructor of this class
+        /// </summary>
+        public SousFamilles() { }
+
+        /// <summary>
+        /// Comfort constructor of this class
+        /// </summary>
+        /// <param name="IdFamille">The family id of the sub family</param>
+        /// <param name="Nom">The name of the sub family</param>
+        public SousFamilles(int IdFamille, string Nom)
         {
-            get { return id; }
-            set { id = value; }
+            this.IdFamille = IdFamille;
+            this.Nom = Nom;
         }
 
-        public int IdFamille
+        /// <summary>
+        /// Transfort a reader object into sub family object
+        /// </summary>
+        /// <param name="Reader">The reader to convert into sub family object</param>
+        public void ConvertDataReaderToSousFamilles(SQLiteDataReader Reader)
         {
-            get { return idFamille; }
-            set { idFamille = value; }
-        }
-
-        public string Nom
-        {
-            get { return nom; }
-            set { nom = value; }
-        }
-
-        public void convertDataReaderToSousFamilles(SQLiteDataReader reader)
-        {
-            if (reader != null)
+            if (Reader != null)
             {
-                id = Convert.ToInt16(reader.GetValue(0));
-                idFamille = Convert.ToInt16(reader.GetValue(1));
-                nom = reader.GetValue(2).ToString();
+                Id = Convert.ToInt16(Reader.GetValue(0));
+                IdFamille = Convert.ToInt16(Reader.GetValue(1));
+                Nom = Reader.GetValue(2).ToString();
             }
         }
     }
