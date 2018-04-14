@@ -21,24 +21,23 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         /// <returns>Returns true if done, false else</returns>
         public override int AddElement(object obj)
         {
-            int var;
-            Marques brand = (Marques)obj;
-            Marques resBrand = manager.getMarque(brand.Nom);
+            int Count;
+            Marques Brand = (Marques)obj;
+            Marques BrandFound = manager.getMarque(Brand.Nom);
 
-            if (resBrand == null)
+            if (BrandFound == null)
             {
-                var = manager.insertMarque(resBrand);
-                if (var != 0)
-                    MessageBox.Show("Insertion of this object succeed");
-                else
-                    MessageBox.Show("Insertion of this object failed");
+                Count = manager.insertMarque(Brand);
+                if (Count == 0)
+                {
+                    throw new Exception("Une erreur liée à la base de données à empêcher l'ajout de la marque " + Brand.Nom);
+                }
             }
             else
             {
-                MessageBox.Show("This object already exists in the DB");
-                var = -1;
+                throw new Exception("La marque " + Brand.Nom + " existe déja dans la base");
             }
-            return var;
+            return Count;
         }
 
         /// <summary>
@@ -48,27 +47,25 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         /// <returns>Returns true if done, false else</returns>
         public override int ChangeElement(object obj)
         {
-            int var;
-            Marques brand = (Marques)(obj);
-            Marques resBrand = manager.getMarque(id: brand.Id);
+            int Count;
 
-            resBrand.Nom = brand.Nom;
+            Marques Brand = (Marques)(obj);
+            Marques BrandFound = manager.getMarque(id: Brand.Id);
 
-            if (resBrand != null)
+
+            if (BrandFound != null)
             {
-                var = manager.updateMarque(resBrand);
-
-                if (var == 1)
-                    MessageBox.Show("The element in the DB has been modified");
-                else
-                    MessageBox.Show("An error occured while the program was changing the values");
+                Count = manager.updateMarque(Brand);
+                if (Count != 1)
+                {
+                    throw new Exception("Une erreur liée à la base de données à empêcher la modification de la marque " + Brand.Nom);
+                }
             }
             else
             {
-                MessageBox.Show("The element to modify does not exist in the DB");
-                var = -1;
+                throw new Exception("La marque " + Brand.Nom + " n'existe pas dans la base");
             }
-            return var;
+            return Count;
         }
 
         /// <summary>
@@ -78,8 +75,20 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         /// <returns>Returns true if done, false else</returns>
         public override int DeleteElement(string RefObj)
         {
-            // TODO
-            return 0;
+            int Count;
+            if (manager.getMarque(id: Convert.ToInt32(RefObj)) != null)
+            {
+                Count = manager.removeMarque(Convert.ToInt32(RefObj));
+                if (Count != 1)
+                {
+                    throw new Exception("Une erreur liée à la base de données à empêcher la supression de la marque de reference " + RefObj);
+                }
+            }
+            else
+            {
+                throw new Exception("La marque de référence " + RefObj + " n'existe pas dans la base");
+            }
+            return Count;
         }
 
         /// <summary>

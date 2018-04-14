@@ -26,8 +26,8 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
 
             if (ArticleFound == null)
             {
-                Count = manager.insertArticle(ArticleFound);
-                if (Count != 1)
+                Count = manager.insertArticle(Article);
+                if (Count == 0)
                 {
                     throw new Exception("Une erreur liée à la base de données à empêcher l'ajout de l'article de référence " + Article.Reference);
                 }
@@ -71,7 +71,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         /// <returns>Returns the number of articles deleted</returns>
         public override int DeleteElement(string RefObj)
         {
-            int Count = -1;
+            int Count;
             if (manager.getArticle(RefObj) != null)
             {
                 Count = manager.removeArticle(RefObj);

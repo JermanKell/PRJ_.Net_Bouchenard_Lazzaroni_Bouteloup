@@ -366,7 +366,21 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             else
                 return null;
         }
-        
+
+        public int removeMarque(int refId)
+        {
+            SQLiteCommand sql = new SQLiteCommand("DELETE FROM Marques WHERE RefMarque = @reference", conn);
+            sql.Parameters.AddWithValue("@reference", refId);
+            try
+            {
+                return sql.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
         /// <summary>
         /// Set the new family to the database
         /// </summary>
