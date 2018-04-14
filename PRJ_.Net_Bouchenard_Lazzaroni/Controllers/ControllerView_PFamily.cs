@@ -58,17 +58,25 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         }
 
         /// <summary>
-        /// Deletes an element from the DB with the reference passed in parameter 
+        /// Deletes all articles, subfamily associated to the family and the family itself with its reference passed in parameter 
         /// </summary>
         /// <param name="RefObj">Reference of the element to delete</param>
-        /// <returns>Returns true if done, false else</returns>
+        /// <returns>Returns the total number of rows removed</returns>
         public override int DeleteElement(string RefObj)
         {
-            int Count;
+            int Count = 0;
+
             if (manager.getFamille(id: Convert.ToInt32(RefObj)) != null)
             {
-                Count = manager.removeFamille(Convert.ToInt32(RefObj));
-                if (Count != 1)
+                Dictionary<int, SousFamilles> DictionaryAllSubFamilyInFamily = manager.getAllSubFamiliesFromFamily(Convert.ToInt32(RefObj));
+                foreach (KeyValuePair<int, SousFamilles> SubFamily in DictionaryAllSubFamilyInFamily)
+                {
+                    Count += manager.removeArticleFromSubFamily(SubFamily.Key); //Remove all articles of a sub family
+                    Count += manager.removeSubFamily(SubFamily.Key); //Remove the sub family
+                }
+
+                Count += manager.removeFamille(Convert.ToInt32(RefObj));
+                if (Count == 0)
                 {
                     throw new Exception("Une erreur liée à la base de données à empêcher la supression de la famille de reference " + RefObj);
                 }
@@ -78,6 +86,19 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
                 throw new Exception("La famille de référence " + RefObj + " n'existe pas dans la base");
             }
             return Count;
+        }
+
+        public bool ExistArticleFromFamily(int idFamily)
+        {
+            Dictionary < int, SousFamilles > DictionaryAllSubFamilyInFamily = manager.getAllSubFamiliesFromFamily(idFamily);
+            foreach (KeyValuePair<int, SousFamilles> SubFamily in DictionaryAllSubFamilyInFamily)
+            {
+                if (manager.existArticleFromSubFamily(SubFamily.Key) > 0)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         /// <summary>
