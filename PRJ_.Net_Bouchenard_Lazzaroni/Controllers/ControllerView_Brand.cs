@@ -69,7 +69,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         {
             int IdBrand = Convert.ToInt32(RefObj);
             int Count = 0;
-            if (Manager.GetMarque(Id: Convert.ToInt32(RefObj)) != null)
+            if (Manager.GetMarque(Id: IdBrand) != null)
             {
                 Count += Manager.RemoveArticleFromBrand(IdBrand);
                 Count += Manager.RemoveMarque(IdBrand);
@@ -90,7 +90,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         /// </summary>
         /// <param name="idBrand">Reference of brand</param>
         /// <returns>Returns true is an article exists, else false</returns>
-        public bool ExistArticleFromBrand(int idBrand)
+        public bool ExistArticleFromBrand(int IdBrand)
         {
             if (Manager.ExistArticleFromBrand(IdBrand) > 0)
                 return true;

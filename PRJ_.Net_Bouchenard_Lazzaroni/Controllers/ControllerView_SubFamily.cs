@@ -23,11 +23,11 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         /// <param name="Obj">Object to add in the DB.</param>
         public override void AddElement(object Obj)
         {
-            SousFamilles SubFamily = (SousFamilles)obj;
-            SousFamilles SubFamilyFound = manager.getSousFamille(SubFamily.Nom);
+            SousFamilles SubFamily = (SousFamilles)Obj;
+            SousFamilles SubFamilyFound = Manager.GetSousFamille(SubFamily.Nom);
 
             if (SubFamilyFound == null)
-                manager.insertSousFamille(SubFamily);
+                Manager.InsertSousFamille(SubFamily);
             else
                 throw new Exception("La sous famille " + SubFamily.Nom + " existe déja dans la base");
         }
@@ -41,13 +41,13 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         {
             int Count;
 
-            SousFamilles SubFamily = (SousFamilles)(obj);
-            SousFamilles SubFamilyFound = manager.getSousFamille(id: SubFamily.Id);
+            SousFamilles SubFamily = (SousFamilles)(Obj);
+            SousFamilles SubFamilyFound = Manager.GetSousFamille(Id: SubFamily.Id);
 
 
             if (SubFamilyFound != null)
             {
-                Count = manager.updateSousFamilles(SubFamily);
+                Count = Manager.UpdateSousFamilles(SubFamily);
                 if (Count != 1)
                 {
                     throw new Exception("Une erreur liée à la base de données à empêcher la modification de la sous famille " + SubFamily.Nom);
@@ -69,10 +69,10 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         {
             int IdSubFamily = Convert.ToInt32(RefObj);
             int Count = 0;
-            if (manager.getSousFamille(id: IdSubFamily) != null)
+            if (Manager.GetSousFamille(Id: IdSubFamily) != null)
             {
-                Count += manager.removeArticleFromSubFamily(IdSubFamily);
-                Count += manager.removeSubFamily(IdSubFamily);
+                Count += Manager.RemoveArticleFromSubFamily(IdSubFamily);
+                Count += Manager.RemoveSubFamily(IdSubFamily);
                 if (Count == 0)
                 {
                     throw new Exception("Une erreur liée à la base de données à empêcher la supression de la sous famille de reference " + RefObj);
@@ -92,7 +92,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         /// <returns>Returns true is an article exists, else false</returns>
         public bool ExistArticleFromSubFamily(int idSubFamily)
         {
-            if (manager.existArticleFromSubFamily(idSubFamily) > 0)
+            if (Manager.ExistArticleFromSubFamily(idSubFamily) > 0)
                 return true;
             else
                 return false;
@@ -102,9 +102,9 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         /// Get a dictionary of all families
         /// </summary>
         /// <returns>Dictionary of int and Families</returns>
-        public Dictionary<int, Familles> getAllFamilies()
+        public Dictionary<int, Familles> GetAllFamilies()
         {
-            return manager.getAllFamilles();
+            return Manager.GetAllFamilles();
         }
 
         /// <summary>

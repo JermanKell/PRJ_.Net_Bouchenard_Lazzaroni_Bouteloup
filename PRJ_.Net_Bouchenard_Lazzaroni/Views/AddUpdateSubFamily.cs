@@ -61,7 +61,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
         private void InitializeCbxFamilies()
         {
             Cbx_Famille.Items.Clear();
-            DictionaryFamilies = ControllerSubFamilly.getAllFamilies().ToDictionary(x => x.Key, x => x.Value.Nom);
+            DictionaryFamilies = ControllerSubFamilly.GetAllFamilies().ToDictionary(x => x.Key, x => x.Value.Nom);
             if (DictionaryFamilies.Count > 0)
             {
                 Cbx_Famille.DataSource = new BindingSource(DictionaryFamilies, null);
