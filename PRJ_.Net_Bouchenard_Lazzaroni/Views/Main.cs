@@ -80,7 +80,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         /// <param name="e"></param>
         private void ImportationXMLToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            SelectXml SelectXML = new SelectXml();
+            ImportXMLFile SelectXML = new ImportXMLFile();
             SelectXML.ShowDialog();
             refreshOwnView();
         }
@@ -122,7 +122,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         /// </summary>
         protected override void AddObjectListView()
         {
-            VueArticle VA = new VueArticle(ControllerArticles);
+            AddUpdateArticle VA = new AddUpdateArticle(ControllerArticles);
 
             if (VA.ShowDialog() == DialogResult.OK)
             {
@@ -136,7 +136,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         /// </summary>
         protected override void UpdateObjectListView()
         {
-            VueArticle VA = new VueArticle(ControllerArticles, ControllerArticles.GetArticle(listView1.SelectedItems[0].Name));
+            AddUpdateArticle VA = new AddUpdateArticle(ControllerArticles, ControllerArticles.GetArticle(listView1.SelectedItems[0].Name));
 
             if (VA.ShowDialog() == DialogResult.OK)
             {

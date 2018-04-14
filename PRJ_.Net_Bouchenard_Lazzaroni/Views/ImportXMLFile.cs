@@ -13,14 +13,14 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
     /// <summary>
     /// View to parse XML file 
     /// </summary>
-    public partial class SelectXml : Form
+    public partial class ImportXMLFile : Form
     {
         private string filename; // Path of the xml file
 
         /// <summary>
         /// Constructor per default
         /// </summary>
-        public SelectXml()
+        public ImportXMLFile()
         {
             InitializeComponent();
         }

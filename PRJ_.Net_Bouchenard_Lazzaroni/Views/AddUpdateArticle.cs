@@ -11,7 +11,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
     /// <summary>
     /// View to add or modify an article
     /// </summary>
-    partial class VueArticle : Form
+    partial class AddUpdateArticle : Form
     {
         Articles Article; // The article to modify or null if the user want to add a new article
         ControllerViewArticle ControllerArticles;
@@ -24,7 +24,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         /// </summary>
         /// <param name="ControllerArticles">Controller to use</param>
         /// <param name="Article">The article to modify or null if none</param>
-        public VueArticle(ControllerViewArticle ControllerArticles, Articles Article = null)
+        public AddUpdateArticle(ControllerViewArticle ControllerArticles, Articles Article = null)
         {
             this.ControllerArticles = ControllerArticles;
             this.Article = Article;

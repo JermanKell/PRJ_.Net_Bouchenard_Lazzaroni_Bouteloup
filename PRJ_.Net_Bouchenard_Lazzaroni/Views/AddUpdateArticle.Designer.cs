@@ -1,6 +1,6 @@
 ﻿namespace PRJ_.Net_Bouchenard_Lazzaroni
 {
-    partial class VueArticle
+    partial class AddUpdateArticle
     {
         /// <summary>
         /// Required designer variable.
