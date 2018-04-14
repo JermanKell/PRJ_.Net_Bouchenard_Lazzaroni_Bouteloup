@@ -31,7 +31,7 @@
             this.Tbx_Marque = new System.Windows.Forms.TextBox();
             this.Lab_Marque = new System.Windows.Forms.Label();
             this.Btn_Valider = new System.Windows.Forms.Button();
-            this.cancelButton = new System.Windows.Forms.Button();
+            this.Btn_Annuler = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // Tbx_Marque
@@ -60,22 +60,22 @@
             this.Btn_Valider.UseVisualStyleBackColor = true;
             this.Btn_Valider.Click += new System.EventHandler(this.Btn_Valider_Click);
             // 
-            // cancelButton
+            // Btn_Annuler
             // 
-            this.cancelButton.Location = new System.Drawing.Point(60, 48);
-            this.cancelButton.Name = "cancelButton";
-            this.cancelButton.Size = new System.Drawing.Size(91, 27);
-            this.cancelButton.TabIndex = 17;
-            this.cancelButton.Text = "Annuler";
-            this.cancelButton.UseVisualStyleBackColor = true;
-            this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
+            this.Btn_Annuler.Location = new System.Drawing.Point(60, 48);
+            this.Btn_Annuler.Name = "Btn_Annuler";
+            this.Btn_Annuler.Size = new System.Drawing.Size(91, 27);
+            this.Btn_Annuler.TabIndex = 17;
+            this.Btn_Annuler.Text = "Annuler";
+            this.Btn_Annuler.UseVisualStyleBackColor = true;
+            this.Btn_Annuler.Click += new System.EventHandler(this.cancelButton_Click);
             // 
             // AddUpdateBrand
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(262, 96);
-            this.Controls.Add(this.cancelButton);
+            this.Controls.Add(this.Btn_Annuler);
             this.Controls.Add(this.Btn_Valider);
             this.Controls.Add(this.Tbx_Marque);
             this.Controls.Add(this.Lab_Marque);
@@ -93,6 +93,6 @@
         private System.Windows.Forms.TextBox Tbx_Marque;
         private System.Windows.Forms.Label Lab_Marque;
         private System.Windows.Forms.Button Btn_Valider;
-        private System.Windows.Forms.Button cancelButton;
+        private System.Windows.Forms.Button Btn_Annuler;
     }
 }

@@ -30,6 +30,10 @@
         {
             this.SuspendLayout();
             // 
+            // listView1
+            // 
+            this.listView1.Size = new System.Drawing.Size(653, 520);
+            // 
             // FamilyWindows
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);

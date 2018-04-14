@@ -76,9 +76,12 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
         {
             AddUpdateBrand brandWindow = new AddUpdateBrand(controller);
             brandWindow.StartPosition = FormStartPosition.CenterParent;
-            brandWindow.ShowDialog();
 
-            refreshOwnView();
+            if (brandWindow.ShowDialog() == DialogResult.OK)
+            {
+                statusStrip.Items[0].Text = "La marque a été ajoutée";
+                refreshOwnView();
+            }
         }
 
         /// <summary>
@@ -88,9 +91,12 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
         {
             AddUpdateBrand brandWindow = new AddUpdateBrand(controller, controller.GetBrand(Convert.ToInt16(listView1.SelectedItems[0].Name)));
             brandWindow.StartPosition = FormStartPosition.CenterParent;
-            brandWindow.ShowDialog();
 
-            refreshOwnView();
+            if (brandWindow.ShowDialog() == DialogResult.OK)
+            {
+                statusStrip.Items[0].Text = "La marque a été mis à jour";
+                refreshOwnView();
+            }
         }
     }
 }

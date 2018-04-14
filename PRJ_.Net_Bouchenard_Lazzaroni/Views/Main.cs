@@ -59,7 +59,6 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
                 item.Name = article.Key;    //Set reference as item name
                 listView1.Items.Add(item);
             }
-            statusStrip1.Items[0].Text = "Connecté";
         }
 
         private void ImportationXMLToolStripMenuItem_Click(object sender, EventArgs e)
@@ -84,39 +83,46 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
 
                     SetGroups(GroupColumn);
                     listView1.SetSortIcon(GroupColumn, listView1.Sorting);
-                    statusStrip1.Items[0].Text = "L'article a bien été supprimé de la base";
+                    statusStrip.Items[0].Text = "L'article a bien été supprimé";
                 }
                 catch (Exception ex)
                 {
-                    statusStrip1.Items[0].Text = "Une erreur a empêché la supression de cet article";
+                    statusStrip.Items[0].Text = "Une erreur a empêché la supression de cet article";
                     MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             else
             {
-                statusStrip1.Items[0].Text = "La supression d'article a été annulée";
+                statusStrip.Items[0].Text = "La supression d'article a été annulée";
             }
         }
 
         protected override void AddObjectListView()
         {
             VueArticle VA = new VueArticle(ControllerArticles);
-            VA.ShowDialog();
 
-            refreshOwnView();
+            if (VA.ShowDialog() == DialogResult.OK)
+            {
+                statusStrip.Items[0].Text = "L'article a été ajouté";
+                refreshOwnView();
+            }
         }
 
         protected override void UpdateObjectListView()
         {
             VueArticle VA = new VueArticle(ControllerArticles, ControllerArticles.GetArticle(listView1.SelectedItems[0].Name));
-            VA.StartPosition = FormStartPosition.CenterParent;
-            VA.ShowDialog();
 
-            refreshOwnView();
+            if (VA.ShowDialog() == DialogResult.OK)
+            {
+                statusStrip.Items[0].Text = "L'article a été mis à jour";
+                refreshOwnView();
+            }
         }
 
         private void familleToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            statusStrip.Items[0].Text = ""; // Reset the message of the status bar
+
             FamilyWindows FW = new FamilyWindows();
             FW.ShowDialog();
 
@@ -125,6 +131,8 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
 
         private void sousFamilleToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            statusStrip.Items[0].Text = ""; // Reset the message of the status bar
+
             SubFamilyWindows SFW = new SubFamilyWindows();
             SFW.ShowDialog();
 
@@ -133,6 +141,8 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
 
         private void marqueToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            statusStrip.Items[0].Text = ""; // Reset the message of the status bar
+
             BrandWindows BW = new BrandWindows();
             BW.ShowDialog();
 

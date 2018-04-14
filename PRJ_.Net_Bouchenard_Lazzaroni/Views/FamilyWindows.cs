@@ -82,17 +82,17 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
 
                     SetGroups(GroupColumn);
                     listView1.SetSortIcon(GroupColumn, listView1.Sorting);
-                    statusStrip1.Items[0].Text = "L'article a bien été supprimé de la base";
+                    statusStrip.Items[0].Text = "L'article a bien été supprimé de la base";
                 }
                 catch (Exception ex)
                 {
-                    statusStrip1.Items[0].Text = "Une erreur a empêché la supression de cet article";
+                    statusStrip.Items[0].Text = "Une erreur a empêché la supression de cet article";
                     MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             else
             {
-                statusStrip1.Items[0].Text = "La supression d'article a été annulée";
+                statusStrip.Items[0].Text = "La supression d'article a été annulée";
             }
 
             refreshOwnView();
@@ -105,9 +105,12 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
         {
             AddUpdateFamily familyWindow = new AddUpdateFamily(controller);
             familyWindow.StartPosition = FormStartPosition.CenterParent;
-            familyWindow.ShowDialog();
 
-            refreshOwnView();
+            if (familyWindow.ShowDialog() == DialogResult.OK)
+            {
+                statusStrip.Items[0].Text = "La famille a été ajoutée";
+                refreshOwnView();
+            }
         }
 
         /// <summary>
@@ -117,9 +120,12 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
         {
             AddUpdateFamily familyWindow = new AddUpdateFamily(controller, controller.GetFamily(Convert.ToInt16(listView1.SelectedItems[0].Name)));
             familyWindow.StartPosition = FormStartPosition.CenterParent;
-            familyWindow.ShowDialog();
 
-            refreshOwnView();
+            if (familyWindow.ShowDialog() == DialogResult.OK)
+            {
+                statusStrip.Items[0].Text = "La famille a été mis à jour";
+                refreshOwnView();
+            }   
         }
     }
 }
