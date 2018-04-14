@@ -78,8 +78,14 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
         /// </summary>
         protected override void AddObjectListView()
         {
+            AddUpdateSubFamily subFamilyWindow = new AddUpdateSubFamily(controller);
+            subFamilyWindow.StartPosition = FormStartPosition.CenterParent;
 
-            refreshOwnView();
+            if (subFamilyWindow.ShowDialog() == DialogResult.OK)
+            {
+                statusStrip.Items[0].Text = "La sous famille a été ajoutée";
+                refreshOwnView();
+            }
         }
 
         /// <summary>
@@ -87,8 +93,14 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
         /// </summary>
         protected override void UpdateObjectListView()
         {
+            AddUpdateSubFamily subFamilyWindow = new AddUpdateSubFamily(controller, controller.GetSubFamily(Convert.ToInt16(listView1.SelectedItems[0].Name)));
+            subFamilyWindow.StartPosition = FormStartPosition.CenterParent;
 
-            refreshOwnView();
+            if (subFamilyWindow.ShowDialog() == DialogResult.OK)
+            {
+                statusStrip.Items[0].Text = "La sous famille a été mis à jour";
+                refreshOwnView();
+            }
         }
     }
 }

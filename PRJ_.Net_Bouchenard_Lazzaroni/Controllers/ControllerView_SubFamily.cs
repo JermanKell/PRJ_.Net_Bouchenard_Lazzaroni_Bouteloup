@@ -85,5 +85,10 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         {
             return manager.getNameColumnTable("SousFamilles");
         }
+
+        public SousFamilles GetSubFamily(int id)
+        {
+            return manager.getSousFamille(id: id);
+        }
     }
 }

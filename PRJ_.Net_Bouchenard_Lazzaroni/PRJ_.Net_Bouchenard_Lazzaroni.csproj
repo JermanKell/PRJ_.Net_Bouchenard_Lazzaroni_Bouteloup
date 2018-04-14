@@ -79,6 +79,12 @@
     <Compile Include="Controllers\DBConnection.cs" />
     <Compile Include="Controllers\DBManager.cs" />
     <Compile Include="Models\Familles.cs" />
+    <Compile Include="Views\AddUpdateSubFamily.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\AddUpdateSubFamily.Designer.cs">
+      <DependentUpon>AddUpdateSubFamily.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\AddUpdateFamily.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -138,6 +144,9 @@
     <Compile Include="Views\AddUpdateArticle.Designer.cs">
       <DependentUpon>AddUpdateArticle.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Views\AddUpdateSubFamily.resx">
+      <DependentUpon>AddUpdateSubFamily.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\AddUpdateFamily.resx">
       <DependentUpon>AddUpdateFamily.cs</DependentUpon>
     </EmbeddedResource>
