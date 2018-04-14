@@ -80,12 +80,8 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         /// </summary>
         private void InitializeCbxFamilles()
         {
-            // --- To Move ---//
-            DBManager dbm = new DBManager();
-            //////////////////////////
-
             Cbx_Famille.Items.Clear();
-            DictionaryFamilles = dbm.getAllFamilles().ToDictionary(x => x.Key, x => x.Value.Nom);
+            DictionaryFamilles = ControllerArticles.GetAllFamilles().ToDictionary(x => x.Key, x => x.Value.Nom);
             if(DictionaryFamilles.Count > 0)
             {
                 Cbx_Famille.DataSource = new BindingSource(DictionaryFamilles, null);
@@ -100,12 +96,8 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         /// </summary>
         private void InitializeCbxSousFamilles()
         {
-            // --- To Move ---//
-            DBManager dbm = new DBManager();
-            //////////////////////////
-
             Cbx_SousFamille.Items.Clear();
-            DictionarySousFamilles = dbm.getAllSousFamilles().ToDictionary(x => x.Key, x => x.Value.Nom);
+            DictionarySousFamilles = ControllerArticles.GetAllSousFamilles().ToDictionary(x => x.Key, x => x.Value.Nom);
             if(DictionarySousFamilles.Count > 0)
             {
                 Cbx_SousFamille.DataSource = new BindingSource(DictionarySousFamilles, null);
@@ -120,12 +112,8 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         /// </summary>
         private void InitializeCbxMarques()
         {
-            // --- To Move ---//
-            DBManager dbm = new DBManager();
-            //////////////////////////
-
             Cbx_Marque.Items.Clear();   
-            DictionaryMarques = dbm.getAllMarques().ToDictionary(x => x.Key, x => x.Value.Nom);
+            DictionaryMarques = ControllerArticles.GetAllMarques().ToDictionary(x => x.Key, x => x.Value.Nom);
             if(DictionaryMarques.Count > 0)
             {
                 Cbx_Marque.DataSource = new BindingSource(DictionaryMarques, null);
