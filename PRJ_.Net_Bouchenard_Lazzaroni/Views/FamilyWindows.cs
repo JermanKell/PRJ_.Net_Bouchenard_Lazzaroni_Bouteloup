@@ -12,7 +12,6 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
 {
     partial class FamilyWindows : PRJ_.Net_Bouchenard_Lazzaroni.Views.BaseWindows
     {
-        public event EventHandler<MyEventArgs> eventResfreshListView; // Send events to the main to refresh his view
         private ControllerView_PFamily controller;
 
         /// <summary>
@@ -121,7 +120,6 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
             familyWindow.ShowDialog();
 
             refreshOwnView();
-            eventResfreshListView(this, argsEvent); // Send the event
         }
     }
 }

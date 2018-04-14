@@ -17,26 +17,15 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         /// Adds a new article in the DB 
         /// </summary>
         /// <param name="obj">Object article  to add in the DB.</param>
-        /// <returns>Returns the number of article added</returns>
-        public override int AddElement(Object obj)
+        public override void AddElement(Object obj)
         {
-            int Count;
             Articles Article = (Articles)obj;
             Articles ArticleFound = manager.getArticle(Article.Reference);
 
             if (ArticleFound == null)
-            {
-                Count = manager.insertArticle(ArticleFound);
-                if (Count != 1)
-                {
-                    throw new Exception("Une erreur liée à la base de données à empêcher l'ajout de l'article de référence " + Article.Reference);
-                }
-            }
+                manager.insertArticle(Article);
             else
-            {
-                throw new Exception("L'article de référence " + Article.Reference + " existe déja dans la base");
-            }
-            return Count;
+                throw new Exception("L'article de référence " + ArticleFound.Reference + " existe déja dans la base");
         }
 
         /// <summary>

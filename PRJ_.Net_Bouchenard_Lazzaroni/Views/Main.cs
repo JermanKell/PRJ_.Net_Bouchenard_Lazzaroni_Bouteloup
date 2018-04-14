@@ -102,6 +102,8 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             VueArticle VA = new VueArticle(ControllerArticles);
             VA.StartPosition = FormStartPosition.CenterParent;
             VA.ShowDialog();
+
+            refreshOwnView();
         }
 
         protected override void UpdateObjectListView()
@@ -109,36 +111,31 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             VueArticle VA = new VueArticle(ControllerArticles, ControllerArticles.GetArticle(listView1.SelectedItems[0].Name));
             VA.StartPosition = FormStartPosition.CenterParent;
             VA.ShowDialog();
+
+            refreshOwnView();
         }
 
         private void familleToolStripMenuItem_Click(object sender, EventArgs e)
         {
             FamilyWindows FW = new FamilyWindows();
-            FW.eventResfreshListView += refreshListView;
             FW.ShowDialog();
+
+            refreshOwnView();
         }
 
         private void sousFamilleToolStripMenuItem_Click(object sender, EventArgs e)
         {
             SubFamilyWindows SFW = new SubFamilyWindows();
-            SFW.eventResfreshListView += refreshListView;
             SFW.ShowDialog();
+
+            refreshOwnView();
         }
 
         private void marqueToolStripMenuItem_Click(object sender, EventArgs e)
         {
             BrandWindows BW = new BrandWindows();
-            BW.eventResfreshListView += refreshListView;
             BW.ShowDialog();
-        }
 
-        /// <summary>
-        /// Run this method when child add, update or delete one element of her windows to refresh the main
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        void refreshListView(object sender, MyEventArgs e)
-        {
             refreshOwnView();
         }
     }

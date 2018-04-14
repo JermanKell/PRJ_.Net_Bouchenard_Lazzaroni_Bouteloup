@@ -18,26 +18,15 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         /// Adds a new element in the DB 
         /// </summary>
         /// <param name="obj">Object to add in the DB.</param>
-        /// <returns>Returns true if done, false else</returns>
-        public override int AddElement(Object obj)
+        public override void AddElement(Object obj)
         {
-            int Count;
             Familles Family = (Familles)obj;
             Familles FamilyFound = manager.getFamille(Family.Nom);
 
             if (FamilyFound == null)
-            {
-                Count = manager.insertFamille(FamilyFound);
-                if (Count != 1)
-                {
-                    throw new Exception("Une erreur liée à la base de données à empêcher l'ajout de la famille " + FamilyFound.Nom);
-                }
-            }
+                manager.insertFamille(Family);
             else
-            {
-                throw new Exception("La famille " + Family.Nom + " existe déja dans la base");
-            }
-            return Count;
+                throw new Exception("La famille " + FamilyFound.Nom + " existe déja dans la base");
         }
 
         /// <summary>

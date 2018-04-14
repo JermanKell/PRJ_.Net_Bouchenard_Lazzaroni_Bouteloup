@@ -26,8 +26,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         ///       Returns a boolean value: TRUE when succeed and false else
         /// </summary>
         /// <param name="obj">Object to add in the DB.</param>
-        /// <returns>Returns the row id of the most recent successful element inserted</returns>
-        abstract public int AddElement(Object obj);
+        abstract public void AddElement(Object obj);
 
 
         /// <summary>

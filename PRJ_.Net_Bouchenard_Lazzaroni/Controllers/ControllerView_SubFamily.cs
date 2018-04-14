@@ -18,27 +18,15 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         /// Adds a new element in the DB 
         /// </summary>
         /// <param name="obj">Object to add in the DB.</param>
-        /// <returns>Returns true if done, false else</returns>
-        public override int AddElement(object obj)
+        public override void AddElement(object obj)
         {
-            int var;
             SousFamilles subfam = (SousFamilles)obj;
             SousFamilles resSubFam = manager.getSousFamille(subfam.Nom);
 
             if (resSubFam == null)
-            {
-                var = manager.insertSousFamille(resSubFam);
-                if (var != 0)
-                    MessageBox.Show("Insertion of this object succeed");
-                else
-                    MessageBox.Show("Insertion of this object failed");
-            }
+                manager.insertSousFamille(resSubFam);
             else
-            {
                 MessageBox.Show("This object already exists in the DB");
-                var = -1;
-            }
-            return var;
         }
 
         /// <summary>
