@@ -31,15 +31,17 @@
             this.SuspendLayout();
             // 
             // listView1
-            //
-            this.listView1.View = System.Windows.Forms.View.Details;
+            // 
+            this.listView1.Size = new System.Drawing.Size(653, 520);
             // 
             // FamilyWindows
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.ClientSize = new System.Drawing.Size(677, 561);
             this.Name = "FamilyWindows";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Gestion des familles";
+            this.Controls.SetChildIndex(this.listView1, 0);
             this.ResumeLayout(false);
             this.PerformLayout();
 

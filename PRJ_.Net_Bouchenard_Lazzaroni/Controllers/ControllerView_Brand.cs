@@ -26,7 +26,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             if (resBrand == null)
                 manager.insertMarque(brand);
             else
-                MessageBox.Show("This object already exists in the DB");
+                throw new Exception("La marque " + resBrand.Nom + " existe déja dans la base");
         }
 
         /// <summary>

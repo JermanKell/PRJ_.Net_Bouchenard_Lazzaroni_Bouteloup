@@ -85,7 +85,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
                             }
                             else
                             {
-                                statusStrip1.Items[0].Text = "L'opération de suppression de la famille <" + listView1.SelectedItems[ILoop].SubItems[1].Text + "> a été annulée";
+                                statusStrip.Items[0].Text = "L'opération de suppression de la famille <" + listView1.SelectedItems[ILoop].SubItems[1].Text + "> a été annulée";
                             }
 
                         }
@@ -101,17 +101,18 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
 
                     SetGroups(GroupColumn);
                     listView1.SetSortIcon(GroupColumn, listView1.Sorting);
-                    statusStrip1.Items[0].Text = "La famille a bien été supprimée de la base";
+
+                    statusStrip.Items[0].Text = "La famille a bien été supprimé de la base";
                 }
                 catch (Exception ex)
                 {
-                    statusStrip1.Items[0].Text = "Une erreur a empêché la supression de cette famille";
+                    statusStrip.Items[0].Text = "Une erreur a empêché la supression de cette famille";
                     MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             else
             {
-                statusStrip1.Items[0].Text = "La supression de la famille a été annulée";
+                statusStrip.Items[0].Text = "La supression de la famille a été annulée";
             }
 
             refreshOwnView();
@@ -124,9 +125,12 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
         {
             AddUpdateFamily familyWindow = new AddUpdateFamily(controller);
             familyWindow.StartPosition = FormStartPosition.CenterParent;
-            familyWindow.ShowDialog();
 
-            refreshOwnView();
+            if (familyWindow.ShowDialog() == DialogResult.OK)
+            {
+                statusStrip.Items[0].Text = "La famille a été ajoutée";
+                refreshOwnView();
+            }
         }
 
         /// <summary>
@@ -136,9 +140,12 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
         {
             AddUpdateFamily familyWindow = new AddUpdateFamily(controller, controller.GetFamily(Convert.ToInt16(listView1.SelectedItems[0].Name)));
             familyWindow.StartPosition = FormStartPosition.CenterParent;
-            familyWindow.ShowDialog();
 
-            refreshOwnView();
+            if (familyWindow.ShowDialog() == DialogResult.OK)
+            {
+                statusStrip.Items[0].Text = "La famille a été mis à jour";
+                refreshOwnView();
+            }   
         }
     }
 }

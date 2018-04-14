@@ -31,7 +31,7 @@
             this.Btn_Valider = new System.Windows.Forms.Button();
             this.Tbx_Famille = new System.Windows.Forms.TextBox();
             this.Lab_Famille = new System.Windows.Forms.Label();
-            this.cancelButton = new System.Windows.Forms.Button();
+            this.Btn_Annuler = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // Btn_Valider
@@ -59,24 +59,23 @@
             this.Lab_Famille.Size = new System.Drawing.Size(35, 13);
             this.Lab_Famille.TabIndex = 18;
             this.Lab_Famille.Text = "Nom :";
-            this.Lab_Famille.Click += new System.EventHandler(this.Lab_Famille_Click);
             // 
-            // cancelButton
+            // Btn_Annuler
             // 
-            this.cancelButton.Location = new System.Drawing.Point(60, 51);
-            this.cancelButton.Name = "cancelButton";
-            this.cancelButton.Size = new System.Drawing.Size(91, 27);
-            this.cancelButton.TabIndex = 21;
-            this.cancelButton.Text = "Annuler";
-            this.cancelButton.UseVisualStyleBackColor = true;
-            this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
+            this.Btn_Annuler.Location = new System.Drawing.Point(60, 51);
+            this.Btn_Annuler.Name = "Btn_Annuler";
+            this.Btn_Annuler.Size = new System.Drawing.Size(91, 27);
+            this.Btn_Annuler.TabIndex = 21;
+            this.Btn_Annuler.Text = "Annuler";
+            this.Btn_Annuler.UseVisualStyleBackColor = true;
+            this.Btn_Annuler.Click += new System.EventHandler(this.cancelButton_Click);
             // 
             // AddUpdateFamily
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(262, 96);
-            this.Controls.Add(this.cancelButton);
+            this.Controls.Add(this.Btn_Annuler);
             this.Controls.Add(this.Btn_Valider);
             this.Controls.Add(this.Tbx_Famille);
             this.Controls.Add(this.Lab_Famille);
@@ -94,6 +93,6 @@
         private System.Windows.Forms.Button Btn_Valider;
         private System.Windows.Forms.TextBox Tbx_Famille;
         private System.Windows.Forms.Label Lab_Famille;
-        private System.Windows.Forms.Button cancelButton;
+        private System.Windows.Forms.Button Btn_Annuler;
     }
 }

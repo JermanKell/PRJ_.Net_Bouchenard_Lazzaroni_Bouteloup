@@ -7,31 +7,31 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
 {
     enum TypeMessage
     {
-        Success,
-        Warning,
-        Error,
-        Critical
+        Succès,
+        Avertissement,
+        Erreur,
+        Critique
     }
 
     enum SubjectMessage
     {
-        Xml_Structure,
+        Structure_XML,
 
-        Spelling_Mistake,
-        Wrong_Information,
+        Erreur_orthographe,
+        Mauvaise_information,
 
-        Add_Article,
-        Update_Article,
+        Ajouter_article,
+        Modifier_article,
 
-        Add_Famille,
-        Update_Famille,
+        Ajouter_famille,
+        Modifier_famille,
 
-        Add_SousFamille,
-        Update_SousFamille,
+        Ajouter_sous_famille,
+        Modifier_sous_famille,
 
-        Add_Marque,
-        Update_Marque,
+        Ajouter_marque,
+        Modifier_marque,
 
-        Finish
+        Terminé
     }
 }

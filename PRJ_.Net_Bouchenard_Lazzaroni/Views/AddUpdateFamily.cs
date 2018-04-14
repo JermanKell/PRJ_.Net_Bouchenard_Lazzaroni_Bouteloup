@@ -20,6 +20,9 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
             this.Famille = Famille;
             InitializeComponent();
             InitializeGraphics();
+
+            Btn_Valider.DialogResult = DialogResult.OK;
+            Btn_Annuler.DialogResult = DialogResult.Cancel;
         }
 
         private void InitializeGraphics()
@@ -79,18 +82,13 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
                         ControllerFamilly.ChangeElement(Famille);
                     }
                     this.Close();
-                    MessageBox.Show(NameMessage + "de la famille " + Tbx_Famille.Text + " a bien été fait", "Validation", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 catch (Exception ex)
                 {
+                    this.DialogResult = DialogResult.Cancel;
                     MessageBox.Show("Une erreur est survenue lors de " + NameMessage.ToLower() + "avec le message suivant:\n" + ex.Message, "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
-        }
-
-        private void Lab_Famille_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void cancelButton_Click(object sender, EventArgs e)

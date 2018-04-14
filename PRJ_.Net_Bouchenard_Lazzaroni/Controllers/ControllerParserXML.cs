@@ -88,7 +88,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         protected void loadDocument()
         {
             xmlDocument.Load(filename); // Load the file into the XMLDocument
-            updateListView(TypeMessage.Success, SubjectMessage.Xml_Structure, "File loaded");
+            updateListView(TypeMessage.Succès, SubjectMessage.Structure_XML, "Le fichier XML est chargé");
         }
 
         /// <summary>
@@ -101,7 +101,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             xmlDocument.Schemas.Add(schemaSet); // Add the schema to the xml document
             ValidationEventHandler veh = new ValidationEventHandler(eventVerifyStructure); // Send event when something goes wrong.
             xmlDocument.Validate(veh); // Run the validation
-            updateListView(TypeMessage.Success, SubjectMessage.Xml_Structure, "XML structure is valid");
+            updateListView(TypeMessage.Succès, SubjectMessage.Structure_XML, "La structure du fichier XML est validée");
         }
 
         /// <summary>
@@ -133,7 +133,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
                 article.Quantite = 1;
 
                 dbManager.insertArticle(article);
-                updateListView(TypeMessage.Success, SubjectMessage.Add_Article, "The article " + article.Reference + " has been added");
+                updateListView(TypeMessage.Succès, SubjectMessage.Ajouter_article, "L'article " + article.Reference + " a été ajouté");
             }
         }
 
@@ -152,9 +152,9 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
                 }
                 else
                 {
-                    updateListView(TypeMessage.Warning, SubjectMessage.Spelling_Mistake,
-                        "The familly of the article " + article.Reference + " is \""
-                        + node.SelectSingleNode("famille").InnerText + "\". It has been replaced by \"" + famille.Nom + "\"");
+                    updateListView(TypeMessage.Avertissement, SubjectMessage.Erreur_orthographe,
+                        "La famille de l'article " + article.Reference + " est \""
+                        + node.SelectSingleNode("famille").InnerText + "\". Elle a été remplacé par \"" + famille.Nom + "\"");
 
                     article.IdFamille = famille.Id;
                     node.SelectSingleNode("famille").InnerText = famille.Nom; // Change the text of the XML to correct the spelling mistake
@@ -172,7 +172,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             Familles famille = new Familles();
             famille.Nom = node.SelectSingleNode("famille").InnerText;
             article.IdFamille = dbManager.insertFamille(famille); // Insert return the last id of the famille added.
-            updateListView(TypeMessage.Success, SubjectMessage.Add_Famille, "The familly " + famille.Nom + " has been created");
+            updateListView(TypeMessage.Succès, SubjectMessage.Ajouter_famille, "La famille " + famille.Nom + " a été créée");
         }
 
         /// <summary>
@@ -193,17 +193,17 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
                 }
                 else
                 {
-                    updateListView(TypeMessage.Warning, SubjectMessage.Spelling_Mistake,
-                        "The subfamilly of the article " + article.Reference + " is \""
-                        + node.SelectSingleNode("sousFamille").InnerText + "\". It has been replaced by \"" + sousFamille.Nom + "\"");
+                    updateListView(TypeMessage.Avertissement, SubjectMessage.Erreur_orthographe,
+                        "La sous famille de l'article " + article.Reference + " est \""
+                        + node.SelectSingleNode("sousFamille").InnerText + "\". Elle a été remplacé par \"" + sousFamille.Nom + "\"");
 
                     article.IdSousFamille = sousFamille.Id;
 
                     // Generate error when the sousFamille don't belong to the good famille
                     if (!dbManager.existSousFamilleInFamille(article.IdSousFamille, article.IdFamille))
                     {
-                        updateListView(TypeMessage.Error, SubjectMessage.Wrong_Information,
-                        "Cannot add the article " + article.Reference + " because his family does not match to his sub family");
+                        updateListView(TypeMessage.Erreur, SubjectMessage.Mauvaise_information,
+                        "Impossible d'ajouter l'article " + article.Reference + " car sa famille ne correspond pas à la bonne sous famille");
 
                         foundMistake = true;
                     }
@@ -216,8 +216,8 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
                 // Generate error when the sousFamille don't belong to the good famille
                 if (!dbManager.existSousFamilleInFamille(article.IdSousFamille, article.IdFamille))
                 {
-                    updateListView(TypeMessage.Error, SubjectMessage.Wrong_Information,
-                        "Cannot add the article " + article.Reference + " because his family does not match to his sub family");
+                    updateListView(TypeMessage.Erreur, SubjectMessage.Mauvaise_information,
+                        "Impossible d'ajouter l'article " + article.Reference + " car sa famille ne correspond pas à la bonne sous famille");
 
                     foundMistake = true;
                 }
@@ -234,7 +234,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             sousFamille.IdFamille = article.IdFamille;
             sousFamille.Nom = node.SelectSingleNode("sousFamille").InnerText;
             article.IdSousFamille = dbManager.insertSousFamille(sousFamille); // Insert return the last id of the sousFamille added.
-            updateListView(TypeMessage.Success, SubjectMessage.Add_Famille, "The subfamilly " + sousFamille.Nom + " has been created");
+            updateListView(TypeMessage.Succès, SubjectMessage.Ajouter_sous_famille, "La sous famille " + sousFamille.Nom + " a été créée");
         }
 
         /// <summary>
@@ -252,9 +252,9 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
                 }
                 else
                 {
-                    updateListView(TypeMessage.Warning, SubjectMessage.Spelling_Mistake,
-                        "The brand of the article " + article.Reference + " is \""
-                        + node.SelectSingleNode("marque").InnerText + "\". It has been replaced by \"" + marque.Nom + "\"");
+                    updateListView(TypeMessage.Avertissement, SubjectMessage.Erreur_orthographe,
+                        "La marque de l'article " + article.Reference + " est \""
+                        + node.SelectSingleNode("marque").InnerText + "\". Elle a été remplacée par \"" + marque.Nom + "\"");
 
                     article.IdMarque = marque.Id;
                     node.SelectSingleNode("marque").InnerText = marque.Nom; // Change the text of the XML to correct the spelling mistake
@@ -272,7 +272,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             Marques marque = new Marques();
             marque.Nom = node.SelectSingleNode("marque").InnerText;
             article.IdMarque = dbManager.insertMarque(marque); // Insert return the last id of the brand added.
-            updateListView(TypeMessage.Success, SubjectMessage.Add_Famille, "The marque " + marque.Nom + " has been created");
+            updateListView(TypeMessage.Succès, SubjectMessage.Ajouter_marque, "La marque " + marque.Nom + " a été créée");
         }
 
         /// <summary>

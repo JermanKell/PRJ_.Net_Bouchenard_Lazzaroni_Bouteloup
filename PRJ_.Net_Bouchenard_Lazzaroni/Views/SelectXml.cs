@@ -84,11 +84,11 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         {
             ListViewItem listViewItem = new ListViewItem(new[] { e.message, e.type.ToString(), e.subject.ToString()});
 
-            if (e.type == TypeMessage.Success)
+            if (e.type == TypeMessage.Succès)
                 listViewItem.ForeColor = Color.Green;
-            else if (e.type == TypeMessage.Warning)
+            else if (e.type == TypeMessage.Avertissement)
                 listViewItem.ForeColor = Color.Brown;
-            else if (e.type == TypeMessage.Error)
+            else if (e.type == TypeMessage.Erreur)
                 listViewItem.ForeColor = Color.Red;
             else
             {

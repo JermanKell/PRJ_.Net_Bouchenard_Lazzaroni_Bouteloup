@@ -22,6 +22,9 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             this.Article = Article;
             InitializeComponent();
             InitializeGraphics();
+
+            Btn_Valider.DialogResult = DialogResult.OK;
+            Btn_Annuler.DialogResult = DialogResult.Cancel;
         }
 
         private void InitializeGraphics()
@@ -205,7 +208,6 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
 
                         ControllerArticles.ChangeElement(Article);
                     }
-                    MessageBox.Show(NameMessage + "de l'article de référence " + Tbx_Reference.Text + " a bien été fait", "Validation", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     this.Close();
                 }
                 catch (Exception ex)
