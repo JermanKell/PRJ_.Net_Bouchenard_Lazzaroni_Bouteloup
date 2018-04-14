@@ -205,17 +205,13 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
 
                         ControllerArticles.ChangeElement(Article);
                     }
-
-                    //////////////////////
-                    //Refresh ListViewArticle
-                    //////////
                     MessageBox.Show(NameMessage + "de l'article de référence " + Tbx_Reference.Text + " a bien été fait", "Validation", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    this.Close();
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show("Une erreur est survenue lors de " + NameMessage.ToLower() + "avec le message suivant:\n" + ex.Message, "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-                this.Close();
             }
         }
     }

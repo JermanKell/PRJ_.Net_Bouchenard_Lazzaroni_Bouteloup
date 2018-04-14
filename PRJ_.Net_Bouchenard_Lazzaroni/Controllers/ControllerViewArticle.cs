@@ -60,7 +60,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         /// <returns>Returns the number of articles deleted</returns>
         public override int DeleteElement(string RefObj)
         {
-            int Count = -1;
+            int Count;
             if (manager.getArticle(RefObj) != null)
             {
                 Count = manager.removeArticle(RefObj);

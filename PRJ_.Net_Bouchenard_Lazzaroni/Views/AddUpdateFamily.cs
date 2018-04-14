@@ -78,17 +78,13 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
 
                         ControllerFamilly.ChangeElement(Famille);
                     }
-
-                    //////////////////////
-                    //Refresh ListViewArticle
-                    //////////
+                    this.Close();
                     MessageBox.Show(NameMessage + "de la famille " + Tbx_Famille.Text + " a bien été fait", "Validation", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show("Une erreur est survenue lors de " + NameMessage.ToLower() + "avec le message suivant:\n" + ex.Message, "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-                this.Close();
             }
         }
     }

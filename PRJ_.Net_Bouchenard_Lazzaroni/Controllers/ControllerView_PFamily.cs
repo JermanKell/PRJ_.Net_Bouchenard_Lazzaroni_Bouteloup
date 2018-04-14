@@ -64,7 +64,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         /// <returns>Returns true if done, false else</returns>
         public override int DeleteElement(string RefObj)
         {
-            int Count = -1;
+            int Count;
             if (manager.getFamille(id: Convert.ToInt32(RefObj)) != null)
             {
                 Count = manager.removeFamille(Convert.ToInt32(RefObj));
