@@ -113,8 +113,8 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
 
             try
             {
-                Sql.ExecuteNonQuery();
-                return Convert.ToInt16(Conn.LastInsertRowId);
+                sql.ExecuteNonQuery();
+                return Convert.ToInt32(conn.LastInsertRowId);
 
             }
             catch (Exception Ex)
@@ -498,13 +498,13 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         /// <summary>
         /// Set the new family to the database
         /// </summary>
-        /// <param name="Fam"> The family to update </param>
+        /// <param name="Family"> The family to update </param>
         /// <returns>The number of line modified </returns>
-        public int UpdateFamilles(Familles Fam)
+        public int updateFamilles(Familles Family)
         {
-            SQLiteCommand Sql = new SQLiteCommand("UPDATE Familles SET Nom = @nom WHERE RefFamille = @reference", Conn);
-            Sql.Parameters.AddWithValue("@nom", Fam.Nom);
-            Sql.Parameters.AddWithValue("@reference", Fam.Id);
+            SQLiteCommand sql = new SQLiteCommand("UPDATE Familles SET Nom = @nom WHERE RefFamille = @reference", conn);
+            sql.Parameters.AddWithValue("@nom", Family.Nom);
+            sql.Parameters.AddWithValue("@reference", Family.Id);
 
             try
             {
@@ -519,12 +519,23 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         /// <summary>
         /// Set the new family to the database
         /// </summary>
-        /// <param name="fam"> The family to update </param>
+        /// <param name="Subfamily"> The family to update </param>
         /// <returns>The number of line modified </returns>
-        public int UpdateSousFamilles(SousFamilles Subfam)
+        public int updateSousFamilles(SousFamilles Subfamily)
         {
-            // TODO
-            return 0;
+            SQLiteCommand sql = new SQLiteCommand("UPDATE SousFamilles SET Nom = @name, RefFamille = @idFamily WHERE RefSousFamille = @idSubFamily", conn);
+            sql.Parameters.AddWithValue("@name", Subfamily.Nom);
+            sql.Parameters.AddWithValue("@idFamily", Subfamily.IdFamille);
+            sql.Parameters.AddWithValue("@idSubFamily", Subfamily.Id);
+
+            try
+            {
+                return sql.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
         /// <summary>

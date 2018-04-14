@@ -73,7 +73,53 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
         /// </summary>
         protected override void DeleteObjectListView()
         {
-            RefreshOwnView();
+            DialogResult dialogResult = MessageBox.Show("Confirmer la supression de sous famille?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (dialogResult == DialogResult.Yes)
+            {
+                try
+                {
+                    for (int ILoop = 0; ILoop < listView1.SelectedItems.Count; ILoop++)   //Remove all selected items
+                    {
+                        if (controller.ExistArticleFromSubFamily(Convert.ToInt32(listView1.SelectedItems[ILoop].Name)))    //At least one article uses this sub family
+                        {
+                            DialogResult dialogArticle = MessageBox.Show("Au moins un article est associé à la sous famille <" + listView1.SelectedItems[ILoop].SubItems[2].Text + "> à supprimer.\n Si vous poursuivez, tous les articles de cette sous famille seront également supprimés!", "Poursuivre?", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                            if (dialogArticle == DialogResult.Yes)
+                            {
+                                controller.DeleteElement(listView1.SelectedItems[ILoop].Name);
+                            }
+                            else
+                            {
+                                statusStrip.Items[0].Text = "L'opération de suppression de la sous famille <" + listView1.SelectedItems[ILoop].SubItems[2].Text + "> a été annulée";
+                            }
+
+                        }
+                        else  //No one article uses this sub family
+                        {
+                            controller.DeleteElement(listView1.SelectedItems[ILoop].Name);
+                        }
+
+                    }
+
+                    LoadDataListView();
+                    InitialiseGroupsByColumnListView();
+
+                    SetGroups(GroupColumn);
+                    listView1.SetSortIcon(GroupColumn, listView1.Sorting);
+
+                    statusStrip.Items[0].Text = "La marque a bien été supprimé de la base";
+                }
+                catch (Exception ex)
+                {
+                    statusStrip.Items[0].Text = "Une erreur a empêché la supression de cette marque";
+                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else
+            {
+                statusStrip.Items[0].Text = "La supression de la marque a été annulée";
+            }
+
+            refreshOwnView();
         }
 
         /// <summary>

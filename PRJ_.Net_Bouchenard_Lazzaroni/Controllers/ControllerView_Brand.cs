@@ -85,7 +85,12 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             return Count;
         }
 
-        public bool ExistArticleFromBrand(int IdBrand)
+        /// <summary>
+        /// Check if at least one article exists from a id brand
+        /// </summary>
+        /// <param name="idBrand">Reference of brand</param>
+        /// <returns>Returns true is an article exists, else false</returns>
+        public bool ExistArticleFromBrand(int idBrand)
         {
             if (Manager.ExistArticleFromBrand(IdBrand) > 0)
                 return true;

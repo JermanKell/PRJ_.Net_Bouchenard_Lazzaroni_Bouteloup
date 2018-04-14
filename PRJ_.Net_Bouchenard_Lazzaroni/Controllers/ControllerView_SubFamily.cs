@@ -23,13 +23,13 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         /// <param name="Obj">Object to add in the DB.</param>
         public override void AddElement(object Obj)
         {
-            SousFamilles Subfam = (SousFamilles)Obj;
-            SousFamilles ResSubFam = Manager.GetSousFamille(Subfam.Nom);
+            SousFamilles SubFamily = (SousFamilles)obj;
+            SousFamilles SubFamilyFound = manager.getSousFamille(SubFamily.Nom);
 
-            if (ResSubFam == null)
-                Manager.InsertSousFamille(ResSubFam);
+            if (SubFamilyFound == null)
+                manager.insertSousFamille(SubFamily);
             else
-                MessageBox.Show("This object already exists in the DB");
+                throw new Exception("La sous famille " + SubFamily.Nom + " existe déja dans la base");
         }
 
         /// <summary>
@@ -39,36 +39,72 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         /// <returns>Returns true if done, false else</returns>
         public override int ChangeElement(object Obj)
         {
-            int Var;
-            SousFamilles SousFamille = (SousFamilles)(Obj);
-            SousFamilles SousFam = Manager.GetSousFamille(SousFamille.Nom);
+            int Count;
 
-            if (SousFam != null)
+            SousFamilles SubFamily = (SousFamilles)(obj);
+            SousFamilles SubFamilyFound = manager.getSousFamille(id: SubFamily.Id);
+
+
+            if (SubFamilyFound != null)
             {
-                Var = Manager.UpdateSousFamilles(SousFamille);
-
-                if (Var == 1)
-                    MessageBox.Show("The element in the DB has been modified");
-                else
-                    MessageBox.Show("An error occured while the program was changing the values");
+                Count = manager.updateSousFamilles(SubFamily);
+                if (Count != 1)
+                {
+                    throw new Exception("Une erreur liée à la base de données à empêcher la modification de la sous famille " + SubFamily.Nom);
+                }
             }
             else
             {
-                MessageBox.Show("The element to modify does not exist in the DB");
-                Var = -1;
+                throw new Exception("La sous famille " + SubFamily.Nom + " n'existe pas dans la base");
             }
-            return Var;
+            return Count;
         }
 
         /// <summary>
-        /// Deletes an element from the DB with the reference passed in parameter 
+        /// Deletes all articles and a sub family with the reference of the sub family passed in parameter 
         /// </summary>
         /// <param name="RefObj">Reference of the element to delete</param>
-        /// <returns>Returns true if done, false else</returns>
+        /// <returns>Returns the total number of rows removed</returns>
         public override int DeleteElement(string RefObj)
         {
-            // TODO
-            return 0;
+            int IdSubFamily = Convert.ToInt32(RefObj);
+            int Count = 0;
+            if (manager.getSousFamille(id: IdSubFamily) != null)
+            {
+                Count += manager.removeArticleFromSubFamily(IdSubFamily);
+                Count += manager.removeSubFamily(IdSubFamily);
+                if (Count == 0)
+                {
+                    throw new Exception("Une erreur liée à la base de données à empêcher la supression de la sous famille de reference " + RefObj);
+                }
+            }
+            else
+            {
+                throw new Exception("La sous famille de référence " + RefObj + " n'existe pas dans la base");
+            }
+            return Count;
+        }
+
+        /// <summary>
+        /// Check if at least one article exists from a id sub family
+        /// </summary>
+        /// <param name="idBrand">Reference of sub family</param>
+        /// <returns>Returns true is an article exists, else false</returns>
+        public bool ExistArticleFromSubFamily(int idSubFamily)
+        {
+            if (manager.existArticleFromSubFamily(idSubFamily) > 0)
+                return true;
+            else
+                return false;
+        }
+
+        /// <summary>
+        /// Get a dictionary of all families
+        /// </summary>
+        /// <returns>Dictionary of int and Families</returns>
+        public Dictionary<int, Familles> getAllFamilies()
+        {
+            return manager.getAllFamilles();
         }
 
         /// <summary>
