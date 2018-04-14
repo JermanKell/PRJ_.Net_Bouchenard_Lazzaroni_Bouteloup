@@ -6,6 +6,9 @@ using System.Windows.Forms;
 
 namespace PRJ_.Net_Bouchenard_Lazzaroni
 {
+    /// <summary>
+    /// Main controller of family, sub family and brand view
+    /// </summary>
     abstract class ControllerView
     {
         /// <summary>

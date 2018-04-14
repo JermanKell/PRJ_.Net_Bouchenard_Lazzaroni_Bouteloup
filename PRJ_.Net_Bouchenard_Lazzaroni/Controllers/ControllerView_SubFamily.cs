@@ -6,6 +6,9 @@ using System.Windows.Forms;
 
 namespace PRJ_.Net_Bouchenard_Lazzaroni
 {
+    /// <summary>
+    /// The controller of the sub family view
+    /// </summary>
     class ControllerView_SubFamily : ControllerView
     {
         /// <summary>
@@ -86,6 +89,11 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             return manager.getNameColumnTable("SousFamilles");
         }
 
+        /// <summary>
+        /// Get one sub family by his id
+        /// </summary>
+        /// <param name="id">The id of the sub family</param>
+        /// <returns>The sub family founded</returns>
         public SousFamilles GetSubFamily(int id)
         {
             return manager.getSousFamille(id: id);

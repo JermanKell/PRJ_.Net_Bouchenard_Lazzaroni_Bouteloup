@@ -6,6 +6,9 @@ using System.Windows.Forms;
 
 namespace PRJ_.Net_Bouchenard_Lazzaroni
 {
+    /// <summary>
+    /// Controller of the brand view
+    /// </summary>
     class ControllerView_Brand : ControllerView
     {
         /// <summary>
@@ -108,6 +111,11 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             return manager.getNameColumnTable("Marques");
         }
 
+        /// <summary>
+        /// Return the brand corresponding to the id
+        /// </summary>
+        /// <param name="id"> The id of the brand that you want </param>
+        /// <returns> The brand founded </returns>
         public Marques GetBrand(int id)
         {
             return manager.getMarque(id: id);

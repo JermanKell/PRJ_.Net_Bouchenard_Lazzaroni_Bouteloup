@@ -8,6 +8,9 @@ using System.Collections;
 
 namespace PRJ_.Net_Bouchenard_Lazzaroni
 {
+    /// <summary>
+    /// Unique class where you can run sql query.
+    /// </summary>
     class DBManager
     {
         private SQLiteConnection conn; // The XML connection
@@ -169,6 +172,10 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             return DictionaryArticles;
         }
 
+        /// <summary>
+        /// Get all family
+        /// </summary>
+        /// <returns> A dictionnary of the family </returns>
         public Dictionary<int, Familles> getAllFamilles()
         {
             Dictionary<int, Familles> listFamille = new Dictionary<int, Familles>();
@@ -185,6 +192,10 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             return listFamille;
         }
 
+        /// <summary>
+        /// Get all sub family
+        /// </summary>
+        /// <returns>A dictionnary of the sub family</returns>
         public Dictionary<int, SousFamilles> getAllSousFamilles()
         {
             Dictionary<int, SousFamilles> listSousFamille = new Dictionary<int, SousFamilles>();
@@ -222,6 +233,10 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             return listSubFamily;
         }
 
+        /// <summary>
+        /// Get all brands
+        /// </summary>
+        /// <returns>A dictionnary of all brands</returns>
         public Dictionary<int, Marques> getAllMarques()
         {
             Dictionary<int, Marques> listMarque = new Dictionary<int, Marques>();
@@ -354,6 +369,11 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
                 return null;
         }
         
+        /// <summary>
+        /// Remove one family by his id from the database
+        /// </summary>
+        /// <param name="refId">The id of the family</param>
+        /// <returns>The number of family removed</returns>
         public int removeFamille(int refId)
         {
             SQLiteCommand sql = new SQLiteCommand("DELETE FROM Familles WHERE RefFamille = @reference", conn);
@@ -400,6 +420,11 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
                 return null;
         }
 
+        /// <summary>
+        /// Remove one sub family by his id
+        /// </summary>
+        /// <param name="idSubFamily">The id of the sub family to remove</param>
+        /// <returns>The number of sub family removed</returns>
         public int removeSubFamily(int idSubFamily)
         {
             SQLiteCommand sql = new SQLiteCommand(
@@ -448,6 +473,11 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
                 return null;
         }
 
+        /// <summary>
+        /// Remove one brand from his id
+        /// </summary>
+        /// <param name="refId">The id of the brand to remove</param>
+        /// <returns>The number of brands removed</returns>
         public int removeMarque(int refId)
         {
             SQLiteCommand sql = new SQLiteCommand("DELETE FROM Marques WHERE RefMarque = @reference", conn);
