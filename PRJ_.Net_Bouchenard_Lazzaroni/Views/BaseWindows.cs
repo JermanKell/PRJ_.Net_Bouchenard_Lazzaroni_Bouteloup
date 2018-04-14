@@ -170,17 +170,17 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
             //Insert in the groupsListView a new hashtable containing all the groups needed for a single column
             InitialiseGroupsByColumnListView();
 
-            RefreshListViewArticle();
+            RefreshListViewArticle(GroupColumn, listView1.Sorting);
         }
 
         /// <summary>
         /// Refresh the view
         /// </summary>
-        protected void RefreshListViewArticle()
+        protected void RefreshListViewArticle(int ColumnSorted = 0, SortOrder SortOrder = SortOrder.Ascending)
         {
-            listView1.Sorting = SortOrder.Ascending;
-            SetGroups(0);
-            listView1.SetSortIcon(0, SortOrder.Ascending);
+            listView1.Sorting = SortOrder;
+            SetGroups(ColumnSorted);
+            listView1.SetSortIcon(ColumnSorted, SortOrder);
             listView1.SelectedItems.Clear();
             if (listView1.FocusedItem != null)
             {
