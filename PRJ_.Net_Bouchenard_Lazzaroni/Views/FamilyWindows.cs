@@ -69,30 +69,49 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
         /// </summary>
         protected override void DeleteObjectListView()
         {
-            DialogResult dialogResult = MessageBox.Show("Confirmer la supression d'article?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            DialogResult dialogResult = MessageBox.Show("Confirmer la supression de famille?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (dialogResult == DialogResult.Yes)
             {
                 try
                 {
                     for (int ILoop = 0; ILoop < listView1.SelectedItems.Count; ILoop++)   //Remove all selected items
-                        controller.DeleteElement(listView1.SelectedItems[ILoop].Name);  //get id refArticle with item name
+                    {
+                        if (controller.ExistArticleFromFamily(Convert.ToInt32(listView1.SelectedItems[ILoop].Name)))    //At least one article uses a subfamily in this family 
+                        {
+                            DialogResult dialogArticle = MessageBox.Show("Au moins un article est associé à une sous famille de la famille <" + listView1.SelectedItems[ILoop].SubItems[1].Text +"> à supprimer.\n Si vous poursuivez, tous les articles de cette famille seront également supprimés!", "Poursuivre?", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                            if (dialogArticle == DialogResult.Yes)
+                            {
+                                controller.DeleteElement(listView1.SelectedItems[ILoop].Name);
+                            }
+                            else
+                            {
+                                statusStrip1.Items[0].Text = "L'opération de suppression de la famille <" + listView1.SelectedItems[ILoop].SubItems[1].Text + "> a été annulée";
+                            }
 
+                        }
+                        else  //No one article uses a subfamily in this family
+                        {
+                            controller.DeleteElement(listView1.SelectedItems[ILoop].Name);
+                        }
+                        
+                    }
+                        
                     LoadDataListView();
                     InitialiseGroupsByColumnListView();
 
                     SetGroups(GroupColumn);
                     listView1.SetSortIcon(GroupColumn, listView1.Sorting);
-                    statusStrip1.Items[0].Text = "L'article a bien été supprimé de la base";
+                    statusStrip1.Items[0].Text = "La famille a bien été supprimée de la base";
                 }
                 catch (Exception ex)
                 {
-                    statusStrip1.Items[0].Text = "Une erreur a empêché la supression de cet article";
+                    statusStrip1.Items[0].Text = "Une erreur a empêché la supression de cette famille";
                     MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             else
             {
-                statusStrip1.Items[0].Text = "La supression d'article a été annulée";
+                statusStrip1.Items[0].Text = "La supression de la famille a été annulée";
             }
 
             refreshOwnView();

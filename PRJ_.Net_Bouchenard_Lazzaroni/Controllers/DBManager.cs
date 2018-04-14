@@ -209,7 +209,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         public Dictionary<int, SousFamilles> getAllSubFamiliesFromFamily(int idFamily)
         {
             Dictionary<int, SousFamilles> listSubFamily = new Dictionary<int, SousFamilles>();
-            SQLiteCommand sql = new SQLiteCommand("SELECT RefSousFamille FROM SousFamilles WHERE RefFamille = @idFamily", conn);
+            SQLiteCommand sql = new SQLiteCommand("SELECT * FROM SousFamilles WHERE RefFamille = @idFamily", conn);
             sql.Parameters.AddWithValue("@idFamily", idFamily);
             SQLiteDataReader reader = sql.ExecuteReader();
 
@@ -219,7 +219,6 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
                 SubFamily.convertDataReaderToSousFamilles(reader);
                 listSubFamily.Add(SubFamily.Id, SubFamily);
             }
-
             return listSubFamily;
         }
 
@@ -262,11 +261,36 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
                 return null;
         }
 
+        /// <summary>
+        /// Remove an article from a reference
+        /// </summary>
+        /// <param name="reference"> The article reference </param>
+        /// <returns> The number of rows removed in the DB </returns>
         public int removeArticle(string reference)
         {
             SQLiteCommand sql = new SQLiteCommand(
                 "DELETE FROM Articles WHERE RefArticle = @reference", conn);
             sql.Parameters.AddWithValue("@reference", reference);
+            try
+            {
+                return sql.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Remove an article from a sub family id
+        /// </summary>
+        /// <param name="idFamily"> The sub family id </param>
+        /// <returns> The number of rows removed in the DB </returns>
+        public int removeArticleFromSubFamily(int idSubFamily)
+        {
+            SQLiteCommand sql = new SQLiteCommand(
+                "DELETE FROM Articles WHERE RefSousFamille = @idFamily", conn);
+            sql.Parameters.AddWithValue("@idFamily", idSubFamily);
             try
             {
                 return sql.ExecuteNonQuery();
@@ -354,6 +378,21 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             }
             else
                 return null;
+        }
+
+        public int removeSubFamily(int idSubFamily)
+        {
+            SQLiteCommand sql = new SQLiteCommand(
+                "DELETE FROM SousFamilles WHERE RefSousFamille = @idSubFamily", conn);
+            sql.Parameters.AddWithValue("@idSubFamily", idSubFamily);
+            try
+            {
+                return sql.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
         /// <summary>
@@ -506,7 +545,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             SQLiteCommand sql = new SQLiteCommand("SELECT COUNT(*) FROM Articles WHERE RefSousFamille = @idSubFamily", conn);
             sql.Parameters.AddWithValue("@idSubFamily", idSubFamily);
             SQLiteDataReader reader = sql.ExecuteReader();
-
+            reader.Read();
             return reader.GetInt32(0);
         }
 
@@ -520,7 +559,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             SQLiteCommand sql = new SQLiteCommand("SELECT COUNT(*) FROM Articles WHERE RefMarque = @idBrand", conn);
             sql.Parameters.AddWithValue("@idBrand", idBrand);
             SQLiteDataReader reader = sql.ExecuteReader();
-
+            reader.Read();
             return reader.GetInt32(0);
         }
 
