@@ -16,7 +16,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         Articles Article; // The article to modify or null if the user want to add a new article
         ControllerViewArticle ControllerArticles;
         Dictionary<int, string> DictionaryFamilles; // Useful for combobox
-        Dictionary<int, Dictionary<int, string>> DictionarySubFamilySortedByFamily; //first key: id family, second key: id subfamily
+        Dictionary<int, Dictionary<int, string>> DictionarySubFamilyStoredByFamily; //first key: id family, second key: id subfamily
         Dictionary<int, string> DictionaryMarques; // Useful for combobox
 
         /// <summary>
@@ -55,7 +55,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
                 KeyValuePair<int, string> PairFamille = new KeyValuePair<int, string>(Article.IdFamille, DictionaryFamilles[Article.IdFamille]);
                 Cbx_Famille.SelectedIndex = Cbx_Famille.Items.IndexOf(PairFamille);
 
-                KeyValuePair<int, string> PairSousFamille = new KeyValuePair<int, string>(Article.IdSousFamille, DictionarySubFamilySortedByFamily[Article.IdFamille][Article.IdSousFamille]);
+                KeyValuePair<int, string> PairSousFamille = new KeyValuePair<int, string>(Article.IdSousFamille, DictionarySubFamilyStoredByFamily[Article.IdFamille][Article.IdSousFamille]);
                 Cbx_SousFamille.SelectedIndex = Cbx_SousFamille.Items.IndexOf(PairSousFamille);
 
                 KeyValuePair<int, string> PairMarque = new KeyValuePair<int, string>(Article.IdMarque, DictionaryMarques[Article.IdMarque]);
@@ -93,17 +93,17 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         /// </summary>
         private void InitializeDictionarySubFamilySortedByFamily()
         {
-            DictionarySubFamilySortedByFamily = new Dictionary<int, Dictionary<int, string>>();
+            DictionarySubFamilyStoredByFamily = new Dictionary<int, Dictionary<int, string>>();
 
             foreach (KeyValuePair<int, string> Family in DictionaryFamilles)
             {
-                DictionarySubFamilySortedByFamily[Family.Key] = new Dictionary<int, string>();
+                DictionarySubFamilyStoredByFamily[Family.Key] = new Dictionary<int, string>();
             }
 
 
             foreach (KeyValuePair<int, SousFamilles> SubFamily in ControllerArticles.GetAllSousFamilles())
             {
-                DictionarySubFamilySortedByFamily[SubFamily.Value.IdFamille][SubFamily.Value.Id] = SubFamily.Value.Nom;
+                DictionarySubFamilyStoredByFamily[SubFamily.Value.IdFamille][SubFamily.Value.Id] = SubFamily.Value.Nom;
             }
         }
 
@@ -132,48 +132,48 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             if (Tbx_Reference.TextLength == 0)
             {
                 Graphics Graph = Tbx_Reference.CreateGraphics();
-                Pen pen = new Pen(Brushes.Red, 2.0f);
-                Graph.DrawRectangle(pen, Tbx_Reference.ClientRectangle);
+                Pen Pen = new Pen(Brushes.Red, 2.0f);
+                Graph.DrawRectangle(Pen, Tbx_Reference.ClientRectangle);
                 IsValid = false;
             }
 
             if (Cbx_Famille.SelectedIndex == -1)
             {
                 Graphics Graph = Cbx_Famille.CreateGraphics();
-                Pen pen = new Pen(Brushes.Red, 2.0f);
-                Graph.DrawRectangle(pen, Cbx_Famille.ClientRectangle);
+                Pen Pen = new Pen(Brushes.Red, 2.0f);
+                Graph.DrawRectangle(Pen, Cbx_Famille.ClientRectangle);
                 IsValid = false;
             }
 
             if (Cbx_SousFamille.SelectedIndex == -1)
             {
                 Graphics Graph = Cbx_SousFamille.CreateGraphics();
-                Pen pen = new Pen(Brushes.Red, 2.0f);
-                Graph.DrawRectangle(pen, Cbx_SousFamille.ClientRectangle);
+                Pen Pen = new Pen(Brushes.Red, 2.0f);
+                Graph.DrawRectangle(Pen, Cbx_SousFamille.ClientRectangle);
                 IsValid = false;
             }
 
             if (Cbx_Marque.SelectedIndex == -1)
             {
                 Graphics Graph = Cbx_Marque.CreateGraphics();
-                Pen pen = new Pen(Brushes.Red, 2.0f);
-                Graph.DrawRectangle(pen, Cbx_Marque.ClientRectangle);
+                Pen Pen = new Pen(Brushes.Red, 2.0f);
+                Graph.DrawRectangle(Pen, Cbx_Marque.ClientRectangle);
                 IsValid = false;
             }
 
             if (Tbx_Prix.TextLength == 0)
             {
                 Graphics Graph = Tbx_Prix.CreateGraphics();
-                Pen pen = new Pen(Brushes.Red, 2.0f);
-                Graph.DrawRectangle(pen, Tbx_Prix.ClientRectangle);
+                Pen Pen = new Pen(Brushes.Red, 2.0f);
+                Graph.DrawRectangle(Pen, Tbx_Prix.ClientRectangle);
                 IsValid = false;
             }
 
             if (Tbx_Quantite.TextLength == 0)
             {
                 Graphics Graph = Tbx_Quantite.CreateGraphics();
-                Pen pen = new Pen(Brushes.Red, 2.0f);
-                Graph.DrawRectangle(pen, Tbx_Quantite.ClientRectangle);
+                Pen Pen = new Pen(Brushes.Red, 2.0f);
+                Graph.DrawRectangle(Pen, Tbx_Quantite.ClientRectangle);
                 IsValid = false;
             }
 
@@ -252,11 +252,11 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         /// <param name="e"></param>
         private void Cbx_Famille_SelectedIndexChanged(object sender, EventArgs e)
         {
+            Cbx_SousFamille.DataSource = null;
+            Cbx_SousFamille.Items.Clear();
             if (Cbx_Famille.SelectedIndex != -1)
             {
-                Cbx_SousFamille.DataSource = null;
-                Cbx_SousFamille.Items.Clear();
-                Dictionary<int, string> DictionaryRetrievedOfSubFamily = DictionarySubFamilySortedByFamily[((KeyValuePair<int, string>)Cbx_Famille.SelectedItem).Key];
+                Dictionary<int, string> DictionaryRetrievedOfSubFamily = DictionarySubFamilyStoredByFamily[((KeyValuePair<int, string>)Cbx_Famille.SelectedItem).Key];
                 if (DictionaryFamilles.Count > 0)
                 {
                     Cbx_SousFamille.DataSource = new BindingSource(DictionaryRetrievedOfSubFamily, null);

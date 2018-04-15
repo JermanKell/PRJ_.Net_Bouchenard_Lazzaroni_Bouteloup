@@ -36,7 +36,7 @@
             this.menuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
-            // listView1
+            // ListView
             // 
             this.ListView.Location = new System.Drawing.Point(12, 25);
             this.ListView.Size = new System.Drawing.Size(1040, 648);
@@ -99,7 +99,6 @@
             this.KeyPreview = true;
             this.MainMenuStrip = this.menuStrip;
             this.Name = "Main";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Main";
             this.Controls.SetChildIndex(this.menuStrip, 0);
             this.Controls.SetChildIndex(this.ListView, 0);

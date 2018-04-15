@@ -271,6 +271,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
         /// <param name="E"></param>
         private void RightClickMenuStrip_ItemClicked(object Sender, ToolStripItemClickedEventArgs E)
         {
+            RightClickMenuStrip.Close();
             switch (E.ClickedItem.Text)
             {
                 case "Ajouter":
