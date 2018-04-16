@@ -143,7 +143,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
         /// </summary>
         protected override void UpdateObjectListView()
         {
-            AddUpdateBrand BrandWindow = new AddUpdateBrand(Controller, Controller.GetBrand(Convert.ToInt16(ListView.SelectedItems[0].Name)));
+            AddUpdateBrand BrandWindow = new AddUpdateBrand(Controller, Controller.GetBrand(Convert.ToInt32(ListView.SelectedItems[0].Name)));
             BrandWindow.StartPosition = FormStartPosition.CenterParent;
 
             if (BrandWindow.ShowDialog() == DialogResult.OK)

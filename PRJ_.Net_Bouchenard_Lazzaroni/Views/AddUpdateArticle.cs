@@ -268,7 +268,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         }
 
         /// <summary>
-        /// Event triggered when a key is pressed in the Tbx_Prix and allows only digits and one ','
+        /// Event triggered when a key is pressed in the Tbx_Prix and allows only numbers and one ','
         /// </summary>
         /// <param name="Sender"></param>
         /// <param name="E"></param>
@@ -286,7 +286,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         }
 
         /// <summary>
-        /// Event triggered when a key is pressed in the Tbx_Quantite and allows only digits
+        /// Event triggered when a key is pressed in the Tbx_Quantite and allows only numbers
         /// </summary>
         /// <param name="Sender"></param>
         /// <param name="E"></param>

@@ -144,7 +144,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni.Views
         /// </summary>
         protected override void UpdateObjectListView()
         {
-            AddUpdateSubFamily subFamilyWindow = new AddUpdateSubFamily(Controller, Controller.GetSubFamily(Convert.ToInt16(ListView.SelectedItems[0].Name)));
+            AddUpdateSubFamily subFamilyWindow = new AddUpdateSubFamily(Controller, Controller.GetSubFamily(Convert.ToInt32(ListView.SelectedItems[0].Name)));
             subFamilyWindow.StartPosition = FormStartPosition.CenterParent;
 
             if (subFamilyWindow.ShowDialog() == DialogResult.OK)

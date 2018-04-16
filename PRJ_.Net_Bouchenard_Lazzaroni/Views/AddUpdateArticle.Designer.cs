@@ -156,6 +156,7 @@
             // Tbx_Prix
             // 
             this.Tbx_Prix.Location = new System.Drawing.Point(155, 263);
+            this.Tbx_Prix.MaxLength = 15;
             this.Tbx_Prix.Name = "Tbx_Prix";
             this.Tbx_Prix.Size = new System.Drawing.Size(235, 20);
             this.Tbx_Prix.TabIndex = 5;
@@ -164,6 +165,7 @@
             // Tbx_Quantite
             // 
             this.Tbx_Quantite.Location = new System.Drawing.Point(155, 307);
+            this.Tbx_Quantite.MaxLength = 9;
             this.Tbx_Quantite.Name = "Tbx_Quantite";
             this.Tbx_Quantite.Size = new System.Drawing.Size(235, 20);
             this.Tbx_Quantite.TabIndex = 6;
