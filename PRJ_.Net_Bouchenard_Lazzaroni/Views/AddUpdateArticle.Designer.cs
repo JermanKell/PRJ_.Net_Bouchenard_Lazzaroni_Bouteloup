@@ -159,6 +159,7 @@
             this.Tbx_Prix.Name = "Tbx_Prix";
             this.Tbx_Prix.Size = new System.Drawing.Size(235, 20);
             this.Tbx_Prix.TabIndex = 5;
+            this.Tbx_Prix.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Tbx_Prix_KeyPress);
             // 
             // Tbx_Quantite
             // 
@@ -166,6 +167,7 @@
             this.Tbx_Quantite.Name = "Tbx_Quantite";
             this.Tbx_Quantite.Size = new System.Drawing.Size(235, 20);
             this.Tbx_Quantite.TabIndex = 6;
+            this.Tbx_Quantite.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Tbx_Quantite_KeyPress);
             // 
             // Btn_Valider
             // 

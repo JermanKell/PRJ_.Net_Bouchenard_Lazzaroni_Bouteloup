@@ -266,5 +266,36 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
                 Cbx_SousFamille.SelectedIndex = -1;
             }
         }
+
+        /// <summary>
+        /// Event triggered when a key is pressed in the Tbx_Prix and allows only digits and one ','
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Tbx_Prix_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != ','))
+            {
+                e.Handled = true;
+            }
+
+            if ((e.KeyChar == ',') && ((sender as TextBox).Text.IndexOf(',') > -1))
+            {
+                e.Handled = true;
+            }
+        }
+
+        /// <summary>
+        /// Event triggered when a key is pressed in the Tbx_Quantite and allows only digits
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Tbx_Quantite_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
     }
 }
