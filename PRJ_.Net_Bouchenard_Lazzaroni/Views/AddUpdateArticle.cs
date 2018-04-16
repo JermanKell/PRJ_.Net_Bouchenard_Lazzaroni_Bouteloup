@@ -248,9 +248,9 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         /// <summary>
         /// Event triggered when the index of the Combobox Family is changed
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void Cbx_Famille_SelectedIndexChanged(object sender, EventArgs e)
+        /// <param name="Sender"></param>
+        /// <param name="E"></param>
+        private void Cbx_Famille_SelectedIndexChanged(object Sender, EventArgs E)
         {
             Cbx_SousFamille.DataSource = null;
             Cbx_SousFamille.Items.Clear();
@@ -270,31 +270,31 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         /// <summary>
         /// Event triggered when a key is pressed in the Tbx_Prix and allows only digits and one ','
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void Tbx_Prix_KeyPress(object sender, KeyPressEventArgs e)
+        /// <param name="Sender"></param>
+        /// <param name="E"></param>
+        private void Tbx_Prix_KeyPress(object Sender, KeyPressEventArgs E)
         {
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != ','))
+            if (!char.IsControl(E.KeyChar) && !char.IsDigit(E.KeyChar) && (E.KeyChar != ','))
             {
-                e.Handled = true;
+                E.Handled = true;
             }
 
-            if ((e.KeyChar == ',') && ((sender as TextBox).Text.IndexOf(',') > -1))
+            if ((E.KeyChar == ',') && ((Sender as TextBox).Text.IndexOf(',') > -1))
             {
-                e.Handled = true;
+                E.Handled = true;
             }
         }
 
         /// <summary>
         /// Event triggered when a key is pressed in the Tbx_Quantite and allows only digits
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void Tbx_Quantite_KeyPress(object sender, KeyPressEventArgs e)
+        /// <param name="Sender"></param>
+        /// <param name="E"></param>
+        private void Tbx_Quantite_KeyPress(object Sender, KeyPressEventArgs E)
         {
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            if (!char.IsControl(E.KeyChar) && !char.IsDigit(E.KeyChar))
             {
-                e.Handled = true;
+                E.Handled = true;
             }
         }
     }
