@@ -213,6 +213,7 @@
             this.Controls.Add(this.Cbx_Famille);
             this.Controls.Add(this.Cbx_Marque);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.MaximizeBox = false;
             this.Name = "AddUpdateArticle";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Article";

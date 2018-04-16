@@ -80,6 +80,7 @@
             this.Controls.Add(this.Tbx_Marque);
             this.Controls.Add(this.Lab_Marque);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.MaximizeBox = false;
             this.Name = "AddUpdateBrand";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Marque";

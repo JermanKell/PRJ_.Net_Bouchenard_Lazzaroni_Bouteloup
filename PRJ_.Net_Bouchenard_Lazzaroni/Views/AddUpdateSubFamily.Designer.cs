@@ -101,6 +101,7 @@
             this.Controls.Add(this.Tbx_Famille);
             this.Controls.Add(this.Lab_Famille);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.MaximizeBox = false;
             this.Name = "AddUpdateSubFamily";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Famille";

@@ -44,14 +44,14 @@
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // progressBar
+            // ProgressBar
             // 
             this.ProgressBar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.ProgressBar.BackColor = System.Drawing.SystemColors.Control;
             this.ProgressBar.Cursor = System.Windows.Forms.Cursors.Arrow;
             this.ProgressBar.Location = new System.Drawing.Point(39, 429);
-            this.ProgressBar.Name = "progressBar";
+            this.ProgressBar.Name = "ProgressBar";
             this.ProgressBar.Size = new System.Drawing.Size(972, 23);
             this.ProgressBar.Step = 1;
             this.ProgressBar.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
@@ -59,8 +59,7 @@
             // 
             // btnIntegrate
             // 
-            this.btnIntegrate.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnIntegrate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnIntegrate.Location = new System.Drawing.Point(881, 398);
             this.btnIntegrate.Name = "btnIntegrate";
             this.btnIntegrate.Size = new System.Drawing.Size(130, 24);
@@ -106,8 +105,7 @@
             // 
             // btnOpenFile
             // 
-            this.btnOpenFile.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnOpenFile.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnOpenFile.Location = new System.Drawing.Point(881, 368);
             this.btnOpenFile.Margin = new System.Windows.Forms.Padding(2);
             this.btnOpenFile.Name = "btnOpenFile";
@@ -119,8 +117,7 @@
             // 
             // File_path
             // 
-            this.File_path.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.File_path.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.File_path.Location = new System.Drawing.Point(40, 355);
             this.File_path.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.File_path.MaximumSize = new System.Drawing.Size(225, 81);
@@ -129,25 +126,28 @@
             this.File_path.TabIndex = 4;
             this.File_path.Text = "File selected";
             // 
-            // lab_FName
+            // Lab_FName
             // 
             this.Lab_FName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.Lab_FName.AutoSize = true;
             this.Lab_FName.Location = new System.Drawing.Point(40, 379);
             this.Lab_FName.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.Lab_FName.Name = "lab_FName";
+            this.Lab_FName.Name = "Lab_FName";
             this.Lab_FName.Size = new System.Drawing.Size(0, 13);
             this.Lab_FName.TabIndex = 5;
             // 
-            // listView
+            // ListView
             // 
+            this.ListView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.ListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.Message,
             this.Type,
             this.Subject});
             this.ListView.Location = new System.Drawing.Point(13, 13);
-            this.ListView.Name = "listView";
+            this.ListView.Name = "ListView";
             this.ListView.Size = new System.Drawing.Size(996, 323);
             this.ListView.TabIndex = 6;
             this.ListView.UseCompatibleStateImageBehavior = false;
@@ -171,7 +171,7 @@
             this.Subject.Text = "Subject";
             this.Subject.Width = 120;
             // 
-            // SelectXml
+            // ImportXMLFile
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -183,7 +183,7 @@
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.btnIntegrate);
             this.Controls.Add(this.ProgressBar);
-            this.Name = "SelectXml";
+            this.Name = "ImportXMLFile";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "SelectXml";
             this.panel1.ResumeLayout(false);
