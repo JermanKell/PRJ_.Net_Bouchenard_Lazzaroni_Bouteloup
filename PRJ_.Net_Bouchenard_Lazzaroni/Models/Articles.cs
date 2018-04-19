@@ -55,10 +55,10 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             {
                 Reference = Reader.GetValue(0).ToString();
                 Description = Reader.GetValue(1).ToString();
-                IdSousFamille = Convert.ToInt16(Reader.GetValue(2));
-                IdMarque = Convert.ToInt16(Reader.GetValue(3));
+                IdSousFamille = Convert.ToInt32(Reader.GetValue(2));
+                IdMarque = Convert.ToInt32(Reader.GetValue(3));
                 PrixHT = Convert.ToDouble(Reader.GetValue(4));
-                Quantite = Convert.ToInt16(Reader.GetValue(5));
+                Quantite = Convert.ToInt32(Reader.GetValue(5));
             }
         }
     }

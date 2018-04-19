@@ -42,7 +42,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             try
             {
                 Sql.ExecuteNonQuery();
-                return Convert.ToInt16(Conn.LastInsertRowId);
+                return Convert.ToInt32(Conn.LastInsertRowId);
             }
             catch (Exception Ex)
             {
@@ -91,7 +91,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             try
             {
                 Sql.ExecuteNonQuery();
-                return Convert.ToInt16(Conn.LastInsertRowId);
+                return Convert.ToInt32(Conn.LastInsertRowId);
             }
             catch (Exception Ex)
             {
@@ -137,7 +137,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             try
             {
                 Sql.ExecuteNonQuery();
-                return Convert.ToInt16(Conn.LastInsertRowId);
+                return Convert.ToInt32(Conn.LastInsertRowId);
 
             }
             catch (Exception Ex)
@@ -272,7 +272,7 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
             if (Reader.Read())
             {
                 Article.ConvertDataReaderToArticles(Reader);
-                Article.IdFamille = GetSousFamille(Id: Convert.ToInt16(Reader.GetValue(2))).IdFamille; // Get the Famille linked to the sousFamille to return a complete article
+                Article.IdFamille = GetSousFamille(Id: Convert.ToInt32(Reader.GetValue(2))).IdFamille; // Get the Famille linked to the sousFamille to return a complete article
                 return Article;
             }
             else

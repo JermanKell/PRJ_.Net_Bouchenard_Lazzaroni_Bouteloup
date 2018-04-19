@@ -156,16 +156,20 @@
             // Tbx_Prix
             // 
             this.Tbx_Prix.Location = new System.Drawing.Point(155, 263);
+            this.Tbx_Prix.MaxLength = 15;
             this.Tbx_Prix.Name = "Tbx_Prix";
             this.Tbx_Prix.Size = new System.Drawing.Size(235, 20);
             this.Tbx_Prix.TabIndex = 5;
+            this.Tbx_Prix.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Tbx_Prix_KeyPress);
             // 
             // Tbx_Quantite
             // 
             this.Tbx_Quantite.Location = new System.Drawing.Point(155, 307);
+            this.Tbx_Quantite.MaxLength = 9;
             this.Tbx_Quantite.Name = "Tbx_Quantite";
             this.Tbx_Quantite.Size = new System.Drawing.Size(235, 20);
             this.Tbx_Quantite.TabIndex = 6;
+            this.Tbx_Quantite.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Tbx_Quantite_KeyPress);
             // 
             // Btn_Valider
             // 
@@ -209,6 +213,7 @@
             this.Controls.Add(this.Cbx_Famille);
             this.Controls.Add(this.Cbx_Marque);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.MaximizeBox = false;
             this.Name = "AddUpdateArticle";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Article";

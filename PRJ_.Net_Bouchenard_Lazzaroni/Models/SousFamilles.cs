@@ -36,8 +36,8 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         {
             if (Reader != null)
             {
-                Id = Convert.ToInt16(Reader.GetValue(0));
-                IdFamille = Convert.ToInt16(Reader.GetValue(1));
+                Id = Convert.ToInt32(Reader.GetValue(0));
+                IdFamille = Convert.ToInt32(Reader.GetValue(1));
                 Nom = Reader.GetValue(2).ToString();
             }
         }

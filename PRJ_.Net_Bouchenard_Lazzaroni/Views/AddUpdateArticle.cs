@@ -248,9 +248,9 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
         /// <summary>
         /// Event triggered when the index of the Combobox Family is changed
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void Cbx_Famille_SelectedIndexChanged(object sender, EventArgs e)
+        /// <param name="Sender"></param>
+        /// <param name="E"></param>
+        private void Cbx_Famille_SelectedIndexChanged(object Sender, EventArgs E)
         {
             Cbx_SousFamille.DataSource = null;
             Cbx_SousFamille.Items.Clear();
@@ -264,6 +264,37 @@ namespace PRJ_.Net_Bouchenard_Lazzaroni
                     Cbx_SousFamille.ValueMember = "Key";
                 }
                 Cbx_SousFamille.SelectedIndex = -1;
+            }
+        }
+
+        /// <summary>
+        /// Event triggered when a key is pressed in the Tbx_Prix and allows only numbers and one ','
+        /// </summary>
+        /// <param name="Sender"></param>
+        /// <param name="E"></param>
+        private void Tbx_Prix_KeyPress(object Sender, KeyPressEventArgs E)
+        {
+            if (!char.IsControl(E.KeyChar) && !char.IsDigit(E.KeyChar) && (E.KeyChar != ','))
+            {
+                E.Handled = true;
+            }
+
+            if ((E.KeyChar == ',') && ((Sender as TextBox).Text.IndexOf(',') > -1))
+            {
+                E.Handled = true;
+            }
+        }
+
+        /// <summary>
+        /// Event triggered when a key is pressed in the Tbx_Quantite and allows only numbers
+        /// </summary>
+        /// <param name="Sender"></param>
+        /// <param name="E"></param>
+        private void Tbx_Quantite_KeyPress(object Sender, KeyPressEventArgs E)
+        {
+            if (!char.IsControl(E.KeyChar) && !char.IsDigit(E.KeyChar))
+            {
+                E.Handled = true;
             }
         }
     }
